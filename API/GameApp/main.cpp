@@ -7,6 +7,7 @@
 // GameApp(참조) -> 참조 추가
 
 // 이 헤더가 어디있는지, 어느 프로젝트에 있는지 알기 위해
+#include <GameEngineBase//GameEngineDebug.h>
 #include <GameEngineBase/GameEngineWindow.h>
 
 int APIENTRY WinMain(_In_ HINSTANCE hInstance,
@@ -14,6 +15,9 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
     _In_ LPSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
-    GameEngineWindow::GetInst().CreateGameWindow(hInstance);
+    GameEngineDebug::LeakCheckOn();
+    GameEngineWindow::GetInst().CreateGameWindow(hInstance, "GameWindow");
     GameEngineWindow::GetInst().ShowGameWindow();
+    //GameEngineWindow::GetInst().Loop();
+    GameEngineWindow::Destroy();
 }
