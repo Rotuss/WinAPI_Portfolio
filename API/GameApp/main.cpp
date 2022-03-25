@@ -18,6 +18,6 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
     GameEngineDebug::LeakCheckOn();
     GameEngineWindow::GetInst().CreateGameWindow(hInstance, "GameWindow");
     GameEngineWindow::GetInst().ShowGameWindow();
-    //GameEngineWindow::GetInst().Loop();
+    GameEngineWindow::GetInst().MessageLoop();
     GameEngineWindow::Destroy();
 }

@@ -28,13 +28,23 @@ public:
 	void RegClass(HINSTANCE _hInst);
 	void CreateGameWindow(HINSTANCE _hInst, const std::string& _Title);
 	void ShowGameWindow();
+	void MessageLoop();
+	void Off();
+
+	inline HDC GETDC() const
+	{
+		return HDC_;
+	}
 
 protected:
 
 private:
+	bool WindowOn_;
 	HINSTANCE hInst_;
 	HWND hWnd_;
 	std::string Title_;
+	HDC HDC_;
+
 	// constrcuter destructer
 	GameEngineWindow();
 	~GameEngineWindow();
