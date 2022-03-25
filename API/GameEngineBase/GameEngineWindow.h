@@ -28,12 +28,12 @@ public:
 	void RegClass(HINSTANCE _hInst);
 	void CreateGameWindow(HINSTANCE _hInst, const std::string& _Title);
 	void ShowGameWindow();
-	void MessageLoop();
+	void MessageLoop(void(*_LoopFunction)());
 	void Off();
 
-	inline HDC GETDC() const
+	static inline HDC GETDC()
 	{
-		return HDC_;
+		return Inst_->HDC_;
 	}
 
 protected:

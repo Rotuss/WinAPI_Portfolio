@@ -8,7 +8,6 @@
 // WPARAM wParam
 // LPARAM lParam
 // 전역 함수
-int XMove;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -27,9 +26,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         EndPaint(hWnd, &ps);
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
-    case WM_MOUSEMOVE:
-        Rectangle(GameEngineWindow::GetInst().GETDC(), 100 + XMove, 100, 200 + XMove, 200);
-        return DefWindowProc(hWnd, message, wParam, lParam);
     default:
         break;
     }
@@ -43,12 +39,24 @@ GameEngineWindow::GameEngineWindow()
     : hInst_(nullptr)
     , hWnd_(nullptr)
     , WindowOn_(true)
+    , HDC_(nullptr)
 {
 }
 
 GameEngineWindow::~GameEngineWindow()
 {
+    // 직접 만들어 준 것이 아니면 모두 삭제
+    if (nullptr != HDC_)
+    {
+        ReleaseDC(hWnd_, HDC_);
+        HDC_ == nullptr;
+    }
 
+    if (nullptr != hWnd_)
+    {
+        DestroyWindow(hWnd_);
+        hWnd_ == nullptr;
+    }
 }
 
 void GameEngineWindow::Off()
@@ -116,17 +124,22 @@ void GameEngineWindow::ShowGameWindow()
     UpdateWindow(hWnd_);
 }
 
-void GameEngineWindow::MessageLoop()
+void GameEngineWindow::MessageLoop(void(*_LoopFunction)())
 {
     MSG msg;
 
     while (WindowOn_)
     {
-        ++XMove;
-        // GetMessage의 문제점 : 일할 때만 한다?!
-        if (GetMessage(&msg, nullptr, 0, 0))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             DispatchMessage(&msg);
         }
+
+        // 게임 루프
+        if (nullptr == _LoopFunction)
+        {
+            continue;
+        }
+        _LoopFunction();
     } 
 }

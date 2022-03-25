@@ -10,6 +10,12 @@
 #include <GameEngineBase//GameEngineDebug.h>
 #include <GameEngineBase/GameEngineWindow.h>
 
+void SnowBroLoop()
+{
+    // 이 구간에서 로직
+    Rectangle(GameEngineWindow::GETDC(), 100, 100, 200, 200);
+}
+
 int APIENTRY WinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPSTR    lpCmdLine,
@@ -18,6 +24,6 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
     GameEngineDebug::LeakCheckOn();
     GameEngineWindow::GetInst().CreateGameWindow(hInstance, "GameWindow");
     GameEngineWindow::GetInst().ShowGameWindow();
-    GameEngineWindow::GetInst().MessageLoop();
+    GameEngineWindow::GetInst().MessageLoop(SnowBroLoop);
     GameEngineWindow::Destroy();
 }
