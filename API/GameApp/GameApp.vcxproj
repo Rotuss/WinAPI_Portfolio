@@ -158,6 +158,12 @@
     <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">
       <Project>{78a6a986-0f5a-4805-a551-4c2ead7ff95d}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\GameEngineContents\GameEngineContents.vcxproj">
+      <Project>{d3dbf9de-5212-4da2-818a-35f47e247009}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\GameEngine\GameEngine.vcxproj">
+      <Project>{3a5c9377-ab89-45c2-90b0-3c06e0458a32}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,10 +12,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
-    case WM_CREATE:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    case WM_SETFOCUS:
-        return DefWindowProc(hWnd, message, wParam, lParam);
     case WM_DESTROY:
         GameEngineWindow::GetInst().Off();
         return DefWindowProc(hWnd, message, wParam, lParam);
@@ -124,8 +120,14 @@ void GameEngineWindow::ShowGameWindow()
     UpdateWindow(hWnd_);
 }
 
-void GameEngineWindow::MessageLoop(void(*_LoopFunction)())
+void GameEngineWindow::MessageLoop(void(* _InitFunction)(), void(*_LoopFunction)())
 {
+    // _InitFunction() : 루프를 돌기 전에 뭔가 준비할게 있다면 준비함수를 실행
+    if (nullptr != _InitFunction)
+    {
+        _InitFunction();
+    }
+
     MSG msg;
 
     while (WindowOn_)

@@ -4,16 +4,26 @@
 // GameApp -> 속성 -> 일반 -> 출력/중간 디렉터리(원하는 위치에 맞게 경로 설정)(모두)
 // GameApp -> 속성 -> C/C++ -> 추가 포함 디렉터리(..\;)
 
-// GameApp(참조) -> 참조 추가
+// GameApp(참조) -> 참조 추가 -> GameEngineBase, GameEngine, GameEngineContents
 
 // 이 헤더가 어디있는지, 어느 프로젝트에 있는지 알기 위해
 #include <GameEngineBase//GameEngineDebug.h>
 #include <GameEngineBase/GameEngineWindow.h>
+#include <GameEngineContents/SnowBros.h>
 
-void SnowBroLoop()
+SnowBros MyGame;
+
+void GameInit()
+{
+    // 텍스처를 로딩하고 준비하고 오브젝트를 미리 만들어 놓은 다음 GameLoop에서 게임이 실행
+
+    MyGame.GameInit();
+}
+
+void GameLoop()
 {
     // 이 구간에서 로직
-    Rectangle(GameEngineWindow::GETDC(), 100, 100, 200, 200);
+    MyGame.GameLoop();
 }
 
 int APIENTRY WinMain(_In_ HINSTANCE hInstance,
@@ -24,6 +34,8 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
     GameEngineDebug::LeakCheckOn();
     GameEngineWindow::GetInst().CreateGameWindow(hInstance, "GameWindow");
     GameEngineWindow::GetInst().ShowGameWindow();
-    GameEngineWindow::GetInst().MessageLoop(SnowBroLoop);
+    GameEngineWindow::GetInst().MessageLoop(GameInit, GameLoop);
     GameEngineWindow::Destroy();
+
+    MyGame.GameEnd();
 }
