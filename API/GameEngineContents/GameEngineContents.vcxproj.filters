@@ -23,6 +23,9 @@
     <ClInclude Include="EndingCredit.h">
       <Filter>Ending</Filter>
     </ClInclude>
+    <ClInclude Include="TitleBackGround.h">
+      <Filter>Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SnowBros.cpp" />
@@ -46,6 +49,9 @@
     </ClCompile>
     <ClCompile Include="EndingCredit.cpp">
       <Filter>Ending</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBackGround.cpp">
+      <Filter>Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

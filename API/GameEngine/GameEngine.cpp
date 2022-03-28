@@ -57,9 +57,21 @@ void GameEngine::EngineLoop()
 	// 엔진수준에서 매 프레임마다 체크
 	UserContents_->GameLoop();
 
+	// 시점함수 : Level이 바뀌는 순간
 	if (nullptr != NextLevel_)
 	{
+		if (nullptr != CurrentLevel_)
+		{
+			CurrentLevel_->SceneChangeEnd();
+		}
+		
 		CurrentLevel_ = NextLevel_;
+		
+		if (nullptr != CurrentLevel_)
+		{
+			CurrentLevel_->SceneChangeStart();
+		}
+
 		NextLevel_ = nullptr;
 	}
 
@@ -69,6 +81,8 @@ void GameEngine::EngineLoop()
 	}
 	// (시간제한이 있는 게임이라면)레벨수준에서 매 프레임마다 시간을 체크하는 일
 	CurrentLevel_->Update();
+	CurrentLevel_->ActorUpdate();
+	CurrentLevel_->ActorRender();
 }
 
 void GameEngine::EngineEnd()

@@ -15,3 +15,9 @@ void PlayLevel::Loading()
 void PlayLevel::Update()
 {
 }
+
+void PlayLevel::SceneChangeStart()
+{
+	// ÀüÈ¯
+	int a = 0;
+}
