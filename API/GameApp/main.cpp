@@ -11,31 +11,10 @@
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineContents/SnowBros.h>
 
-SnowBros MyGame;
-
-void GameInit()
-{
-    // 텍스처를 로딩하고 준비하고 오브젝트를 미리 만들어 놓은 다음 GameLoop에서 게임이 실행
-
-    MyGame.GameInit();
-}
-
-void GameLoop()
-{
-    // 이 구간에서 로직
-    MyGame.GameLoop();
-}
-
 int APIENTRY WinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
-    GameEngineDebug::LeakCheckOn();
-    GameEngineWindow::GetInst().CreateGameWindow(hInstance, "GameWindow");
-    GameEngineWindow::GetInst().ShowGameWindow();
-    GameEngineWindow::GetInst().MessageLoop(GameInit, GameLoop);
-    GameEngineWindow::Destroy();
-
-    MyGame.GameEnd();
+    GameEngine::Start<SnowBros>();
 }
