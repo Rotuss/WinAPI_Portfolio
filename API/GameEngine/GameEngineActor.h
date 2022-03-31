@@ -19,6 +19,26 @@ public:
 	GameEngineActor& operator=(const GameEngineActor& _Other) = delete;
 	GameEngineActor& operator=(GameEngineActor&& _Other) noexcept = delete;
 
+	inline float4 GetPosition()
+	{
+		return Position_;
+	}
+
+	inline float4 GetScale()
+	{
+		return Scale_;
+	}
+
+	inline void SetPosition(float4 _Value)
+	{
+		Position_ = _Value;
+	}
+
+	inline void SetScale(float4 _Value)
+	{
+		Scale_ = _Value;
+	}
+
 protected:
 	// 시점함수들은 protected로
 
@@ -28,6 +48,8 @@ protected:
 	virtual void Update() {}
 	// 지속적으로 게임이 실행될 때 호출
 	virtual void Render() {}
+
+	void DebugRectRender();
 
 private:
 	GameEngineLevel* Level_;

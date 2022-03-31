@@ -12,9 +12,12 @@ TitleLogo::~TitleLogo()
 
 void TitleLogo::Start()
 {
+	SetPosition(GameEngineWindow::GetScale().Half());
+	SetScale({ 500, 500 });
 }
 
 void TitleLogo::Render()
 {
-	Rectangle(GameEngineWindow::GETDC(), 100, 100, 500, 500);
+	DebugRectRender();
+	// Rectangle(GameEngineWindow::GETDC(), 100, 100, 500, 500);
 }

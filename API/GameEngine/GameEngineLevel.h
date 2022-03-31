@@ -1,5 +1,5 @@
 #pragma once
-#include "GameEngineBase/GameEngineNameObject.h"
+#include <GameEngineBase/GameEngineNameObject.h>
 #include <map>
 #include <list>
 
@@ -36,9 +36,10 @@ protected:
 	ActorType* CreateActor(const std::string& _Name, int _Order)
 	{
 		ActorType* NewActor = new ActorType();
+		GameEngineActor* StartActor = NewActor;
 		NewActor->SetName(_Name);
 		NewActor->SetLevel(this);
-
+		StartActor->Start();
 		// _Order : Actor들이 돌아가는 순서를 의미. 낮은 순으로 그려짐
 		// AllActor_[_Order] : insert와 find를 동시에 처리. 아래 주석과 같은 내용
 		/*
