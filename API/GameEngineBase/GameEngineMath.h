@@ -27,6 +27,8 @@ public:
 	float z;
 	float w;
 
+	//==========================================================
+
 	int ix()
 	{
 		return static_cast<int>(x);
@@ -47,6 +49,8 @@ public:
 		return static_cast<int>(w);
 	}
 
+	//==========================================================
+
 	// 절반 크기
 	int hix()
 	{
@@ -66,6 +70,39 @@ public:
 	float4 Half()
 	{
 		return { x * 0.5f , y * 0.5f , z * 0.5f , 1.0f };
+	}
+
+	//==========================================================
+
+	bool IsZero2D()
+	{
+		return x == 0.0f && y == 0.0f;
+	}
+
+	//==========================================================
+
+	float4()
+		: x(0.0f), y(0.0f), z(0.0f), w(1.0f)
+	{
+
+	}
+
+	float4(float _x, float _y)
+		: x(_x), y(_y), z(0.0f), w(1.0f)
+	{
+
+	}
+
+	float4(float _x, float _y, float _z)
+		: x(_x), y(_y), z(_z), w(1.0f)
+	{
+
+	}
+
+	float4(float _x, float _y, float _z ,float _w)
+		: x(_x), y(_y), z(_z), w(_w)
+	{
+
 	}
 };
 

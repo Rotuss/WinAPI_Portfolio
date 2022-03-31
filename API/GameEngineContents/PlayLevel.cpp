@@ -16,7 +16,7 @@ void PlayLevel::Update()
 {
 }
 
-void PlayLevel::SceneChangeStart()
+void PlayLevel::LevelChangeStart()
 {
 	// ÀüÈ¯
 	int a = 0;

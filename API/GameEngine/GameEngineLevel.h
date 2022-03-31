@@ -3,7 +3,7 @@
 #include <map>
 #include <list>
 
-// 설명 : 
+// 설명 : 화면을 등장! 오브젝트 관리 방법(map과 list)
 class GameEngine;
 class GameEngineActor;
 class GameEngineLevel : public GameEngineNameObject
@@ -28,9 +28,9 @@ protected:
 	// 이 레벨이 현재 레벨일 때 해야할 일을 실행
 	virtual void Update() = 0;
 	// 현재레벨에서 다음레벨로 이전할 때 현재레벨이 실행하는 함수
-	virtual void SceneChangeStart() {}
+	virtual void LevelChangeStart() {}
 	// 현재레벨에서 다음레벨로 이전할 때 이전레벨이 실행하는 함수
-	virtual void SceneChangeEnd() {}
+	virtual void LevelChangeEnd() {}
 
 	template<typename ActorType>
 	ActorType* CreateActor(const std::string& _Name, int _Order)

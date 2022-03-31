@@ -8,6 +8,7 @@
 
 // 게임엔진이란? => 게임 그 자체의 시작점과 끝점 실행중을 담당. 인터페이스만 제공
 // 설명 : 
+class GameEngineImage;
 class GameEngineLevel;
 class GameEngine
 {
@@ -21,6 +22,13 @@ public:
 	GameEngine(GameEngine&& _Other) noexcept = delete;
 	GameEngine& operator=(const GameEngine& _Other) = delete;
 	GameEngine& operator=(GameEngine&& _Other) noexcept = delete;
+
+	static inline GameEngineImage* BackBufferImage()
+	{
+		return BackBufferImage_;
+	}
+
+	static HDC BackBufferDC();
 
 	// 직접 만든 프레임워크에서 GameEngine에 이 3가지를 구현하지 않으면 내용이 없어도 안됨
 	virtual void GameInit() = 0;
@@ -68,10 +76,10 @@ private:
 	
 	static GameEngineLevel* CurrentLevel_;
 	static GameEngineLevel* NextLevel_;
-	static GameEngine* UserContents_;
+	static GameEngine*		UserContents_;
+	static GameEngineImage* BackBufferImage_;
 
 	static void WindowCreate();
-
 	static void EngineInit();
 	static void EngineLoop();
 	static void EngineEnd();
