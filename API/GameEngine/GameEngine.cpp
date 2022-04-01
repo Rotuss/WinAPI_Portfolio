@@ -9,6 +9,7 @@ GameEngineLevel* GameEngine::CurrentLevel_ = nullptr;
 GameEngineLevel* GameEngine::NextLevel_ = nullptr;
 GameEngine* GameEngine::UserContents_ = nullptr;
 GameEngineImage* GameEngine::BackBufferImage_ = nullptr;
+GameEngineImage* GameEngine::WindowMainImage_ = nullptr;
 
 HDC GameEngine::BackBufferDC()
 {
@@ -57,7 +58,9 @@ void GameEngine::EngineInit()
 {
 	// 여기서 윈도우의 크기가 결정되는 것이므로
 	UserContents_->GameInit();
-	// 백버퍼를 만듦
+	// 백버퍼를 만듦. 더블버퍼링? => 하나의 이미지에 다수의 변경사항이 있으면 그 변경사항들이 마구 바뀌는 모습이 보이는 것을 이미지 1개가 복사된다는 것으로 줄이려는 것
+	//								(복사할 이미지 하나 생성하여 그곳에 그린 다음 복사를 1번만 하는 것)
+	WindowMainImage_ = GameEngineImageManager::GetInst()->Create("WindowMain", GameEngineWindow::GetHDC());
 	BackBufferImage_ = GameEngineImageManager::GetInst()->Create("BackBuffer", GameEngineWindow::GetScale());
 }
 
@@ -92,6 +95,8 @@ void GameEngine::EngineLoop()
 	CurrentLevel_->Update();
 	CurrentLevel_->ActorUpdate();
 	CurrentLevel_->ActorRender();
+	//WindowMainImage_->BitCopy(BackBufferImage_, { 0, 0 }, { 0, 0 }, WindowMainImage_->GetScale());
+	WindowMainImage_->BitCopy(BackBufferImage_);
 }
 
 void GameEngine::EngineEnd()

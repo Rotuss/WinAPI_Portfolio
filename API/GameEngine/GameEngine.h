@@ -77,6 +77,10 @@ private:
 	static GameEngineLevel* CurrentLevel_;
 	static GameEngineLevel* NextLevel_;
 	static GameEngine*		UserContents_;
+	
+	// 그려지면 화면에 출력되는 이미지
+	static GameEngineImage* WindowMainImage_;
+	// 깜빡임을 해결하기 위한 버퍼로 사용하는 이미지
 	static GameEngineImage* BackBufferImage_;
 
 	static void WindowCreate();

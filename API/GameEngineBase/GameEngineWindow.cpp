@@ -45,13 +45,13 @@ GameEngineWindow::~GameEngineWindow()
     if (nullptr != HDC_)
     {
         ReleaseDC(hWnd_, HDC_);
-        HDC_ == nullptr;
+        HDC_ = nullptr;
     }
 
     if (nullptr != hWnd_)
     {
         DestroyWindow(hWnd_);
-        hWnd_ == nullptr;
+        hWnd_ = nullptr;
     }
 }
 

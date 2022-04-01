@@ -21,7 +21,7 @@ public:
 		if (nullptr != Inst_)
 		{
 			delete Inst_;
-			Inst_ == nullptr;
+			Inst_ = nullptr;
 		}
 	}
 

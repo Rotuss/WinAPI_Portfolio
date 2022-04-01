@@ -17,7 +17,7 @@ void SnowBros::GameInit()
 	CreateLevel<TitleLevel>("Title");
 	CreateLevel<PlayLevel>("Play");
 	CreateLevel<EndingLevel>("Ending");
-	ChangeLevel("Title");
+	ChangeLevel("Play");
 }
 
 void SnowBros::GameLoop()

@@ -9,18 +9,9 @@
 class GameEngineImageManager
 {
 public:
-	// constrcuter destructer
-	GameEngineImageManager();
-	~GameEngineImageManager();
-
-	// delete Function
-	GameEngineImageManager(const GameEngineImageManager& _Other) = delete;
-	GameEngineImageManager(GameEngineImageManager&& _Other) noexcept = delete;
-	GameEngineImageManager& operator=(const GameEngineImageManager& _Other) = delete;
-	GameEngineImageManager& operator=(GameEngineImageManager&& _Other) noexcept = delete;
-
 	// 이미지를 만들어주는 함수
 	GameEngineImage* Create(const std::string& _Name, float4 _Scale);
+	GameEngineImage* Create(const std::string& _Name, HDC _DC);
 
 	static GameEngineImageManager* GetInst()
 	{
@@ -40,6 +31,17 @@ public:
 protected:
 
 private:
+	// 싱글톤이므로 생성자를 private
+	// constrcuter destructer
+	GameEngineImageManager();
+	~GameEngineImageManager();
+
+	// delete Function
+	GameEngineImageManager(const GameEngineImageManager& _Other) = delete;
+	GameEngineImageManager(GameEngineImageManager&& _Other) noexcept = delete;
+	GameEngineImageManager& operator=(const GameEngineImageManager& _Other) = delete;
+	GameEngineImageManager& operator=(GameEngineImageManager&& _Other) noexcept = delete;
+	
 	std::map<std::string, GameEngineImage*> AllRes;
 
 	static GameEngineImageManager* Inst_;
