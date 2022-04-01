@@ -1,10 +1,15 @@
 #pragma once
 #include <GameEngineBase/GameEngineNameObject.h>
 #include <GameEngineBase/GameEngineMath.h>
+#include <list>
+#include "GameEngineEnum.h"
+
 // 설명 : 
+class GameEngineRenderer;
 class GameEngineLevel;
 class GameEngineActor : public GameEngineNameObject
 {
+	//=======================ActorBase==========================
 public:
 	// 레벨에게만 나를 세팅한 권한을 부여
 	friend GameEngineLevel;
@@ -61,5 +66,14 @@ private:
 	{
 		Level_ = _Level;
 	}
+
+	//==========================Render==========================
+public:
+	// 그린다는 기능만 따로 모아 놓음(코드 반복이 너무 많기 때문)
+	// 디폴트 인자는 선언에서만 지정 가능
+	GameEngineRenderer* CreateRenderer(const std::string& _ImageName, RenderPivot _PivotType = RenderPivot::CENTER, const float4& _PivotPos = { 0, 0 });
+
+private:
+	std::list<GameEngineRenderer*> RenderList_;
 };
 

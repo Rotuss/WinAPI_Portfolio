@@ -104,6 +104,18 @@ public:
 	{
 
 	}
+
+	//=======================Operator===========================
+
+	float4 operator + (const float4& _Other) const
+	{
+		return { x + _Other.x , y + _Other.y , z + _Other.z , 1.0f };
+	}
+	
+	float4 operator - (const float4& _Other) const
+	{
+		return { x - _Other.x , y - _Other.y , z - _Other.z , 1.0f };
+	}
 };
 
 struct GameEngineRect

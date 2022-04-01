@@ -1,5 +1,4 @@
 #include "GameEngineWindow.h"
-#include "GameEngineDebug.h"
 // GameEngineBase가 exe 파일 만들 필요X. => 라이브러리 프로젝트
 // GameEngineBase -> 속성 -> 일반 -> 구성 형식(정적 라이브러리)
 

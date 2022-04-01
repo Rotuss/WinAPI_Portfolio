@@ -9,9 +9,14 @@
 class GameEngineImageManager
 {
 public:
+	GameEngineImage* Find(const std::string& _Name);
+	
 	// 이미지를 만들어주는 함수
-	GameEngineImage* Create(const std::string& _Name, float4 _Scale);
+	GameEngineImage* Create(const std::string& _Name, const float4& _Scale);
 	GameEngineImage* Create(const std::string& _Name, HDC _DC);
+
+	GameEngineImage* Load(const std::string& _Path);
+	GameEngineImage* Load(const std::string& _Path, const std::string& _Name);
 
 	static GameEngineImageManager* GetInst()
 	{

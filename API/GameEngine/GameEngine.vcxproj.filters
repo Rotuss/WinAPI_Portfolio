@@ -6,7 +6,7 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineActor.h">
-      <Filter>Actor</Filter>
+      <Filter>Object\Actor</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineImage.h">
       <Filter>Resources</Filter>
@@ -17,6 +17,12 @@
     <ClInclude Include="GameEngineImageManager.h">
       <Filter>Resources\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineRenderer.h">
+      <Filter>Object\Actor\SubObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineEnum.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp" />
@@ -24,7 +30,7 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineActor.cpp">
-      <Filter>Actor</Filter>
+      <Filter>Object\Actor</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineImage.cpp">
       <Filter>Resources</Filter>
@@ -35,19 +41,28 @@
     <ClCompile Include="GameEngineImageManager.cpp">
       <Filter>Resources\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineRenderer.cpp">
+      <Filter>Object\Actor\SubObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
       <UniqueIdentifier>{15665d01-d636-43b1-8988-2894a81808dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor">
-      <UniqueIdentifier>{81815c70-cf26-4529-8fc9-b9ca13f75c5a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{1e835f66-40b4-46ea-9e8b-2f94f5af24f4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resources\Manager">
       <UniqueIdentifier>{87e987a2-7574-4b46-8773-bceef469f116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global">
+      <UniqueIdentifier>{bbb5b016-b25f-4856-9eba-7f1418648bcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Actor">
+      <UniqueIdentifier>{81815c70-cf26-4529-8fc9-b9ca13f75c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Actor\SubObject">
+      <UniqueIdentifier>{c5694a85-2b2e-4b22-b8ce-07a2f6125561}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

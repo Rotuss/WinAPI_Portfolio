@@ -151,11 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameEngineEnum.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameEngineActor.h" />
     <ClInclude Include="GameEngineImage.h" />
     <ClInclude Include="GameEngineImageManager.h" />
     <ClInclude Include="GameEngineLevel.h" />
+    <ClInclude Include="GameEngineRenderer.h" />
     <ClInclude Include="GameEngineSound.h" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +166,7 @@
     <ClCompile Include="GameEngineImage.cpp" />
     <ClCompile Include="GameEngineImageManager.cpp" />
     <ClCompile Include="GameEngineLevel.cpp" />
+    <ClCompile Include="GameEngineRenderer.cpp" />
     <ClCompile Include="GameEngineSound.cpp" />
   </ItemGroup>
   <ItemGroup>
