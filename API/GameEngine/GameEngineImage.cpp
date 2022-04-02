@@ -92,22 +92,22 @@ bool GameEngineImage::Load(const std::string& _Path)
 
 void GameEngineImage::BitCopy(GameEngineImage* _Other)
 {
-	BitCopy(_Other, { 0, 0 }, { 0, 0 }, _Other->GetScale());
+	BitCopy(_Other, { 0, 0 }, _Other->GetScale(), { 0, 0 });
 }
 
 void GameEngineImage::BitCopy(GameEngineImage* _Other, const float4& _CopyPos)
 {
-	BitCopy(_Other, _CopyPos, float4{ 0, 0 }, _Other->GetScale());
+	BitCopy(_Other, _CopyPos, _Other->GetScale(), float4{ 0, 0 });
 }
 
 void GameEngineImage::BitCopyCenter(GameEngineImage* _Other, const float4& _CopyPos)
 {
-	BitCopy(_Other, _CopyPos - _Other->GetScale().Half(), float4{ 0, 0 }, _Other->GetScale());
+	BitCopy(_Other, _CopyPos - _Other->GetScale().Half(), _Other->GetScale(), float4{ 0, 0 });
 }
 
 void GameEngineImage::BitCopyCenterPivot(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyPivot)
 {
-	BitCopy(_Other, _CopyPos - _Other->GetScale().Half() + _CopyPivot, float4{ 0, 0 }, _Other->GetScale());
+	BitCopy(_Other, _CopyPos - _Other->GetScale().Half() + _CopyPivot, _Other->GetScale(), float4{ 0, 0 });
 }
 
 void GameEngineImage::BitCopyBot(GameEngineImage* _Other, const float4& _CopyPos)
@@ -115,7 +115,7 @@ void GameEngineImage::BitCopyBot(GameEngineImage* _Other, const float4& _CopyPos
 	float4 ImagePivot = _Other->GetScale().Half();
 	ImagePivot.y = _Other->GetScale().y;
 	
-	BitCopy(_Other, _CopyPos - ImagePivot, float4{ 0, 0 }, _Other->GetScale());
+	BitCopy(_Other, _CopyPos - ImagePivot, _Other->GetScale(), float4{ 0, 0 });
 }
 
 void GameEngineImage::BitCopyBotPivot(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyPivot)
@@ -123,22 +123,53 @@ void GameEngineImage::BitCopyBotPivot(GameEngineImage* _Other, const float4& _Co
 	float4 ImagePivot = _Other->GetScale().Half();
 	ImagePivot.y = _Other->GetScale().y;
 
-	BitCopy(_Other, _CopyPos - ImagePivot + _CopyPivot, float4{ 0, 0 }, _Other->GetScale());
+	BitCopy(_Other, _CopyPos - ImagePivot + _CopyPivot, _Other->GetScale(), float4{ 0, 0 });
 }
 
 // 다른 이미지가 들어와서 복사
-void GameEngineImage::BitCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _OtherPivot, const float4& _OtherPivotScale)
+void GameEngineImage::BitCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyScale, const float4& _OtherPivot)
 {
 	// 윈도우에서 지원해주는 일반적인 DC vs DC의 복사함수
 	BitBlt(ImageDC_				// 여기에 복사
 		, _CopyPos.ix()			// 내 이미지의 x
 		, _CopyPos.iy()			// 내 이미지의 y에 복사
-		, _OtherPivotScale.ix()	// 내 이미지의 x
-		, _OtherPivotScale.iy()	// 내 이미지의 y 크기만큼
+		, _CopyScale.ix()	// 내 이미지의 x
+		, _CopyScale.iy()	// 내 이미지의 y 크기만큼
 		, _Other->ImageDC_		// 복사하려는 대상
 		, _OtherPivot.ix()		// 복사하려는 대상의 시작점 x
 		, _OtherPivot.iy()		// 복사하려는 대상의 시작점 y
 		, SRCCOPY);				// 복사하라는 명령
+}
+
+void GameEngineImage::TransCopyCenter(GameEngineImage* _Other, const float4& _CopyPos, unsigned int _TransColor)
+{
+	TransCopy(_Other, _CopyPos - _Other->GetScale().Half(), _Other->GetScale(), float4{ 0, 0 }, _Other->GetScale(), _TransColor);
+}
+
+void GameEngineImage::TransCopyCenterScale(GameEngineImage* _Other, const float4& _CopyPos, const float4& _RenderScale, unsigned int _TransColor)
+{
+	TransCopy(_Other, _CopyPos - _RenderScale.Half(), _RenderScale, float4{ 0, 0 }, _Other->GetScale(), _TransColor);
+}
+
+void GameEngineImage::TransCopyBot(GameEngineImage* _Other, const float4& _CopyPos, unsigned int _TransColor)
+{
+	TransCopy(_Other, _CopyPos - _Other->GetScale().Half(), _Other->GetScale(), float4{ 0, 0 }, _Other->GetScale(), _TransColor);
+}
+
+void GameEngineImage::TransCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyScale, const float4& _OtherPivot, const float4& _OtherScale, unsigned int _TransColor)
+{
+	// 윈도우에서 지원해주는 일반적인 DC vs DC의 복사함수
+	TransparentBlt(ImageDC_		// 여기에 복사
+		, _CopyPos.ix()			// 내 이미지의 x
+		, _CopyPos.iy()			// 내 이미지의 y에 복사
+		, _CopyScale.ix()		// 내 이미지의 x
+		, _CopyScale.iy()		// 내 이미지의 y 크기만큼
+		, _Other->ImageDC_		// 복사하려는 대상
+		, _OtherPivot.ix()		// 복사하려는 대상의 시작점 x
+		, _OtherPivot.iy()		// 복사하려는 대상의 시작점 y
+		, _OtherScale.ix()		// 복사하려는 대상의 시작점 x
+		, _OtherScale.iy()		// 복사하려는 대상의 시작점 y
+		, _TransColor);			// 복사하라는 명령
 }
 
 void GameEngineImage::ImageScaleCheck()

@@ -18,8 +18,10 @@ void Player::Start()
 
 	// CreateRenderer("Nick_Idle.bmp", RenderPivot::CENTER, { 0, 0 });
 	CreateRenderer("Nick_Idle.bmp");
+	//CreateRenderer("HPBar.bmp", RenderPivot::CENTER, { 0, -100 });
 }
 
+// ·»´õ·¯°¡ ´Ù µ¹°í ·»´õ¸µ
 void Player::Render()
 {
 	//DebugRectRender();

@@ -6,3 +6,10 @@ enum class RenderPivot
 	BOT,
 
 };
+
+enum class RenderScaleMode
+{
+	IMAGE,
+	USER,
+
+};

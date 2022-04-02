@@ -22,12 +22,14 @@
     <ClInclude Include="GameEngineDebug.h" />
     <ClInclude Include="GameEngineMath.h" />
     <ClInclude Include="GameEngineNameObject.h" />
+    <ClInclude Include="GameEngineString.h" />
     <ClInclude Include="GameEngineWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineDebug.cpp" />
     <ClCompile Include="GameEngineMath.cpp" />
     <ClCompile Include="GameEngineNameObject.cpp" />
+    <ClCompile Include="GameEngineString.cpp" />
     <ClCompile Include="GameEngineWindow.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

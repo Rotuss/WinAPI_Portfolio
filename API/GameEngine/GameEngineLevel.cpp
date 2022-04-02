@@ -73,6 +73,14 @@ void GameEngineLevel::ActorRender()
 
 		for (; StartActor != EndActor; ++StartActor)
 		{
+			(*StartActor)->Rendering();
+		}
+
+		StartActor = Group.begin();
+		EndActor = Group.end();
+
+		for (; StartActor != EndActor; ++StartActor)
+		{
 			(*StartActor)->Render();
 		}
 	}

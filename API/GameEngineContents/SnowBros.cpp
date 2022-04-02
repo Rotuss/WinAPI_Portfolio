@@ -16,7 +16,8 @@ void SnowBros::GameInit()
 	GameEngineWindow::GetInst().SetWindowScaleAndPosition({ 100, 100 }, { 1280, 720 });
 	
 	GameEngineImageManager::GetInst()->Load("C:\\AR40th\\WinAPI_Portfolio\\API\\Resources\\Image\\Nick_Idle.bmp", "Nick_Idle.bmp");
-	
+	GameEngineImageManager::GetInst()->Load("C:\\AR40th\\WinAPI_Portfolio\\API\\Resources\\Image\\HPBar.bmp", "HPBar.bmp");
+
 	CreateLevel<TitleLevel>("Title");
 	CreateLevel<PlayLevel>("Play");
 	CreateLevel<EndingLevel>("Ending");
