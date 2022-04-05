@@ -18,7 +18,7 @@ void Player::Start()
 
 	// CreateRenderer("Nick_Idle.bmp", RenderPivot::CENTER, { 0, 0 });
 	CreateRenderer("Nick_Idle.bmp");
-	//CreateRenderer("HPBar.bmp", RenderPivot::CENTER, { 0, -100 });
+	CreateRendererToScale("HPBar.bmp", float4(300.0f, 20.0f), RenderPivot::CENTER, float4(0.0f, -100.0f));
 }
 
 // ·»´õ·¯°¡ ´Ù µ¹°í ·»´õ¸µ

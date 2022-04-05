@@ -19,6 +19,7 @@ public:
 	GameEngineRenderer& operator=(GameEngineRenderer&& _Other) noexcept = delete;
 
 	void SetImage(const std::string& _Name);
+	void SetImageScale();
 	inline void SetType(const RenderPivot& _Type)
 	{
 		PivotType_ = _Type;
@@ -30,6 +31,10 @@ public:
 	inline void SetPivot(const float4& _Pos)
 	{
 		RenderPivot_ = _Pos;
+	}
+	inline void SetScale(const float4& _Scale)
+	{
+		RenderScale_ = _Scale;
 	}
 	inline void SetTransColor(unsigned int _Color)
 	{

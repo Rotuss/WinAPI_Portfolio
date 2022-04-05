@@ -3,6 +3,8 @@
 #include "PlayLevel.h"
 #include "EndingLevel.h"
 #include <GameEngineBase/GameEngineWindow.h>
+#include <GameEngineBase/GameEngineDirectory.h>
+#include <GameEngineBase/GameEngineFile.h>
 #include <GameEngine/GameEngineImageManager.h>
 
 SnowBros::SnowBros()
@@ -15,8 +17,19 @@ void SnowBros::GameInit()
 {
 	GameEngineWindow::GetInst().SetWindowScaleAndPosition({ 100, 100 }, { 1280, 720 });
 	
-	GameEngineImageManager::GetInst()->Load("C:\\AR40th\\WinAPI_Portfolio\\API\\Resources\\Image\\Nick_Idle.bmp", "Nick_Idle.bmp");
-	GameEngineImageManager::GetInst()->Load("C:\\AR40th\\WinAPI_Portfolio\\API\\Resources\\Image\\HPBar.bmp", "HPBar.bmp");
+	// 현재 디렉터리
+	GameEngineDirectory ResourcesDir;
+	ResourcesDir.MoveParent("API");
+	ResourcesDir.Move("Resources");
+	ResourcesDir.Move("Image");
+
+	// 폴더 안에 모든 이미지 파일을 찾음
+	std::vector<GameEngineFile> AllImageFileList = ResourcesDir.GetAllFile("bmp");
+
+	for (size_t i = 0; i < AllImageFileList.size(); i++)
+	{
+		GameEngineImageManager::GetInst()->Load(AllImageFileList[i].GetFullPath());
+	}
 
 	CreateLevel<TitleLevel>("Title");
 	CreateLevel<PlayLevel>("Play");

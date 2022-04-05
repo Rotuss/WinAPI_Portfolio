@@ -37,10 +37,26 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageNam
 
 	NewRenderer->SetActor(this);
 	NewRenderer->SetImage(_ImageName);
+	NewRenderer->SetImageScale();
 	NewRenderer->SetType(_PivotType);
 	NewRenderer->SetPivot(_PivotPos);
 
 	RenderList_.push_back(NewRenderer);
+	return NewRenderer;
+}
+
+GameEngineRenderer* GameEngineActor::CreateRendererToScale(const std::string& _ImageName, const float4& _Scale, RenderPivot _PivotType, const float4& _PivotPos)
+{
+	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
+
+	NewRenderer->SetActor(this);
+	NewRenderer->SetImage(_ImageName);
+	NewRenderer->SetScale(_Scale);
+	NewRenderer->SetType(_PivotType);
+	NewRenderer->SetPivot(_PivotPos);
+
+	RenderList_.push_back(NewRenderer);
+	
 	return NewRenderer;
 }
 
