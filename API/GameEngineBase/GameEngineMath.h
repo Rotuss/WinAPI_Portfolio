@@ -27,6 +27,11 @@ public:
 	float z;
 	float w;
 
+	static float4 LEFT;
+	static float4 RIGHT;
+	static float4 UP;
+	static float4 DOWN;
+
 	//==========================================================
 
 	int ix() const
@@ -115,6 +120,15 @@ public:
 	float4 operator - (const float4& _Other) const
 	{
 		return { x - _Other.x , y - _Other.y , z - _Other.z , 1.0f };
+	}
+
+	float4 operator += (const float4& _Other)
+	{
+		x += _Other.x;
+		y += _Other.y;
+		z += _Other.z;
+		
+		return *this;
 	}
 };
 

@@ -2,6 +2,8 @@
 #include "GameEngineLevel.h"
 #include "GameEngineImageManager.h"
 #include <GameEngineBase/GameEngineWindow.h>
+#include <GameEngineBase/GameEngineInput.h>
+#include <GameEngineBase/GameEngineTime.h>
 
 // 초기화
 std::map<std::string, GameEngineLevel*> GameEngine::AllLevel_;
@@ -66,6 +68,7 @@ void GameEngine::EngineInit()
 
 void GameEngine::EngineLoop()
 {
+	GameEngineTime::GetInst()->Update();
 	// 엔진수준에서 매 프레임마다 체크
 	UserContents_->GameLoop();
 
@@ -85,12 +88,14 @@ void GameEngine::EngineLoop()
 		}
 
 		NextLevel_ = nullptr;
+		GameEngineTime::GetInst()->Reset();
 	}
 
 	if (nullptr == CurrentLevel_)
 	{
 		MsgBoxAssert("Level is nullptr => GameEngine Loop Error");
 	}
+	GameEngineInput::GetInst()->Update();
 	// (시간제한이 있는 게임이라면)레벨수준에서 매 프레임마다 시간을 체크하는 일
 	CurrentLevel_->Update();
 	CurrentLevel_->ActorUpdate();
@@ -116,4 +121,6 @@ void GameEngine::EngineEnd()
 	}
 	GameEngineImageManager::Destroy();
 	GameEngineWindow::Destroy();
+	GameEngineInput::Destroy();
+	GameEngineTime::Destroy();
 }
