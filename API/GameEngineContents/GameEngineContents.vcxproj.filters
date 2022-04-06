@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="SnowBros.h" />
     <ClInclude Include="EndingLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
@@ -26,9 +25,12 @@
     <ClInclude Include="Player.h">
       <Filter>Play\Global</Filter>
     </ClInclude>
+    <ClInclude Include="SnowBullet.h">
+      <Filter>Play\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowBros.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SnowBros.cpp" />
     <ClCompile Include="EndingLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
@@ -53,6 +55,10 @@
     <ClCompile Include="Player.cpp">
       <Filter>Play\Global</Filter>
     </ClCompile>
+    <ClCompile Include="SnowBullet.cpp">
+      <Filter>Play\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowBros.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

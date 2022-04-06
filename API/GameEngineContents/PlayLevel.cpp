@@ -27,6 +27,6 @@ void PlayLevel::Update()
 
 void PlayLevel::LevelChangeStart()
 {
-	CreateActor<Player>("Player", (int)ORDER::PLAYER);
-	CreateActor<Monster>("Monster", (int)ORDER::MONSTER);
+	CreateActor<Player>((int)ORDER::PLAYER, "Player");
+	CreateActor<Monster>((int)ORDER::MONSTER, "Monster");
 }

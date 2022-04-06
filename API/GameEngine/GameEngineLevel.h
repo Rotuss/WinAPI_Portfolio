@@ -21,19 +21,8 @@ public:
 	GameEngineLevel& operator=(const GameEngineLevel& _Other) = delete;
 	GameEngineLevel& operator=(GameEngineLevel&& _Other) noexcept = delete;
 
-protected:
-	// 시점함수
-	// 만들어지면서 리소스나 액터를 만들 때 사용
-	virtual void Loading() = 0;
-	// 이 레벨이 현재 레벨일 때 해야할 일을 실행
-	virtual void Update() = 0;
-	// 현재레벨에서 다음레벨로 이전할 때 현재레벨이 실행하는 함수
-	virtual void LevelChangeStart() {}
-	// 현재레벨에서 다음레벨로 이전할 때 이전레벨이 실행하는 함수
-	virtual void LevelChangeEnd() {}
-
 	template<typename ActorType>
-	ActorType* CreateActor(const std::string& _Name, int _Order)
+	ActorType* CreateActor(int _Order = 0, const std::string& _Name = "")
 	{
 		ActorType* NewActor = new ActorType();
 		GameEngineActor* StartActor = NewActor;
@@ -55,8 +44,19 @@ protected:
 		std::list<GameEngineActor*>& Group = AllActor_[_Order];
 		Group.push_back(NewActor);
 
-		return nullptr;
+		return NewActor;
 	}
+
+protected:
+	// 시점함수
+	// 만들어지면서 리소스나 액터를 만들 때 사용
+	virtual void Loading() = 0;
+	// 이 레벨이 현재 레벨일 때 해야할 일을 실행
+	virtual void Update() = 0;
+	// 현재레벨에서 다음레벨로 이전할 때 현재레벨이 실행하는 함수
+	virtual void LevelChangeStart() {}
+	// 현재레벨에서 다음레벨로 이전할 때 이전레벨이 실행하는 함수
+	virtual void LevelChangeEnd() {}
 
 private:
 	// std::list보다 std::vector로 관리하는 것이 더 좋다고 생각(삽입 삭제가 많이 발생하지 않을 것 같기 때문). 무엇을 만들건 여기에 전부 들어감
@@ -68,5 +68,6 @@ private:
 
 	void ActorUpdate();
 	void ActorRender();
+	void ActorRelease();
 };
 

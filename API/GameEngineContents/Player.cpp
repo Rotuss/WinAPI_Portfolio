@@ -1,11 +1,15 @@
 #include "Player.h"
+#include "SnowBullet.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngine.h>
 #include <GameEngine/GameEngineImageManager.h>
+#include <GameEngine/GameEngineLevel.h>
+#include <GameEngine/GameEngineRenderer.h>
 
 Player::Player()
+	: Speed_(100.0f)
 {
 }
 
@@ -19,8 +23,12 @@ void Player::Start()
 	SetScale({ 50,50 });
 
 	// CreateRenderer("Nick_Idle.bmp", RenderPivot::CENTER, { 0, 0 });
-	CreateRenderer("Nick_Idle.bmp");
-	CreateRendererToScale("HPBar.bmp", float4(300.0f, 20.0f), RenderPivot::CENTER, float4(0.0f, -100.0f));
+	//CreateRenderer("Nick_Idle.bmp");
+	GameEngineRenderer* Render = CreateRenderer("Right_Beam_Kirby.bmp");
+	Render->SetIndex(10);
+
+	CreateRenderer("Snow_Bullet.bmp");
+	//CreateRendererToScale("HPBar.bmp", float4(300.0f, 20.0f), RenderPivot::CENTER, float4(0.0f, -100.0f));
 
 	if (false == GameEngineInput::GetInst()->IsKey("MoveLeft"))
 	{
@@ -29,7 +37,7 @@ void Player::Start()
 		GameEngineInput::GetInst()->CreateKey("MoveUp", 'W');
 		GameEngineInput::GetInst()->CreateKey("MoveDown", 'S');
 		GameEngineInput::GetInst()->CreateKey("Jump", VK_LSHIFT);
-		GameEngineInput::GetInst()->CreateKey("Snow", VK_SPACE);
+		GameEngineInput::GetInst()->CreateKey("SnowBullet", VK_SPACE);
 	}
 }
 
@@ -37,19 +45,25 @@ void Player::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
-		SetMove(float4::LEFT);
+		// -1.0f * DT
+		SetMove(float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_);
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
-		SetMove(float4::RIGHT);
+		SetMove(float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_);
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveUp"))
 	{
-		SetMove(float4::UP);
+		SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveDown"))
 	{
-		SetMove(float4::DOWN);
+		SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+	if (true == GameEngineInput::GetInst()->IsDown("SnowBullet"))
+	{
+		SnowBullet* Ptr = GetLevel()->CreateActor<SnowBullet>();
+		Ptr->SetPosition(GetPosition());
 	}
 	// 키를 누르면 움직임
 	//if (0 != GetAsyncKeyState())

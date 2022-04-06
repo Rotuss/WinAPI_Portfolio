@@ -20,6 +20,7 @@ public:
 
 	void SetImage(const std::string& _Name);
 	void SetImageScale();
+	void SetIndex(size_t _Index);
 	inline void SetType(const RenderPivot& _Type)
 	{
 		PivotType_ = _Type;
@@ -49,7 +50,9 @@ private:
 	RenderPivot			PivotType_;
 	RenderScaleMode		ScaleMode_;
 	float4				RenderPivot_;
+	float4				RenderImagePivot_;
 	float4				RenderScale_;
+	float4				RenderImageScale_;
 	unsigned int		TransColor_;
 };
 

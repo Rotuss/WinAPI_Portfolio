@@ -10,6 +10,7 @@ GameEngineRenderer::GameEngineRenderer()
 	: Image_(nullptr)
 	, PivotType_(RenderPivot::CENTER)
 	, ScaleMode_(RenderScaleMode::IMAGE)
+	, RenderImagePivot_({ 0, 0 })
 	, TransColor_(RGB(255, 0, 255))
 {
 }
@@ -38,6 +39,19 @@ void GameEngineRenderer::SetImageScale()
 	}
 	ScaleMode_ = RenderScaleMode::IMAGE;
 	RenderScale_ = Image_->GetScale();
+	RenderImageScale_ = Image_->GetScale();
+}
+
+void GameEngineRenderer::SetIndex(size_t _Index)
+{
+	if (false == Image_->IsCut())
+	{
+		MsgBoxAssert("이미지를 부분적으로 사용할 수 있게 자르지 않은 이미지입니다.");
+		return;
+	}
+	RenderImagePivot_ = Image_->GetCutPivot(_Index);
+	RenderScale_ = Image_->GetCutScale(_Index);
+	RenderImageScale_ = Image_->GetCutScale(_Index);
 }
 
 void GameEngineRenderer::Render()
@@ -52,10 +66,10 @@ void GameEngineRenderer::Render()
 	switch (PivotType_)
 	{
 	case RenderPivot::CENTER:
-		GameEngine::BackBufferImage()->TransCopyCenterScale(Image_, RenderPos, RenderScale_, TransColor_);
+		GameEngine::BackBufferImage()->TransCopy(Image_, RenderPos - RenderScale_.Half(), RenderScale_, RenderImagePivot_, RenderImageScale_, TransColor_);
 		break;
 	case RenderPivot::BOT:
-		GameEngine::BackBufferImage()->TransCopyCenterScale(Image_, RenderPos, RenderScale_, TransColor_);
+		GameEngine::BackBufferImage()->TransCopy(Image_, RenderPos, RenderScale_, RenderImagePivot_, RenderImageScale_, TransColor_);
 		break;
 	default:
 		break;

@@ -141,21 +141,6 @@ void GameEngineImage::BitCopy(GameEngineImage* _Other, const float4& _CopyPos, c
 		, SRCCOPY);				// 복사하라는 명령
 }
 
-void GameEngineImage::TransCopyCenter(GameEngineImage* _Other, const float4& _CopyPos, unsigned int _TransColor)
-{
-	TransCopy(_Other, _CopyPos - _Other->GetScale().Half(), _Other->GetScale(), float4{ 0, 0 }, _Other->GetScale(), _TransColor);
-}
-
-void GameEngineImage::TransCopyCenterScale(GameEngineImage* _Other, const float4& _CopyPos, const float4& _RenderScale, unsigned int _TransColor)
-{
-	TransCopy(_Other, _CopyPos - _RenderScale.Half(), _RenderScale, float4{ 0, 0 }, _Other->GetScale(), _TransColor);
-}
-
-void GameEngineImage::TransCopyBot(GameEngineImage* _Other, const float4& _CopyPos, unsigned int _TransColor)
-{
-	TransCopy(_Other, _CopyPos - _Other->GetScale().Half(), _Other->GetScale(), float4{ 0, 0 }, _Other->GetScale(), _TransColor);
-}
-
 void GameEngineImage::TransCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyScale, const float4& _OtherPivot, const float4& _OtherScale, unsigned int _TransColor)
 {
 	// 윈도우에서 지원해주는 일반적인 DC vs DC의 복사함수
@@ -165,11 +150,34 @@ void GameEngineImage::TransCopy(GameEngineImage* _Other, const float4& _CopyPos,
 		, _CopyScale.ix()		// 내 이미지의 x
 		, _CopyScale.iy()		// 내 이미지의 y 크기만큼
 		, _Other->ImageDC_		// 복사하려는 대상
-		, _OtherPivot.ix()		// 복사하려는 대상의 시작점 x
+		, _OtherPivot.ix()		// 복사하려는 대상의 시작점 x(위치)
 		, _OtherPivot.iy()		// 복사하려는 대상의 시작점 y
-		, _OtherScale.ix()		// 복사하려는 대상의 시작점 x
+		, _OtherScale.ix()		// 복사하려는 대상의 시작점 x(크기)
 		, _OtherScale.iy()		// 복사하려는 대상의 시작점 y
 		, _TransColor);			// 복사하라는 명령
+}
+
+void GameEngineImage::Cut(const float4& _CutScale)
+{
+	if (0 != (GetScale().ix() % _CutScale.ix()))
+	{
+		MsgBoxAssert("자를 수 있는 수치가 맞지 않습니다.");
+	}
+	if (0 != (GetScale().iy() % _CutScale.iy()))
+	{
+		MsgBoxAssert("자를 수 있는 수치가 맞지 않습니다.");
+	}
+	int XCount = (GetScale().ix() / _CutScale.ix());
+	int YCount = (GetScale().iy() / _CutScale.iy());
+
+	for (int y = 0; y < YCount; ++y)
+	{
+		for (int x = 0; x < XCount; ++x)
+		{
+			CutPivot_.push_back({ static_cast<float>(x * _CutScale.ix()), static_cast<float>(y * _CutScale.iy())});
+			CutScale_.push_back(_CutScale);
+		}
+	}
 }
 
 void GameEngineImage::ImageScaleCheck()

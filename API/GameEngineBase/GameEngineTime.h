@@ -9,6 +9,7 @@ public:
 		return Inst_;
 	}
 
+	// 마지막에 지운다 하더라도 의도한 순서에서 지우고 싶기 때문에 포인터로 삭제
 	static void Destroy()
 	{
 		if (nullptr != Inst_)
@@ -21,9 +22,9 @@ public:
 	void Reset();
 	void Update();
 
-	inline float DeltaTime()
+	static inline float GetDeltaTime()
 	{
-		return DeltaTime_;
+		return Inst_->DeltaTime_;
 	}
 
 protected:

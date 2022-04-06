@@ -1,13 +1,15 @@
 #pragma once
 #include <GameEngineBase/GameEngineNameObject.h>
 #include <GameEngineBase/GameEngineMath.h>
+#include <GameEngineBase/GameEngineUpdateObject.h>
 #include <list>
 #include "GameEngineEnum.h"
 
 // 설명 : 
 class GameEngineRenderer;
 class GameEngineLevel;
-class GameEngineActor : public GameEngineNameObject
+// 다중상속 : 넣어준 순으로 메모리가 잡힘. 두가지 모두 상속한 것
+class GameEngineActor : public GameEngineNameObject, public GameEngineUpdateObject
 {
 	//=======================ActorBase==========================
 public:
@@ -24,6 +26,11 @@ public:
 	GameEngineActor& operator=(const GameEngineActor& _Other) = delete;
 	GameEngineActor& operator=(GameEngineActor&& _Other) noexcept = delete;
 
+	inline GameEngineLevel* GetLevel()
+	{
+		return Level_;
+	}
+	
 	inline float4 GetPosition()
 	{
 		return Position_;

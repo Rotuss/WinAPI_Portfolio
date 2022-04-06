@@ -160,6 +160,7 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayLevel.h" />
+    <ClInclude Include="SnowBullet.h" />
     <ClInclude Include="SnowBros.h" />
     <ClInclude Include="TitleBackGround.h" />
     <ClInclude Include="TitleLevel.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayLevel.cpp" />
+    <ClCompile Include="SnowBullet.cpp" />
     <ClCompile Include="SnowBros.cpp" />
     <ClCompile Include="TitleBackGround.cpp" />
     <ClCompile Include="TitleLevel.cpp" />
