@@ -24,7 +24,7 @@ void Player::Start()
 
 	// CreateRenderer("Nick_Idle.bmp", RenderPivot::CENTER, { 0, 0 });
 	//CreateRenderer("Nick_Idle.bmp");
-	GameEngineRenderer* Render = CreateRenderer("Right_Beam_Kirby.bmp");
+	GameEngineRenderer* Render = CreateRendererToScale("Right_Beam_Kirby.bmp", { 300, 300 });
 	Render->SetIndex(10);
 
 	CreateRenderer("Snow_Bullet.bmp");

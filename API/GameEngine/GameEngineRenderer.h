@@ -20,7 +20,7 @@ public:
 
 	void SetImage(const std::string& _Name);
 	void SetImageScale();
-	void SetIndex(size_t _Index);
+	void SetIndex(size_t _Index, float4 _Scale = { -1.0f, -1.0f });
 	inline void SetType(const RenderPivot& _Type)
 	{
 		PivotType_ = _Type;
@@ -51,8 +51,8 @@ private:
 	RenderScaleMode		ScaleMode_;
 	float4				RenderPivot_;
 	float4				RenderImagePivot_;
-	float4				RenderScale_;
-	float4				RenderImageScale_;
+	float4				RenderScale_;				// 화면에 그려지는 크기
+	float4				RenderImageScale_;			// 이미지에서 잘라내는 크기
 	unsigned int		TransColor_;
 };
 

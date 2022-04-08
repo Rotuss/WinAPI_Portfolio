@@ -37,7 +37,6 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageNam
 
 	NewRenderer->SetActor(this);
 	NewRenderer->SetImage(_ImageName);
-	NewRenderer->SetImageScale();
 	NewRenderer->SetType(_PivotType);
 	NewRenderer->SetPivot(_PivotPos);
 
