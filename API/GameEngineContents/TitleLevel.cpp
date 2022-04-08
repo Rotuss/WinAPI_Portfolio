@@ -1,7 +1,8 @@
 #include "TitleLevel.h"
 #include "TitleBackGround.h"
 #include "TitleLogo.h"
-#include "GameEngine/GameEngine.h"
+#include <GameEngineBase/GameEngineInput.h>
+#include <GameEngine/GameEngine.h>
 
 TitleLevel::TitleLevel()
 {
@@ -19,5 +20,8 @@ void TitleLevel::Loading()
 
 void TitleLevel::Update()
 {
-	GameEngine::GlobalEngine().ChangeLevel("Play");
+	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
+	{
+		GameEngine::GlobalEngine().ChangeLevel("Play");
+	}
 }

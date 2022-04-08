@@ -83,6 +83,7 @@ private:
 public:
 	// 그린다는 기능만 따로 모아 놓음(코드 반복이 너무 많기 때문)
 	// 디폴트 인자는 선언에서만 지정 가능
+	GameEngineRenderer* CreateRenderer(RenderPivot _PivotType = RenderPivot::CENTER, const float4& _PivotPos = { 0, 0 });
 	GameEngineRenderer* CreateRenderer(const std::string& _ImageName, RenderPivot _PivotType = RenderPivot::CENTER, const float4& _PivotPos = { 0, 0 });
 	GameEngineRenderer* CreateRendererToScale(const std::string& _ImageName, const float4& _Scale, RenderPivot _PivotType = RenderPivot::CENTER, const float4& _PivotPos = { 0, 0 });
 

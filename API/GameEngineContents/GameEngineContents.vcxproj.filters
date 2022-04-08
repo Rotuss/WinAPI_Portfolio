@@ -29,6 +29,9 @@
       <Filter>Play\Global</Filter>
     </ClInclude>
     <ClInclude Include="SnowBros.h" />
+    <ClInclude Include="BackGround.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -59,6 +62,9 @@
       <Filter>Play\Global</Filter>
     </ClCompile>
     <ClCompile Include="SnowBros.cpp" />
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -75,6 +81,9 @@
     </Filter>
     <Filter Include="Play\Global">
       <UniqueIdentifier>{bc358560-e32f-40b4-9f44-91f369ae15e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global">
+      <UniqueIdentifier>{004ee965-3059-4d71-8a6e-97fb5a0344db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -31,6 +31,18 @@ void GameEngineActor::DebugRectRender()
 	Rectangle(GameEngine::BackBufferDC(), DebugRect.CenterLeft(), DebugRect.CenterTop(), DebugRect.CenterRight(), DebugRect.CenterBot());
 }
 
+GameEngineRenderer* GameEngineActor::CreateRenderer(RenderPivot _PivotType, const float4& _PivotPos)
+{
+	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
+
+	NewRenderer->SetActor(this);
+	NewRenderer->SetType(_PivotType);
+	NewRenderer->SetPivot(_PivotPos);
+
+	RenderList_.push_back(NewRenderer);
+	return NewRenderer;
+}
+
 GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageName, RenderPivot _PivotType /*= RenderPivot::CENTER*/, const float4& _PivotPos /*= { 0, 0 }*/)
 {
 	GameEngineRenderer* NewRenderer = new GameEngineRenderer();

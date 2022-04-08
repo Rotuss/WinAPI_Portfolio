@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="EndingCredit.h" />
     <ClInclude Include="EndingLevel.h" />
     <ClInclude Include="Monster.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="TitleLogo.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="EndingCredit.cpp" />
     <ClCompile Include="EndingLevel.cpp" />
     <ClCompile Include="Monster.cpp" />
