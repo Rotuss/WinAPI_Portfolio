@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "Nick.h"
 #include "SnowBullet.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -8,16 +8,16 @@
 #include <GameEngine/GameEngineLevel.h>
 #include <GameEngine/GameEngineRenderer.h>
 
-Player::Player()
+Nick::Nick()
 	: Speed_(100.0f)
 {
 }
 
-Player::~Player()
+Nick::~Nick()
 {
 }
 
-void Player::Start()
+void Nick::Start()
 {
 	SetPosition(GameEngineWindow::GetScale().Half());
 	SetScale({ 50,50 });
@@ -41,7 +41,7 @@ void Player::Start()
 	}
 }
 
-void Player::Update()
+void Nick::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
@@ -73,7 +73,7 @@ void Player::Update()
 }
 
 // ·»´õ·¯°¡ ´Ù µ¹°í ·»´õ¸µ
-void Player::Render()
+void Nick::Render()
 {
 	//DebugRectRender();
 	

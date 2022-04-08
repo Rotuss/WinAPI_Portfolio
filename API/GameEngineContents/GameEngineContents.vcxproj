@@ -156,29 +156,45 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossFloor.h" />
     <ClInclude Include="EndingCredit.h" />
     <ClInclude Include="EndingLevel.h" />
+    <ClInclude Include="Floor1.h" />
+    <ClInclude Include="Floor2.h" />
+    <ClInclude Include="Floor3.h" />
+    <ClInclude Include="Frog.h" />
     <ClInclude Include="Monster.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Nick.h" />
     <ClInclude Include="PlayLevel.h" />
+    <ClInclude Include="RedDemon.h" />
     <ClInclude Include="SnowBullet.h" />
     <ClInclude Include="SnowBros.h" />
     <ClInclude Include="TitleBackGround.h" />
     <ClInclude Include="TitleLevel.h" />
     <ClInclude Include="TitleLogo.h" />
+    <ClInclude Include="YellowTroll.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossFloor.cpp" />
     <ClCompile Include="EndingCredit.cpp" />
     <ClCompile Include="EndingLevel.cpp" />
+    <ClCompile Include="Floor1.cpp" />
+    <ClCompile Include="Floor2.cpp" />
+    <ClCompile Include="Floor3.cpp" />
+    <ClCompile Include="Frog.cpp" />
     <ClCompile Include="Monster.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="NIck.cpp" />
     <ClCompile Include="PlayLevel.cpp" />
+    <ClCompile Include="RedDemon.cpp" />
     <ClCompile Include="SnowBullet.cpp" />
     <ClCompile Include="SnowBros.cpp" />
     <ClCompile Include="TitleBackGround.cpp" />
     <ClCompile Include="TitleLevel.cpp" />
     <ClCompile Include="TitleLogo.cpp" />
+    <ClCompile Include="YellowTroll.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">

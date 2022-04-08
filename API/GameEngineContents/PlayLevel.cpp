@@ -1,6 +1,6 @@
 #include "PlayLevel.h"
 #include "BackGround.h"
-#include "Player.h"
+#include "Nick.h"
 #include "Monster.h"
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngine/GameEngine.h>
@@ -26,7 +26,7 @@ void PlayLevel::Loading()
 	BackGround* Back = CreateActor<BackGround>(0);
 	Back->GetRenderer()->SetImage("floor01.bmp");
 
-	CreateActor<Player>((int)ORDER::PLAYER, "Player");
+	CreateActor<Nick>((int)ORDER::PLAYER, "Player");
 	//CreateActor<Monster>((int)ORDER::MONSTER, "Monster");
 }
 

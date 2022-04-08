@@ -22,15 +22,39 @@
     <ClInclude Include="TitleBackGround.h">
       <Filter>Title</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Play\Global</Filter>
+    <ClInclude Include="Nick.h">
+      <Filter>Play\Nick</Filter>
     </ClInclude>
     <ClInclude Include="SnowBullet.h">
-      <Filter>Play\Global</Filter>
+      <Filter>Play\Nick</Filter>
     </ClInclude>
     <ClInclude Include="SnowBros.h" />
     <ClInclude Include="BackGround.h">
-      <Filter>Global</Filter>
+      <Filter>Level\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor1.h">
+      <Filter>Level\PlayLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor2.h">
+      <Filter>Level\PlayLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor3.h">
+      <Filter>Level\PlayLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="BossFloor.h">
+      <Filter>Level\PlayLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="RedDemon.h">
+      <Filter>Play\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="YellowTroll.h">
+      <Filter>Play\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Frog.h">
+      <Filter>Play\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Play\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -55,15 +79,39 @@
     <ClCompile Include="TitleBackGround.cpp">
       <Filter>Title</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Play\Global</Filter>
+    <ClCompile Include="NIck.cpp">
+      <Filter>Play\Nick</Filter>
     </ClCompile>
     <ClCompile Include="SnowBullet.cpp">
-      <Filter>Play\Global</Filter>
+      <Filter>Play\Nick</Filter>
     </ClCompile>
     <ClCompile Include="SnowBros.cpp" />
     <ClCompile Include="BackGround.cpp">
-      <Filter>Global</Filter>
+      <Filter>Level\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor1.cpp">
+      <Filter>Level\PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor2.cpp">
+      <Filter>Level\PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor3.cpp">
+      <Filter>Level\PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="BossFloor.cpp">
+      <Filter>Level\PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="RedDemon.cpp">
+      <Filter>Play\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="YellowTroll.cpp">
+      <Filter>Play\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Frog.cpp">
+      <Filter>Play\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Play\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,11 +127,20 @@
     <Filter Include="Ending">
       <UniqueIdentifier>{3dfd00c6-489a-4606-8fff-73f4a1b0f35b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Play\Global">
+    <Filter Include="Level\PlayLevel">
+      <UniqueIdentifier>{925b22c1-cdb2-4b4c-b9a3-be06b060888f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Global">
+      <UniqueIdentifier>{004ee965-3059-4d71-8a6e-97fb5a0344db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Enemies">
+      <UniqueIdentifier>{afaf93a8-b2c5-4f25-bf96-f6b2cfbdc7ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Nick">
       <UniqueIdentifier>{bc358560-e32f-40b4-9f44-91f369ae15e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Global">
-      <UniqueIdentifier>{004ee965-3059-4d71-8a6e-97fb5a0344db}</UniqueIdentifier>
+    <Filter Include="Play\Item">
+      <UniqueIdentifier>{4763db25-6322-4434-8f1a-89e8f83aabaa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
