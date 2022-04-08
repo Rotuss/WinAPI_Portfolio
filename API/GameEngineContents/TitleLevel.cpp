@@ -22,6 +22,6 @@ void TitleLevel::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
 	{
-		GameEngine::GlobalEngine().ChangeLevel("Play");
+		GameEngine::GlobalEngine().ChangeLevel("Floor1");
 	}
 }

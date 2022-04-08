@@ -22,12 +22,16 @@ void Nick::Start()
 	SetPosition(GameEngineWindow::GetScale().Half());
 	SetScale({ 50,50 });
 
-	// CreateRenderer("Nick_Idle.bmp", RenderPivot::CENTER, { 0, 0 });
-	//CreateRenderer("Nick_Idle.bmp");
-	GameEngineRenderer* Render = CreateRenderer("Nick_Idle.bmp");
-	//Render->SetIndex(10);
+	//GameEngineRenderer* Render = CreateRenderer("Nick_Right_Walk.bmp");
+	//Render->SetIndex(0);
 
-	CreateRenderer("Snow_Bullet.bmp");
+	// 애니메이션
+	GameEngineRenderer* Render = CreateRenderer();
+	Render->CreateAnimation("Nick_Right_Walk.bmp", "Right_Walk", 0, 3, 0.1f, true);
+	Render->ChangeAnimation("Right_Walk");
+	//Render->CreateAnimation("Nick_Right_Walk.bmp", "Right_Walk", 0, 3, 0.1f, false);
+
+	//CreateRenderer("Snow_Bullet.bmp");
 	//CreateRendererToScale("HPBar.bmp", float4(300.0f, 20.0f), RenderPivot::CENTER, float4(0.0f, -100.0f));
 
 	if (false == GameEngineInput::GetInst()->IsKey("MoveLeft"))

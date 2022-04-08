@@ -56,6 +56,10 @@
     <ClInclude Include="Boss.h">
       <Filter>Play\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsEnums.h" />
+    <ClInclude Include="PlayUI.h">
+      <Filter>Level\Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -79,7 +83,7 @@
     <ClCompile Include="TitleBackGround.cpp">
       <Filter>Title</Filter>
     </ClCompile>
-    <ClCompile Include="NIck.cpp">
+    <ClCompile Include="Nick.cpp">
       <Filter>Play\Nick</Filter>
     </ClCompile>
     <ClCompile Include="SnowBullet.cpp">
@@ -112,6 +116,9 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>Play\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayUI.cpp">
+      <Filter>Level\Global</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

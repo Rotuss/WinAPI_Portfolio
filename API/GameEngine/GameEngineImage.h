@@ -50,6 +50,7 @@ public:
 		CutPivot_.push_back(_CutPos);
 		CutScale_.push_back(_CutScale);
 	}
+	void CutCount(int _x, int _y);
 
 	bool IsCut()
 	{

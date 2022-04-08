@@ -1,6 +1,9 @@
 #include "SnowBros.h"
 #include "TitleLevel.h"
-#include "PlayLevel.h"
+#include "Floor1.h"
+#include "Floor2.h"
+#include "Floor3.h"
+#include "BossFloor.h"
 #include "EndingLevel.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineDirectory.h>
@@ -16,7 +19,8 @@ SnowBros::~SnowBros()
 
 void SnowBros::GameInit()
 {
-	GameEngineWindow::GetInst().SetWindowScaleAndPosition({ 100, 100 }, { 1024, 964 });
+	// 원본사이즈 * 4
+	GameEngineWindow::GetInst().SetWindowScaleAndPosition({ 100, 30 }, { 1024, 964 });
 	
 	// 현재 디렉터리
 	GameEngineDirectory ResourcesDir;
@@ -37,14 +41,17 @@ void SnowBros::GameInit()
 		GameEngineInput::GetInst()->CreateKey("LevelChange", 'P');
 	}
 
-	GameEngineImage* Image = GameEngineImageManager::GetInst()->Find("Right_Beam_Kirby.bmp");
-	Image->Cut({ 256, 256 });
+	GameEngineImage* Image = GameEngineImageManager::GetInst()->Find("Nick_Right_Walk.bmp");
+	Image->CutCount(4, 1);
 	
 	// 각 레벨 생성
 	CreateLevel<TitleLevel>("Title");
-	CreateLevel<PlayLevel>("Play");
+	CreateLevel<Floor1>("Floor1");
+	CreateLevel<Floor2>("Floor2");
+	CreateLevel<Floor3>("Floor3");
+	CreateLevel<BossFloor>("BossFloor");
 	CreateLevel<EndingLevel>("Ending");
-	ChangeLevel("Play");
+	ChangeLevel("Floor1");
 }
 
 void SnowBros::GameLoop()
