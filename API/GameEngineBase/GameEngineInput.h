@@ -7,10 +7,12 @@
 class GameEngineInput
 {
 public:
-	void Update();
+	void Update(float _DeltaTime = 0.0f);
 	// ex) 'PlayerJump', 'A'
 	void CreateKey(const std::string& _Name, int _Key);
 
+	float GetTime(const std::string& _Name);
+	
 	bool IsDown(const std::string& _Name);
 	bool IsPress(const std::string& _Name);
 	bool IsUp(const std::string& _Name);
@@ -61,13 +63,15 @@ private:
 		// ??키가 눌렸다면..
 		int Key_;
 
+		float Time_;
+
 		bool KeyCheck()
 		{
 			// return값이 0이 아니라면 Key_키가 눌렸다는 것
 			return 0 != GetAsyncKeyState(Key_);
 		}
 
-		void Update();
+		void Update(float _DeltaTime);
 		void Reset()
 		{
 			Down_ = false;

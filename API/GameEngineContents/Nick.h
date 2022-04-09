@@ -2,6 +2,7 @@
 #include <GameEngine/GameEngineActor.h>
 
 // Ό³Έν : 
+class GameEngineImage;
 class Nick : public GameEngineActor
 {
 public:
@@ -19,7 +20,11 @@ protected:
 
 private:
 	float Speed_;
-	
+	float Gravity_;
+	float AccGravity_;
+
+	GameEngineImage* FloorColImage_;
+
 	void Start() override;
 	void Update() override;
 	void Render() override;

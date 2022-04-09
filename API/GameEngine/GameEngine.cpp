@@ -98,7 +98,7 @@ void GameEngine::EngineLoop()
 	{
 		MsgBoxAssert("Level is nullptr => GameEngine Loop Error");
 	}
-	GameEngineInput::GetInst()->Update();
+	GameEngineInput::GetInst()->Update(GameEngineTime::GetInst()->GetDeltaTime());
 	// (시간제한이 있는 게임이라면)레벨수준에서 매 프레임마다 시간을 체크하는 일
 	CurrentLevel_->Update();
 	CurrentLevel_->ActorUpdate();

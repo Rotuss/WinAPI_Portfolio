@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineBase/GameEngineNameObject.h>
+#include <GameEngineBase/GameEngineMath.h>
 #include <map>
 #include <list>
 
@@ -47,6 +48,21 @@ public:
 		return NewActor;
 	}
 
+	inline float4 GetCameraPos()
+	{
+		return CameraPos_;
+	}
+
+	inline void SetCameraPos(const float4& _Value)
+	{
+		CameraPos_ = _Value;
+	}
+
+	inline void MoveCameraPos(const float4& _Value)
+	{
+		CameraPos_ + _Value;
+	}
+
 protected:
 	// 시점함수
 	// 만들어지면서 리소스나 액터를 만들 때 사용
@@ -66,6 +82,8 @@ private:
 	// 이 부분을 사용하는건 최악의 수
 	//std::map<std::string, std::list<GameEngineActor*>> AllActor_;
 
+	float4 CameraPos_;
+	
 	void ActorUpdate();
 	void ActorRender();
 	void ActorRelease();

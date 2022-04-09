@@ -4,12 +4,14 @@
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngine.h>
+#include <GameEngine/GameEngineImage.h>
 #include <GameEngine/GameEngineImageManager.h>
 #include <GameEngine/GameEngineLevel.h>
 #include <GameEngine/GameEngineRenderer.h>
 
 Nick::Nick()
 	: Speed_(100.0f)
+	, Gravity_(100.0f)
 {
 }
 
@@ -19,11 +21,13 @@ Nick::~Nick()
 
 void Nick::Start()
 {
-	SetPosition(GameEngineWindow::GetScale().Half());
+	// Nick에서 위치를 정하는 것이 아닌, 각 Floor에서 지정해야하므로 여기서 구현하는 것이 아님. 각 Floor에서 작업
+	//SetPosition(GameEngineWindow::GetScale().Half());
 	SetScale({ 50,50 });
 
 	//GameEngineRenderer* Render = CreateRenderer("Nick_Right_Walk.bmp");
 	//Render->SetIndex(0);
+	//Render->SetPivotType(RenderPivot::BOT);
 
 	// 애니메이션
 	GameEngineRenderer* Render = CreateRenderer();
@@ -47,28 +51,69 @@ void Nick::Start()
 
 void Nick::Update()
 {
+	FloorColImage_ = GameEngineImageManager::GetInst()->Find("Colfloor01.bmp");
+	if (nullptr == FloorColImage_)
+	{
+		MsgBoxAssert("Floor 충돌용 이미지를 찾지 못했습니다.");
+	}
+
+	float4 CheckPos_;
+	float4 MoveDir_ = float4::ZERO;
+
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
 		// -1.0f * DT
-		SetMove(float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_);
+		MoveDir_ = float4::LEFT;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
-		SetMove(float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_);
+		MoveDir_ = float4::RIGHT;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveUp"))
 	{
-		SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
+		MoveDir_ = float4::UP;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveDown"))
 	{
-		SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
+		MoveDir_ = float4::DOWN;
+	}
+	{
+		float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		float4 CheckPos = NextPos + float4(0.0f, 50.0f);
+
+		int Color = FloorColImage_->GetImagePixel(CheckPos);
+
+		if (RGB(0, 0, 0) != Color)
+		{
+			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		}
+	}
+	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half());
+	// 중력 적용 => 뮨제?(중력 적용하여 땅에 닿을 경우 좌우 움직임이 막혀 움직일 수 없음)
+	{
+		// Player 위치에서 
+		//int Color = FloorColImage_->GetImagePixel(GetPosition() + float4(0.0f, 50.0f));
+
+		//AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;
+		//if (RGB(0, 0, 0) == Color)
+		//{
+		//	AccGravity_ = 0.0f;
+		//}
+		//SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
 	}
 	if (true == GameEngineInput::GetInst()->IsDown("SnowBullet"))
 	{
 		SnowBullet* Ptr = GetLevel()->CreateActor<SnowBullet>();
 		Ptr->SetPosition(GetPosition());
 	}
+	// 기모으기 기능
+	/*
+	if (2.5f < GameEngineInput::GetInst()->GetTime("SnowBullet"))
+	{
+		SnowBullet* Ptr = GetLevel()->CreateActor<SnowBullet>();
+		Ptr->SetPosition(GetPosition());
+	}
+	*/
 	// 키를 누르면 움직임
 	//if (0 != GetAsyncKeyState())
 	//{

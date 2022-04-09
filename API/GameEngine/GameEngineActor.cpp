@@ -36,7 +36,7 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(RenderPivot _PivotType, cons
 	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
 
 	NewRenderer->SetActor(this);
-	NewRenderer->SetType(_PivotType);
+	NewRenderer->SetPivotType(_PivotType);
 	NewRenderer->SetPivot(_PivotPos);
 
 	RenderList_.push_back(NewRenderer);
@@ -49,7 +49,7 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageNam
 
 	NewRenderer->SetActor(this);
 	NewRenderer->SetImage(_ImageName);
-	NewRenderer->SetType(_PivotType);
+	NewRenderer->SetPivotType(_PivotType);
 	NewRenderer->SetPivot(_PivotPos);
 
 	RenderList_.push_back(NewRenderer);
@@ -63,7 +63,7 @@ GameEngineRenderer* GameEngineActor::CreateRendererToScale(const std::string& _I
 	NewRenderer->SetActor(this);
 	NewRenderer->SetImage(_ImageName);
 	NewRenderer->SetScale(_Scale);
-	NewRenderer->SetType(_PivotType);
+	NewRenderer->SetPivotType(_PivotType);
 	NewRenderer->SetPivot(_PivotPos);
 
 	RenderList_.push_back(NewRenderer);

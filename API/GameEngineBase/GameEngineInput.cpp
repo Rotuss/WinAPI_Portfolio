@@ -1,6 +1,7 @@
 #include "GameEngineInput.h"
 #include "GameEngineDebug.h"
 #include "GameEngineString.h"
+#include "GameEngineTime.h"
 
 GameEngineInput* GameEngineInput::Inst_ = new GameEngineInput();
 
@@ -12,7 +13,7 @@ GameEngineInput::~GameEngineInput()
 {
 }
 
-void GameEngineInput::Update()
+void GameEngineInput::Update(float _DeltaTime)
 {
 	std::map<std::string, GameEngineKey>::iterator KeyUpdateStart = AllInputKey_.begin();
 	std::map<std::string, GameEngineKey>::iterator KeyUpdateEnd= AllInputKey_.end();
@@ -21,7 +22,7 @@ void GameEngineInput::Update()
 	{
 		GameEngineKey& CurrentKey = KeyUpdateStart->second;
 		
-		CurrentKey.Update();
+		CurrentKey.Update(_DeltaTime);
 	}
 }
 
@@ -43,6 +44,17 @@ void GameEngineInput::CreateKey(const std::string& _Name, int _Key)
 	AllInputKey_.insert(std::make_pair(UpperKey, GameEngineKey()));
 	AllInputKey_[UpperKey].Key_ = _Key;
 	AllInputKey_[UpperKey].Reset();
+}
+
+float GameEngineInput::GetTime(const std::string& _Name)
+{
+	std::string UpperKey = GameEngineString::ToUpperReturn(_Name);
+	if (AllInputKey_.end() == AllInputKey_.find(UpperKey))
+	{
+		MsgBoxAssert("존재하지 않는 키 입니다.");
+		return false;
+	}
+	return AllInputKey_[UpperKey].Time_;
 }
 
 bool GameEngineInput::IsDown(const std::string& _Name)
@@ -100,7 +112,7 @@ bool GameEngineInput::IsKey(const std::string& _Name)
 }
 
 //==========================================================
-void GameEngineInput::GameEngineKey::Update()
+void GameEngineInput::GameEngineKey::Update(float _DeltaTime)
 {
 	// 눌렀다
 	if (true == KeyCheck())
@@ -112,6 +124,8 @@ void GameEngineInput::GameEngineKey::Update()
 			Press_ = true;
 			Up_ = false;
 			Free_ = false;
+			Time_ = 0.0f;
+			Time_ += _DeltaTime;
 		}
 		// 계속
 		else if (true == Press_)
@@ -120,6 +134,7 @@ void GameEngineInput::GameEngineKey::Update()
 			Press_ = true;
 			Up_ = false;
 			Free_ = false;
+			Time_ += _DeltaTime;
 		}
 	}
 	// 안 눌렀다
@@ -132,6 +147,7 @@ void GameEngineInput::GameEngineKey::Update()
 			Press_ = false;
 			Up_ = true;
 			Free_ = false;
+			Time_ = 0.0f;
 		}
 		// 계속
 		else if (true == Up_)

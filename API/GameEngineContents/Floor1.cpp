@@ -5,6 +5,7 @@
 #include "ContentsEnums.h"
 #include "PlayUI.h"
 #include <GameEngineBase/GameEngineInput.h>
+#include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngine.h>
 #include <GameEngine/GameEngineRenderer.h>
 
@@ -24,10 +25,13 @@ void Floor1::Loading()
 	}
 
 	{
-		PlayUI* Actor = CreateActor<PlayUI>(0);
+		//PlayUI* Actor = CreateActor<PlayUI>(0);
 	}
 
-	CreateActor<Nick>((int)ORDER::PLAYER, "Player");
+	{
+		Nick* Player = CreateActor<Nick>((int)ORDER::PLAYER, "Player");
+		Player->SetPosition({100.0f, 100.0f});
+	}
 }
 
 void Floor1::Update()
