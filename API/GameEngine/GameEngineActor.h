@@ -6,8 +6,9 @@
 #include "GameEngineEnum.h"
 
 // 설명 : 
-class GameEngineRenderer;
 class GameEngineLevel;
+class GameEngineRenderer;
+class GameEngineCollision;
 // 다중상속 : 넣어준 순으로 메모리가 잡힘. 두가지 모두 상속한 것
 class GameEngineActor : public GameEngineNameObject, public GameEngineUpdateObject
 {
@@ -94,5 +95,12 @@ private:
 
 	std::list<GameEngineRenderer*>::iterator StartRenderIter;
 	std::list<GameEngineRenderer*>::iterator EndRenderIter;
+
+	//========================Collision=========================
+public:
+	GameEngineCollision* CreateCollision(const std::string& _GroupName, float4 _Scale, float4 _Pivot = {0, 0});
+	
+private:
+	std::list<GameEngineCollision*> CollisionList_;
 };
 

@@ -3,6 +3,7 @@
 
 // Ό³Έν : 
 class GameEngineImage;
+class GameEngineCollision;
 class Nick : public GameEngineActor
 {
 public:
@@ -24,6 +25,7 @@ private:
 	float AccGravity_;
 
 	GameEngineImage* FloorColImage_;
+	GameEngineCollision* PlayerCollision_;
 
 	void Start() override;
 	void Update() override;

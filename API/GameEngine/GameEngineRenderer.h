@@ -48,6 +48,15 @@ public:
 		return Image_;
 	}
 
+	void CameraEffectOn()
+	{
+		IsCameraEffect_ = true;
+	}
+	void CameraEffectOff()
+	{
+		IsCameraEffect_ = false;
+	}
+
 protected:
 	void Render();
 

@@ -159,6 +159,7 @@ void GameEngineImage::TransCopy(GameEngineImage* _Other, const float4& _CopyPos,
 
 void GameEngineImage::Cut(const float4& _CutScale)
 {
+	/*
 	if (0 != (GetScale().ix() % _CutScale.ix()))
 	{
 		MsgBoxAssert("자를 수 있는 수치가 맞지 않습니다.");
@@ -167,6 +168,7 @@ void GameEngineImage::Cut(const float4& _CutScale)
 	{
 		MsgBoxAssert("자를 수 있는 수치가 맞지 않습니다.");
 	}
+	*/
 	int XCount = (GetScale().ix() / _CutScale.ix());
 	int YCount = (GetScale().iy() / _CutScale.iy());
 
@@ -188,6 +190,22 @@ void GameEngineImage::CutCount(int _x, int _y)
 
 int GameEngineImage::GetImagePixel(int _x, int _y)
 {
+	if (0 > _x)
+	{
+		return RGB(0, 0, 0);
+	}
+	if (0 > _y)
+	{
+		return RGB(0, 0, 0);
+	}
+	if (GetScale().ix() <= _x)
+	{
+		return RGB(0, 0, 0);
+	}
+	if (GetScale().iy() <= _y)
+	{
+		return RGB(0, 0, 0);
+	}
 	return GetPixel(ImageDC_, _x, _y);
 }
 

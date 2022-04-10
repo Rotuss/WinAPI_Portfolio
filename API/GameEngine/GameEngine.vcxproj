@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineActorSubObject.h" />
+    <ClInclude Include="GameEngineCollision.h" />
     <ClInclude Include="GameEngineEnum.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameEngineActor.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameEngineActor.cpp" />
     <ClCompile Include="GameEngineActorSubObject.cpp" />
+    <ClCompile Include="GameEngineCollision.cpp" />
     <ClCompile Include="GameEngineImage.cpp" />
     <ClCompile Include="GameEngineImageManager.cpp" />
     <ClCompile Include="GameEngineLevel.cpp" />

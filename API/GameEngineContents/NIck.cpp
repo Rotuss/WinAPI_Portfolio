@@ -8,6 +8,7 @@
 #include <GameEngine/GameEngineImageManager.h>
 #include <GameEngine/GameEngineLevel.h>
 #include <GameEngine/GameEngineRenderer.h>
+#include <GameEngine/GameEngineCollision.h>
 
 Nick::Nick()
 	: Speed_(100.0f)
@@ -28,6 +29,8 @@ void Nick::Start()
 	//GameEngineRenderer* Render = CreateRenderer("Nick_Right_Walk.bmp");
 	//Render->SetIndex(0);
 	//Render->SetPivotType(RenderPivot::BOT);
+
+	PlayerCollision_ = CreateCollision("PlayerHitBox", {100, 100});
 
 	// 애니메이션
 	GameEngineRenderer* Render = CreateRenderer();
@@ -89,6 +92,41 @@ void Nick::Update()
 		}
 	}
 	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half());
+	
+	if (0 > GetLevel()->GetCameraPos().x)
+	{
+		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
+		CurrentCameraPos.x = 0;
+		GetLevel()->SetCameraPos(CurrentCameraPos);
+	}
+	if (0 > GetLevel()->GetCameraPos().y)
+	{
+		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
+		CurrentCameraPos.y = 0;
+		GetLevel()->SetCameraPos(CurrentCameraPos);
+	}
+
+	float FloorScaleX = 1024;
+	float FloorScaleY = 964;
+	float CameraRectX = 1024;
+	float CameraRectY = 964;
+	if (FloorScaleX <= GetLevel()->GetCameraPos().x + CameraRectX)
+	{
+		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
+		CurrentCameraPos.x = GetLevel()->GetCameraPos().x - (GetLevel()->GetCameraPos().x + CameraRectX - FloorScaleX);
+		GetLevel()->SetCameraPos(CurrentCameraPos);
+	}
+	if (FloorScaleY <= GetLevel()->GetCameraPos().y + CameraRectY)
+	{
+		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
+		CurrentCameraPos.y = GetLevel()->GetCameraPos().y - (GetLevel()->GetCameraPos().y + CameraRectY - FloorScaleY);
+		GetLevel()->SetCameraPos(CurrentCameraPos);
+	}
+	
+	if (true == PlayerCollision_->CollisionCheck("Next"))
+	{
+
+	}
 	// 중력 적용 => 뮨제?(중력 적용하여 땅에 닿을 경우 좌우 움직임이 막혀 움직일 수 없음)
 	{
 		// Player 위치에서 
