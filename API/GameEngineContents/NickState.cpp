@@ -53,6 +53,10 @@ void Nick::MoveUpdate()
 	}
 }
 
+void Nick::JumpUpdate()
+{
+}
+
 void Nick::AttackUpdate()
 {
 }
@@ -62,9 +66,23 @@ void Nick::IdleStart()
 {
 	// 애니메이션이 바뀜
 	// AnimationName_ = "Idle_";
+	if (CurrentDir_ == NickDir::LEFT)
+	{
+		AnimationName_ = "Nick_Idle_Left";
+		NickAnimationRender_->ChangeAnimation(AnimationName_);
+	}
+	else if (CurrentDir_ == NickDir::RIGHT)
+	{
+		AnimationName_ = "Nick_Idle_Right";
+		NickAnimationRender_->ChangeAnimation(AnimationName_);
+	}
 }
 
 void Nick::MoveStart()
+{
+}
+
+void Nick::JumpStart()
 {
 }
 

@@ -8,7 +8,9 @@ enum NickState
 {
 	IDLE,
 	MOVE,
+	JUMP,
 	ATTACK,
+	DIE,
 
 	MAX
 };
@@ -38,7 +40,7 @@ public:
 	void StateUpdate();
 
 protected:
-	GameEngineRenderer* NickAnimationRender;
+	GameEngineRenderer* NickAnimationRender_;
 	NickDir CurrentDir_;
 	std::string AnimationName_;
 	
@@ -67,10 +69,12 @@ private:
 
 	void IdleUpdate();
 	void MoveUpdate();
+	void JumpUpdate();
 	void AttackUpdate();
 
 	void IdleStart();
 	void MoveStart();
+	void JumpStart();
 	void AttackStart();
 
 	void KeyMove();

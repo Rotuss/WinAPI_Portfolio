@@ -98,7 +98,7 @@ void Nick::DirAnimationCheck()
 
 	if (CheckDir_ != CurrentDir_)
 	{
-		NickAnimationRender->ChangeAnimation(AnimationName_ + ChangeDirText);
+		NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText);
 	}
 }
 
@@ -119,11 +119,11 @@ void Nick::Start()
 	PlayerCollision_ = CreateCollision("PlayerHitBox", {100, 100});
 
 	// 애니메이션
-	NickAnimationRender = CreateRenderer();
-	NickAnimationRender->CreateAnimation("Nick_Walk_Right.bmp", "Walk_Right", 0, 3, 0.1f, true);
-	NickAnimationRender->CreateAnimation("Nick_Walk_Left.bmp", "Walk_Left", 0, 3, 0.1f, true);
-	NickAnimationRender->ChangeAnimation("Walk_Right");
-	NickAnimationRender->ChangeAnimation("Walk_Left");
+	NickAnimationRender_ = CreateRenderer();
+	NickAnimationRender_->CreateAnimation("Nick_Walk_Right.bmp", "Walk_Right", 0, 3, 0.1f, true);
+	NickAnimationRender_->CreateAnimation("Nick_Walk_Left.bmp", "Walk_Left", 0, 3, 0.1f, true);
+	NickAnimationRender_->ChangeAnimation("Walk_Right");
+	NickAnimationRender_->ChangeAnimation("Walk_Left");
 	//Render->CreateAnimation("Nick_Right_Walk.bmp", "Right_Walk", 0, 3, 0.1f, false);
 
 	AnimationName_ = "Walk_";
