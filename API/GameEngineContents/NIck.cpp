@@ -78,6 +78,34 @@ void Nick::StateUpdate()
 	}
 }
 
+void Nick::DirAnimationCheck()
+{
+	std::string ChangeName_;
+
+	NickDir CheckDir_ = CurrentDir_;
+	std::string ChangeDirText = "Right";
+
+	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
+	{
+		CheckDir_ = NickDir::RIGHT;
+		ChangeDirText = "Right";
+	}
+	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
+	{
+		CheckDir_ = NickDir::LEFT;
+		ChangeDirText = "Left";
+	}
+
+	if (CheckDir_ != CurrentDir_)
+	{
+		NickAnimationRender->ChangeAnimation(AnimationName_ + ChangeDirText);
+	}
+}
+
+void Nick::NickStateUpdate()
+{
+}
+
 void Nick::Start()
 {
 	// Nick에서 위치를 정하는 것이 아닌, 각 Floor에서 지정해야하므로 여기서 구현하는 것이 아님. 각 Floor에서 작업
@@ -91,11 +119,15 @@ void Nick::Start()
 	PlayerCollision_ = CreateCollision("PlayerHitBox", {100, 100});
 
 	// 애니메이션
-	GameEngineRenderer* Render = CreateRenderer();
-	Render->CreateAnimation("Nick_Right_Walk.bmp", "Right_Walk", 0, 3, 0.1f, true);
-	Render->ChangeAnimation("Right_Walk");
+	NickAnimationRender = CreateRenderer();
+	NickAnimationRender->CreateAnimation("Nick_Walk_Right.bmp", "Walk_Right", 0, 3, 0.1f, true);
+	NickAnimationRender->CreateAnimation("Nick_Walk_Left.bmp", "Walk_Left", 0, 3, 0.1f, true);
+	NickAnimationRender->ChangeAnimation("Walk_Right");
+	NickAnimationRender->ChangeAnimation("Walk_Left");
 	//Render->CreateAnimation("Nick_Right_Walk.bmp", "Right_Walk", 0, 3, 0.1f, false);
 
+	AnimationName_ = "Walk_";
+	CurrentDir_ = NickDir::RIGHT;
 	//CreateRenderer("Snow_Bullet.bmp");
 	//CreateRendererToScale("HPBar.bmp", float4(300.0f, 20.0f), RenderPivot::CENTER, float4(0.0f, -100.0f));
 
@@ -113,6 +145,9 @@ void Nick::Start()
 void Nick::Update()
 {
 	// 공통함수, State
+	
+	DirAnimationCheck();
+	NickStateUpdate();
 	FloorColImage_ = GameEngineImageManager::GetInst()->Find("Colfloor01.bmp");
 	if (nullptr == FloorColImage_)
 	{

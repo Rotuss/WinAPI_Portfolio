@@ -61,6 +61,7 @@ void Nick::AttackUpdate()
 void Nick::IdleStart()
 {
 	// 애니메이션이 바뀜
+	// AnimationName_ = "Idle_";
 }
 
 void Nick::MoveStart()

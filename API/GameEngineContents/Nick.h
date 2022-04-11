@@ -12,6 +12,11 @@ enum NickState
 
 	MAX
 };
+enum NickDir
+{
+	LEFT,
+	RIGHT,
+};
 // Ό³Έν : 
 class GameEngineImage;
 class GameEngineCollision;
@@ -33,6 +38,12 @@ public:
 	void StateUpdate();
 
 protected:
+	GameEngineRenderer* NickAnimationRender;
+	NickDir CurrentDir_;
+	std::string AnimationName_;
+	
+	void DirAnimationCheck();
+	void NickStateUpdate();
 
 private:
 	float Speed_;

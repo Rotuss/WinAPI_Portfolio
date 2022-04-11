@@ -41,7 +41,7 @@ void SnowBros::GameInit()
 		GameEngineInput::GetInst()->CreateKey("LevelChange", 'P');
 	}
 
-	GameEngineImage* Image = GameEngineImageManager::GetInst()->Find("Nick_Right_Walk.bmp");
+	GameEngineImage* Image = GameEngineImageManager::GetInst()->Find("Nick_Walk_Right.bmp");
 	Image->CutCount(4, 1);
 	
 	// 각 레벨 생성
