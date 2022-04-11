@@ -120,6 +120,9 @@
     <ClCompile Include="PlayUI.cpp">
       <Filter>Level\Global</Filter>
     </ClCompile>
+    <ClCompile Include="NickState.cpp">
+      <Filter>Play\Nick</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

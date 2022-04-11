@@ -189,6 +189,7 @@
     <ClCompile Include="Frog.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Nick.cpp" />
+    <ClCompile Include="NickState.cpp" />
     <ClCompile Include="PlayLevel.cpp" />
     <ClCompile Include="PlayUI.cpp" />
     <ClCompile Include="RedDemon.cpp" />

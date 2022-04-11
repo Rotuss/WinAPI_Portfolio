@@ -68,7 +68,7 @@ bool GameEngineCollision::CollisionCheck(const std::string& _TargetGroup, Collis
 
 bool GameEngineCollision::CollisionResult(const std::string& _TargetGroup, std::vector<GameEngineCollision*>& _ColResult, CollisionType _This, CollisionType _Target)
 {
-	size_t StartSize = _TargetGroup.size();
+	size_t StartSize = _ColResult.size();
 
 	std::map<std::string, std::list<GameEngineCollision*>>::iterator FindTargetGroup = GetActor()->GetLevel()->AllCollision_.find(_TargetGroup);
 	if (FindTargetGroup == GetActor()->GetLevel()->AllCollision_.end())

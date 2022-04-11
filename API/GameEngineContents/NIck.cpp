@@ -20,6 +20,64 @@ Nick::~Nick()
 {
 }
 
+// 아무런 키도 눌리지 않았다면 false, 어떤 키든 눌렸다면 true
+bool Nick::IsMoveKey()
+{
+	if (false == GameEngineInput::GetInst()->IsDown("MoveLeft") &&
+		false == GameEngineInput::GetInst()->IsDown("MoveRight") &&
+		false == GameEngineInput::GetInst()->IsDown("MoveUp") &&
+		false == GameEngineInput::GetInst()->IsDown("MoveDown"))
+	{
+		return false;
+	}
+	return true;
+}
+
+void Nick::ChangeState(NickState _State)
+{
+	if (CurrentState_ != _State)
+	{
+		switch (_State)
+		{
+		case IDLE:
+			IdleStart();
+			break;
+		case MOVE:
+			MoveStart();
+			break;
+		case ATTACK:
+			AttackStart();
+			break;
+		case MAX:
+			break;
+		default:
+			break;
+		}
+	}
+
+	CurrentState_ = _State;
+}
+
+void Nick::StateUpdate()
+{
+	switch (CurrentState_)
+	{
+	case IDLE:
+		IdleUpdate();
+		break;
+	case MOVE:
+		MoveUpdate();
+		break;
+	case ATTACK:
+		AttackUpdate();
+		break;
+	case MAX:
+		break;
+	default:
+		break;
+	}
+}
+
 void Nick::Start()
 {
 	// Nick에서 위치를 정하는 것이 아닌, 각 Floor에서 지정해야하므로 여기서 구현하는 것이 아님. 각 Floor에서 작업
@@ -54,6 +112,7 @@ void Nick::Start()
 
 void Nick::Update()
 {
+	// 공통함수, State
 	FloorColImage_ = GameEngineImageManager::GetInst()->Find("Colfloor01.bmp");
 	if (nullptr == FloorColImage_)
 	{
@@ -62,10 +121,9 @@ void Nick::Update()
 
 	float4 CheckPos_;
 	float4 MoveDir_ = float4::ZERO;
-
+	/*
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
-		// -1.0f * DT
 		MoveDir_ = float4::LEFT;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
@@ -80,6 +138,7 @@ void Nick::Update()
 	{
 		MoveDir_ = float4::DOWN;
 	}
+	*/
 	{
 		float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 		float4 CheckPos = NextPos + float4(0.0f, 50.0f);
@@ -136,11 +195,13 @@ void Nick::Update()
 		//}
 		//SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
 	}
+	/*
 	if (true == GameEngineInput::GetInst()->IsDown("SnowBullet"))
 	{
 		SnowBullet* Ptr = GetLevel()->CreateActor<SnowBullet>();
 		Ptr->SetPosition(GetPosition());
 	}
+	*/
 	// 기모으기 기능
 	/*
 	if (2.5f < GameEngineInput::GetInst()->GetTime("SnowBullet"))
