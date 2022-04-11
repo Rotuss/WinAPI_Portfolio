@@ -8,12 +8,15 @@
 class GameEngine;
 class GameEngineActor;
 class GameEngineCollision;
+class GameEngineRenderer;
 class GameEngineLevel : public GameEngineNameObject
 {
 	// GameEngineLevel은 GameEngine한테만큼은 모든 것을 공개(friend) - 이렇게 한 이유? => Loading은 두 번 호출되면 안되기 때문
 	friend GameEngine;
 	friend GameEngineActor;
 	friend GameEngineCollision;
+	friend GameEngineRenderer;
+
 public:
 	// constrcuter destructer
 	GameEngineLevel();
@@ -30,6 +33,7 @@ public:
 	{
 		ActorType* NewActor = new ActorType();
 		GameEngineActor* StartActor = NewActor;
+		NewActor->SetOrder(_Order);
 		NewActor->SetName(_Name);
 		NewActor->SetLevel(this);
 		StartActor->Start();
@@ -92,10 +96,13 @@ private:
 	void CollisionDebugRender();
 	void ActorRelease();
 
+	std::map<int, std::list<GameEngineRenderer*>> AllRenderer_;
 	// list로 하는 이유 : 충돌하여 Actor가 죽을 경우를 생각하면 됨
 	// 삭제는 Actor가 하지만, 실제 사용은 Level. 따라서 여기서 함부로 GameEngineCollision*을 delete하는 일이 있으면 안됨
 	std::map<std::string, std::list<GameEngineCollision*>> AllCollision_;
 
+	void AddRenderer(GameEngineRenderer* _Renderer);
+	void ChangeRenderOrder(GameEngineRenderer* _Renderer, int _NewOrder);
 	void AddCollision(const std::string& _GroupName, GameEngineCollision* _Collision);
 
 };

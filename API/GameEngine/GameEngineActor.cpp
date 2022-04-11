@@ -83,46 +83,73 @@ void GameEngineActor::DebugRectRender()
 	Rectangle(GameEngine::BackBufferDC(), DebugRect.CenterLeft(), DebugRect.CenterTop(), DebugRect.CenterRight(), DebugRect.CenterBot());
 }
 
-GameEngineRenderer* GameEngineActor::CreateRenderer(RenderPivot _PivotType, const float4& _PivotPos)
+GameEngineRenderer* GameEngineActor::CreateRenderer(int _Order, RenderPivot _PivotType, const float4& _PivotPos)
 {
 	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
 
 	NewRenderer->SetActor(this);
+	if (_Order != static_cast<int>(EngineMax::RENDERORDERMAX))
+	{
+		NewRenderer->SetOrder(_Order);
+	}
+	else
+	{
+		NewRenderer->SetOrder(GetOrder());
+	}
 	NewRenderer->SetPivotType(_PivotType);
 	NewRenderer->SetPivot(_PivotPos);
 
+	GetLevel()->AddRenderer(NewRenderer);
 	RenderList_.push_back(NewRenderer);
 	return NewRenderer;
 }
 
-GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageName, RenderPivot _PivotType /*= RenderPivot::CENTER*/, const float4& _PivotPos /*= { 0, 0 }*/)
+GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageName, int _Order, RenderPivot _PivotType /*= RenderPivot::CENTER*/, const float4& _PivotPos /*= { 0, 0 }*/)
 {
 	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
 
 	NewRenderer->SetActor(this);
+	if (_Order != static_cast<int>(EngineMax::RENDERORDERMAX))
+	{
+		NewRenderer->GameEngineUpdateObject::SetOrder(_Order);
+	}
+	else
+	{
+		NewRenderer->GameEngineUpdateObject::SetOrder(GetOrder());
+	}
 	NewRenderer->SetImage(_ImageName);
 	NewRenderer->SetPivotType(_PivotType);
 	NewRenderer->SetPivot(_PivotPos);
 
+	GetLevel()->AddRenderer(NewRenderer);
 	RenderList_.push_back(NewRenderer);
 	return NewRenderer;
 }
 
-GameEngineRenderer* GameEngineActor::CreateRendererToScale(const std::string& _ImageName, const float4& _Scale, RenderPivot _PivotType, const float4& _PivotPos)
+GameEngineRenderer* GameEngineActor::CreateRendererToScale(const std::string& _ImageName, const float4& _Scale, int _Order, RenderPivot _PivotType, const float4& _PivotPos)
 {
 	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
 
 	NewRenderer->SetActor(this);
+	if (_Order != static_cast<int>(EngineMax::RENDERORDERMAX))
+	{
+		NewRenderer->GameEngineUpdateObject::SetOrder(_Order);
+	}
+	else
+	{
+		NewRenderer->GameEngineUpdateObject::SetOrder(GetOrder());
+	}
 	NewRenderer->SetImage(_ImageName);
 	NewRenderer->SetScale(_Scale);
 	NewRenderer->SetPivotType(_PivotType);
 	NewRenderer->SetPivot(_PivotPos);
 
+	GetLevel()->AddRenderer(NewRenderer);
 	RenderList_.push_back(NewRenderer);
 	
 	return NewRenderer;
 }
-
+/*
 void GameEngineActor::Rendering()
 {
 	StartRenderIter = RenderList_.begin();
@@ -137,7 +164,7 @@ void GameEngineActor::Rendering()
 		(*StartRenderIter)->Render();
 	}
 }
-
+*/
 GameEngineCollision* GameEngineActor::CreateCollision(const std::string& _GroupName, float4 _Scale, float4 _Pivot)
 {
 	GameEngineCollision* NewCollision = new GameEngineCollision();

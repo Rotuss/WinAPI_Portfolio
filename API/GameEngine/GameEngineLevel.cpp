@@ -1,6 +1,7 @@
 #include "GameEngineLevel.h"
 #include "GameEngineActor.h"
 #include "GameEngineCollision.h"
+#include "GameEngineRenderer.h"
 
 GameEngineLevel::GameEngineLevel()
 	: CameraPos_(float4::ZERO)
@@ -62,41 +63,68 @@ void GameEngineLevel::ActorUpdate()
 
 void GameEngineLevel::ActorRender()
 {
-	std::map<int, std::list<GameEngineActor*>>::iterator GroupStart;
-	std::map<int, std::list<GameEngineActor*>>::iterator GroupEnd;
-
-	std::list<GameEngineActor*>::iterator StartActor;
-	std::list<GameEngineActor*>::iterator EndActor;
-
-	GroupStart = AllActor_.begin();
-	GroupEnd = AllActor_.end();
-
-	for (; GroupStart != GroupEnd; ++GroupStart)
+	// ·»´õ·¯ ·»´õ
 	{
-		std::list<GameEngineActor*>& Group = GroupStart->second;
+		std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStart = AllRenderer_.begin();
+		std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEnd = AllRenderer_.end();
 
-		StartActor = Group.begin();
-		EndActor = Group.end();
+		std::list<GameEngineRenderer*>::iterator StartRenderer;
+		std::list<GameEngineRenderer*>::iterator EndRenderer;
 
-		for (; StartActor != EndActor; ++StartActor)
+		for (; GroupStart != GroupEnd; ++GroupStart)
 		{
-			if (false == (*StartActor)->IsUpdate())
+			std::list<GameEngineRenderer*>& Group = GroupStart->second;
+
+			StartRenderer = Group.begin();
+			EndRenderer = Group.end();
+
+			for (; StartRenderer != EndRenderer; ++StartRenderer)
 			{
-				continue;
+				if (false == (*StartRenderer)->IsUpdate())
+				{
+					continue;
+				}
+				(*StartRenderer)->Render();
 			}
-			(*StartActor)->Rendering();
 		}
+	}
+	{
+		std::map<int, std::list<GameEngineActor*>>::iterator GroupStart;
+		std::map<int, std::list<GameEngineActor*>>::iterator GroupEnd;
 
-		StartActor = Group.begin();
-		EndActor = Group.end();
+		std::list<GameEngineActor*>::iterator StartActor;
+		std::list<GameEngineActor*>::iterator EndActor;
 
-		for (; StartActor != EndActor; ++StartActor)
+		GroupStart = AllActor_.begin();
+		GroupEnd = AllActor_.end();
+
+		for (; GroupStart != GroupEnd; ++GroupStart)
 		{
-			if (false == (*StartActor)->IsUpdate())
+			std::list<GameEngineActor*>& Group = GroupStart->second;
+			/*
+			StartActor = Group.begin();
+			EndActor = Group.end();
+
+			for (; StartActor != EndActor; ++StartActor)
 			{
-				continue;
+				if (false == (*StartActor)->IsUpdate())
+				{
+					continue;
+				}
+				(*StartActor)->Rendering();
 			}
-			(*StartActor)->Render();
+			*/
+			StartActor = Group.begin();
+			EndActor = Group.end();
+
+			for (; StartActor != EndActor; ++StartActor)
+			{
+				if (false == (*StartActor)->IsUpdate())
+				{
+					continue;
+				}
+				(*StartActor)->Render();
+			}
 		}
 	}
 }
@@ -187,6 +215,18 @@ void GameEngineLevel::ActorRelease()
 			}
 		}
 	}
+}
+
+void GameEngineLevel::AddRenderer(GameEngineRenderer* _Renderer)
+{
+	AllRenderer_[_Renderer->GetOrder()].push_back(_Renderer);
+}
+
+void GameEngineLevel::ChangeRenderOrder(GameEngineRenderer* _Renderer, int _NewOrder)
+{
+	AllRenderer_[_Renderer->GetOrder()].remove(_Renderer);
+	_Renderer->GameEngineUpdateObject::SetOrder(_NewOrder);
+	AllRenderer_[_Renderer->GetOrder()].push_back(_Renderer);
 }
 
 void GameEngineLevel::AddCollision(const std::string& _GroupName, GameEngineCollision* _Collision)

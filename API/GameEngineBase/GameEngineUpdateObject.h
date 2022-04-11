@@ -60,12 +60,23 @@ public:
 		return IsDeath_;
 	}
 
+	inline int GetOrder()
+	{
+		return Order_;
+	}
+
+	inline virtual void SetOrder(int _Order)
+	{
+		Order_ = _Order;
+	}
+
 protected:
 
 private:
-	float DeathTime_;
-	bool IsUpdate_;
-	bool IsReleaseUpdate_;
-	bool IsDeath_;
+	int		Order_;
+	float	DeathTime_;
+	bool	IsUpdate_;
+	bool	IsReleaseUpdate_;
+	bool	IsDeath_;
 };
 

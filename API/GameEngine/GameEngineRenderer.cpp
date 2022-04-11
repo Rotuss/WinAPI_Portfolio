@@ -65,6 +65,24 @@ void GameEngineRenderer::SetIndex(size_t _Index, const float4& _Scale)
 	RenderImageScale_ = Image_->GetCutScale(_Index);
 }
 
+void GameEngineRenderer::SetOrder(int _Order)
+{
+	if (nullptr == GetActor())
+	{
+		MsgBoxAssert("액터가 세팅되지 않습니다.");
+	}
+	if (nullptr == GetActor()->GetLevel())
+	{
+		MsgBoxAssert("레벨이 세팅되지 않습니다.");
+	}
+
+	if (_Order == GetOrder())
+	{
+		return;
+	}
+	GetActor()->GetLevel()->ChangeRenderOrder(this, _Order);
+}
+
 void GameEngineRenderer::Render()
 {
 	if (nullptr != CurrentAnimation_)
