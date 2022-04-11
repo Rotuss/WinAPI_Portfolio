@@ -4,6 +4,7 @@
 #include <GameEngineBase/GameEngineUpdateObject.h>
 #include <list>
 #include "GameEngineEnum.h"
+#include "GameEngineLevel.h"
 
 // 설명 : 
 class GameEngineLevel;
@@ -30,6 +31,11 @@ public:
 	inline GameEngineLevel* GetLevel()
 	{
 		return Level_;
+	}
+	
+	inline float4 GetCameraEffectPosition()
+	{
+		return Position_ - GetLevel()->GetCameraPos();
 	}
 	
 	inline float4 GetPosition()
@@ -67,6 +73,7 @@ protected:
 	// 지속적으로 게임이 실행될 때 호출
 	virtual void Render() {}
 
+	void Release();
 	void DebugRectRender();
 
 private:

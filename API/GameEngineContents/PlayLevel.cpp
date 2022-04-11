@@ -28,7 +28,7 @@ void PlayLevel::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
 	{
-		GameEngine::GlobalEngine().ChangeLevel("Ending");
+		GameEngine::GetInst().ChangeLevel("Ending");
 	}
 }
 

@@ -89,6 +89,7 @@ private:
 	
 	void ActorUpdate();
 	void ActorRender();
+	void CollisionDebugRender();
 	void ActorRelease();
 
 	// list로 하는 이유 : 충돌하여 Actor가 죽을 경우를 생각하면 됨

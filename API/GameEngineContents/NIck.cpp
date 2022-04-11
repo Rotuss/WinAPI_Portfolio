@@ -122,11 +122,8 @@ void Nick::Update()
 		CurrentCameraPos.y = GetLevel()->GetCameraPos().y - (GetLevel()->GetCameraPos().y + CameraRectY - FloorScaleY);
 		GetLevel()->SetCameraPos(CurrentCameraPos);
 	}
-	
-	if (true == PlayerCollision_->CollisionCheck("Next"))
-	{
-
-	}
+	NextCheck();
+	WallCheck();
 	// 중력 적용 => 뮨제?(중력 적용하여 땅에 닿을 경우 좌우 움직임이 막혀 움직일 수 없음)
 	{
 		// Player 위치에서 
@@ -173,4 +170,24 @@ void Nick::Render()
 	// GameEngine이 static인 이유? => 편함, 2개 띄울 필요가 X, 싱글톤과 유사
 	GameEngine::BackBufferImage()->BitCopyCenter(FindImage, GetPosition());
 	*/
+}
+
+void Nick::NextCheck()
+{
+	if (true == PlayerCollision_->CollisionCheck("Next", CollisionType::RECT, CollisionType::RECT))
+	{
+		//GameEngine::GetInst().ChangeLevel("")
+	}
+}
+
+void Nick::WallCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == PlayerCollision_->CollisionResult("Wall", ColList, CollisionType::RECT, CollisionType::RECT))
+	{
+		for (size_t i = 0; i < ColList.size(); ++i)
+		{
+			ColList[i]->Death();
+		}
+	}
 }

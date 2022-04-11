@@ -30,5 +30,8 @@ private:
 	void Start() override;
 	void Update() override;
 	void Render() override;
+
+	void NextCheck();
+	void WallCheck();
 };
 

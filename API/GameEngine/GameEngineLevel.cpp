@@ -101,33 +101,90 @@ void GameEngineLevel::ActorRender()
 	}
 }
 
-void GameEngineLevel::ActorRelease()
+void GameEngineLevel::CollisionDebugRender()
 {
-	std::map<int, std::list<GameEngineActor*>>::iterator GroupStart;
-	std::map<int, std::list<GameEngineActor*>>::iterator GroupEnd;
+	std::map<std::string, std::list<GameEngineCollision*>>::iterator GroupStart = AllCollision_.begin();
+	std::map<std::string, std::list<GameEngineCollision*>>::iterator GroupEnd = AllCollision_.end();
 
-	std::list<GameEngineActor*>::iterator StartActor;
-	std::list<GameEngineActor*>::iterator EndActor;
-
-	GroupStart = AllActor_.begin();
-	GroupEnd = AllActor_.end();
+	std::list<GameEngineCollision*>::iterator StartCollision;
+	std::list<GameEngineCollision*>::iterator EndCollision;
 
 	for (; GroupStart != GroupEnd; ++GroupStart)
 	{
-		std::list<GameEngineActor*>& Group = GroupStart->second;
+		std::list<GameEngineCollision*>& Group = GroupStart->second;
+		
+		StartCollision = Group.begin();
+		EndCollision = Group.end();
 
-		StartActor = Group.begin();
-		EndActor = Group.end();
-
-		for (; StartActor != EndActor; )
+		for (; StartCollision != EndCollision; ++StartCollision)
 		{
-			if (true == (*StartActor)->IsDeath())
+			if (false == (*StartCollision)->IsUpdate())
 			{
-				delete (*StartActor);
-				StartActor = Group.erase(StartActor);
 				continue;
 			}
-			++StartActor;
+			(*StartCollision)->DebugRender();
+		}
+	}
+}
+
+void GameEngineLevel::ActorRelease()
+{
+	// 콜리전은 레벨도 관리하고 있으므로 확인
+	{
+		std::map<std::string, std::list<GameEngineCollision*>>::iterator GroupStart = AllCollision_.begin();
+		std::map<std::string, std::list<GameEngineCollision*>>::iterator GroupEnd = AllCollision_.end();
+
+		std::list<GameEngineCollision*>::iterator StartCollision;
+		std::list<GameEngineCollision*>::iterator EndCollision;
+
+		for (; GroupStart != GroupEnd; ++GroupStart)
+		{
+			std::list<GameEngineCollision*>& Group = GroupStart->second;
+
+			StartCollision = Group.begin();
+			EndCollision = Group.end();
+
+			for (; StartCollision != EndCollision; )
+			{
+				if (false == (*StartCollision)->IsDeath())
+				{
+					++StartCollision;
+					continue;
+				}
+				StartCollision = Group.erase(StartCollision);
+			}
+		}
+	}
+	// 액터 삭제
+	{
+		std::map<int, std::list<GameEngineActor*>>::iterator GroupStart;
+		std::map<int, std::list<GameEngineActor*>>::iterator GroupEnd;
+
+		std::list<GameEngineActor*>::iterator StartActor;
+		std::list<GameEngineActor*>::iterator EndActor;
+
+		GroupStart = AllActor_.begin();
+		GroupEnd = AllActor_.end();
+
+		for (; GroupStart != GroupEnd; ++GroupStart)
+		{
+			std::list<GameEngineActor*>& Group = GroupStart->second;
+
+			StartActor = Group.begin();
+			EndActor = Group.end();
+
+			for (; StartActor != EndActor; )
+			{
+				if (true == (*StartActor)->IsDeath())
+				{
+					delete (*StartActor);
+					StartActor = Group.erase(StartActor);
+					continue;
+				}
+				// 삭제가 안됐다면 콜리전이나 렌더러를 확인해 봄
+				(*StartActor)->Release();
+				++StartActor;
+			}
 		}
 	}
 }

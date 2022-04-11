@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <vector>
 #include "GameEngineEnum.h"
 #include "GameEngineActorSubObject.h"
 
@@ -27,10 +28,18 @@ public:
 	{
 		Scale_ = _Scale;
 	}
-
+	inline float4 GetCollisionPos()
+	{
+		return GetActor()->GetPosition() + Pivot_;
+	}
+	inline GameEngineRect GetRect()
+	{
+		return GameEngineRect(GetActor()->GetPosition() + Pivot_, Scale_);
+	}
 	// 충돌한 대상이 존재하는지만 확인하는 함수
 	bool CollisionCheck(const std::string& _TargetGroup, CollisionType _This = CollisionType::RECT, CollisionType _Target = CollisionType::RECT);
-
+	bool CollisionResult(const std::string& _TargetGroup, std::vector<GameEngineCollision*>& _ColResult, CollisionType _This = CollisionType::RECT, CollisionType _Target = CollisionType::RECT);
+	void DebugRender();
 protected:
 
 private:

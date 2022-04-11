@@ -2,7 +2,7 @@
 #include <GameEngine/GameEngineActor.h>
 
 // Ό³Έν : 
-class GameEngineActorSubObject
+class GameEngineActorSubObject : public GameEngineUpdateObject
 {
 	friend GameEngineActor;
 public:
@@ -19,6 +19,16 @@ public:
 	inline GameEngineActor* GetActor()
 	{
 		return Actor_;
+	}
+
+	virtual bool IsUpdate() override
+	{
+		return GameEngineUpdateObject::IsUpdate() || Actor_->IsUpdate();
+	}
+
+	inline bool IsDeath() override
+	{
+		return GameEngineUpdateObject::IsDeath() || Actor_->IsDeath();
 	}
 
 protected:
