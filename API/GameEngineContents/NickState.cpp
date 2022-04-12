@@ -59,6 +59,10 @@ void Nick::JumpUpdate()
 
 void Nick::AttackUpdate()
 {
+	if (true == NickAnimationRender_->IsEndAnimation())
+	{
+		ChangeState(NickState::IDLE);
+	}
 }
 
 //===========================Start==========================

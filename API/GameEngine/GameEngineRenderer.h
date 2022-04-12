@@ -83,11 +83,13 @@ public:
 	void CreateAnimation(const std::string& _Image, const std::string& _Name, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);
 	void CreateFolderAnimation(const std::string& _Image, const std::string& _Name, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);
 	void ChangeAnimation(const std::string& _Name);
+	bool IsEndAnimation();
+	bool IsAnimationName(const std::string& _Name);
 
 protected:
 
 private:
-	class FrameAnimation
+	class FrameAnimation : public GameEngineNameObject
 	{
 	public:
 		GameEngineRenderer*		Renderer_;
@@ -99,7 +101,7 @@ private:
 		float					CurrentInterTime_;
 		float					InterTime_;
 		bool					Loop_;
-
+		bool					IsEnd_;
 		FrameAnimation()
 			: Image_(nullptr)
 			, CurrentFrame_(-1)
@@ -113,6 +115,7 @@ private:
 		void Update();
 		void Reset()
 		{
+			IsEnd_ = false;
 			CurrentFrame_ = StartFrame_;
 			CurrentInterTime_ = InterTime_;
 		}

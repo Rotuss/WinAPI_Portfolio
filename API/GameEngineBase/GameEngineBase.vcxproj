@@ -26,6 +26,7 @@
     <ClInclude Include="GameEngineMath.h" />
     <ClInclude Include="GameEngineNameObject.h" />
     <ClInclude Include="GameEnginePath.h" />
+    <ClInclude Include="GameEngineRandom.h" />
     <ClInclude Include="GameEngineString.h" />
     <ClInclude Include="GameEngineTime.h" />
     <ClInclude Include="GameEngineUpdateObject.h" />
@@ -39,6 +40,7 @@
     <ClCompile Include="GameEngineMath.cpp" />
     <ClCompile Include="GameEngineNameObject.cpp" />
     <ClCompile Include="GameEnginePath.cpp" />
+    <ClCompile Include="GameEngineRandom.cpp" />
     <ClCompile Include="GameEngineString.cpp" />
     <ClCompile Include="GameEngineTime.cpp" />
     <ClCompile Include="GameEngineUpdateObject.cpp" />
