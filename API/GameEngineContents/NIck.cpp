@@ -39,16 +39,16 @@ void Nick::ChangeState(NickState _State)
 	{
 		switch (_State)
 		{
-		case IDLE:
+		case NickState::IDLE:
 			IdleStart();
 			break;
-		case MOVE:
+		case NickState::MOVE:
 			MoveStart();
 			break;
-		case ATTACK:
+		case NickState::ATTACK:
 			AttackStart();
 			break;
-		case MAX:
+		case NickState::MAX:
 			break;
 		default:
 			break;
@@ -62,16 +62,16 @@ void Nick::StateUpdate()
 {
 	switch (CurrentState_)
 	{
-	case IDLE:
+	case NickState::IDLE:
 		IdleUpdate();
 		break;
-	case MOVE:
+	case NickState::MOVE:
 		MoveUpdate();
 		break;
-	case ATTACK:
+	case NickState::ATTACK:
 		AttackUpdate();
 		break;
-	case MAX:
+	case NickState::MAX:
 		break;
 	default:
 		break;
@@ -102,10 +102,6 @@ void Nick::DirAnimationCheck()
 	}
 }
 
-void Nick::NickStateUpdate()
-{
-}
-
 void Nick::Start()
 {
 	// Nick에서 위치를 정하는 것이 아닌, 각 Floor에서 지정해야하므로 여기서 구현하는 것이 아님. 각 Floor에서 작업
@@ -123,8 +119,6 @@ void Nick::Start()
 	NickAnimationRender_->CreateAnimation("Nick_Walk_Right.bmp", "Walk_Right", 0, 3, 0.1f, true);
 	NickAnimationRender_->CreateAnimation("Nick_Walk_Left.bmp", "Walk_Left", 0, 3, 0.1f, true);
 	NickAnimationRender_->ChangeAnimation("Walk_Right");
-	NickAnimationRender_->ChangeAnimation("Walk_Left");
-	//Render->CreateAnimation("Nick_Right_Walk.bmp", "Right_Walk", 0, 3, 0.1f, false);
 
 	AnimationName_ = "Walk_";
 	CurrentDir_ = NickDir::RIGHT;
@@ -147,7 +141,7 @@ void Nick::Update()
 	// 공통함수, State
 	
 	DirAnimationCheck();
-	NickStateUpdate();
+	StateUpdate();
 	FloorColImage_ = GameEngineImageManager::GetInst()->Find("Colfloor01.bmp");
 	if (nullptr == FloorColImage_)
 	{

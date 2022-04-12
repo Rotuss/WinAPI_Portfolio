@@ -4,7 +4,7 @@
 // 어떠한 객체는 1번에 1개의 상태만이 존재
 // 플레이어는 1번에 1개의 함수 밖에 실행할 수 없음
 
-enum NickState
+enum class NickState
 {
 	IDLE,
 	MOVE,
@@ -14,7 +14,7 @@ enum NickState
 
 	MAX
 };
-enum NickDir
+enum class NickDir
 {
 	LEFT,
 	RIGHT,
@@ -40,20 +40,19 @@ public:
 	void StateUpdate();
 
 protected:
-	GameEngineRenderer* NickAnimationRender_;
 	NickDir CurrentDir_;
-	std::string AnimationName_;
 	
 	void DirAnimationCheck();
-	void NickStateUpdate();
 
 private:
 	float Speed_;
 	float Gravity_;
 	float AccGravity_;
 
-	GameEngineImage* FloorColImage_;
-	GameEngineCollision* PlayerCollision_;
+	GameEngineImage*		FloorColImage_;
+	GameEngineCollision*	PlayerCollision_;
+	GameEngineRenderer*		NickAnimationRender_;
+	std::string				AnimationName_;
 
 	void Start() override;
 	void Update() override;
