@@ -166,6 +166,7 @@
     <ClInclude Include="GameEngineLevel.h" />
     <ClInclude Include="GameEngineRenderer.h" />
     <ClInclude Include="GameEngineSound.h" />
+    <ClInclude Include="GameEngineRendererTileMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="GameEngineLevel.cpp" />
     <ClCompile Include="GameEngineRenderer.cpp" />
     <ClCompile Include="GameEngineSound.cpp" />
+    <ClCompile Include="GameEngineRendererTileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">
