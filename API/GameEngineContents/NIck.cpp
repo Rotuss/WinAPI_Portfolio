@@ -118,6 +118,8 @@ void Nick::Start()
 	NickAnimationRender_ = CreateRenderer();
 	NickAnimationRender_->CreateAnimation("Nick_Walk_Right.bmp", "Walk_Right", 0, 3, 0.1f, true);
 	NickAnimationRender_->CreateAnimation("Nick_Walk_Left.bmp", "Walk_Left", 0, 3, 0.1f, true);
+	// 만일, 폴더 이미지로 애니메이션을 실행시키고자 할 때 사용
+	//NickAnimationRender_->CreateFolderAnimation("폴더명", "Walk_Right", 0, 3, 0.1f, true);
 	NickAnimationRender_->ChangeAnimation("Walk_Right");
 
 	AnimationName_ = "Walk_";

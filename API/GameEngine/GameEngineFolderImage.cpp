@@ -14,6 +14,11 @@ GameEngineFolderImage::GameEngineFolderImage()
 
 GameEngineFolderImage::~GameEngineFolderImage()
 {
+	for (size_t i = 0; i < Images_.size(); ++i)
+	{
+		delete Images_[i];
+		Images_[i] = nullptr;
+	}
 }
 
 bool GameEngineFolderImage::Load(const std::string& _Path)
@@ -21,12 +26,16 @@ bool GameEngineFolderImage::Load(const std::string& _Path)
 	GameEngineDirectory ResourcesDir = GameEngineDirectory(_Path);
 
 	std::vector<GameEngineFile> AllImageFileList = ResourcesDir.GetAllFile("bmp");
+	Images_.reserve(AllImageFileList.size());
 	for (size_t i = 0; i < AllImageFileList.size(); ++i)
 	{
 		GameEngineImage* Image = new GameEngineImage();
 
-		//Image->Load();
-		//Imgaes_.push_back();
+		if (false == Image->Load(AllImageFileList[i].GetFullPath()))
+		{
+			MsgBoxAssert("폴더 이미지 로드 중 실패한 이미지가 존재합니다.");
+		}
+		Images_.push_back(Image);
 	}
-	return false;
+	return true;
 }

@@ -3,6 +3,7 @@
 #include <string>
 #include <GameEngineBase/GameEngineMath.h>
 #include "GameEngineImage.h"
+#include "GameEngineFolderImage.h"
 
 // 기본적으로 리소스는 그냥 사용 가능하지만 관리되는 리소스들은 전부 이름이 존재한다 보고 사용
 // 설명 : 
@@ -50,5 +51,16 @@ private:
 	std::map<std::string, GameEngineImage*> AllRes;
 
 	static GameEngineImageManager* Inst_;
+
+	//======================FolderImage=========================
+public:
+	GameEngineFolderImage* FolderImageFind(const std::string& _Name);
+	GameEngineFolderImage* FolderImageLoad(const std::string& _Path);
+	GameEngineFolderImage* FolderImageLoad(const std::string& _Path, const std::string& _Name);
+
+protected:
+
+private:
+	std::map<std::string, GameEngineFolderImage*> AllFolderRes;
 };
 

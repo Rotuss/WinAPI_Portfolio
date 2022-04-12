@@ -146,6 +146,32 @@ void GameEngineRenderer::CreateAnimation(const std::string& _Image, const std::s
 	NewAnimation.Loop_ = _Loop;
 }
 
+void GameEngineRenderer::CreateFolderAnimation(const std::string& _Image, const std::string& _Name, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop)
+{
+	GameEngineFolderImage* FindImage = GameEngineImageManager::GetInst()->FolderImageFind(_Image);
+	if (nullptr == FindImage)
+	{
+		MsgBoxAssert("존재하지 않는 이미지로 애니메이션을 생성하려고 했습니다.");
+		return;
+	}
+
+	if (Animations_.end() != Animations_.find(_Name))
+	{
+		MsgBoxAssert("이미 존재하는 애니메이션을 재생성하려고 했습니다.");
+		return;
+	}
+
+	FrameAnimation& NewAnimation = Animations_[_Name];
+	NewAnimation.Renderer_ = this;
+	NewAnimation.FolderImage_ = FindImage;
+	NewAnimation.CurrentFrame_ = _StartIndex;
+	NewAnimation.StartFrame_ = _StartIndex;
+	NewAnimation.EndFrame_ = _EndIndex;
+	NewAnimation.CurrentInterTime_ = _InterTime;
+	NewAnimation.InterTime_ = _InterTime;
+	NewAnimation.Loop_ = _Loop;
+}
+
 void GameEngineRenderer::ChangeAnimation(const std::string& _Name)
 {
 	std::map<std::string, FrameAnimation>::iterator FindIter = Animations_.find(_Name);
@@ -180,6 +206,14 @@ void GameEngineRenderer::FrameAnimation::Update()
 			}
 		}
 	}
-	Renderer_->Image_ = Image_;
-	Renderer_->SetIndex(CurrentFrame_);
+	if (nullptr != Image_)
+	{
+		Renderer_->Image_ = Image_;
+		Renderer_->SetIndex(CurrentFrame_);
+	}
+	else if (nullptr != FolderImage_)
+	{
+		Renderer_->Image_ = FolderImage_->GetImage(CurrentFrame_);
+		Renderer_->SetImageScale();
+	}
 }

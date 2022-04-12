@@ -22,20 +22,31 @@ void SnowBros::GameInit()
 	// 원본사이즈 * 4
 	GameEngineWindow::GetInst().SetWindowScaleAndPosition({ 100, 30 }, { 1024, 964 });
 	
-	// 현재 디렉터리
-	GameEngineDirectory ResourcesDir;
-	ResourcesDir.MoveParent("API");
-	ResourcesDir.Move("Resources");
-	ResourcesDir.Move("Image");
-
-	// 폴더 안에 모든 이미지 파일을 찾음
-	std::vector<GameEngineFile> AllImageFileList = ResourcesDir.GetAllFile("bmp");
-
-	for (size_t i = 0; i < AllImageFileList.size(); i++)
 	{
-		GameEngineImageManager::GetInst()->Load(AllImageFileList[i].GetFullPath());
-	}
+		// 현재 디렉터리
+		GameEngineDirectory ResourcesDir;
+		ResourcesDir.MoveParent("API");
+		ResourcesDir.Move("Resources");
+		ResourcesDir.Move("Image");
 
+		// 폴더 안에 모든 이미지 파일을 찾음
+		std::vector<GameEngineFile> AllImageFileList = ResourcesDir.GetAllFile("bmp");
+
+		for (size_t i = 0; i < AllImageFileList.size(); ++i)
+		{
+			GameEngineImageManager::GetInst()->Load(AllImageFileList[i].GetFullPath());
+		}
+	}
+	// 폴더 이미지로 이용할 경우
+	{
+		GameEngineDirectory ResourcesDir;
+		ResourcesDir.MoveParent("API");
+		ResourcesDir.Move("Resources");
+		ResourcesDir.Move("Image");
+		//ResourcesDir.Move("원하는 폴더이미지명");
+
+		GameEngineImageManager::GetInst()->FolderImageLoad(ResourcesDir.GetFullPath());
+	}
 	if (false == GameEngineInput::GetInst()->IsKey("LevelChange"))
 	{
 		GameEngineInput::GetInst()->CreateKey("LevelChange", 'P');

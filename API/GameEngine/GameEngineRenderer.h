@@ -5,6 +5,7 @@
 
 // Ό³Έν : 
 class GameEngineImage;
+class GameEngineFolderImage;
 class GameEngineRenderer : public GameEngineActorSubObject
 {
 	friend GameEngineActor;
@@ -80,6 +81,7 @@ private:
 	//=========================Animation========================
 public:
 	void CreateAnimation(const std::string& _Image, const std::string& _Name, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);
+	void CreateFolderAnimation(const std::string& _Image, const std::string& _Name, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);
 	void ChangeAnimation(const std::string& _Name);
 
 protected:
@@ -88,14 +90,15 @@ private:
 	class FrameAnimation
 	{
 	public:
-		GameEngineRenderer* Renderer_;
-		GameEngineImage*	Image_;
-		int					CurrentFrame_;
-		int					StartFrame_;
-		int					EndFrame_;
-		float				CurrentInterTime_;
-		float				InterTime_;
-		bool				Loop_;
+		GameEngineRenderer*		Renderer_;
+		GameEngineImage*		Image_;
+		GameEngineFolderImage*	FolderImage_;
+		int						CurrentFrame_;
+		int						StartFrame_;
+		int						EndFrame_;
+		float					CurrentInterTime_;
+		float					InterTime_;
+		bool					Loop_;
 
 		FrameAnimation()
 			: Image_(nullptr)
