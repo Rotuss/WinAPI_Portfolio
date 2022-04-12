@@ -25,8 +25,8 @@ void Floor1::Loading()
 		Actor->GetRenderer()->SetImage("floor01.bmp");
 
 		float4 BackActor = {};
-		BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x) - (GameEngineWindow::GetScale().Half().x);
-		BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y) - (GameEngineWindow::GetScale().Half().y);
+		BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
+		BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
 
 		Actor->GetRenderer()->SetPivot(BackActor);
 		Actor->CreateCollision("Next", { 100, 100 }, { 200, -300 });
@@ -34,7 +34,7 @@ void Floor1::Loading()
 	}
 
 	{
-		//PlayUI* Actor = CreateActor<PlayUI>(0);
+		PlayUI* Actor = CreateActor<PlayUI>(0);
 	}
 
 	{

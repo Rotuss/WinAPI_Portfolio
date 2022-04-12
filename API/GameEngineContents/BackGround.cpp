@@ -14,8 +14,8 @@ BackGround::~BackGround()
 
 void BackGround::Start()
 {
-	SetPosition(GameEngineWindow::GetScale().Half());
-	SetScale(GameEngineWindow::GetScale());
+	//SetPosition(GameEngineWindow::GetScale().Half());
+	//SetScale(GameEngineWindow::GetScale());
 
 	Image_ = CreateRenderer();
 }

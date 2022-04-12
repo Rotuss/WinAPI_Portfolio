@@ -92,11 +92,12 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(int _Order, RenderPivot _Piv
 	NewRenderer->SetActor(this);
 	if (_Order != static_cast<int>(EngineMax::RENDERORDERMAX))
 	{
-		NewRenderer->SetOrder(_Order);
+		// GameEngineUpdateObject:: 를 붙이지 않으면 렌더링 2배..
+		NewRenderer->GameEngineUpdateObject::SetOrder(_Order);
 	}
 	else
 	{
-		NewRenderer->SetOrder(GetOrder());
+		NewRenderer->GameEngineUpdateObject::SetOrder(GetOrder());
 	}
 	NewRenderer->SetPivotType(_PivotType);
 	NewRenderer->SetPivot(_PivotPos);

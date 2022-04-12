@@ -13,6 +13,7 @@
 Nick::Nick()
 	: Speed_(100.0f)
 	, Gravity_(100.0f)
+	, Time_(0.0f)
 {
 }
 
@@ -76,6 +77,15 @@ void Nick::StateUpdate()
 	default:
 		break;
 	}
+}
+
+// 키 반복 입력시 번거로움 덜어주는 함수
+void NickChangeAnimation(const std::string& _Name)
+{
+	//NickAnimationRender_->ChangeAnimation(_Name);
+	//NickAnimationRender_->ChangeAnimation(_Name);
+	//NickAnimationRender_->ChangeAnimation(_Name);
+	//NickAnimationRender_->ChangeAnimation(_Name);
 }
 
 void Nick::DirAnimationCheck()
@@ -262,6 +272,9 @@ void Nick::Render()
 	// GameEngine이 static인 이유? => 편함, 2개 띄울 필요가 X, 싱글톤과 유사
 	GameEngine::BackBufferImage()->BitCopyCenter(FindImage, GetPosition());
 	*/
+	Time_ += GameEngineTime::GetDeltaTime();
+	std::string Text = std::to_string(Time_);
+	TextOutA(GameEngine::BackBufferImage()->ImageDC(), 0, 0, Text.c_str(), Text.size());
 }
 
 void Nick::NextCheck()

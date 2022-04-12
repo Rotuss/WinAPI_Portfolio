@@ -4,6 +4,12 @@
 #include <GameEngine/GameEngineImage.h>
 #include <vector>
 
+struct TileIndex
+{
+public:
+	int X;
+	int Y;
+};
 // 설명 : 제한이 있는 타일맵
 class GameEngineImage;
 class GameEngineRendererTileMap
@@ -39,10 +45,15 @@ public:
 
 		Tiles_.resize(_Y);
 
-		for (size_t i = 0; i < Tiles_.size(); i++)
+		for (size_t y = 0; y < Tiles_.size(); ++y)
 		{
-			Tiles_[i].resize(_X);
-			memset(&Tiles_[i], 0, sizeof(int*) * _X);
+			Tiles_[y].resize(_X);
+			
+			for (size_t x = 0; x < Tiles_[y].size(); ++x)
+			{
+				Tiles_[y][x] = nullptr;
+			}
+			//memset(&Tiles_[i], 0, sizeof(int*) * _X);
 		}
 		TileScale_ = _TileScale;
 		TileScaleHalf_ = _TileScale.Half();
@@ -58,13 +69,13 @@ public:
 		{
 			MsgBoxAssert("0 이하의 인덱스는 존재할 수 없습니다.");
 		}
-		if (_Y <= Tiles_.size())
+		if (_Y >= Tiles_.size())
 		{
-			MsgBoxAssert("0 이하의 인덱스는 존재할 수 없습니다.");
+			MsgBoxAssert("범위를 넘길 수 없습니다.");
 		}
-		if (_X <= Tiles_[0].size())
+		if (_X >= Tiles_[0].size())
 		{
-			MsgBoxAssert("0 이하의 인덱스는 존재할 수 없습니다.");
+			MsgBoxAssert("범위를 넘길 수 없습니다.");
 		}
 		return Tiles_[_Y][_X];
 	}
@@ -74,12 +85,14 @@ public:
 	//	return GetTile(_X, _Y) = nullptr;
 	//}
 
+	GameEngineRenderer* CreateTile(const float4& _Pos, const std::string& _Image, int _Order = static_cast<int>(EngineMax::RENDERORDERMAX));
 	// 타일 이미지가 하나씩 있을 때
-	GameEngineRenderer* CreateTile(int _X, int _Y, const std::string& _Image);
+	GameEngineRenderer* CreateTile(int _X, int _Y, const std::string& _Image, int _Order = static_cast<int>(EngineMax::RENDERORDERMAX));
 	// 타일 이미지가 하나에 모여 있지만 Cut했을 때
-	GameEngineRenderer* CreateTile(int _X, int _Y, const std::string& _Image, int _Index);
+	GameEngineRenderer* CreateTile(int _X, int _Y, const std::string& _Image, int _Index, int _Order = static_cast<int>(EngineMax::RENDERORDERMAX));
 	void DeleteTile(int _X, int _Y);
 	float4 GetWorldPosition(int _X, int _Y);
+	TileIndex GetTileIndex(const float4& _Pos);
 
 protected:
 
