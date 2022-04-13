@@ -5,7 +5,8 @@
 // GameEngine -> 속성 -> C/C++ -> 추가 포함 디렉터리(..\;)
 // +) GameEngine(참조) -> 참조 추가 -> GameEngineBase
 // GameEngine -> 속성 -> 일반 -> 구성 형식(정적 라이브러리)
-
+// GameEngine -> 속성 -> 일반 -> 출력 디렉터리 복사 -> VC++ 디렉터리 -> 라이브러리 디렉터리 붙여넣기
+// 
 // 게임엔진이란? => 게임 그 자체의 시작점과 끝점 실행중을 담당. 인터페이스만 제공
 // 설명 : 
 class GameEngineImage;

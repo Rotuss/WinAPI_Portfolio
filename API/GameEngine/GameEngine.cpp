@@ -4,6 +4,7 @@
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
+#include <GameEngineBase/GameEngineSound.h>
 
 // 초기화
 std::map<std::string, GameEngineLevel*> GameEngine::AllLevel_;
@@ -98,6 +99,7 @@ void GameEngine::EngineLoop()
 	{
 		MsgBoxAssert("Level is nullptr => GameEngine Loop Error");
 	}
+	GameEngineSound::Update();
 	GameEngineInput::GetInst()->Update(GameEngineTime::GetInst()->GetDeltaTime());
 	// (시간제한이 있는 게임이라면)레벨수준에서 매 프레임마다 시간을 체크하는 일
 	CurrentLevel_->Update();
@@ -124,6 +126,7 @@ void GameEngine::EngineEnd()
 		}
 		delete StartIter->second;
 	}
+	GameEngineSound::AllResourcesDestroy();
 	GameEngineImageManager::Destroy();
 	GameEngineWindow::Destroy();
 	GameEngineInput::Destroy();

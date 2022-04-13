@@ -1,4 +1,5 @@
 #pragma once
+#include <GameEngineBase/GameEngineSound.h>
 #include <GameEngine/GameEngineLevel.h>
 
 // Ό³Έν : 
@@ -14,6 +15,9 @@ public:
 	Floor1(Floor1&& _Other) noexcept = delete;
 	Floor1& operator=(const Floor1& _Other) = delete;
 	Floor1& operator=(Floor1&& _Other) noexcept = delete;
+
+	float Time_;
+	GameEngineSoundPlayer BgmPlayer_;
 
 protected:
 	void Loading() override;

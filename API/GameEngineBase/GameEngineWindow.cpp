@@ -1,7 +1,8 @@
 #include "GameEngineWindow.h"
 // GameEngineBase가 exe 파일 만들 필요X. => 라이브러리 프로젝트
 // GameEngineBase -> 속성 -> 일반 -> 구성 형식(정적 라이브러리)
-
+// GameEngineBase -> 속성 -> 일반 -> 출력 디렉터리 복사 -> VC++ 디렉터리 -> 라이브러리 디렉터리 붙여넣기
+// 
 // HWND hWnd    : 어떤 윈도우에 무슨 일이 생겼는지 그 윈도우의 핸들
 // UINT message : 그 메시지의 종류가 무엇인지
 // WPARAM wParam

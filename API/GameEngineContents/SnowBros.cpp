@@ -9,6 +9,7 @@
 #include <GameEngineBase/GameEngineDirectory.h>
 #include <GameEngineBase/GameEngineFile.h>
 #include <GameEngineBase/GameEngineInput.h>
+#include <GameEngineBase/GameEngineSound.h>
 #include <GameEngine/GameEngineImageManager.h>
 
 SnowBros::SnowBros()
@@ -35,6 +36,21 @@ void SnowBros::GameInit()
 		for (size_t i = 0; i < AllImageFileList.size(); ++i)
 		{
 			GameEngineImageManager::GetInst()->Load(AllImageFileList[i].GetFullPath());
+		}
+	}
+	{
+		// 현재 디렉터리
+		GameEngineDirectory ResourcesDir;
+		ResourcesDir.MoveParent("API");
+		ResourcesDir.Move("Resources");
+		ResourcesDir.Move("Sound");
+
+		// 폴더 안에 모든 이미지 파일을 찾음
+		std::vector<GameEngineFile> AllImageFileList = ResourcesDir.GetAllFile();
+
+		for (size_t i = 0; i < AllImageFileList.size(); ++i)
+		{
+			GameEngineSound::LoadRes(AllImageFileList[i].GetFullPath());
 		}
 	}
 	// 폴더 이미지로 이용할 경우

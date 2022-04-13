@@ -6,6 +6,7 @@
 #include "PlayUI.h"
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineWindow.h>
+#include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngine.h>
 #include <GameEngine/GameEngineRenderer.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -49,8 +50,15 @@ void Floor1::Update()
 	{
 		GameEngine::GetInst().ChangeLevel("Floor2");
 	}
+	Time_ -= GameEngineTime::GetDeltaTime();
+	if (0 >= Time_)
+	{
+		BgmPlayer_.Stop();
+	}
 }
 
 void Floor1::LevelChangeStart()
 {
+	BgmPlayer_ = GameEngineSound::SoundPlayControl("bgm.mp3");
+	Time_ = 5.0f;
 }
