@@ -11,7 +11,9 @@
 #include <GameEngine/GameEngineCollision.h>
 
 Nick::Nick()
-	: Speed_(100.0f)
+	: MoveDir_(float4::ZERO)
+	, Speed_(500.0f)
+	, AccSpeed_(500.0f)
 	, Gravity_(100.0f)
 	, Time_(0.0f)
 {
@@ -24,10 +26,10 @@ Nick::~Nick()
 // 아무런 키도 눌리지 않았다면 false, 어떤 키든 눌렸다면 true
 bool Nick::IsMoveKey()
 {
-	if (false == GameEngineInput::GetInst()->IsDown("MoveLeft") &&
-		false == GameEngineInput::GetInst()->IsDown("MoveRight") &&
-		false == GameEngineInput::GetInst()->IsDown("MoveUp") &&
-		false == GameEngineInput::GetInst()->IsDown("MoveDown"))
+	if (false == GameEngineInput::GetInst()->IsPress("MoveLeft") &&
+		false == GameEngineInput::GetInst()->IsPress("MoveRight") &&
+		false == GameEngineInput::GetInst()->IsPress("MoveUp") &&
+		false == GameEngineInput::GetInst()->IsPress("MoveDown"))
 	{
 		return false;
 	}
@@ -45,6 +47,9 @@ void Nick::ChangeState(NickState _State)
 			break;
 		case NickState::MOVE:
 			MoveStart();
+			break;
+		case NickState::JUMP:
+			JumpStart();
 			break;
 		case NickState::ATTACK:
 			AttackStart();
@@ -68,6 +73,9 @@ void Nick::StateUpdate()
 		break;
 	case NickState::MOVE:
 		MoveUpdate();
+		break;
+	case NickState::JUMP:
+		JumpUpdate();
 		break;
 	case NickState::ATTACK:
 		AttackUpdate();

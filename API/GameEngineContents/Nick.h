@@ -45,8 +45,10 @@ protected:
 	void DirAnimationCheck();
 
 private:
+	float4 MoveDir_;
 	float Time_;
 	float Speed_;
+	float AccSpeed_;
 	float Gravity_;
 	float AccGravity_;
 

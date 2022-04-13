@@ -12,7 +12,7 @@ class GameEngineRandom
 
 	// 유니폼
 	// 제한
-	std::uniform_int_distribution<int> Uniform_;
+	//std::uniform_int_distribution<int> Uniform_;
 
 public:
 	// constrcuter destructer
@@ -24,6 +24,18 @@ public:
 	GameEngineRandom(GameEngineRandom&& _Other) noexcept = delete;
 	GameEngineRandom& operator=(const GameEngineRandom& _Other) = delete;
 	GameEngineRandom& operator=(GameEngineRandom&& _Other) noexcept = delete;
+
+	int RandomInt(int _Min, int _Max)
+	{
+		std::uniform_int_distribution<int> Uniform_(_Min, _Max);
+		return Uniform_(mt_);
+	}
+	float RandomFloat(float _Min, float _Max)
+	{
+		// 실수는 생성기가 Real
+		std::uniform_real_distribution<float> Uniform_(_Min, _Max);
+		return Uniform_(mt_);
+	}
 
 protected:
 

@@ -18,6 +18,11 @@ void Nick::IdleUpdate()
 		return;
 	}
 
+	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
+	{
+		ChangeState(NickState::JUMP);
+		return;
+	}
 	if (true == GameEngineInput::GetInst()->IsDown("SnowBullet"))
 	{
 		ChangeState(NickState::ATTACK);
@@ -31,30 +36,67 @@ void Nick::MoveUpdate()
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
 		// -1.0f * DT
-		MoveDir_ = float4::LEFT;
+		//MoveDir_ = float4::LEFT;
+		MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
-		MoveDir_ = float4::RIGHT;
+		//MoveDir_ = float4::RIGHT;
+		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveUp"))
 	{
-		MoveDir_ = float4::UP;
+		//MoveDir_ = float4::UP;
+		MoveDir_ += float4::UP * GameEngineTime::GetDeltaTime() * AccSpeed_;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveDown"))
 	{
-		MoveDir_ = float4::DOWN;
+		//MoveDir_ = float4::DOWN;
+		MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 	}
+	if (0.3f <= MoveDir_.Len2D())
+	{
+		MoveDir_.Range2D(0.3f);
+	}
+	//MoveDir_ *= 0.9f;
 
+	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
+	{
+		ChangeState(NickState::JUMP);
+		return;
+	}
 	if (true == GameEngineInput::GetInst()->IsDown("SnowBullet"))
 	{
 		ChangeState(NickState::ATTACK);
 		return;
 	}
+	if (false == IsMoveKey())
+	{
+		MoveDir_ += -MoveDir_ * GameEngineTime::GetDeltaTime();
+		if (0.005f >= MoveDir_.Len2D())
+		{
+			MoveDir_ = float4::ZERO;
+			return;
+		}
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		return;
+	}
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 }
 
 void Nick::JumpUpdate()
 {
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
+	{
+		MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+	}
+	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
+	{
+		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+	}
+
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 }
 
 void Nick::AttackUpdate()
@@ -88,6 +130,7 @@ void Nick::MoveStart()
 
 void Nick::JumpStart()
 {
+	MoveDir_ = float4::UP * 500.0f;
 }
 
 void Nick::AttackStart()
