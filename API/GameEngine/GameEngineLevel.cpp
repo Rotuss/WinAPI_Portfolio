@@ -59,6 +59,15 @@ void GameEngineLevel::ActorUpdate()
 			(*StartActor)->Update();
 		}
 	}
+	// 체인지 오더 단계 ( 장점 : 업데이트에 영향을 안 줌, 단점 : 메모리를 좀 더 씀)
+	for (size_t i = 0; i < ChangeOrderList.size(); ++i)
+	{
+		ChangeOrderItem& Data = ChangeOrderList[i];
+		AllActor_[Data.TargetObject->GetOrder()].remove(Data.TargetObject);
+		Data.TargetObject->GameEngineUpdateObject::SetOrder(Data.ChangeOrder);
+		AllActor_[Data.TargetObject->GetOrder()].push_back(Data.TargetObject);
+	}
+	ChangeOrderList.clear();
 }
 
 void GameEngineLevel::ActorRender()
@@ -242,6 +251,15 @@ void GameEngineLevel::ActorRelease()
 	}
 }
 
+void GameEngineLevel::ChangeUpdateOrder(GameEngineActor* _Actor, int _NewOrder)
+{
+	if (_Actor->GetOrder() == _NewOrder)
+	{
+		return;
+	}
+	ChangeOrderList.push_back({ _Actor , _NewOrder });
+}
+
 void GameEngineLevel::AddRenderer(GameEngineRenderer* _Renderer)
 {
 	AllRenderer_[_Renderer->GetOrder()].push_back(_Renderer);
@@ -249,6 +267,10 @@ void GameEngineLevel::AddRenderer(GameEngineRenderer* _Renderer)
 
 void GameEngineLevel::ChangeRenderOrder(GameEngineRenderer* _Renderer, int _NewOrder)
 {
+	if (_Renderer->GetOrder() == _NewOrder)
+	{
+		return;
+	}
 	AllRenderer_[_Renderer->GetOrder()].remove(_Renderer);
 	_Renderer->GameEngineUpdateObject::SetOrder(_NewOrder);
 	AllRenderer_[_Renderer->GetOrder()].push_back(_Renderer);

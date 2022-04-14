@@ -3,8 +3,17 @@
 #include <GameEngineBase/GameEngineMath.h>
 #include <map>
 #include <list>
+#include <vector>
 
 // 설명 : 화면을 등장! 오브젝트 관리 방법(map과 list)
+class GameEngineActor;
+struct ChangeOrderItem
+{
+	// TargetObject을 ChangeOrder으로 바꿔라
+	GameEngineActor* TargetObject;
+	int ChangeOrder;
+};
+
 class GameEngine;
 class GameEngineActor;
 class GameEngineCollision;
@@ -33,7 +42,7 @@ public:
 	{
 		ActorType* NewActor = new ActorType();
 		GameEngineActor* StartActor = NewActor;
-		NewActor->SetOrder(_Order);
+		NewActor->GameEngineUpdateObject::SetOrder(_Order);
 		NewActor->SetName(_Name);
 		NewActor->SetLevel(this);
 		StartActor->Start();
@@ -86,6 +95,7 @@ private:
 	// map으로 먼저 0번 1번 등이 있는지 확인 없으면 만들어주면 됨. 즉 순서를 정해주기 위함
 	// 그럼 list를 한 이유? => 그냥 list로 사용한게 편하고 익숙해서
 	std::map<int, std::list<GameEngineActor*>> AllActor_;
+	std::vector<ChangeOrderItem> ChangeOrderList;
 	// 이 부분을 사용하는건 최악의 수
 	//std::map<std::string, std::list<GameEngineActor*>> AllActor_;
 
@@ -101,6 +111,8 @@ private:
 	// 삭제는 Actor가 하지만, 실제 사용은 Level. 따라서 여기서 함부로 GameEngineCollision*을 delete하는 일이 있으면 안됨
 	std::map<std::string, std::list<GameEngineCollision*>> AllCollision_;
 
+	void ChangeUpdateOrder(GameEngineActor* _Actor, int _NewOrder);
+	
 	void AddRenderer(GameEngineRenderer* _Renderer);
 	void ChangeRenderOrder(GameEngineRenderer* _Renderer, int _NewOrder);
 	void AddCollision(const std::string& _GroupName, GameEngineCollision* _Collision);

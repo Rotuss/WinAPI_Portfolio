@@ -63,6 +63,8 @@ public:
 		Scale_ = _Value;
 	}
 
+	void SetOrder(int _Order) override;
+
 protected:
 	// 시점함수들은 protected로
 
