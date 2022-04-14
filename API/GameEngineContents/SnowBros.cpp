@@ -45,12 +45,12 @@ void SnowBros::GameInit()
 		ResourcesDir.Move("Resources");
 		ResourcesDir.Move("Sound");
 
-		// 폴더 안에 모든 이미지 파일을 찾음
-		std::vector<GameEngineFile> AllImageFileList = ResourcesDir.GetAllFile();
+		// 폴더 안에 모든 사운드 파일을 찾음
+		std::vector<GameEngineFile> AllSoundFileList = ResourcesDir.GetAllFile();
 
-		for (size_t i = 0; i < AllImageFileList.size(); ++i)
+		for (size_t i = 0; i < AllSoundFileList.size(); ++i)
 		{
-			GameEngineSound::LoadRes(AllImageFileList[i].GetFullPath());
+			GameEngineSound::LoadRes(AllSoundFileList[i].GetFullPath());
 		}
 	}
 	// 폴더 이미지로 이용할 경우

@@ -79,6 +79,23 @@ public:
 		return { x * 0.5f , y * 0.5f , z * 0.5f , 1.0f };
 	}
 
+	//==========================================================
+
+	bool IsZero2D() const
+	{
+		return x == 0.0f && y == 0.0f;
+	}
+
+	bool CompareInt2D(const float4& _Value)
+	{
+		return ix() == _Value.ix() && iy() == _Value.iy();
+	}
+
+	bool CompareInt3D(const float4& _Value)
+	{
+		return ix() == _Value.ix() && iy() == _Value.iy() && iz() == _Value.iz();
+	}
+
 	float Len2D() const
 	{
 		return sqrtf((x * x) + (y * y));
@@ -102,13 +119,6 @@ public:
 		x *= _Max;
 		y *= _Max;
 		return;
-	}
-
-	//==========================================================
-
-	bool IsZero2D() const
-	{
-		return x == 0.0f && y == 0.0f;
 	}
 
 	//==========================================================

@@ -82,6 +82,7 @@ private:
 public:
 	void CreateAnimation(const std::string& _Image, const std::string& _Name, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);
 	void CreateFolderAnimation(const std::string& _Image, const std::string& _Name, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);
+	void CreateFolderAnimationTimeKey(const std::string& _Image, const std::string& _Name, int _TimeScaleKey, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);
 	void ChangeAnimation(const std::string& _Name);
 	bool IsEndAnimation();
 	bool IsAnimationName(const std::string& _Name);
@@ -98,6 +99,7 @@ private:
 		int						CurrentFrame_;
 		int						StartFrame_;
 		int						EndFrame_;
+		int						TimeKey_;
 		float					CurrentInterTime_;
 		float					InterTime_;
 		bool					Loop_;
