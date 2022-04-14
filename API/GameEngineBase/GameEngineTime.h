@@ -35,6 +35,10 @@ public:
 
 	float GetTimeScale(int _Key)
 	{
+		if (TimeScale_.end() == TimeScale_.find(_Key))
+		{
+			TimeScale_[_Key] = 1.0f;
+		}
 		return TimeScale_[_Key];
 	}
 	

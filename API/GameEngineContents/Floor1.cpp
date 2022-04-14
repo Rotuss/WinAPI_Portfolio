@@ -50,11 +50,13 @@ void Floor1::Update()
 	{
 		GameEngine::GetInst().ChangeLevel("Floor2");
 	}
+	/*
 	Time_ -= GameEngineTime::GetDeltaTime();
 	if (0 >= Time_)
 	{
 		BgmPlayer_.Stop();
 	}
+	*/
 }
 
 void Floor1::LevelChangeStart()

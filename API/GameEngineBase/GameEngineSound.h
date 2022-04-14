@@ -27,7 +27,7 @@ private:
 public:
 	// 사운드 재생 1회(도중에 멈춤 불가)
 	static GameEngineSoundPlayer SoundPlayControl(const std::string& _Name);
-	static void SoundPlayOneShot(const std::string& _Name);
+	static void SoundPlayOneShot(const std::string& _Name, int _LoopCount = 0);
 	static void Update();
 
 protected:

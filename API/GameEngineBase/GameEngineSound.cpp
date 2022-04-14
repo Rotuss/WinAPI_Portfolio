@@ -42,6 +42,7 @@ GameEngineSound::~GameEngineSound()
 
 bool GameEngineSound::Load(const std::string& _Path)
 {
+    // FMOD_LOOP_NORMAL : 반복 재생, FMOD_DEFAULT : 기본 재생
     if (FMOD_OK != SoundSystem_->createSound(_Path.c_str(), FMOD_LOOP_NORMAL, nullptr, &Sound))
     {
         MsgBoxAssertString(_Path + "사운드 로드에 실패했습니다.");
@@ -65,7 +66,7 @@ GameEngineSoundPlayer GameEngineSound::SoundPlayControl(const std::string& _Name
     return GameEngineSoundPlayer(FindSound, PlayControl);
 }
 
-void GameEngineSound::SoundPlayOneShot(const std::string& _Name)
+void GameEngineSound::SoundPlayOneShot(const std::string& _Name, int _LoopCount)
 {
     std::string UpperName = GameEngineString::ToUpperReturn(_Name);
     GameEngineSound* FindSound = FindRes(UpperName);
@@ -74,7 +75,9 @@ void GameEngineSound::SoundPlayOneShot(const std::string& _Name)
         MsgBoxAssert("존재하지 않는 사운드를 재생하려 했습니다.");
         return;
     }
-    SoundSystem_->playSound(FindSound->Sound, nullptr, false, nullptr);
+    FMOD::Channel* PlayControl = nullptr;
+    SoundSystem_->playSound(FindSound->Sound, nullptr, false, &PlayControl);
+    PlayControl->setLoopCount(_LoopCount);
 }
 
 void GameEngineSound::Update()

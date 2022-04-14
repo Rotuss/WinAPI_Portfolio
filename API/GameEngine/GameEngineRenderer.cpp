@@ -44,6 +44,7 @@ void GameEngineRenderer::SetImageScale()
 	ScaleMode_ = RenderScaleMode::IMAGE;
 	RenderScale_ = Image_->GetScale();
 	RenderImageScale_ = Image_->GetScale();
+	RenderImagePivot_ = float4::ZERO;
 }
 
 void GameEngineRenderer::SetIndex(size_t _Index, const float4& _Scale)
@@ -213,8 +214,15 @@ void GameEngineRenderer::ChangeAnimation(const std::string& _Name)
 		MsgBoxAssert("존재하지 않는 애니메이션으로 바꾸려고 했습니다.");
 		return;
 	}
-
+	if (nullptr != CurrentAnimation_ && CurrentAnimation_->GetNameConstPtr() == _Name)
+	{
+		return;
+	}
 	CurrentAnimation_ = &FindIter->second;
+	if (nullptr != CurrentAnimation_)
+	{
+		CurrentAnimation_->Reset();
+	}
 }
 
 bool GameEngineRenderer::IsEndAnimation()

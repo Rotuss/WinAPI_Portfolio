@@ -44,12 +44,28 @@ public:
 	{
 		TransColor_ = _Color;
 	}
-	
+	void SetOrder(int _Order) override;
+
 	inline GameEngineImage* GetImage()
 	{
 		return Image_;
 	}
-
+	inline float4 GetPivot()
+	{
+		return RenderPivot_;
+	}
+	inline float4 GetImagePivot()
+	{
+		return RenderImagePivot_;
+	}
+	inline float4 GetScale()
+	{
+		return RenderScale_;
+	}
+	inline float4 GetImageScale()
+	{
+		return RenderImageScale_;
+	}
 	void CameraEffectOn()
 	{
 		IsCameraEffect_ = true;
@@ -58,8 +74,6 @@ public:
 	{
 		IsCameraEffect_ = false;
 	}
-
-	void SetOrder(int _Order) override;
 
 protected:
 	void Render();
@@ -109,6 +123,7 @@ private:
 			, CurrentFrame_(-1)
 			, StartFrame_(-1)
 			, EndFrame_(-1)
+			, TimeKey_(0)
 			, CurrentInterTime_(0.1f)
 			, InterTime_(0.1f)
 			, Loop_(true)
