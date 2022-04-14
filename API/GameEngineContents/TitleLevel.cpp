@@ -1,9 +1,13 @@
 #include "TitleLevel.h"
-#include "TitleBackGround.h"
-#include "TitleLogo.h"
+#include "BackGround.h"
+#include "ContentsEnums.h"
+#include "PlayUI.h"
 #include <GameEngineBase/GameEngineInput.h>
+#include <GameEngineBase/GameEngineWindow.h>
+#include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngine.h>
-
+#include <GameEngine/GameEngineRenderer.h>
+#include <GameEngine/GameEngineImageManager.h>
 TitleLevel::TitleLevel()
 {
 }
@@ -14,8 +18,15 @@ TitleLevel::~TitleLevel()
 
 void TitleLevel::Loading()
 {
-	CreateActor<TitleBackGround>(0);
-	CreateActor<TitleLogo>(1);
+	{
+		BackGround* Actor = CreateActor<BackGround>(0);
+		Actor->GetRenderer()->SetImage("MainTitle.bmp");
+
+		float4 BackActor = {};
+		BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
+		BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
+		Actor->GetRenderer()->SetPivot(BackActor);
+	}
 }
 
 void TitleLevel::Update()

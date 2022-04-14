@@ -23,7 +23,7 @@ void Floor1::Loading()
 {
 	{
 		BackGround* Actor = CreateActor<BackGround>(0);
-		Actor->GetRenderer()->SetImage("floor01.bmp");
+		Actor->GetRenderer()->SetImage("Floor1.bmp");
 
 		float4 BackActor = {};
 		BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
@@ -40,7 +40,7 @@ void Floor1::Loading()
 
 	{
 		Nick* Player = CreateActor<Nick>((int)ORDER::PLAYER, "Player");
-		Player->SetPosition({100.0f, 100.0f});
+		Player->SetPosition({400,730});
 	}
 }
 
@@ -61,6 +61,6 @@ void Floor1::Update()
 
 void Floor1::LevelChangeStart()
 {
-	BgmPlayer_ = GameEngineSound::SoundPlayControl("bgm.mp3");
+	//BgmPlayer_ = GameEngineSound::SoundPlayControl("bgm.mp3");
 	Time_ = 5.0f;
 }

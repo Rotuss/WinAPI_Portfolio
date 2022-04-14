@@ -81,7 +81,20 @@ void Nick::MoveUpdate()
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 		return;
 	}
-	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	
+	float4 CheckPos_;
+	{
+		float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		float4 CheckPos = NextPos + float4(0.0f, 45.0f);
+
+		int Color = FloorColImage_->GetImagePixel(CheckPos);
+
+		if (RGB(0, 0, 0) != Color)
+		{
+			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		}
+	}
+	//SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 }
 
 void Nick::JumpUpdate()

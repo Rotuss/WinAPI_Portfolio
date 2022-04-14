@@ -98,25 +98,23 @@ void NickChangeAnimation(const std::string& _Name)
 
 void Nick::DirAnimationCheck()
 {
-	std::string ChangeName_;
-
 	NickDir CheckDir_ = CurrentDir_;
-	std::string ChangeDirText = "Right";
 
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
 		CheckDir_ = NickDir::RIGHT;
-		ChangeDirText = "Right";
+		ChangeDirText_ = "Right";
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
 		CheckDir_ = NickDir::LEFT;
-		ChangeDirText = "Left";
+		ChangeDirText_ = "Left";
 	}
 
 	if (CheckDir_ != CurrentDir_)
 	{
-		NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText);
+		NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+		CurrentDir_ = CheckDir_;
 	}
 }
 
@@ -130,6 +128,7 @@ void Nick::Start()
 	//Render->SetIndex(0);
 	//Render->SetPivotType(RenderPivot::BOT);
 
+	// 콜리전 히트박스
 	PlayerCollision_ = CreateCollision("PlayerHitBox", {100, 100});
 
 	// 애니메이션
@@ -160,6 +159,12 @@ void Nick::Start()
 		GameEngineInput::GetInst()->CreateKey("Jump", VK_LSHIFT);
 		GameEngineInput::GetInst()->CreateKey("SnowBullet", VK_SPACE);
 	}
+
+	FloorColImage_ = GameEngineImageManager::GetInst()->Find("Colfloor01.bmp");
+	if (nullptr == FloorColImage_)
+	{
+		MsgBoxAssert("Floor 충돌용 이미지를 찾지 못했습니다.");
+	}
 }
 
 void Nick::Update()
@@ -168,45 +173,9 @@ void Nick::Update()
 	
 	DirAnimationCheck();
 	StateUpdate();
-	FloorColImage_ = GameEngineImageManager::GetInst()->Find("Colfloor01.bmp");
-	if (nullptr == FloorColImage_)
-	{
-		MsgBoxAssert("Floor 충돌용 이미지를 찾지 못했습니다.");
-	}
 
-	float4 CheckPos_;
-	float4 MoveDir_ = float4::ZERO;
-	/*
-	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
-	{
-		MoveDir_ = float4::LEFT;
-	}
-	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
-	{
-		MoveDir_ = float4::RIGHT;
-	}
-	if (true == GameEngineInput::GetInst()->IsPress("MoveUp"))
-	{
-		MoveDir_ = float4::UP;
-	}
-	if (true == GameEngineInput::GetInst()->IsPress("MoveDown"))
-	{
-		MoveDir_ = float4::DOWN;
-	}
-	*/
-	{
-		float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-		float4 CheckPos = NextPos + float4(0.0f, 50.0f);
-
-		int Color = FloorColImage_->GetImagePixel(CheckPos);
-
-		if (RGB(0, 0, 0) != Color)
-		{
-			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-		}
-	}
 	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half());
-	
+
 	if (0 > GetLevel()->GetCameraPos().x)
 	{
 		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
@@ -236,6 +205,7 @@ void Nick::Update()
 		CurrentCameraPos.y = GetLevel()->GetCameraPos().y - (GetLevel()->GetCameraPos().y + CameraRectY - FloorScaleY);
 		GetLevel()->SetCameraPos(CurrentCameraPos);
 	}
+
 	NextCheck();
 	WallCheck();
 	// 중력 적용 => 뮨제?(중력 적용하여 땅에 닿을 경우 좌우 움직임이 막혀 움직일 수 없음)

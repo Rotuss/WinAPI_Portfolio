@@ -21,7 +21,7 @@ SnowBros::~SnowBros()
 void SnowBros::GameInit()
 {
 	// 원본사이즈 * 4
-	GameEngineWindow::GetInst().SetWindowScaleAndPosition({ 100, 30 }, { 1024, 964 });
+	GameEngineWindow::GetInst().SetWindowScaleAndPosition({ 100, 30 }, { 1024, 896 });
 	
 	{
 		// 현재 디렉터리
@@ -82,7 +82,7 @@ void SnowBros::GameInit()
 	CreateLevel<Floor3>("Floor3");
 	CreateLevel<BossFloor>("BossFloor");
 	CreateLevel<EndingLevel>("Ending");
-	ChangeLevel("Floor1");
+	ChangeLevel("Title");
 }
 
 void SnowBros::GameLoop()

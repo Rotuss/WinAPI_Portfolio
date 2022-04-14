@@ -40,8 +40,6 @@ public:
 	void StateUpdate();
 
 protected:
-	NickDir CurrentDir_;
-	
 	void DirAnimationCheck();
 
 private:
@@ -55,7 +53,9 @@ private:
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	PlayerCollision_;
 	GameEngineRenderer*		NickAnimationRender_;
+	NickDir					CurrentDir_;
 	std::string				AnimationName_;
+	std::string				ChangeDirText_;
 
 	void Start() override;
 	void Update() override;
