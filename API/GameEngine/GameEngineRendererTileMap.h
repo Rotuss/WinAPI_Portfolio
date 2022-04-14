@@ -10,6 +10,22 @@ public:
 	int X;
 	int Y;
 };
+class GameEngineImage;
+class GameEngineRendererTileMap;
+class Tile
+{
+	friend GameEngineRendererTileMap;
+public:
+	virtual ~Tile() = 0
+	{
+
+	}
+
+protected:
+
+private:
+	GameEngineRenderer* Renderer;
+};
 // 설명 : 제한이 있는 타일맵
 class GameEngineImage;
 class GameEngineRendererTileMap
@@ -30,6 +46,7 @@ public:
 	GameEngineRendererTileMap& operator=(const GameEngineRendererTileMap& _Other) = delete;
 	GameEngineRendererTileMap& operator=(GameEngineRendererTileMap&& _Other) noexcept = delete;
 
+	// 타일 맵을 맵 전체에 생성
 	void TileRangeSetting(int _X, int _Y, float4 _TileScale)
 	{
 		if (0 >= _X)
@@ -59,7 +76,8 @@ public:
 		TileScaleHalf_ = _TileScale.Half();
 	}
 
-	GameEngineRenderer* GetTile(int _X, int _Y)
+	template<typename TileType>
+	TileType* GetTile(int _X, int _Y)
 	{
 		if (0 > _X)
 		{
@@ -77,19 +95,48 @@ public:
 		{
 			MsgBoxAssert("범위를 넘길 수 없습니다.");
 		}
-		return Tiles_[_Y][_X];
+		return reinterpret_cast<TileType*>(Tiles_[_Y][_X]);
 	}
 
-	//bool IsTile(int _X, int _Y)
-	//{
-	//	return GetTile(_X, _Y) = nullptr;
-	//}
+	bool IsTile(int _X, int _Y)
+	{
+		return GetTile<Tile>(_X, _Y) == nullptr;
+	}
 
-	GameEngineRenderer* CreateTile(const float4& _Pos, const std::string& _Image, int _Order = static_cast<int>(EngineMax::RENDERORDERMAX));
+	template<typename TileType>
+	TileType* CreateTile(const float4& _Pos, const std::string& _Image, int _Order = static_cast<int>(EngineMax::RENDERORDERMAX))
+	{
+		TileIndex Index = GetTileIndex(_Pos);
+		return CreateTile<TileType>(Index.X, Index.Y, _Image);
+	}
 	// 타일 이미지가 하나씩 있을 때
-	GameEngineRenderer* CreateTile(int _X, int _Y, const std::string& _Image, int _Order = static_cast<int>(EngineMax::RENDERORDERMAX));
+	template<typename TileType>
+	TileType* CreateTile(int _X, int _Y, const std::string& _Image, int _Order = static_cast<int>(EngineMax::RENDERORDERMAX))
+	{
+		Tile* FindTile = GetTile<Tile>(_X, _Y);
+		if (nullptr == FindTile)
+		{
+			FindTile = new TileType();
+			FindTile->Renderer = Master_->CreateRenderer(_Image, _Order);
+		}
+		else
+		{
+			FindTile->Renderer->SetImage(_Image);
+		}
+		FindTile->Renderer->SetPivot(GetWorldPosition(_X, _Y));
+		Tiles_[_Y][_X] = FindTile;
+
+		return reinterpret_cast<TileType*>(FindTile);
+	}
 	// 타일 이미지가 하나에 모여 있지만 Cut했을 때
-	GameEngineRenderer* CreateTile(int _X, int _Y, const std::string& _Image, int _Index, int _Order = static_cast<int>(EngineMax::RENDERORDERMAX));
+	template<typename TileType>
+	TileType* CreateTile(int _X, int _Y, const std::string& _Image, int _Index, int _Order = static_cast<int>(EngineMax::RENDERORDERMAX))
+	{
+		TileType* Tile = CreateTile(_X, _Y, _Image);
+		Tile->Renderer->SetIndex(_Index);
+		Tile->Renderer->SetPivot(GetWorldPosition(_X, _Y));
+		return reinterpret_cast<TileType*>(Tile);
+	}
 	void DeleteTile(int _X, int _Y);
 	float4 GetWorldPosition(int _X, int _Y);
 	TileIndex GetTileIndex(const float4& _Pos);
@@ -97,7 +144,8 @@ public:
 protected:
 
 private:
-	std::vector<std::vector<GameEngineRenderer*>> Tiles_;
+	//std::vector<std::vector<GameEngineRenderer*>> Tiles_;
+	std::vector<std::vector<Tile*>> Tiles_;
 	GameEngineActor* Master_;
 
 	// 타일 1칸의 크기

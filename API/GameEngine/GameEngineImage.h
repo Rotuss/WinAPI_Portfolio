@@ -44,6 +44,9 @@ public:
 	// Trans
 	void TransCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyScale, const float4& _OtherPivot, const float4& _OtherScale, unsigned int _TransColor);
 
+	// Alpha
+	void AlphaCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyScale, const float4& _OtherPivot, const float4& _OtherScale, unsigned int _Alpha);
+	
 	void Cut(const float4& _CutScale);
 	inline void Cut(const float4& _CutScale, const float4& _CutPos)
 	{

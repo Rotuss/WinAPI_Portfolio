@@ -44,6 +44,15 @@ public:
 	{
 		TransColor_ = _Color;
 	}
+	inline void SetAlpha(unsigned int _Alpha)
+	{
+		Alpha_ = _Alpha;
+
+		if (Alpha_ >= 255)
+		{
+			Alpha_ = 255;
+		}
+	}
 	void SetOrder(int _Order) override;
 
 	inline GameEngineImage* GetImage()
@@ -89,6 +98,7 @@ private:
 	float4				RenderScale_;				// 화면에 그려지는 크기
 	float4				RenderImageScale_;			// 이미지에서 잘라내는 크기
 	unsigned int		TransColor_;
+	unsigned int		Alpha_;
 
 	bool				IsCameraEffect_;
 

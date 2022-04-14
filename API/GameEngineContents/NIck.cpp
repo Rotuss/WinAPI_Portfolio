@@ -144,7 +144,13 @@ void Nick::Start()
 	CurrentDir_ = NickDir::RIGHT;
 	//CreateRenderer("Snow_Bullet.bmp");
 	//CreateRendererToScale("HPBar.bmp", float4(300.0f, 20.0f), RenderPivot::CENTER, float4(0.0f, -100.0f));
-
+	
+	// 알파 확인차 임시 생성
+	/*
+	Render_ = CreateRendererToScale("Idle.bmp", {300,300}, 100);
+	Render_->SetPivot({ 100.0f,0.0f });
+	Render_->SetAlpha(100);
+	*/
 	if (false == GameEngineInput::GetInst()->IsKey("MoveLeft"))
 	{
 		GameEngineInput::GetInst()->CreateKey("MoveLeft", 'A');

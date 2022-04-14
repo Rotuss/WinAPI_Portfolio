@@ -157,6 +157,28 @@ void GameEngineImage::TransCopy(GameEngineImage* _Other, const float4& _CopyPos,
 		, _TransColor);			// 복사하라는 명령
 }
 
+void GameEngineImage::AlphaCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyScale, const float4& _OtherPivot, const float4& _OtherScale, unsigned int _Alpha)
+{
+	BLENDFUNCTION Func;
+	Func.AlphaFormat = AC_SRC_ALPHA;
+	Func.BlendFlags = 0;
+	Func.BlendOp = AC_SRC_OVER;
+	Func.SourceConstantAlpha = _Alpha;
+
+	// 윈도우에서 지원해주는 일반적인 DC vs DC의 복사함수
+	AlphaBlend(ImageDC_			// 여기에 복사
+		, _CopyPos.ix()			// 내 이미지의 x
+		, _CopyPos.iy()			// 내 이미지의 y에 복사
+		, _CopyScale.ix()		// 내 이미지의 x
+		, _CopyScale.iy()		// 내 이미지의 y 크기만큼
+		, _Other->ImageDC_		// 복사하려는 대상
+		, _OtherPivot.ix()		// 복사하려는 대상의 시작점 x(위치)
+		, _OtherPivot.iy()		// 복사하려는 대상의 시작점 y
+		, _OtherScale.ix()		// 복사하려는 대상의 시작점 x(크기)
+		, _OtherScale.iy()		// 복사하려는 대상의 시작점 y
+		, Func);				// 복사하라는 명령
+}
+
 void GameEngineImage::Cut(const float4& _CutScale)
 {
 	/*

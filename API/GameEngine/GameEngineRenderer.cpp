@@ -14,6 +14,7 @@ GameEngineRenderer::GameEngineRenderer()
 	, ScaleMode_(RenderScaleMode::IMAGE)
 	, RenderImagePivot_({ 0, 0 })
 	, TransColor_(RGB(255, 0, 255))
+	, Alpha_(255)
 	, IsCameraEffect_(true)
 {
 }
@@ -106,13 +107,27 @@ void GameEngineRenderer::Render()
 	switch (PivotType_)
 	{
 	case RenderPivot::CENTER:
-		GameEngine::BackBufferImage()->TransCopy(Image_, RenderPos - RenderScale_.Half(), RenderScale_, RenderImagePivot_, RenderImageScale_, TransColor_);
+		if (Alpha_ == 255)
+		{
+			GameEngine::BackBufferImage()->TransCopy(Image_, RenderPos - RenderScale_.Half(), RenderScale_, RenderImagePivot_, RenderImageScale_, TransColor_);
+		}
+		else
+		{
+			GameEngine::BackBufferImage()->AlphaCopy(Image_, RenderPos - RenderScale_.Half(), RenderScale_, RenderImagePivot_, RenderImageScale_, Alpha_);
+		}
 		break;
 	case RenderPivot::BOT:
 	{	
 		float4 Scale = RenderScale_.Half();
 		Scale.y *= 2.0f;
-		GameEngine::BackBufferImage()->TransCopy(Image_, RenderPos - Scale, RenderScale_, RenderImagePivot_, RenderImageScale_, TransColor_);
+		if (Alpha_ == 255)
+		{
+			GameEngine::BackBufferImage()->TransCopy(Image_, RenderPos - Scale, RenderScale_, RenderImagePivot_, RenderImageScale_, TransColor_);
+		}
+		else
+		{
+			GameEngine::BackBufferImage()->AlphaCopy(Image_, RenderPos - Scale, RenderScale_, RenderImagePivot_, RenderImageScale_, Alpha_);
+		}
 		break;
 	}
 	default:
