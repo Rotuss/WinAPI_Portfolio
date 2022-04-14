@@ -60,6 +60,11 @@ public:
 
 	void ChangeLevel(const std::string& _Name);
 
+	static GameEngineLevel* GetPrevLevel()
+	{
+		return PrevLevel_;
+	}
+
 protected:
 	// GameEngine 입장에서는 Level Class의 실체가 무엇인지 모름. 하지만 만들어줘야 하는 Level은 많음! 따라서, template로 구현
 	template<typename LevelType>
@@ -75,6 +80,7 @@ protected:
 private:
 	static std::map<std::string, GameEngineLevel*> AllLevel_;
 	
+	static GameEngineLevel* PrevLevel_;
 	static GameEngineLevel* CurrentLevel_;
 	static GameEngineLevel* NextLevel_;
 	static GameEngine*		UserContents_;

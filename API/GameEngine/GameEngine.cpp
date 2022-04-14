@@ -8,6 +8,7 @@
 
 // 초기화
 std::map<std::string, GameEngineLevel*> GameEngine::AllLevel_;
+GameEngineLevel* GameEngine::PrevLevel_ = nullptr;
 GameEngineLevel* GameEngine::CurrentLevel_ = nullptr;
 GameEngineLevel* GameEngine::NextLevel_ = nullptr;
 GameEngine* GameEngine::UserContents_ = nullptr;
@@ -76,6 +77,8 @@ void GameEngine::EngineLoop()
 	// 시점함수 : Level이 바뀌는 순간
 	if (nullptr != NextLevel_)
 	{
+		PrevLevel_ = CurrentLevel_;
+
 		if (nullptr != CurrentLevel_)
 		{
 			CurrentLevel_->LevelChangeEnd();
