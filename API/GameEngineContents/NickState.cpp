@@ -36,23 +36,19 @@ void Nick::MoveUpdate()
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
 		// -1.0f * DT
-		//MoveDir_ = float4::LEFT;
-		MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		MoveDir_ += float4::LEFT;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
-		//MoveDir_ = float4::RIGHT;
-		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		MoveDir_ += float4::RIGHT;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveUp"))
 	{
-		//MoveDir_ = float4::UP;
-		MoveDir_ += float4::UP * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		MoveDir_ += float4::UP;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveDown"))
 	{
-		//MoveDir_ = float4::DOWN;
-		MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		MoveDir_ += float4::DOWN;
 	}
 	if (0.3f <= MoveDir_.Len2D())
 	{
@@ -114,9 +110,37 @@ void Nick::JumpUpdate()
 
 void Nick::AttackUpdate()
 {
-	if (true == NickAnimationRender_->IsEndAnimation())
+	
+	/*if (true == NickAnimationRender_->IsEndAnimation())
 	{
 		ChangeState(NickState::IDLE);
+	}
+	*/
+	SnowBullet* Ptr = GetLevel()->CreateActor<SnowBullet>();
+	Ptr->SetPosition(GetPosition());
+	
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	if (CurrentDir_ == NickDir::LEFT)
+	{
+		if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
+		{
+			MoveDir_ += float4::LEFT;
+		}
+		Ptr->SetDir(float4::LEFT);
+	}
+	if (CurrentDir_ == NickDir::RIGHT)
+	{
+		if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
+		{
+			MoveDir_ += float4::RIGHT;
+		}
+		Ptr->SetDir(float4::RIGHT);
+	}
+	
+	if (false == GameEngineInput::GetInst()->IsDown("SnowBullet"))
+	{
+		ChangeState(NickState::MOVE);
+		return;
 	}
 }
 

@@ -75,6 +75,22 @@ public:
 	{
 		return RenderImageScale_;
 	}
+	void SetPause(bool _Value)
+	{
+		Pause_ = _Value;
+	}
+	void PauseOn()
+	{
+		Pause_ = true;
+	}
+	void PauseOff()
+	{
+		Pause_ = false;
+	}
+	void PauseSwitch()
+	{
+		Pause_ = !Pause_;
+	}
 	void CameraEffectOn()
 	{
 		IsCameraEffect_ = true;
@@ -99,11 +115,13 @@ private:
 	float4				RenderImageScale_;			// 이미지에서 잘라내는 크기
 	unsigned int		TransColor_;
 	unsigned int		Alpha_;
-
+	bool				Pause_;
 	bool				IsCameraEffect_;
 
 	//=========================Animation========================
-public:
+public: 
+	class FrameAnimation;
+
 	void CreateAnimation(const std::string& _Image, const std::string& _Name, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);
 	void CreateFolderAnimation(const std::string& _Image, const std::string& _Name, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);
 	void CreateFolderAnimationTimeKey(const std::string& _Image, const std::string& _Name, int _TimeScaleKey, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);
@@ -111,12 +129,60 @@ public:
 	bool IsEndAnimation();
 	bool IsAnimationName(const std::string& _Name);
 
+	const FrameAnimation* FindAnimation(const std::string& _Name);
+	inline const FrameAnimation* CurrentAnimation()
+	{
+		return CurrentAnimation_;
+	}
+
 protected:
 
 private:
 	class FrameAnimation : public GameEngineNameObject
 	{
 	public:
+		FrameAnimation()
+			: Renderer_(nullptr)
+			, Image_(nullptr)
+			, FolderImage_(nullptr)
+			, CurrentFrame_(-1)
+			, StartFrame_(-1)
+			, EndFrame_(-1)
+			, TimeKey_(0)
+			, CurrentInterTime_(0.1f)
+			, InterTime_(0.1f)
+			, Loop_(true)
+			, IsEnd_(false)
+		{}
+		
+		void Update();
+		void Reset()
+		{
+			IsEnd_ = false;
+			CurrentFrame_ = StartFrame_;
+			CurrentInterTime_ = InterTime_;
+		}
+
+		inline int WorldCurrentFrame() const
+		{
+			return CurrentFrame_;
+		}
+		inline int WorldStartFrame() const
+		{
+			return StartFrame_;
+		}
+		inline int WorldEndFrame() const
+		{
+			return EndFrame_;
+		}
+		inline int LocalCurrentFrame() const
+		{
+			return CurrentFrame_ - StartFrame_;
+		}
+	private:
+		friend GameEngineRenderer;
+		//friend std::map<std::string, FrameAnimation>;
+
 		GameEngineRenderer*		Renderer_;
 		GameEngineImage*		Image_;
 		GameEngineFolderImage*	FolderImage_;
@@ -126,26 +192,8 @@ private:
 		int						TimeKey_;
 		float					CurrentInterTime_;
 		float					InterTime_;
-		bool					Loop_;
+		bool					Loop_ = false;
 		bool					IsEnd_;
-		FrameAnimation()
-			: Image_(nullptr)
-			, CurrentFrame_(-1)
-			, StartFrame_(-1)
-			, EndFrame_(-1)
-			, TimeKey_(0)
-			, CurrentInterTime_(0.1f)
-			, InterTime_(0.1f)
-			, Loop_(true)
-		{}
-
-		void Update();
-		void Reset()
-		{
-			IsEnd_ = false;
-			CurrentFrame_ = StartFrame_;
-			CurrentInterTime_ = InterTime_;
-		}
 	};
 
 	std::map<std::string, FrameAnimation> Animations_;

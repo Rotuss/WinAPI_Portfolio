@@ -16,11 +16,22 @@ public:
 	SnowBullet& operator=(SnowBullet&& _Other) noexcept = delete;
 	
 	float Time;
+	float4 SetDir(float4 _Dir)
+	{
+		SnowBulletDir_ = _Dir;
+		return SnowBulletDir_;
+	}
 
 protected:
 
 private:
 	void Start() override;
 	void Update() override;
+
+	float XSpeed_;
+	float YSpeed_;
+	float DownSpeed_;
+	float4 SnowBulletDir_;
+	float4 YDir_;
 };
 
