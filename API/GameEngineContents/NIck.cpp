@@ -10,6 +10,8 @@
 #include <GameEngine/GameEngineRenderer.h>
 #include <GameEngine/GameEngineCollision.h>
 
+Nick* Nick::MainPlayer = nullptr;
+
 Nick::Nick()
 	: MoveDir_(float4::ZERO)
 	, Speed_(500.0f)
@@ -165,6 +167,9 @@ void Nick::Start()
 	{
 		MsgBoxAssert("Floor 충돌용 이미지를 찾지 못했습니다.");
 	}
+
+	// 레벨에서 액터를 찾을 수 있도록 해줌(캐칭)
+	//LevelRegist("MainPlayer");
 }
 
 void Nick::Update()
@@ -259,6 +264,12 @@ void Nick::Render()
 	Time_ += GameEngineTime::GetDeltaTime();
 	std::string Text = std::to_string(Time_);
 	TextOutA(GameEngine::BackBufferImage()->ImageDC(), 0, 0, Text.c_str(), Text.size());
+}
+
+void Nick::LevelChangeStart()
+{
+	// 전역 변수처럼 관리하기 쉽게 static Nick에 레벨 시작할 때 포인터로 저장
+	MainPlayer = this;
 }
 
 void Nick::NextCheck()

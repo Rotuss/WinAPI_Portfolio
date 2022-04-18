@@ -99,6 +99,16 @@ void GameEngineActor::DebugRectRender()
 	Rectangle(GameEngine::BackBufferDC(), DebugRect.CenterLeft(), DebugRect.CenterTop(), DebugRect.CenterRight(), DebugRect.CenterBot());
 }
 
+void GameEngineActor::LevelRegist(std::string _RegistName)
+{
+	if (_RegistName == "")
+	{
+		GetLevel()->RegistActor(GetNameConstPtr(), this);
+		return;
+	}
+	GetLevel()->RegistActor(_RegistName, this);
+}
+
 GameEngineRenderer* GameEngineActor::CreateRenderer(int _Order, RenderPivot _PivotType, const float4& _PivotPos)
 {
 	GameEngineRenderer* NewRenderer = new GameEngineRenderer();

@@ -79,6 +79,15 @@ public:
 		CameraPos_ + _Value;
 	}
 
+	//template<typename ConvertType>
+	//ConvertType* FindActor(const std::string& _Name)
+	//{
+	//	return dynamic_cast<ConvertType*>(FindActor(_Name));
+	//}
+
+	GameEngineActor* FindActor(const std::string& _Name);
+	void RegistActor(const std::string& _Name, GameEngineActor* _Actor);
+
 protected:
 	// 시점함수
 	// 만들어지면서 리소스나 액터를 만들 때 사용
@@ -86,8 +95,10 @@ protected:
 	// 이 레벨이 현재 레벨일 때 해야할 일을 실행
 	virtual void Update() = 0;
 	// 현재레벨에서 다음레벨로 이전할 때 현재레벨이 실행하는 함수
+	void ActorLevelChangeStart();
 	virtual void LevelChangeStart() {}
 	// 현재레벨에서 다음레벨로 이전할 때 이전레벨이 실행하는 함수
+	void ActorLevelChangeEnd();
 	virtual void LevelChangeEnd() {}
 
 private:
@@ -95,6 +106,7 @@ private:
 	// map으로 먼저 0번 1번 등이 있는지 확인 없으면 만들어주면 됨. 즉 순서를 정해주기 위함
 	// 그럼 list를 한 이유? => 그냥 list로 사용한게 편하고 익숙해서
 	std::map<int, std::list<GameEngineActor*>> AllActor_;
+	std::map<std::string, GameEngineActor*> RegistActor_;
 	std::vector<ChangeOrderItem> ChangeOrderList;
 	// 이 부분을 사용하는건 최악의 수
 	//std::map<std::string, std::list<GameEngineActor*>> AllActor_;

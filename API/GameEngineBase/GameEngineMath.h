@@ -5,6 +5,13 @@
 class GameEngineMath
 {
 public:
+	static const float PIE;
+	static const float DEG;
+	static const float DegreeToRadian;
+
+protected:
+
+private:
 	// constrcuter destructer
 	GameEngineMath();
 	~GameEngineMath();
@@ -14,10 +21,6 @@ public:
 	GameEngineMath(GameEngineMath&& _Other) noexcept = delete;
 	GameEngineMath& operator=(const GameEngineMath& _Other) = delete;
 	GameEngineMath& operator=(GameEngineMath&& _Other) noexcept = delete;
-
-protected:
-
-private:
 };
 
 class float4
@@ -203,6 +206,18 @@ public:
 		z *= _Other.z;
 
 		return *this;
+	}
+
+	//==========================================================
+
+	static float4 DegreeToDirectionFloat4(float _Degree)
+	{
+		return RadianToDirectionFloat4(_Degree * GameEngineMath::DegreeToRadian);
+	}
+
+	static float4 RadianToDirectionFloat4(float _Radian)
+	{
+		return { cosf(_Radian), sinf(_Radian) };
 	}
 };
 

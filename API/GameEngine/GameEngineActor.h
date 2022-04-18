@@ -75,8 +75,12 @@ protected:
 	// 지속적으로 게임이 실행될 때 호출
 	virtual void Render() {}
 
+	virtual void LevelChangeStart() {}
+	virtual void LevelChangeEnd() {}
+	
 	void Release();
 	void DebugRectRender();
+	void LevelRegist(std::string _RegistName = "");
 
 private:
 	GameEngineLevel* Level_;

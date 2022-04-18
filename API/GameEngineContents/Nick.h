@@ -35,6 +35,9 @@ public:
 	Nick& operator=(const Nick& _Other) = delete;
 	Nick& operator=(Nick&& _Other) noexcept = delete;
 
+	static Nick* MainPlayer;
+	// static std::vector<InventoryItem>;
+	
 	//===========================FSM============================
 	void ChangeState(NickState _State);
 	void StateUpdate();
@@ -61,6 +64,8 @@ private:
 	void Update() override;
 	void Render() override;
 
+	void LevelChangeStart() override;
+	
 	void NextCheck();
 	void WallCheck();
 	// 알파 확인차 임시 생성 :GameEngineRenderer* Render_;
