@@ -79,6 +79,21 @@ public:
 		CameraPos_ + _Value;
 	}
 
+	bool IsDebugModeOn()
+	{
+		IsDebug_ = true;
+	}
+
+	bool IsDebugModeOff()
+	{
+		IsDebug_ = false;
+	}
+
+	bool IsDebugModeSwitch()
+	{
+		IsDebug_ = !IsDebug_;
+	}
+	
 	//template<typename ConvertType>
 	//ConvertType* FindActor(const std::string& _Name)
 	//{
@@ -129,5 +144,6 @@ private:
 	void ChangeRenderOrder(GameEngineRenderer* _Renderer, int _NewOrder);
 	void AddCollision(const std::string& _GroupName, GameEngineCollision* _Collision);
 
+	static bool IsDebug_;
 };
 

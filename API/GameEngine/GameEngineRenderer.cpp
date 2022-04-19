@@ -293,7 +293,14 @@ void GameEngineRenderer::FrameAnimation::Update()
 	if (nullptr != Image_)
 	{
 		Renderer_->Image_ = Image_;
-		Renderer_->SetIndex(CurrentFrame_);
+		if (Renderer_->ScaleMode_ == RenderScaleMode::USER)
+		{
+			Renderer_->SetIndex(CurrentFrame_, Renderer_->RenderScale_);
+		}
+		else
+		{
+			Renderer_->SetIndex(CurrentFrame_);
+		}
 	}
 	else if (nullptr != FolderImage_)
 	{
