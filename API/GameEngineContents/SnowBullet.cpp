@@ -15,7 +15,9 @@ SnowBullet::~SnowBullet()
 void SnowBullet::Start()
 {
 	//CreateRenderer("Snow_Bullet.bmp");
-	GameEngineRenderer* Render = CreateRenderer("Snow_Bullet.bmp");
+	GameEngineRenderer* Render = CreateRenderer();
+	Render->CreateAnimation("SnowBullet_Left.bmp", "SnowBullet", 0, 1, 0.12f, true);
+	Render->ChangeAnimation("SnowBullet");
 	//Time = 2.0f;
 	Death(0.25f);
 

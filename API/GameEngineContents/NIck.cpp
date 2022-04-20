@@ -135,13 +135,13 @@ void Nick::Start()
 
 	// 애니메이션
 	NickAnimationRender_ = CreateRenderer();
-	NickAnimationRender_->CreateAnimation("Nick_Walk_Right.bmp", "Walk_Right", 0, 3, 0.1f, true);
-	NickAnimationRender_->CreateAnimation("Nick_Walk_Left.bmp", "Walk_Left", 0, 3, 0.1f, true);
+	NickAnimationRender_->CreateAnimation("Nick_Move_Right.bmp", "Move_Right", 0, 2, 0.12f, true);
+	NickAnimationRender_->CreateAnimation("Nick_Move_Left.bmp", "Move_Left", 0, 2, 0.12f, true);
 	// 만일, 폴더 이미지로 애니메이션을 실행시키고자 할 때 사용
 	//NickAnimationRender_->CreateFolderAnimation("폴더명", "Walk_Right", 0, 3, 0.1f, true);
-	NickAnimationRender_->ChangeAnimation("Walk_Right");
+	NickAnimationRender_->ChangeAnimation("Move_Right");
 
-	AnimationName_ = "Walk_";
+	AnimationName_ = "Move_";
 	CurrentDir_ = NickDir::RIGHT;
 	//CreateRenderer("Snow_Bullet.bmp");
 	//CreateRendererToScale("HPBar.bmp", float4(300.0f, 20.0f), RenderPivot::CENTER, float4(0.0f, -100.0f));
