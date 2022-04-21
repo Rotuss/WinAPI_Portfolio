@@ -7,7 +7,7 @@
     <ClInclude Include="PlayLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
-    <ClInclude Include="TitleLevel.h">
+    <ClInclude Include="TitleMainLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="TitleLogo.h">
@@ -60,6 +60,9 @@
     <ClInclude Include="PlayUI.h">
       <Filter>Level\Global</Filter>
     </ClInclude>
+    <ClInclude Include="TitleSelectLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -68,7 +71,7 @@
     <ClCompile Include="PlayLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="TitleLevel.cpp">
+    <ClCompile Include="TitleLMainevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="TitleLogo.cpp">
@@ -122,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="NickState.cpp">
       <Filter>Play\Nick</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleSelectLevel.cpp">
+      <Filter>Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

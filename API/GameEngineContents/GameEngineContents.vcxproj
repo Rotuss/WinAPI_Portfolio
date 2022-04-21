@@ -181,8 +181,9 @@
     <ClInclude Include="SnowBullet.h" />
     <ClInclude Include="SnowBros.h" />
     <ClInclude Include="TitleBackGround.h" />
-    <ClInclude Include="TitleLevel.h" />
+    <ClInclude Include="TitleMainLevel.h" />
     <ClInclude Include="TitleLogo.h" />
+    <ClInclude Include="TitleSelectLevel.h" />
     <ClInclude Include="YellowTroll.h" />
   </ItemGroup>
   <ItemGroup>
@@ -204,8 +205,9 @@
     <ClCompile Include="SnowBullet.cpp" />
     <ClCompile Include="SnowBros.cpp" />
     <ClCompile Include="TitleBackGround.cpp" />
-    <ClCompile Include="TitleLevel.cpp" />
+    <ClCompile Include="TitleLMainevel.cpp" />
     <ClCompile Include="TitleLogo.cpp" />
+    <ClCompile Include="TitleSelectLevel.cpp" />
     <ClCompile Include="YellowTroll.cpp" />
   </ItemGroup>
   <ItemGroup>

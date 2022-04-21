@@ -1,5 +1,6 @@
 #include "SnowBros.h"
-#include "TitleLevel.h"
+#include "TitleMainLevel.h"
+#include "TitleSelectLevel.h"
 #include "Floor1.h"
 #include "Floor2.h"
 #include "Floor3.h"
@@ -66,6 +67,10 @@ void SnowBros::GameInit()
 	if (false == GameEngineInput::GetInst()->IsKey("LevelChange"))
 	{
 		GameEngineInput::GetInst()->CreateKey("LevelChange", 'P');
+		GameEngineInput::GetInst()->CreateKey("TitleSelect", VK_RETURN);
+		GameEngineInput::GetInst()->CreateKey("Floor1", VK_RETURN);
+		GameEngineInput::GetInst()->CreateKey("Left", VK_LEFT);
+		GameEngineInput::GetInst()->CreateKey("Right", VK_RIGHT);
 	}
 
 	{
@@ -75,16 +80,19 @@ void SnowBros::GameInit()
 		Image->CutCount(3, 1);
 		Image = GameEngineImageManager::GetInst()->Find("SnowBullet_Left.bmp");
 		Image->CutCount(2, 1);
+		Image = GameEngineImageManager::GetInst()->Find("Push_Start.bmp");
+		Image->CutCount(2, 1);
 	}
 
 	// 각 레벨 생성
-	CreateLevel<TitleLevel>("Title");
+	CreateLevel<TitleMainLevel>("TitleMain");
+	CreateLevel<TitleSelectLevel>("TitleSelect");
 	CreateLevel<Floor1>("Floor1");
 	CreateLevel<Floor2>("Floor2");
 	CreateLevel<Floor3>("Floor3");
 	CreateLevel<BossFloor>("BossFloor");
 	CreateLevel<EndingLevel>("Ending");
-	ChangeLevel("Title");
+	ChangeLevel("TitleMain");
 }
 
 void SnowBros::GameLoop()
