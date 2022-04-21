@@ -266,7 +266,7 @@ void Nick::Render()
 	TextOutA(GameEngine::BackBufferImage()->ImageDC(), 0, 0, Text.c_str(), Text.size());
 }
 
-void Nick::LevelChangeStart()
+void Nick::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	// 전역 변수처럼 관리하기 쉽게 static Nick에 레벨 시작할 때 포인터로 저장
 	MainPlayer = this;

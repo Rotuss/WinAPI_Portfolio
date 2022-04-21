@@ -64,7 +64,7 @@ private:
 	void Update() override;
 	void Render() override;
 
-	void LevelChangeStart() override;
+	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
 	
 	void NextCheck();
 	void WallCheck();

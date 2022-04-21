@@ -33,6 +33,11 @@ public:
 		return Level_;
 	}
 	
+	inline void NextLevelOn()
+	{
+		NextLevelOn_ = true;
+	}
+	
 	inline float4 GetCameraEffectPosition()
 	{
 		return Position_ - GetLevel()->GetCameraPos();
@@ -75,8 +80,8 @@ protected:
 	// 지속적으로 게임이 실행될 때 호출
 	virtual void Render() {}
 
-	virtual void LevelChangeStart() {}
-	virtual void LevelChangeEnd() {}
+	virtual void LevelChangeStart(GameEngineLevel* _PrevLevel) {}
+	virtual void LevelChangeEnd(GameEngineLevel* _NextLevel) {}
 	
 	void Release();
 	void DebugRectRender();
@@ -86,7 +91,12 @@ private:
 	GameEngineLevel* Level_;
 	float4 Position_;
 	float4 Scale_;
+	bool NextLevelOn_;
 
+	inline void NextLevelOff()
+	{
+		NextLevelOn_ = false;
+	}
 	// 나를 만들어준 레벨
 	inline void SetLevel(GameEngineLevel* _Level)
 	{

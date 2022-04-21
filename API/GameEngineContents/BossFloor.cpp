@@ -16,6 +16,10 @@ void BossFloor::Update()
 {
 }
 
-void BossFloor::LevelChangeStart()
+void BossFloor::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+}
+
+void BossFloor::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
 }

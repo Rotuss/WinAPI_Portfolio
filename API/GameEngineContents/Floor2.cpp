@@ -52,6 +52,10 @@ void Floor2::Update()
 	}
 }
 
-void Floor2::LevelChangeStart()
+void Floor2::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+}
+
+void Floor2::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
 }

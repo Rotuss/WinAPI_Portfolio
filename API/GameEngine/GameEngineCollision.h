@@ -9,6 +9,7 @@ class GameEngineImage;
 class GameEngineCollision : public GameEngineActorSubObject
 {
 	friend GameEngineActor;
+	friend GameEngineLevel;
 public:
 	// constrcuter destructer
 	GameEngineCollision();
@@ -48,5 +49,7 @@ private:
 	// 액터에서 Pivot_{n, n}만큼 떨어진 Scale_{n, n}만큼(중심이 기준)
 	float4 Pivot_;
 	float4 Scale_;
+
+	std::string CollisionName_;
 };
 

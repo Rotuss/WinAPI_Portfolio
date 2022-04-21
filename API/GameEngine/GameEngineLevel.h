@@ -110,11 +110,13 @@ protected:
 	// 이 레벨이 현재 레벨일 때 해야할 일을 실행
 	virtual void Update() = 0;
 	// 현재레벨에서 다음레벨로 이전할 때 현재레벨이 실행하는 함수
-	void ActorLevelChangeStart();
-	virtual void LevelChangeStart() {}
+	void ActorLevelChangeStart(GameEngineLevel* _PrevLevel);
+	virtual void LevelChangeStart(GameEngineLevel* _PrevLevel) {}
 	// 현재레벨에서 다음레벨로 이전할 때 이전레벨이 실행하는 함수
-	void ActorLevelChangeEnd();
-	virtual void LevelChangeEnd() {}
+	void ActorLevelChangeEnd(GameEngineLevel* _NextLevel);
+	virtual void LevelChangeEnd(GameEngineLevel* _NextLevel) {}
+
+	void ObjectLevelMoveCheck(GameEngineLevel* _NextLevel);
 
 private:
 	// std::list보다 std::vector로 관리하는 것이 더 좋다고 생각(삽입 삭제가 많이 발생하지 않을 것 같기 때문). 무엇을 만들건 여기에 전부 들어감

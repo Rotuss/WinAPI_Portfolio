@@ -59,8 +59,12 @@ void Floor1::Update()
 	*/
 }
 
-void Floor1::LevelChangeStart()
+void Floor1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	//BgmPlayer_ = GameEngineSound::SoundPlayControl("bgm.mp3");
 	Time_ = 5.0f;
+}
+
+void Floor1::LevelChangeEnd(GameEngineLevel* _NextLevel)
+{
 }

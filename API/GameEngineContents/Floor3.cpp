@@ -16,6 +16,10 @@ void Floor3::Update()
 {
 }
 
-void Floor3::LevelChangeStart()
+void Floor3::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+}
+
+void Floor3::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
 }
