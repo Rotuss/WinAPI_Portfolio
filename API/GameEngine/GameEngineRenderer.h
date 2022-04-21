@@ -118,6 +118,21 @@ private:
 	bool				Pause_;
 	bool				IsCameraEffect_;
 
+	//===========================회전===========================
+	// 회전과 알파는 공존할 수 없는 점을 알야둬야 함
+public:
+	void SetRotationZ(float _RotZ)
+	{
+		RotZ_ = _RotZ;
+		Alpha_ = 255;
+	}
+
+protected:
+
+private:
+	GameEngineImage* RotationCuttingImage_;
+	float RotZ_;
+
 	//=========================Animation========================
 public: 
 	void CreateAnimation(const std::string& _Image, const std::string& _Name, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);

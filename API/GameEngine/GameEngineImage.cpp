@@ -179,6 +179,23 @@ void GameEngineImage::AlphaCopy(GameEngineImage* _Other, const float4& _CopyPos,
 		, Func);				// 복사하라는 명령
 }
 
+void GameEngineImage::PlgCopy(GameEngineImage* _Other, GameEngineImage* _Filter)
+{
+	// 3개의 포인트를 넣어줘야함
+	POINT Test;
+
+	PlgBlt(ImageDC_				// 여기에 복사
+		, &Test
+		, _Other->ImageDC_
+		, 0						// 내 이미지의 x
+		, 0						// 내 이미지의 y에 복사
+		, 0						// 내 이미지의 x
+		, 0						// 내 이미지의 y 크기만큼
+		, _Filter->BitMap_		// 복사하려는 대상
+		, 0						// 복사하려는 대상의 시작점 x(위치)
+		, 0);					// 복사하려는 대상의 시작점 y
+}
+
 void GameEngineImage::Cut(const float4& _CutScale)
 {
 	/*
