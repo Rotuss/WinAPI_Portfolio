@@ -66,9 +66,7 @@ void SnowBros::GameInit()
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("LevelChange"))
 	{
-		GameEngineInput::GetInst()->CreateKey("LevelChange", 'P');
-		GameEngineInput::GetInst()->CreateKey("TitleSelect", VK_RETURN);
-		GameEngineInput::GetInst()->CreateKey("Floor1", VK_RETURN);
+		GameEngineInput::GetInst()->CreateKey("LevelChange", VK_RETURN);
 		GameEngineInput::GetInst()->CreateKey("Left", VK_LEFT);
 		GameEngineInput::GetInst()->CreateKey("Right", VK_RIGHT);
 	}

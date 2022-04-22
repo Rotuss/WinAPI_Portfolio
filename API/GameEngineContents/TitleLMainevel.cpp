@@ -22,21 +22,11 @@ void TitleMainLevel::Loading()
 	{
 		CreateActor<TitleBackGround>(0, "TitleBackGround");
 		CreateActor<TitleLogo>(1, "TitleLogo");
-		//Actor->GetRenderer()->SetImage("MainTitle.bmp");
-
-		//float4 BackActor = {};
-		//BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
-		//BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
-		//Actor->GetRenderer()->SetPivot(BackActor);
 	}
 }
 
 void TitleMainLevel::Update()
 {
-	if (true == GameEngineInput::GetInst()->IsDown("TitleSelect"))
-	{
-		GameEngine::GetInst().ChangeLevel("TitleSelect");
-	}
 }
 
 void TitleMainLevel::LevelChangeStart(GameEngineLevel* _NextLevel)

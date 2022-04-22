@@ -63,6 +63,12 @@
     <ClInclude Include="TitleSelectLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
+    <ClInclude Include="SelectLogo.h">
+      <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectBackGround.h">
+      <Filter>Title</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -128,6 +134,12 @@
     </ClCompile>
     <ClCompile Include="TitleSelectLevel.cpp">
       <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectLogo.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectBackGround.cpp">
+      <Filter>Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -175,6 +175,10 @@ void Nick::MoveStart()
 void Nick::JumpStart()
 {
 	AnimationName_ = "Jump_";
+	if ("" == ChangeDirText_)
+	{
+		ChangeDirText_ = "Right";
+	}
 	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 	MoveDir_ = float4::UP * 520.0f;
 }
@@ -207,14 +211,14 @@ void Nick::DeathStart()
 
 void Nick::FloorCollisionCheckMoveGround()
 {
-	float4 NextPos = GetPosition() + (MoveDir_ *GameEngineTime::GetDeltaTime());
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime());
 	float4 CheckPos = NextPos + float4(0.0f, 45.0f);
 	
 	int Color = FloorColImage_->GetImagePixel(CheckPos);
 	
 	if (RGB(0, 0, 0) != Color && RGB(0, 255, 0) != Color)
 	{
-		SetMove(MoveDir_ *GameEngineTime::GetDeltaTime());
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 		//SetMove(float4::DOWN * Gravity_ * GameEngineTime::GetDeltaTime());
 	}	
 }

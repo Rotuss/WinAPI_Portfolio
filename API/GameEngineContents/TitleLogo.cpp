@@ -25,25 +25,8 @@ void TitleLogo::Start()
 void TitleLogo::Update()
 {
 	// 만약 엔터가 눌렸으면 SelectTitle 화면으로 이동
-	if (true == GameEngineInput::GetInst()->IsPress("TitleSelect"))
+	if (true == GameEngineInput::GetInst()->IsPress("LevelChange"))
 	{
-		// IconUI 좌우설정 미완
-		/*
-		if (true == GameEngineInput::GetInst()->IsPress("Right"))
-		{
-			SetPosition(GameEngineWindow::GetScale().Half() - float4{ 0,-305 });
-			CreateRenderer("SelectUIIcon.bmp");
-		}
-		else if (true == GameEngineInput::GetInst()->IsPress("Left"))
-		{
-			SetPosition(GameEngineWindow::GetScale().Half() - float4{ 315,-305 });
-			CreateRenderer("SelectUIIcon.bmp");
-		}
-		*/
-		//else
-		{
-			SetPosition(GameEngineWindow::GetScale().Half() - float4{ 315,-305 });
-			CreateRenderer("SelectUIIcon.bmp");
-		}
+		GameEngine::GetInst().ChangeLevel("TitleSelect");
 	}
 }
