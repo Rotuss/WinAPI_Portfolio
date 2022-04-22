@@ -115,6 +115,7 @@ void GameEngineRenderer::Render()
 		}
 		else if (RotZ_ != 0.0f)
 		{
+			GameEngine::BackBufferImage()->PlgCopy(Image_, RenderPos - RenderScale_.Half(), RenderScale_, RenderImagePivot_, RenderImageScale_, RotZ_, RotationFilterImage_);
 			// GameEngine::BackBufferImage()->PlgCopy(Image_, RenderPos - RenderScale_.Half(), RenderScale_, RenderImagePivot_, RenderImageScale_, Alpha_);
 		}
 		else
@@ -132,6 +133,7 @@ void GameEngineRenderer::Render()
 		}
 		else if (RotZ_ != 0.0f)
 		{
+			GameEngine::BackBufferImage()->PlgCopy(Image_, RenderPos - Scale, RenderScale_, RenderImagePivot_, RenderImageScale_, RotZ_, RotationFilterImage_);
 		}
 		else
 		{
@@ -142,6 +144,17 @@ void GameEngineRenderer::Render()
 	default:
 		break;
 	}
+}
+
+void GameEngineRenderer::SetRotationFilter(const std::string& _ImageName)
+{
+	GameEngineImage* FindImage = GameEngineImageManager::GetInst()->Find(_ImageName);
+	if (nullptr == FindImage)
+	{
+		MsgBoxAssertString(_ImageName + "존재하지 않는 이미지를 렌더러에 세팅하려고 했습니다.");
+		return;
+	}
+	RotationFilterImage_ = FindImage;
 }
 
 //=========================Animation========================

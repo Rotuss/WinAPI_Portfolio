@@ -47,7 +47,7 @@ public:
 	// Alpha
 	void AlphaCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyScale, const float4& _OtherPivot, const float4& _OtherScale, unsigned int _Alpha);
 	
-	void PlgCopy(GameEngineImage* _Other, GameEngineImage* _Filter);
+	void PlgCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyScale, const float4& _OtherPivot, const float4& _OtherScale, float _Angle, GameEngineImage* _Filter);
 	
 	void Cut(const float4& _CutScale);
 	inline void Cut(const float4& _CutScale, const float4& _CutPos)

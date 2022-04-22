@@ -179,21 +179,32 @@ void GameEngineImage::AlphaCopy(GameEngineImage* _Other, const float4& _CopyPos,
 		, Func);				// 복사하라는 명령
 }
 
-void GameEngineImage::PlgCopy(GameEngineImage* _Other, GameEngineImage* _Filter)
+void GameEngineImage::PlgCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyScale, const float4& _OtherPivot, const float4& _OtherScale, float _Angle, GameEngineImage* _Filter)
 {
 	// 3개의 포인트를 넣어줘야함
-	POINT Test;
+	POINT RotPoint[3];
+
+	GameEngineRect Rect = GameEngineRect(float4::ZERO, _CopyScale);
+
+	float4 LeftTop = Rect.CenterLeftTopPoint();
+	float4 RightTop = Rect.CenterRightTopPoint();
+	float4 LeftBot = Rect.CenterLeftBotPoint();
+	float4 Center = _CopyPos + _CopyScale.Half();
+
+	RotPoint[0] = (Rect.CenterLeftTopPoint().RotationToDegreeZ(_Angle) + Center).ToWinAPIPOINT();
+	RotPoint[1] = (Rect.CenterRightTopPoint().RotationToDegreeZ(_Angle) + Center).ToWinAPIPOINT();
+	RotPoint[2] = (Rect.CenterLeftBotPoint().RotationToDegreeZ(_Angle) + Center).ToWinAPIPOINT();
 
 	PlgBlt(ImageDC_				// 여기에 복사
-		, &Test
+		, RotPoint
 		, _Other->ImageDC_
-		, 0						// 내 이미지의 x
-		, 0						// 내 이미지의 y에 복사
-		, 0						// 내 이미지의 x
-		, 0						// 내 이미지의 y 크기만큼
+		, _OtherPivot.ix()		// 내 이미지의 x
+		, _OtherPivot.iy()		// 내 이미지의 y에 복사
+		, _OtherScale.ix()		// 내 이미지의 x
+		, _OtherScale.iy()		// 내 이미지의 y 크기만큼
 		, _Filter->BitMap_		// 복사하려는 대상
-		, 0						// 복사하려는 대상의 시작점 x(위치)
-		, 0);					// 복사하려는 대상의 시작점 y
+		, _OtherPivot.ix()		// 복사하려는 대상의 시작점 x(위치)
+		, _OtherPivot.iy());	// 복사하려는 대상의 시작점 y
 }
 
 void GameEngineImage::Cut(const float4& _CutScale)

@@ -121,6 +121,7 @@ private:
 	//===========================회전===========================
 	// 회전과 알파는 공존할 수 없는 점을 알야둬야 함
 public:
+	void SetRotationFilter(const std::string& _ImageName);
 	void SetRotationZ(float _RotZ)
 	{
 		RotZ_ = _RotZ;
@@ -130,7 +131,7 @@ public:
 protected:
 
 private:
-	GameEngineImage* RotationCuttingImage_;
+	GameEngineImage* RotationFilterImage_;
 	float RotZ_;
 
 	//=========================Animation========================
