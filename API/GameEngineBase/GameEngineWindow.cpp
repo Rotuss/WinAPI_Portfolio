@@ -1,4 +1,5 @@
 #include "GameEngineWindow.h"
+#include "GameEngineInput.h"
 // GameEngineBase가 exe 파일 만들 필요X. => 라이브러리 프로젝트
 // GameEngineBase -> 속성 -> 일반 -> 구성 형식(정적 라이브러리)
 // GameEngineBase -> 속성 -> 일반 -> 출력 디렉터리 복사 -> VC++ 디렉터리 -> 라이브러리 디렉터리 붙여넣기
@@ -8,7 +9,7 @@
 // WPARAM wParam
 // LPARAM lParam
 // 전역 함수
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK GameEngineWindow::MessageProcess(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
@@ -27,6 +28,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_CLOSE:
     {
         GameEngineWindow::GetInst().Off();
+        break;
+    }
+    case WM_MOUSEWHEEL:
+    {
+        GameEngineInput::GetInst()->WheelValue_ = (SHORT)HIWORD(wParam);
         break;
     }
     default:
@@ -74,7 +80,7 @@ void GameEngineWindow::RegClass(HINSTANCE _hInst)
     wcex.cbSize = sizeof(WNDCLASSEX);
 
     wcex.style = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc = WndProc;
+    wcex.lpfnWndProc = MessageProcess;
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = _hInst;

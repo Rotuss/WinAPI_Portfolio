@@ -6,6 +6,7 @@
 // Ό³Έν : 
 class GameEngineInput
 {
+	friend class GameEngineWindow;
 public:
 	void Update(float _DeltaTime = 0.0f);
 	// ex) 'PlayerJump', 'A'
@@ -30,6 +31,10 @@ public:
 			delete Inst_;
 			Inst_ = nullptr;
 		}
+	}
+	inline int GetMouseWheel()
+	{
+		return CurWheelValue_;
 	}
 
 protected:
@@ -83,5 +88,7 @@ private:
 	};
 
 	std::map<std::string, GameEngineKey> AllInputKey_;
+	int WheelValue_;
+	int CurWheelValue_;
 };
 
