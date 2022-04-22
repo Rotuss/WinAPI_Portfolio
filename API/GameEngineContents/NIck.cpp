@@ -56,6 +56,15 @@ void Nick::ChangeState(NickState _State)
 		case NickState::ATTACK:
 			AttackStart();
 			break;
+		case NickState::PUSH:
+			PushStart();
+			break;
+		case NickState::APPEAR:
+			AppearStart();
+			break;
+		case NickState::DEATH:
+			DeathStart();
+			break;
 		case NickState::MAX:
 			break;
 		default:
@@ -81,6 +90,15 @@ void Nick::StateUpdate()
 		break;
 	case NickState::ATTACK:
 		AttackUpdate();
+		break;
+	case NickState::PUSH:
+		PushUpdate();
+		break;
+	case NickState::APPEAR:
+		AppearUpdate();
+		break;
+	case NickState::DEATH:
+		DeathUpdate();
 		break;
 	case NickState::MAX:
 		break;
@@ -124,27 +142,39 @@ void Nick::Start()
 {
 	// Nick에서 위치를 정하는 것이 아닌, 각 Floor에서 지정해야하므로 여기서 구현하는 것이 아님. 각 Floor에서 작업
 	//SetPosition(GameEngineWindow::GetScale().Half());
-	SetScale({ 50,50 });
-
-	//GameEngineRenderer* Render = CreateRenderer("Nick_Right_Walk.bmp");
-	//Render->SetIndex(0);
-	//Render->SetPivotType(RenderPivot::BOT);
+	//SetScale({ 50,50 });
 
 	// 콜리전 히트박스
 	PlayerCollision_ = CreateCollision("PlayerHitBox", {100, 100});
 
 	// 애니메이션
 	NickAnimationRender_ = CreateRenderer();
+	
+	NickAnimationRender_->CreateAnimation("Nick_Idle_Right.bmp", "Idle_Right", 0, 0, 0.0f, false);
+	NickAnimationRender_->CreateAnimation("Nick_Idle_Left.bmp", "Idle_Left", 0, 0, 0.0f, false);
+
 	NickAnimationRender_->CreateAnimation("Nick_Move_Right.bmp", "Move_Right", 0, 2, 0.12f, true);
 	NickAnimationRender_->CreateAnimation("Nick_Move_Left.bmp", "Move_Left", 0, 2, 0.12f, true);
+	
+	NickAnimationRender_->CreateAnimation("Nick_Jump_Right.bmp", "Jump_Right", 0, 4, 0.1f, false);
+	NickAnimationRender_->CreateAnimation("Nick_Jump_Left.bmp", "Jump_Left", 0, 4, 0.1f, false);
+
+	NickAnimationRender_->CreateAnimation("Nick_Shooting_Right.bmp", "Attack_Right", 0, 1, 0.1f, true);
+	NickAnimationRender_->CreateAnimation("Nick_Shooting_Left.bmp", "Attack_Left", 0, 1, 0.1f, true);
+
+	NickAnimationRender_->CreateAnimation("Nick_Push_Right.bmp", "Push_Right", 0, 2, 0.1f, true);
+	NickAnimationRender_->CreateAnimation("Nick_Push_Left.bmp", "Push_Left", 0, 2, 0.1f, true);
+
+	NickAnimationRender_->CreateAnimation("Appear.bmp", "Appear", 0, 3, 0.1f, false);
+	NickAnimationRender_->CreateAnimation("Nick_Death.bmp", "Death", 0, 2, 0.1f, false);
 	// 만일, 폴더 이미지로 애니메이션을 실행시키고자 할 때 사용
 	//NickAnimationRender_->CreateFolderAnimation("폴더명", "Walk_Right", 0, 3, 0.1f, true);
-	NickAnimationRender_->ChangeAnimation("Move_Right");
+	NickAnimationRender_->ChangeAnimation("Idle_Right");
+	NickAnimationRender_->SetPivotType(RenderPivot::CENTER);
 
-	AnimationName_ = "Move_";
+	AnimationName_ = "Idle_";
 	CurrentDir_ = NickDir::RIGHT;
-	//CreateRenderer("Snow_Bullet.bmp");
-	//CreateRendererToScale("HPBar.bmp", float4(300.0f, 20.0f), RenderPivot::CENTER, float4(0.0f, -100.0f));
+	CurrentState_ = NickState::IDLE;
 	
 	// 알파 확인차 임시 생성
 	/*
@@ -154,18 +184,12 @@ void Nick::Start()
 	*/
 	if (false == GameEngineInput::GetInst()->IsKey("MoveLeft"))
 	{
-		GameEngineInput::GetInst()->CreateKey("MoveLeft", 'A');
-		GameEngineInput::GetInst()->CreateKey("MoveRight", 'D');
-		GameEngineInput::GetInst()->CreateKey("MoveUp", 'W');
-		GameEngineInput::GetInst()->CreateKey("MoveDown", 'S');
+		GameEngineInput::GetInst()->CreateKey("MoveLeft", VK_LEFT);
+		GameEngineInput::GetInst()->CreateKey("MoveRight", VK_RIGHT);
+		GameEngineInput::GetInst()->CreateKey("MoveUp", VK_UP);
+		GameEngineInput::GetInst()->CreateKey("MoveDown", VK_DOWN);
 		GameEngineInput::GetInst()->CreateKey("Jump", VK_LSHIFT);
-		GameEngineInput::GetInst()->CreateKey("SnowBullet", VK_SPACE);
-	}
-
-	FloorColImage_ = GameEngineImageManager::GetInst()->Find("Colfloor01.bmp");
-	if (nullptr == FloorColImage_)
-	{
-		MsgBoxAssert("Floor 충돌용 이미지를 찾지 못했습니다.");
+		GameEngineInput::GetInst()->CreateKey("Attack", VK_SPACE);
 	}
 
 	// 레벨에서 액터를 찾을 수 있도록 해줌(캐칭)
@@ -175,41 +199,12 @@ void Nick::Start()
 void Nick::Update()
 {
 	// 공통함수, State
-	
 	DirAnimationCheck();
 	StateUpdate();
+	CollisionFloorCheck();
 
 	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half());
-
-	if (0 > GetLevel()->GetCameraPos().x)
-	{
-		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
-		CurrentCameraPos.x = 0;
-		GetLevel()->SetCameraPos(CurrentCameraPos);
-	}
-	if (0 > GetLevel()->GetCameraPos().y)
-	{
-		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
-		CurrentCameraPos.y = 0;
-		GetLevel()->SetCameraPos(CurrentCameraPos);
-	}
-
-	float FloorScaleX = 1024;
-	float FloorScaleY = 964;
-	float CameraRectX = 1024;
-	float CameraRectY = 964;
-	if (FloorScaleX <= GetLevel()->GetCameraPos().x + CameraRectX)
-	{
-		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
-		CurrentCameraPos.x = GetLevel()->GetCameraPos().x - (GetLevel()->GetCameraPos().x + CameraRectX - FloorScaleX);
-		GetLevel()->SetCameraPos(CurrentCameraPos);
-	}
-	if (FloorScaleY <= GetLevel()->GetCameraPos().y + CameraRectY)
-	{
-		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
-		CurrentCameraPos.y = GetLevel()->GetCameraPos().y - (GetLevel()->GetCameraPos().y + CameraRectY - FloorScaleY);
-		GetLevel()->SetCameraPos(CurrentCameraPos);
-	}
+	CameraLock();
 
 	NextCheck();
 	WallCheck();
@@ -289,5 +284,55 @@ void Nick::WallCheck()
 		{
 			ColList[i]->Death();
 		}
+	}
+}
+
+void Nick::CameraLock()
+{
+	if (0 > GetLevel()->GetCameraPos().x)
+	{
+		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
+		CurrentCameraPos.x = 0;
+		GetLevel()->SetCameraPos(CurrentCameraPos);
+	}
+	if (0 > GetLevel()->GetCameraPos().y)
+	{
+		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
+		CurrentCameraPos.y = 0;
+		GetLevel()->SetCameraPos(CurrentCameraPos);
+	}
+
+	float FloorScaleX = 1024;
+	float FloorScaleY = 964;
+	float CameraRectX = 1024;
+	float CameraRectY = 964;
+	if (FloorScaleX <= GetLevel()->GetCameraPos().x + CameraRectX)
+	{
+		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
+		CurrentCameraPos.x = GetLevel()->GetCameraPos().x - (GetLevel()->GetCameraPos().x + CameraRectX - FloorScaleX);
+		GetLevel()->SetCameraPos(CurrentCameraPos);
+	}
+	if (FloorScaleY <= GetLevel()->GetCameraPos().y + CameraRectY)
+	{
+		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
+		CurrentCameraPos.y = GetLevel()->GetCameraPos().y - (GetLevel()->GetCameraPos().y + CameraRectY - FloorScaleY);
+		GetLevel()->SetCameraPos(CurrentCameraPos);
+	}
+}
+
+void Nick::CollisionFloorCheck()
+{
+	if (strcmp(GetLevel()->GetNameConstPtr(), "Floor1") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor1.bmp");
+	}
+	else if (strcmp(GetLevel()->GetNameConstPtr(), "Floor2") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor2.bmp");
+	}
+
+	if (nullptr == FloorColImage_)
+	{
+		MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다.");
 	}
 }

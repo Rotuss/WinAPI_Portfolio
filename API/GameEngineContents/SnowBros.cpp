@@ -74,12 +74,37 @@ void SnowBros::GameInit()
 	}
 
 	{
-		GameEngineImage* Image = GameEngineImageManager::GetInst()->Find("Nick_Move_Right.bmp");
+		GameEngineImage* 
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Idle_Right.bmp");
+		Image->Cut({ 68, 100 });
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Idle_Left.bmp");
+		Image->Cut({ 68, 100 });
+		
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Move_Right.bmp");
 		Image->CutCount(3, 1);
 		Image = GameEngineImageManager::GetInst()->Find("Nick_Move_Left.bmp");
 		Image->CutCount(3, 1);
+		
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Jump_Right.bmp");
+		Image->CutCount(5, 1);
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Jump_Left.bmp");
+		Image->CutCount(5, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Shooting_Right.bmp");
+		Image->CutCount(2, 1);
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Shooting_Left.bmp");
+		Image->CutCount(2, 1);
+		
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Push_Right.bmp");
+		Image->CutCount(3, 1);
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Push_Left.bmp");
+		Image->CutCount(3, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("SnowBullet_Right.bmp");
+		Image->CutCount(2, 1);
 		Image = GameEngineImageManager::GetInst()->Find("SnowBullet_Left.bmp");
 		Image->CutCount(2, 1);
+		
 		Image = GameEngineImageManager::GetInst()->Find("Push_Start.bmp");
 		Image->CutCount(2, 1);
 	}

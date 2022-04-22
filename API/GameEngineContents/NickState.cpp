@@ -23,7 +23,7 @@ void Nick::IdleUpdate()
 		ChangeState(NickState::JUMP);
 		return;
 	}
-	if (true == GameEngineInput::GetInst()->IsDown("SnowBullet"))
+	if (true == GameEngineInput::GetInst()->IsDown("Attack"))
 	{
 		ChangeState(NickState::ATTACK);
 		return;
@@ -36,19 +36,19 @@ void Nick::MoveUpdate()
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
 		// -1.0f * DT
-		MoveDir_ += float4::LEFT;
+		MoveDir_ = float4::LEFT;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
-		MoveDir_ += float4::RIGHT;
+		MoveDir_ = float4::RIGHT;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveUp"))
 	{
-		MoveDir_ += float4::UP;
+		MoveDir_ = float4::UP;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveDown"))
 	{
-		MoveDir_ += float4::DOWN;
+		MoveDir_ = float4::DOWN;
 	}
 	if (0.3f <= MoveDir_.Len2D())
 	{
@@ -61,36 +61,18 @@ void Nick::MoveUpdate()
 		ChangeState(NickState::JUMP);
 		return;
 	}
-	if (true == GameEngineInput::GetInst()->IsDown("SnowBullet"))
+	if (true == GameEngineInput::GetInst()->IsDown("Attack"))
 	{
 		ChangeState(NickState::ATTACK);
 		return;
 	}
 	if (false == IsMoveKey())
 	{
-		MoveDir_ += -MoveDir_ * GameEngineTime::GetDeltaTime();
-		if (0.005f >= MoveDir_.Len2D())
-		{
-			MoveDir_ = float4::ZERO;
-			return;
-		}
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		ChangeState(NickState::IDLE);
 		return;
 	}
-	
-	float4 CheckPos_;
-	{
-		float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-		float4 CheckPos = NextPos + float4(0.0f, 45.0f);
-
-		int Color = FloorColImage_->GetImagePixel(CheckPos);
-
-		if (RGB(0, 0, 0) != Color)
-		{
-			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-		}
-	}
-	//SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	FloorCollisionCheckMoveGround();
 }
 
 void Nick::JumpUpdate()
@@ -98,14 +80,30 @@ void Nick::JumpUpdate()
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
-		MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		MoveDir_ += float4::LEFT;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
-		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		MoveDir_ += float4::RIGHT;
+	}
+	
+	if (true == GameEngineInput::GetInst()->IsDown("Attack"))
+	{
+		ChangeState(NickState::ATTACK);
+		return;
 	}
 
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+
+	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0,45 });
+	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
+	{
+		Gravity_ = 10.0f;
+		MoveDir_.Normal2D();
+
+		ChangeState(NickState::IDLE);
+		return;
+	}
 }
 
 void Nick::AttackUpdate()
@@ -122,54 +120,101 @@ void Nick::AttackUpdate()
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	if (CurrentDir_ == NickDir::LEFT)
 	{
-		if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
-		{
-			MoveDir_ += float4::LEFT;
-		}
 		Ptr->SetDir(float4::LEFT);
 	}
 	if (CurrentDir_ == NickDir::RIGHT)
 	{
-		if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
-		{
-			MoveDir_ += float4::RIGHT;
-		}
 		Ptr->SetDir(float4::RIGHT);
 	}
 	
-	if (false == GameEngineInput::GetInst()->IsDown("SnowBullet"))
+	if (false == GameEngineInput::GetInst()->IsDown("Attack"))
 	{
-		ChangeState(NickState::MOVE);
+		ChangeState(NickState::IDLE);
 		return;
 	}
+}
+
+void Nick::PushUpdate()
+{
+	float4 MoveDir_ = float4::ZERO;
+	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
+	{
+		// -1.0f * DT
+		MoveDir_ = float4::LEFT;
+	}
+	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
+	{
+		MoveDir_ = float4::RIGHT;
+	}
+}
+
+void Nick::AppearUpdate()
+{
+
+}
+
+void Nick::DeathUpdate()
+{
+
 }
 
 //===========================Start==========================
 void Nick::IdleStart()
 {
 	// 애니메이션이 바뀜
-	// AnimationName_ = "Idle_";
-	if (CurrentDir_ == NickDir::LEFT)
-	{
-		AnimationName_ = "Nick_Idle_Left";
-		NickAnimationRender_->ChangeAnimation(AnimationName_);
-	}
-	else if (CurrentDir_ == NickDir::RIGHT)
-	{
-		AnimationName_ = "Nick_Idle_Right";
-		NickAnimationRender_->ChangeAnimation(AnimationName_);
-	}
+	AnimationName_ = "Idle_";
+	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 }
 
 void Nick::MoveStart()
 {
+	AnimationName_ = "Move_";
+	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 }
 
 void Nick::JumpStart()
 {
-	MoveDir_ = float4::UP * 500.0f;
+	AnimationName_ = "Jump_";
+	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+	MoveDir_ = float4::UP * 520.0f;
 }
 
 void Nick::AttackStart()
 {
+	AnimationName_ = "Attack_";
+	if ("" == ChangeDirText_)
+	{
+		ChangeDirText_ = "Right";
+	}
+	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+}
+
+void Nick::PushStart()
+{
+	AnimationName_ = "Push_";
+	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+}
+
+void Nick::AppearStart()
+{
+
+}
+
+void Nick::DeathStart()
+{
+
+}
+
+void Nick::FloorCollisionCheckMoveGround()
+{
+	float4 NextPos = GetPosition() + (MoveDir_ *GameEngineTime::GetDeltaTime());
+	float4 CheckPos = NextPos + float4(0.0f, 45.0f);
+	
+	int Color = FloorColImage_->GetImagePixel(CheckPos);
+	
+	if (RGB(0, 0, 0) != Color && RGB(0, 255, 0) != Color)
+	{
+		SetMove(MoveDir_ *GameEngineTime::GetDeltaTime());
+		//SetMove(float4::DOWN * Gravity_ * GameEngineTime::GetDeltaTime());
+	}	
 }

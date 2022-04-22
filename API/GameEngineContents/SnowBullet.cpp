@@ -44,7 +44,7 @@ void SnowBullet::Update()
 	ResultDir += YDir_ * GameEngineTime::GetDeltaTime();
 	SetMove(ResultDir);
 	//YDir_ *= float4::DOWN * GameEngineTime::GetDeltaTime() * DownSpeed_;
-	GameEngineImage* ColImage_ = GameEngineImageManager::GetInst()->Find("Colfloor01.bmp");
+	GameEngineImage* ColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor1.bmp");
 
 	//float4 CheckPos = GetPosition();
 	int Color = ColImage_->GetImagePixel(GetPosition());

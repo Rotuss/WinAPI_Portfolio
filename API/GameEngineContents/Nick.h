@@ -10,7 +10,9 @@ enum class NickState
 	MOVE,
 	JUMP,
 	ATTACK,
-	DIE,
+	PUSH,
+	APPEAR,
+	DEATH,
 
 	MAX
 };
@@ -35,26 +37,30 @@ public:
 	Nick& operator=(const Nick& _Other) = delete;
 	Nick& operator=(Nick&& _Other) noexcept = delete;
 
+	// 접근하기 편리하게 static 선언
 	static Nick* MainPlayer;
 	// static std::vector<InventoryItem>;
 	
 	//===========================FSM============================
 	void ChangeState(NickState _State);
 	void StateUpdate();
-
-protected:
 	void DirAnimationCheck();
 
+protected:
+	
+
 private:
-	float4 MoveDir_;
-	float Time_;
-	float Speed_;
-	float AccSpeed_;
-	float Gravity_;
-	float AccGravity_;
+	float4	MoveDir_;
+	float	Time_;
+	float	Speed_;
+	float	AccSpeed_;
+	float	Gravity_;
+	float	AccGravity_;
+	int		AttackCount_;
 
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	PlayerCollision_;
+	GameEngineCollision*	PlayerAttackCollision_;
 	GameEngineRenderer*		NickAnimationRender_;
 	NickDir					CurrentDir_;
 	std::string				AnimationName_;
@@ -66,8 +72,13 @@ private:
 
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
 	
+	void CameraLock();
+	
 	void NextCheck();
 	void WallCheck();
+
+	void CollisionFloorCheck();
+
 	// 알파 확인차 임시 생성 :GameEngineRenderer* Render_;
 	//===========================FSM============================
 	// FSM 주의사항 : 각 해당 함수에서 FSM 다른 함수 사용 불가
@@ -78,12 +89,18 @@ private:
 	void MoveUpdate();
 	void JumpUpdate();
 	void AttackUpdate();
+	void PushUpdate();
+	void AppearUpdate();
+	void DeathUpdate();
 
 	void IdleStart();
 	void MoveStart();
 	void JumpStart();
 	void AttackStart();
+	void PushStart();
+	void AppearStart();
+	void DeathStart();
 
-	void KeyMove();
+	void FloorCollisionCheckMoveGround();
 };
 
