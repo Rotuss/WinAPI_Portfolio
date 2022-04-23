@@ -35,10 +35,21 @@ public:
 	}
 	inline GameEngineRect GetRect()
 	{
-		return GameEngineRect(GetActor()->GetPosition() + Pivot_, Scale_);
+		return GameEngineRect(GetActor()->GetPosition() + Pivot_ + NextPos_, Scale_);
 	}
+	
+	void CameraEffectOff()
+	{
+		IsCameraEffect_ = false;
+	}
+	void CameraEffectOn()
+	{
+		IsCameraEffect_ = true;
+	}
+	
 	// 충돌한 대상이 존재하는지만 확인하는 함수
 	bool CollisionCheck(const std::string& _TargetGroup, CollisionType _This = CollisionType::RECT, CollisionType _Target = CollisionType::RECT);
+	bool NextPostCollisionCheck(const std::string& _TargetGroup, float4 _NextPos, CollisionType _This = CollisionType::CIRCLE, CollisionType _Target = CollisionType::CIRCLE);
 	bool CollisionResult(const std::string& _TargetGroup, std::vector<GameEngineCollision*>& _ColResult, CollisionType _This = CollisionType::RECT, CollisionType _Target = CollisionType::RECT);
 	void DebugRender();
 protected:
@@ -49,7 +60,15 @@ private:
 	// 액터에서 Pivot_{n, n}만큼 떨어진 Scale_{n, n}만큼(중심이 기준)
 	float4 Pivot_;
 	float4 Scale_;
+	float4 NextPos_;
+
+	bool IsCameraEffect_;
 
 	std::string CollisionName_;
+
+	void NextPosReset()
+	{
+		NextPos_ = float4::ZERO;
+	}
 };
 
