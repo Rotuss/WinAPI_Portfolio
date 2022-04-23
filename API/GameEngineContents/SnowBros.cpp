@@ -73,6 +73,9 @@ void SnowBros::GameInit()
 
 	{
 		GameEngineImage* 
+		Image = GameEngineImageManager::GetInst()->Find("Title.bmp");
+		Image->CutCount(3, 1);
+		
 		Image = GameEngineImageManager::GetInst()->Find("Nick_Idle_Right.bmp");
 		Image->Cut({ 68, 100 });
 		Image = GameEngineImageManager::GetInst()->Find("Nick_Idle_Left.bmp");

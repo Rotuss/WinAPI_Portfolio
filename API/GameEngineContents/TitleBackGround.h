@@ -20,5 +20,6 @@ protected:
 	void Render() override;
 
 private:
+	GameEngineRenderer* TitleAnimationRender_;
 };
 
