@@ -24,6 +24,8 @@ public:
 	void SetImage(const std::string& _Name);
 	void SetImageScale();
 	void SetIndex(size_t _Index, const float4& _Scale = { -1.0f, -1.0f });
+	void SetImageAnimationReset(const std::string& _Name);
+	void SetOrder(int _Order) override;
 	inline void SetPivotType(const RenderPivot& _Type)
 	{
 		PivotType_ = _Type;
@@ -53,7 +55,6 @@ public:
 			Alpha_ = 255;
 		}
 	}
-	void SetOrder(int _Order) override;
 
 	inline GameEngineImage* GetImage()
 	{

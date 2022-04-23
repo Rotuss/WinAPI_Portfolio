@@ -69,6 +69,12 @@ void GameEngineRenderer::SetIndex(size_t _Index, const float4& _Scale)
 	RenderImageScale_ = Image_->GetCutScale(_Index);
 }
 
+void GameEngineRenderer::SetImageAnimationReset(const std::string& _Name)
+{
+	SetImage(_Name);
+	CurrentAnimation_ = nullptr;
+}
+
 void GameEngineRenderer::SetOrder(int _Order)
 {
 	if (nullptr == GetActor())
