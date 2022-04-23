@@ -1,6 +1,11 @@
 #pragma once
 #include <GameEngine/GameEngineActor.h>
 
+enum class BulletDir
+{
+	LEFT,
+	RIGHT,
+};
 // Ό³Έν : 
 class SnowBullet : public GameEngineActor
 {
@@ -21,6 +26,11 @@ public:
 		SnowBulletDir_ = _Dir;
 		return SnowBulletDir_;
 	}
+	void SetBDir(const std::string& _Name)
+	{
+		ChangeBDirText_ = _Name;
+	}
+	void DirBulletCheck();
 
 protected:
 
@@ -33,5 +43,9 @@ private:
 	float DownSpeed_;
 	float4 SnowBulletDir_;
 	float4 YDir_;
+
+	GameEngineRenderer* BulletAnimationRender_;
+	BulletDir BCurrentDir_;
+	std::string ChangeBDirText_;
 };
 

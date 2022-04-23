@@ -76,6 +76,9 @@ void SnowBros::GameInit()
 		Image = GameEngineImageManager::GetInst()->Find("Title.bmp");
 		Image->CutCount(3, 1);
 		
+		Image = GameEngineImageManager::GetInst()->Find("Appear.bmp");
+		Image->CutCount(4, 1);
+		
 		Image = GameEngineImageManager::GetInst()->Find("Nick_Idle_Right.bmp");
 		Image->Cut({ 68, 100 });
 		Image = GameEngineImageManager::GetInst()->Find("Nick_Idle_Left.bmp");
@@ -108,6 +111,9 @@ void SnowBros::GameInit()
 		
 		Image = GameEngineImageManager::GetInst()->Find("Push_Start.bmp");
 		Image->CutCount(2, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Death.bmp");
+		Image->CutCount(3, 1);
 	}
 
 	// 각 레벨 생성

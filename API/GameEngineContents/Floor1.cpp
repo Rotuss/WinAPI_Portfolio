@@ -1,5 +1,6 @@
 #include "Floor1.h"
 #include "BackGround.h"
+#include "FloorLogo.h"
 #include "PlayUI.h"
 #include "Nick.h"
 #include "ContentsEnums.h"
@@ -32,6 +33,11 @@ void Floor1::Loading()
 		Actor->GetRenderer()->SetPivot(BackActor);
 		Actor->CreateCollision("Next", { 100, 100 }, { 200, -300 });
 		Actor->CreateCollision("Wall", { 100, 100 }, { 0, 0 });
+	}
+
+	{
+		//FloorLogo* Actor = CreateActor<FloorLogo>(0);
+		//Actor->GetRenderer()->SetImage("Floor01_Logo.bmp");
 	}
 
 	{

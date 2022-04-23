@@ -172,6 +172,7 @@
     <ClInclude Include="Floor1.h" />
     <ClInclude Include="Floor2.h" />
     <ClInclude Include="Floor3.h" />
+    <ClInclude Include="FloorLogo.h" />
     <ClInclude Include="Frog.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Nick.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="Floor1.cpp" />
     <ClCompile Include="Floor2.cpp" />
     <ClCompile Include="Floor3.cpp" />
+    <ClCompile Include="FloorLogo.cpp" />
     <ClCompile Include="Frog.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Nick.cpp" />

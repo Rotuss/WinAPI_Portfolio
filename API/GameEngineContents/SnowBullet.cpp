@@ -4,7 +4,8 @@
 #include <GameEngine/GameEngineImageManager.h>
 
 SnowBullet::SnowBullet()
-	: YDir_(float4::DOWN * 200.0f)
+	: Time(0.42f)
+	, YDir_(float4::DOWN * 200.0f)
 {
 }
 
@@ -12,45 +13,51 @@ SnowBullet::~SnowBullet()
 {
 }
 
+void SnowBullet::DirBulletCheck()
+{
+	BulletDir BCheckDir_ = BCurrentDir_;
+
+	if (ChangeBDirText_ == "Right")
+	{
+		BCheckDir_ = BulletDir::RIGHT;
+	}
+	if (ChangeBDirText_ == "Left")
+	{
+		BCheckDir_ = BulletDir::LEFT;
+	}
+
+	if (BCheckDir_ != BCurrentDir_)
+	{
+		BulletAnimationRender_->ChangeAnimation("SnowBullet_" + ChangeBDirText_);
+		BCurrentDir_ = BCheckDir_;
+	}
+}
+
 void SnowBullet::Start()
 {
 	//CreateRenderer("Snow_Bullet.bmp");
-	GameEngineRenderer* Render = CreateRenderer();
-	Render->CreateAnimation("SnowBullet_Left.bmp", "SnowBullet", 0, 1, 0.12f, true);
-	Render->ChangeAnimation("SnowBullet");
+	BulletAnimationRender_ = CreateRenderer();
+	BulletAnimationRender_->CreateAnimation("SnowBullet_Left.bmp", "SnowBullet_Left", 0, 1, 0.12f, true);
+	BulletAnimationRender_->CreateAnimation("SnowBullet_Right.bmp", "SnowBullet_Right", 0, 1, 0.12f, true);
+	BulletAnimationRender_->ChangeAnimation("SnowBullet_Left");
 	//Time = 2.0f;
-	Death(0.25f);
+	Death(0.5f);
 
-	XSpeed_ = 800.0f;
-	YSpeed_ = 100.0f;
-	DownSpeed_ = 900.0f;
+	XSpeed_ = 500.0f;
+	YSpeed_ = 500.0f;
 }
 
 void SnowBullet::Update()
 {
-	/*
-	Time -= GameEngineTime::GetDeltaTime();
-	if (0.0f >= Time)
-	{
-		Death();
-		return;
-	}
-	SetMove(float4::RIGHT * GameEngineTime::GetDeltaTime() * 200.0f);
-	*/
+	DirBulletCheck();
 	float4 ResultDir = float4::ZERO;
 	// ¸ðµç ÈûÀº ¹»ÇØµµ float4
 	ResultDir += SnowBulletDir_ * GameEngineTime::GetDeltaTime() * XSpeed_;
-	
-	ResultDir += YDir_ * GameEngineTime::GetDeltaTime();
-	SetMove(ResultDir);
-	//YDir_ *= float4::DOWN * GameEngineTime::GetDeltaTime() * DownSpeed_;
-	GameEngineImage* ColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor1.bmp");
-
-	//float4 CheckPos = GetPosition();
-	int Color = ColImage_->GetImagePixel(GetPosition());
-
-	if (RGB(0, 0, 0) == Color)
+	Time -= GameEngineTime::GetDeltaTime();
+	if (0.0f >= Time)
 	{
-		YDir_ = float4::UP * YSpeed_;
+		ResultDir += YDir_ * GameEngineTime::GetDeltaTime();
 	}
+	
+	SetMove(ResultDir);
 }

@@ -98,7 +98,6 @@ void Nick::JumpUpdate()
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0,45 });
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
-		Gravity_ = 10.0f;
 		MoveDir_.Normal2D();
 
 		ChangeState(NickState::IDLE);
@@ -121,10 +120,12 @@ void Nick::AttackUpdate()
 	if (CurrentDir_ == NickDir::LEFT)
 	{
 		Ptr->SetDir(float4::LEFT);
+		Ptr->SetBDir("Left");
 	}
 	if (CurrentDir_ == NickDir::RIGHT)
 	{
 		Ptr->SetDir(float4::RIGHT);
+		Ptr->SetBDir("Right");
 	}
 	
 	if (false == GameEngineInput::GetInst()->IsDown("Attack"))
@@ -150,7 +151,16 @@ void Nick::PushUpdate()
 
 void Nick::AppearUpdate()
 {
-
+	AppTime_ -= GameEngineTime::GetDeltaTime();
+	if (0.0f >= AppTime_)
+	{
+		if (true == IsMoveKey())
+		{
+			return;
+		}
+		ChangeState(NickState::IDLE);
+		AppTime_ = 1.0f;
+	}
 }
 
 void Nick::DeathUpdate()
@@ -163,6 +173,10 @@ void Nick::IdleStart()
 {
 	// 애니메이션이 바뀜
 	AnimationName_ = "Idle_";
+	if ("" == ChangeDirText_)
+	{
+		ChangeDirText_ = "Right";
+	}
 	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 }
 
@@ -201,12 +215,14 @@ void Nick::PushStart()
 
 void Nick::AppearStart()
 {
-
+	AnimationName_ = "Appear";
+	NickAnimationRender_->ChangeAnimation(AnimationName_);
 }
 
 void Nick::DeathStart()
 {
-
+	AnimationName_ = "Death";
+	NickAnimationRender_->ChangeAnimation(AnimationName_);
 }
 
 void Nick::FloorCollisionCheckMoveGround()

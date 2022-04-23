@@ -18,6 +18,7 @@ Nick::Nick()
 	, AccSpeed_(500.0f)
 	, Gravity_(100.0f)
 	, Time_(0.0f)
+	, AppTime_(1.0f)
 {
 }
 
@@ -145,7 +146,7 @@ void Nick::Start()
 	//SetScale({ 50,50 });
 
 	// 콜리전 히트박스
-	PlayerCollision_ = CreateCollision("PlayerHitBox", {100, 100});
+	PlayerCollision_ = CreateCollision("PlayerHitBox", {68, 100});
 
 	// 애니메이션
 	NickAnimationRender_ = CreateRenderer();
@@ -159,22 +160,22 @@ void Nick::Start()
 	NickAnimationRender_->CreateAnimation("Nick_Jump_Right.bmp", "Jump_Right", 0, 4, 0.1f, false);
 	NickAnimationRender_->CreateAnimation("Nick_Jump_Left.bmp", "Jump_Left", 0, 4, 0.1f, false);
 
-	NickAnimationRender_->CreateAnimation("Nick_Shooting_Right.bmp", "Attack_Right", 0, 1, 0.1f, true);
-	NickAnimationRender_->CreateAnimation("Nick_Shooting_Left.bmp", "Attack_Left", 0, 1, 0.1f, true);
+	NickAnimationRender_->CreateAnimation("Nick_Shooting_Right.bmp", "Attack_Right", 0, 1, 0.1f, false);
+	NickAnimationRender_->CreateAnimation("Nick_Shooting_Left.bmp", "Attack_Left", 0, 1, 0.1f, false);
 
 	NickAnimationRender_->CreateAnimation("Nick_Push_Right.bmp", "Push_Right", 0, 2, 0.1f, true);
 	NickAnimationRender_->CreateAnimation("Nick_Push_Left.bmp", "Push_Left", 0, 2, 0.1f, true);
 
-	NickAnimationRender_->CreateAnimation("Appear.bmp", "Appear", 0, 3, 0.1f, false);
+	NickAnimationRender_->CreateAnimation("Appear.bmp", "Appear", 0, 3, 0.1f, true);
 	NickAnimationRender_->CreateAnimation("Nick_Death.bmp", "Death", 0, 2, 0.1f, false);
 	// 만일, 폴더 이미지로 애니메이션을 실행시키고자 할 때 사용
 	//NickAnimationRender_->CreateFolderAnimation("폴더명", "Walk_Right", 0, 3, 0.1f, true);
-	NickAnimationRender_->ChangeAnimation("Idle_Right");
+	NickAnimationRender_->ChangeAnimation("Appear");
 	NickAnimationRender_->SetPivotType(RenderPivot::CENTER);
 
-	AnimationName_ = "Idle_";
+	//AnimationName_ = "Idle_";
 	CurrentDir_ = NickDir::RIGHT;
-	CurrentState_ = NickState::IDLE;
+	CurrentState_ = NickState::APPEAR;
 	
 	// 알파 확인차 임시 생성
 	/*

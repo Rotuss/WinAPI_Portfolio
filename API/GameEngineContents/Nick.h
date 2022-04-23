@@ -52,6 +52,7 @@ protected:
 private:
 	float4	MoveDir_;
 	float	Time_;
+	float	AppTime_;
 	float	Speed_;
 	float	AccSpeed_;
 	float	Gravity_;
