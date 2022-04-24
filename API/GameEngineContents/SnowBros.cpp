@@ -71,6 +71,7 @@ void SnowBros::GameInit()
 		GameEngineInput::GetInst()->CreateKey("Right", VK_RIGHT);
 	}
 
+	// Nick
 	{
 		GameEngineImage* 
 		Image = GameEngineImageManager::GetInst()->Find("Title.bmp");
@@ -121,6 +122,107 @@ void SnowBros::GameInit()
 		Image->CutCount(3, 1);
 	}
 
+	// RedDemon
+	{
+		GameEngineImage*
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_Idle_Right.bmp");
+		Image->Cut({ 96, 96 });
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_Idle_Left.bmp");
+		Image->Cut({ 96, 96 });
+
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_Move_Right.bmp");
+		Image->CutCount(2, 1);
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_Move_Left.bmp");
+		Image->CutCount(2, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_Jump_Right.bmp");
+		Image->CutCount(2, 1);
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_Jump_Left.bmp");
+		Image->CutCount(2, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_Down_Right.bmp");
+		Image->Cut({ 96, 124 });
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_Down_Left.bmp");
+		Image->Cut({ 96, 124 });
+
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_Rolling.bmp");
+		Image->CutCount(4, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_ShakingSnow.bmp");
+		Image->CutCount(2, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_Defeated.bmp");
+		Image->CutCount(4, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("RedDemon_Death.bmp");
+		Image->Cut({ 96, 64 });
+	}
+
+	// Frog
+	{
+		GameEngineImage*
+		Image = GameEngineImageManager::GetInst()->Find("Frog_Idle_Right.bmp");
+		Image->Cut({ 96, 104 });
+		Image = GameEngineImageManager::GetInst()->Find("Frog_Idle_Left.bmp");
+		Image->Cut({ 96, 104 });
+
+		Image = GameEngineImageManager::GetInst()->Find("Frog_Move_Right.bmp");
+		Image->CutCount(2, 1);
+		Image = GameEngineImageManager::GetInst()->Find("Frog_Move_Left.bmp");
+		Image->CutCount(2, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("Frog_Jump_Right.bmp");
+		Image->Cut({ 64, 120 });
+		Image = GameEngineImageManager::GetInst()->Find("Frog_Jump_Left.bmp");
+		Image->Cut({ 64, 120 });
+
+		Image = GameEngineImageManager::GetInst()->Find("Frog_ThrowingFire_Right.bmp");
+		Image->Cut({ 64, 112 });
+		Image = GameEngineImageManager::GetInst()->Find("Frog_ThrowingFire_Left.bmp");
+		Image->Cut({ 64, 112 });
+
+		Image = GameEngineImageManager::GetInst()->Find("Frog_ShakingSnow.bmp");
+		Image->CutCount(2, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("Frog_Defeated.bmp");
+		Image->CutCount(4, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("Frog_Death.bmp");
+		Image->Cut({ 96, 64 });
+	}
+
+	// YellowTroll
+	{
+		GameEngineImage*
+		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_Idle_Right.bmp");
+		Image->Cut({ 96, 108 });
+		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_Idle_Left.bmp");
+		Image->Cut({ 96, 108 });
+
+		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_Move_Right.bmp");
+		Image->CutCount(2, 1);
+		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_Move_Left.bmp");
+		Image->CutCount(2, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_Jump_Right.bmp");
+		Image->CutCount(2, 1);
+		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_Jump_Left.bmp");
+		Image->CutCount(2, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_Down_Right.bmp");
+		Image->Cut({ 96, 128 });
+		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_Down_Left.bmp");
+		Image->Cut({ 96, 128 });
+
+		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_ShakingSnow.bmp");
+		Image->CutCount(2, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_Defeated.bmp");
+		Image->CutCount(4, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_Death.bmp");
+		Image->Cut({ 96, 64 });
+	}
 	// 각 레벨 생성
 	CreateLevel<TitleMainLevel>("TitleMain");
 	CreateLevel<TitleSelectLevel>("TitleSelect");

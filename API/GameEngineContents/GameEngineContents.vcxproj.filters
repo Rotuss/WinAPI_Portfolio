@@ -147,6 +147,9 @@
     <ClCompile Include="FloorLogo.cpp">
       <Filter>Level\Global</Filter>
     </ClCompile>
+    <ClCompile Include="RedDemonState.cpp">
+      <Filter>Play\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

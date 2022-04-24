@@ -206,6 +206,7 @@
     <ClCompile Include="PlayLevel.cpp" />
     <ClCompile Include="PlayUI.cpp" />
     <ClCompile Include="RedDemon.cpp" />
+    <ClCompile Include="RedDemonState.cpp" />
     <ClCompile Include="SelectBackGround.cpp" />
     <ClCompile Include="SelectLogo.cpp" />
     <ClCompile Include="SnowBullet.cpp" />

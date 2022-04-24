@@ -1,7 +1,27 @@
 #pragma once
 #include <GameEngine/GameEngineActor.h>
 
+enum class FrogState
+{
+	IDLE,
+	MOVE,
+	JUMP,
+	DOWN,
+	ATTACK,
+	SHAKINGSNOW,
+	DEFEATED,
+	DEATH,
+
+	MAX
+};
+enum class FrogDir
+{
+	LEFT,
+	RIGHT,
+};
 // Ό³Έν : 
+class GameEngineImage;
+class GameEngineCollision;
 class Frog : public GameEngineActor
 {
 public:
@@ -18,7 +38,14 @@ public:
 protected:
 
 private:
+	GameEngineCollision*	FrogCollision_;
+	GameEngineCollision*	FrogAttackCollision_;
+	GameEngineRenderer*		FrogAnimationRender_;
+	FrogDir					CurrentDir_;
+
 	void Start() override;
 	void Render() override;
+
+	FrogState CurrentState_;
 };
 
