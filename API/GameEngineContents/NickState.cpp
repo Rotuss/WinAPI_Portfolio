@@ -60,15 +60,19 @@ void Nick::MoveUpdate()
 	}
 
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-	float4 CheckPos = NextPos + float4(0.0f, 45.0f);
+	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
 
 	int Color = FloorColImage_->GetImagePixel(CheckPos);
-	
-	if (RGB(0, 0, 0) != Color) 
+	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
+	if (RGB(0, 0, 0) != Color && RGB(0, 255, 0) != Color && CurrentState_ != NickState::JUMP)
 	{
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	}
-	// Down... color¶û °ãÄ§
+	if (RGB(255, 255, 255) == DColor)
+	{
+		ChangeState(NickState::DOWN);
+		return;
+	}
 	//FloorCollisionCheckMoveGround();
 }
 
