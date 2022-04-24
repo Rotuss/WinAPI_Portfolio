@@ -42,19 +42,6 @@ void Nick::MoveUpdate()
 	{
 		MoveDir_ = float4::RIGHT;
 	}
-	if (true == GameEngineInput::GetInst()->IsPress("MoveUp"))
-	{
-		MoveDir_ = float4::UP;
-	}
-	if (true == GameEngineInput::GetInst()->IsPress("MoveDown"))
-	{
-		MoveDir_ = float4::DOWN;
-	}
-	if (0.3f <= MoveDir_.Len2D())
-	{
-		MoveDir_.Range2D(0.3f);
-	}
-	//MoveDir_ *= 0.9f;
 
 	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
 	{
@@ -71,8 +58,18 @@ void Nick::MoveUpdate()
 		ChangeState(NickState::IDLE);
 		return;
 	}
-	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-	FloorCollisionCheckMoveGround();
+
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	float4 CheckPos = NextPos + float4(0.0f, 45.0f);
+
+	int Color = FloorColImage_->GetImagePixel(CheckPos);
+	
+	if (RGB(0, 0, 0) != Color) 
+	{
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+	// Down... color¶û °ãÄ§
+	//FloorCollisionCheckMoveGround();
 }
 
 void Nick::JumpUpdate()
@@ -95,11 +92,37 @@ void Nick::JumpUpdate()
 
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 
-	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0,45 });
+	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
-		MoveDir_.Normal2D();
+		ChangeState(NickState::IDLE);
+		return;
+	}
+}
 
+void Nick::DownUpdate()
+{
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
+	{
+		MoveDir_ += float4::LEFT;
+	}
+	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
+	{
+		MoveDir_ += float4::RIGHT;
+	}
+
+	if (true == GameEngineInput::GetInst()->IsDown("Attack"))
+	{
+		ChangeState(NickState::ATTACK);
+		return;
+	}
+
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+
+	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
+	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
+	{
 		ChangeState(NickState::IDLE);
 		return;
 	}
@@ -197,6 +220,12 @@ void Nick::JumpStart()
 	MoveDir_ = float4::UP * 520.0f;
 }
 
+void Nick::DownStart()
+{
+	AnimationName_ = "Down_";
+	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+}
+
 void Nick::AttackStart()
 {
 	AnimationName_ = "Attack_";
@@ -236,5 +265,5 @@ void Nick::FloorCollisionCheckMoveGround()
 	{
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 		//SetMove(float4::DOWN * Gravity_ * GameEngineTime::GetDeltaTime());
-	}	
+	}
 }

@@ -94,6 +94,11 @@ void SnowBros::GameInit()
 		Image = GameEngineImageManager::GetInst()->Find("Nick_Jump_Left.bmp");
 		Image->CutCount(5, 1);
 
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Down_Right.bmp");
+		Image->Cut({ 64, 116 });
+		Image = GameEngineImageManager::GetInst()->Find("Nick_Down_Left.bmp");
+		Image->Cut({ 64, 116 });
+		
 		Image = GameEngineImageManager::GetInst()->Find("Nick_Shooting_Right.bmp");
 		Image->CutCount(2, 1);
 		Image = GameEngineImageManager::GetInst()->Find("Nick_Shooting_Left.bmp");

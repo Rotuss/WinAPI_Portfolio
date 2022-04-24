@@ -14,7 +14,7 @@ Nick* Nick::MainPlayer = nullptr;
 
 Nick::Nick()
 	: MoveDir_(float4::ZERO)
-	, Speed_(500.0f)
+	, Speed_(200.0f)
 	, AccSpeed_(500.0f)
 	, Gravity_(100.0f)
 	, Time_(0.0f)
@@ -30,9 +30,7 @@ Nick::~Nick()
 bool Nick::IsMoveKey()
 {
 	if (false == GameEngineInput::GetInst()->IsPress("MoveLeft") &&
-		false == GameEngineInput::GetInst()->IsPress("MoveRight") &&
-		false == GameEngineInput::GetInst()->IsPress("MoveUp") &&
-		false == GameEngineInput::GetInst()->IsPress("MoveDown"))
+		false == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
 		return false;
 	}
@@ -53,6 +51,9 @@ void Nick::ChangeState(NickState _State)
 			break;
 		case NickState::JUMP:
 			JumpStart();
+			break;
+		case NickState::DOWN:
+			DownStart();
 			break;
 		case NickState::ATTACK:
 			AttackStart();
@@ -88,6 +89,9 @@ void Nick::StateUpdate()
 		break;
 	case NickState::JUMP:
 		JumpUpdate();
+		break;
+	case NickState::DOWN:
+		DownUpdate();
 		break;
 	case NickState::ATTACK:
 		AttackUpdate();
@@ -160,6 +164,9 @@ void Nick::Start()
 	NickAnimationRender_->CreateAnimation("Nick_Jump_Right.bmp", "Jump_Right", 0, 4, 0.1f, false);
 	NickAnimationRender_->CreateAnimation("Nick_Jump_Left.bmp", "Jump_Left", 0, 4, 0.1f, false);
 
+	NickAnimationRender_->CreateAnimation("Nick_Down_Right.bmp", "Down_Right", 0, 0, 0.0f, false);
+	NickAnimationRender_->CreateAnimation("Nick_Down_Left.bmp", "Down_Left", 0, 0, 0.0f, false);
+	
 	NickAnimationRender_->CreateAnimation("Nick_Shooting_Right.bmp", "Attack_Right", 0, 1, 0.1f, false);
 	NickAnimationRender_->CreateAnimation("Nick_Shooting_Left.bmp", "Attack_Left", 0, 1, 0.1f, false);
 
@@ -187,8 +194,6 @@ void Nick::Start()
 	{
 		GameEngineInput::GetInst()->CreateKey("MoveLeft", VK_LEFT);
 		GameEngineInput::GetInst()->CreateKey("MoveRight", VK_RIGHT);
-		GameEngineInput::GetInst()->CreateKey("MoveUp", VK_UP);
-		GameEngineInput::GetInst()->CreateKey("MoveDown", VK_DOWN);
 		GameEngineInput::GetInst()->CreateKey("Jump", VK_LSHIFT);
 		GameEngineInput::GetInst()->CreateKey("Attack", VK_SPACE);
 	}

@@ -9,6 +9,7 @@ enum class NickState
 	IDLE,
 	MOVE,
 	JUMP,
+	DOWN,
 	ATTACK,
 	PUSH,
 	APPEAR,
@@ -89,6 +90,7 @@ private:
 	void IdleUpdate();
 	void MoveUpdate();
 	void JumpUpdate();
+	void DownUpdate();
 	void AttackUpdate();
 	void PushUpdate();
 	void AppearUpdate();
@@ -97,6 +99,7 @@ private:
 	void IdleStart();
 	void MoveStart();
 	void JumpStart();
+	void DownStart();
 	void AttackStart();
 	void PushStart();
 	void AppearStart();
