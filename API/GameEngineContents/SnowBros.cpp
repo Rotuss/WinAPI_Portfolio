@@ -224,6 +224,17 @@ void SnowBros::GameInit()
 		Image = GameEngineImageManager::GetInst()->Find("YellowTroll_Death.bmp");
 		Image->Cut({ 96, 64 });
 	}
+
+	// Snow
+	{
+		GameEngineImage*
+		Image = GameEngineImageManager::GetInst()->Find("Snow1.bmp");
+		Image->Cut({ 84, 64 });
+		Image = GameEngineImageManager::GetInst()->Find("Snow2.bmp");
+		Image->Cut({ 84, 64 });
+		Image = GameEngineImageManager::GetInst()->Find("Snow3.bmp");
+		Image->Cut({ 88, 92 });
+	} 
 	// 각 레벨 생성
 	CreateLevel<TitleMainLevel>("TitleMain");
 	CreateLevel<TitleSelectLevel>("TitleSelect");

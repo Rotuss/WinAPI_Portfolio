@@ -2,6 +2,7 @@
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngineRenderer.h>
 #include <GameEngine/GameEngineImageManager.h>
+#include <GameEngine/GameEngineCollision.h>
 
 SnowBullet::SnowBullet()
 	: Time(0.42f)
@@ -35,6 +36,8 @@ void SnowBullet::DirBulletCheck()
 
 void SnowBullet::Start()
 {
+	BulletCollision_ = CreateCollision("BulletHitBox", { 24, 44 });
+	
 	//CreateRenderer("Snow_Bullet.bmp");
 	BulletAnimationRender_ = CreateRenderer();
 	BulletAnimationRender_->CreateAnimation("SnowBullet_Left.bmp", "SnowBullet_Left", 0, 1, 0.12f, true);
@@ -54,6 +57,13 @@ void SnowBullet::Update()
 	// ¸ðµç ÈûÀº ¹»ÇØµµ float4
 	ResultDir += SnowBulletDir_ * GameEngineTime::GetDeltaTime() * XSpeed_;
 	Time -= GameEngineTime::GetDeltaTime();
+	
+	if (true == BulletCollision_->CollisionCheck("RedDemonHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Death();
+		return;
+	}
+	
 	if (0.0f >= Time)
 	{
 		ResultDir += YDir_ * GameEngineTime::GetDeltaTime();

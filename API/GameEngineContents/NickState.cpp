@@ -31,8 +31,8 @@ void Nick::IdleUpdate()
 
 	if (true == PlayerCollision_->CollisionCheck("RedDemonHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		ChangeState(NickState::DEATH);
-		return;
+		//ChangeState(NickState::DEATH);
+		//return;
 	}
 	
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
@@ -92,8 +92,8 @@ void Nick::MoveUpdate()
 
 	if (true == PlayerCollision_->CollisionCheck("RedDemonHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		ChangeState(NickState::DEATH);
-		return;
+		//ChangeState(NickState::DEATH);
+		//return;
 	}
 
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);

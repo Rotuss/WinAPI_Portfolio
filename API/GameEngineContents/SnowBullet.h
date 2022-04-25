@@ -44,6 +44,7 @@ private:
 	float4 SnowBulletDir_;
 	float4 YDir_;
 
+	GameEngineCollision* BulletCollision_;
 	GameEngineRenderer* BulletAnimationRender_;
 	BulletDir BCurrentDir_;
 	std::string ChangeBDirText_;

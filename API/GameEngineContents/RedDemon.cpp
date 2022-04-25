@@ -15,6 +15,9 @@ RedDemon::RedDemon()
 	, AccSpeed_(500.0f)
 	, Gravity_(100.0f)
 	, Time_(0.0f)
+	, MeltingTime_(1.0f)
+	, ShakingTime_(1.0f)
+	, DamageCount_(2)
 {
 }
 
@@ -26,7 +29,7 @@ void RedDemon::ChangeState(RedDemonState _State)
 {
 	if (CurrentState_ != _State)
 	{
-		switch (CurrentState_)
+		switch (_State)
 		{
 		case RedDemonState::IDLE:
 			IdleStart();
@@ -42,6 +45,15 @@ void RedDemon::ChangeState(RedDemonState _State)
 			break;
 		case RedDemonState::ATTACK:
 			AttackStart();
+			break;
+		case RedDemonState::SNOW1:
+			Snow1Start();
+			break;
+		case RedDemonState::SNOW2:
+			Snow2Start();
+			break;
+		case RedDemonState::SNOW3:
+			Snow3Start();
 			break;
 		case RedDemonState::SHAKINGSNOW:
 			ShakingSnowStart();
@@ -81,6 +93,15 @@ void RedDemon::StateUpdate()
 	case RedDemonState::ATTACK:
 		AttackUpdate();
 		break;
+	case RedDemonState::SNOW1:
+		Snow1Update();
+		break;
+	case RedDemonState::SNOW2:
+		Snow2Update();
+		break;
+	case RedDemonState::SNOW3:
+		Snow3Update();
+		break;
 	case RedDemonState::SHAKINGSNOW:
 		ShakingSnowUpdate();
 		break;
@@ -117,6 +138,10 @@ void RedDemon::Start()
 
 	RedDemonAnimationRender_->CreateAnimation("RedDemon_Rolling.bmp", "Attack", 0, 3, 0.1f, false);
 
+	RedDemonAnimationRender_->CreateAnimation("Snow1.bmp", "Snow1", 0, 0, 0.0f, false);
+	RedDemonAnimationRender_->CreateAnimation("Snow2.bmp", "Snow2", 0, 0, 0.0f, false);
+	RedDemonAnimationRender_->CreateAnimation("Snow3.bmp", "Snow3", 0, 0, 0.0f, false);
+	
 	RedDemonAnimationRender_->CreateAnimation("RedDemon_ShakingSnow.bmp", "ShakingSnow", 0, 1, 0.1f, true);
 
 	RedDemonAnimationRender_->CreateAnimation("RedDemon_Defeated.bmp", "Defeated", 0, 3, 0.1f, true);

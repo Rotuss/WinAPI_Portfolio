@@ -8,6 +8,9 @@ enum class RedDemonState
 	JUMP,
 	DOWN,
 	ATTACK,
+	SNOW1,
+	SNOW2,
+	SNOW3,
 	SHAKINGSNOW,
 	DEFEATED,
 	DEATH,
@@ -45,11 +48,13 @@ protected:
 private:
 	float4	MoveDir_;
 	float	Time_;
+	float	MeltingTime_;
+	float	ShakingTime_;
 	float	Speed_;
 	float	AccSpeed_;
 	float	Gravity_;
 	float	AccGravity_;
-	int		AttackCount_;
+	int		DamageCount_;
 
 
 	GameEngineImage*		FloorColImage_;
@@ -79,6 +84,9 @@ private:
 	void JumpUpdate();
 	void DownUpdate();
 	void AttackUpdate();
+	void Snow1Update();
+	void Snow2Update();
+	void Snow3Update();
 	void ShakingSnowUpdate();
 	void DefeatedUpdate();
 	void DeathUpdate();
@@ -88,6 +96,9 @@ private:
 	void JumpStart();
 	void DownStart();
 	void AttackStart();
+	void Snow1Start();
+	void Snow2Start();
+	void Snow3Start();
 	void ShakingSnowStart();
 	void DefeatedStart();
 	void DeathStart();
