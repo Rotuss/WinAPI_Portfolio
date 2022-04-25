@@ -29,12 +29,18 @@ void Nick::IdleUpdate()
 		return;
 	}
 
+	if (true == PlayerCollision_->CollisionCheck("RedDemonHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(NickState::DEATH);
+		return;
+	}
+	
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
 
 	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
 	
-	if (RGB(255, 255, 255) == DColor)
+	if (RGB(0, 0, 0) != DColor && RGB(0, 255, 0) != DColor && CurrentState_ != NickState::JUMP)
 	{
 		ChangeState(NickState::DOWN);
 		return;
@@ -81,6 +87,12 @@ void Nick::MoveUpdate()
 	if (false == IsMoveKey())
 	{
 		ChangeState(NickState::IDLE);
+		return;
+	}
+
+	if (true == PlayerCollision_->CollisionCheck("RedDemonHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(NickState::DEATH);
 		return;
 	}
 
@@ -147,9 +159,9 @@ void Nick::JumpUpdate()
 void Nick::DownUpdate()
 {
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
-	if (true == GameEngineInput::GetInst()->IsDown("MoveLeft"))
+	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
-		MoveDir_ = float4::LEFT * Speed_;
+		MoveDir_ += float4::LEFT * Speed_;
 		float4 LimitX = { MoveDir_.x,0 };
 
 		if (LimitX.Len2D() >= 200.f)
@@ -158,9 +170,9 @@ void Nick::DownUpdate()
 			MoveDir_.x = LimitX.x;
 		}
 	}
-	if (true == GameEngineInput::GetInst()->IsDown("MoveRight"))
+	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
-		MoveDir_ = float4::RIGHT * Speed_;
+		MoveDir_ += float4::RIGHT * Speed_;
 		float4 LimitX = { MoveDir_.x,0 };
 
 		if (LimitX.Len2D() >= 200.f)
@@ -247,7 +259,22 @@ void Nick::AppearUpdate()
 
 void Nick::DeathUpdate()
 {
+	//LifeCount_ -= 1;
+	DTime_ -= GameEngineTime::GetDeltaTime();
+	if (0.0f >= DTime_)
+	{
+		if (true == IsMoveKey())
+		{
+			return;
+		}
+		ChangeState(NickState::APPEAR);
+		DTime_ = 0.5f;
+	}
 
+	if (LifeCount_ < 0)
+	{
+		GameEngine::GetInst().ChangeLevel("Floor3");
+	}
 }
 
 //===========================Start==========================
@@ -311,8 +338,11 @@ void Nick::DeathStart()
 {
 	AnimationName_ = "Death";
 	NickAnimationRender_->ChangeAnimation(AnimationName_);
+
+	LifeCount_ -= 1;
 }
 
+/*
 void Nick::FloorCollisionCheckMoveGround()
 {
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime());
@@ -326,3 +356,4 @@ void Nick::FloorCollisionCheckMoveGround()
 		//SetMove(float4::DOWN * Gravity_ * GameEngineTime::GetDeltaTime());
 	}
 }
+*/

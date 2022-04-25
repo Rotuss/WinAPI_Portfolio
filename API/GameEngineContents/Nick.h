@@ -54,11 +54,11 @@ private:
 	float4	MoveDir_;
 	float	Time_;
 	float	AppTime_;
+	float	DTime_;
 	float	Speed_;
-	float	AccSpeed_;
-	float	Gravity_;
-	float	AccGravity_;
-	int		AttackCount_;
+	//float	Gravity_;
+	//float	AccGravity_;
+	int		LifeCount_;
 
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	PlayerCollision_;
@@ -105,6 +105,6 @@ private:
 	void AppearStart();
 	void DeathStart();
 
-	void FloorCollisionCheckMoveGround();
+	//void FloorCollisionCheckMoveGround();
 };
 

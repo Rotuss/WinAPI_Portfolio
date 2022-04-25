@@ -50,6 +50,10 @@ void Floor2::Update()
 	{
 		GameEngine::GetInst().ChangeLevel("Floor1");
 	}
+	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
+	{
+		GameEngineLevel::IsDebugModeSwitch();
+	}
 }
 
 void Floor2::LevelChangeStart(GameEngineLevel* _PrevLevel)

@@ -32,8 +32,8 @@ void Floor1::Loading()
 		BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
 
 		Actor->GetRenderer()->SetPivot(BackActor);
-		Actor->CreateCollision("Next", { 100, 100 }, { 200, -300 });
-		Actor->CreateCollision("Wall", { 100, 100 }, { 0, 0 });
+		//Actor->CreateCollision("Next", { 100, 100 }, { 200, -300 });
+		//Actor->CreateCollision("Wall", { 100, 100 }, { 0, 0 });
 	}
 
 	{
@@ -71,6 +71,10 @@ void Floor1::Update()
 	{
 		GameEngine::GetInst().ChangeLevel("Floor2");
 	}
+	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
+	{
+		GameEngineLevel::IsDebugModeSwitch();
+	}
 	/*
 	Time_ -= GameEngineTime::GetDeltaTime();
 	if (0 >= Time_)
@@ -82,7 +86,7 @@ void Floor1::Update()
 
 void Floor1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-	//BgmPlayer_ = GameEngineSound::SoundPlayControl("bgm.mp3");
+	//BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_Stage_Theme1.mp3");
 	Time_ = 5.0f;
 }
 

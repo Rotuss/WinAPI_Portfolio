@@ -15,10 +15,11 @@ Nick* Nick::MainPlayer = nullptr;
 Nick::Nick()
 	: MoveDir_(float4::ZERO)
 	, Speed_(200.0f)
-	, AccSpeed_(500.0f)
-	, Gravity_(100.0f)
+	//, Gravity_(100.0f)
 	, Time_(0.0f)
 	, AppTime_(1.0f)
+	, DTime_(0.5f)
+	, LifeCount_(2)
 {
 }
 
