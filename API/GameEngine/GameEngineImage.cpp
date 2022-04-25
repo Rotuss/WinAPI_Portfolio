@@ -182,6 +182,11 @@ void GameEngineImage::AlphaCopy(GameEngineImage* _Other, const float4& _CopyPos,
 void GameEngineImage::PlgCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyScale, const float4& _OtherPivot, const float4& _OtherScale, float _Angle, GameEngineImage* _Filter)
 {
 	// 3개의 포인트를 넣어줘야함
+	if (_Angle == 180.0f)
+	{
+		_Angle = 180.00001f;
+	}
+	
 	POINT RotPoint[3];
 
 	GameEngineRect Rect = GameEngineRect(float4::ZERO, _CopyScale);

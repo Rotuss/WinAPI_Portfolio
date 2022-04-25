@@ -79,17 +79,17 @@ public:
 		CameraPos_ + _Value;
 	}
 
-	bool IsDebugModeOn()
+	static void IsDebugModeOn()
 	{
 		IsDebug_ = true;
 	}
 
-	bool IsDebugModeOff()
+	static void IsDebugModeOff()
 	{
 		IsDebug_ = false;
 	}
 
-	bool IsDebugModeSwitch()
+	static void IsDebugModeSwitch()
 	{
 		IsDebug_ = !IsDebug_;
 	}
