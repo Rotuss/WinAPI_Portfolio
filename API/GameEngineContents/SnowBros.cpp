@@ -69,6 +69,7 @@ void SnowBros::GameInit()
 		GameEngineInput::GetInst()->CreateKey("LevelChange", VK_RETURN);
 		GameEngineInput::GetInst()->CreateKey("Left", VK_LEFT);
 		GameEngineInput::GetInst()->CreateKey("Right", VK_RIGHT);
+		GameEngineInput::GetInst()->CreateKey("Debug", '0');
 	}
 
 	// Nick

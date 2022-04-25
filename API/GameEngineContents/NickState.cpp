@@ -28,6 +28,17 @@ void Nick::IdleUpdate()
 		ChangeState(NickState::ATTACK);
 		return;
 	}
+
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
+
+	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
+	
+	if (RGB(255, 255, 255) == DColor)
+	{
+		ChangeState(NickState::DOWN);
+		return;
+	}
 }
 
 void Nick::MoveUpdate()
@@ -37,10 +48,24 @@ void Nick::MoveUpdate()
 	{
 		// -1.0f * DT
 		MoveDir_ = float4::LEFT;
+		float4 LimitX = { MoveDir_.x,0 };
+
+		if (LimitX.Len2D() >= 200.f)
+		{
+			LimitX.Range2D(200.f);
+			MoveDir_.x = LimitX.x;
+		}
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
 		MoveDir_ = float4::RIGHT;
+		float4 LimitX = { MoveDir_.x,0 };
+
+		if (LimitX.Len2D() >= 200.f)
+		{
+			LimitX.Range2D(200.f);
+			MoveDir_.x = LimitX.x;
+		}
 	}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
@@ -82,10 +107,24 @@ void Nick::JumpUpdate()
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
 		MoveDir_ += float4::LEFT;
+		float4 LimitX = { MoveDir_.x,0 };
+
+		if (LimitX.Len2D() >= 200.f)
+		{
+			LimitX.Range2D(200.f);
+			MoveDir_.x = LimitX.x;
+		}
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
 		MoveDir_ += float4::RIGHT;
+		float4 LimitX = { MoveDir_.x,0 };
+
+		if (LimitX.Len2D() >= 200.f)
+		{
+			LimitX.Range2D(200.f);
+			MoveDir_.x = LimitX.x;
+		}
 	}
 	
 	if (true == GameEngineInput::GetInst()->IsDown("Attack"))
@@ -99,6 +138,7 @@ void Nick::JumpUpdate()
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
+		MoveDir_.Normal2D();
 		ChangeState(NickState::IDLE);
 		return;
 	}
@@ -107,13 +147,27 @@ void Nick::JumpUpdate()
 void Nick::DownUpdate()
 {
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
-	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
+	if (true == GameEngineInput::GetInst()->IsDown("MoveLeft"))
 	{
-		MoveDir_ += float4::LEFT;
+		MoveDir_ = float4::LEFT * Speed_;
+		float4 LimitX = { MoveDir_.x,0 };
+
+		if (LimitX.Len2D() >= 200.f)
+		{
+			LimitX.Range2D(200.f);
+			MoveDir_.x = LimitX.x;
+		}
 	}
-	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
+	if (true == GameEngineInput::GetInst()->IsDown("MoveRight"))
 	{
-		MoveDir_ += float4::RIGHT;
+		MoveDir_ = float4::RIGHT * Speed_;
+		float4 LimitX = { MoveDir_.x,0 };
+
+		if (LimitX.Len2D() >= 200.f)
+		{
+			LimitX.Range2D(200.f);
+			MoveDir_.x = LimitX.x;
+		}
 	}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Attack"))
@@ -123,10 +177,11 @@ void Nick::DownUpdate()
 	}
 
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
-
+	
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
+		MoveDir_.Normal2D();
 		ChangeState(NickState::IDLE);
 		return;
 	}
