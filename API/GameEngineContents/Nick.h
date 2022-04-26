@@ -56,6 +56,7 @@ private:
 	float	AppTime_;
 	float	DTime_;
 	float	Speed_;
+	float	PushSpeed_;
 	//float	Gravity_;
 	//float	AccGravity_;
 	int		LifeCount_;

@@ -95,6 +95,16 @@ void Nick::MoveUpdate()
 		//ChangeState(NickState::DEATH);
 		//return;
 	}
+	if (true == PlayerCollision_->CollisionCheck("SnowRColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(NickState::PUSH);
+		return;
+	}
+	if (true == PlayerCollision_->CollisionCheck("SnowLColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(NickState::PUSH);
+		return;
+	}
 
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
@@ -240,6 +250,27 @@ void Nick::PushUpdate()
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
 		MoveDir_ = float4::RIGHT;
+	}
+
+	if (false == IsMoveKey())
+	{
+		ChangeState(NickState::IDLE);
+		return;
+	}
+
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * PushSpeed_);
+	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
+
+	int Color = FloorColImage_->GetImagePixel(CheckPos);
+	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
+	if (RGB(0, 0, 0) != Color && RGB(0, 255, 0) != Color && CurrentState_ != NickState::JUMP)
+	{
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * PushSpeed_);
+	}
+	if (RGB(255, 255, 255) == DColor)
+	{
+		ChangeState(NickState::DOWN);
+		return;
 	}
 }
 

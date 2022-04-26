@@ -13,13 +13,30 @@ void RedDemon::IdleUpdate()
 {
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		DamageCount_ -= 1;
 		if (DamageCount_ < 0)
 		{
 			ChangeState(RedDemonState::SNOW1);
 			return;
 		}
+		DamageCount_ -= 1;
 	}
+
+	/*
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
+
+	int Color = FloorColImage_->GetImagePixel(CheckPos);
+	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 0.0f));
+	if (RGB(0, 0, 0) != Color && RGB(0, 255, 0) != Color)
+	{
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+	if (RGB(255, 255, 255) == DColor)
+	{
+		MoveDir_ = float4::DOWN * 2.0f;
+		return;
+	}
+	*/
 }
 
 void RedDemon::MoveUpdate()
@@ -38,12 +55,12 @@ void RedDemon::Snow1Update()
 {
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		DamageCount_ -= 1;
 		if (DamageCount_ < 0)
 		{
 			ChangeState(RedDemonState::SNOW2);
 			return;
 		}
+		DamageCount_ -= 1;
 	}
 	if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
@@ -60,12 +77,12 @@ void RedDemon::Snow2Update()
 {
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		DamageCount_ -= 1;
 		if (DamageCount_ < 0)
 		{
 			ChangeState(RedDemonState::SNOW3);
 			return;
 		}
+		DamageCount_ -= 1;
 	}
 	if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
@@ -82,11 +99,11 @@ void RedDemon::Snow3Update()
 {
 	// MeltingTime_ 시간 동안 한 번이라도 부딪히면 Snow3, 한 번도 안 부딪히면 Snow2
 	MeltingTime_ -= GameEngineTime::GetDeltaTime();
-	if (2.5f < MeltingTime_ && MeltingTime_ > 0.0f)
+	if (2.5f > MeltingTime_ && MeltingTime_ > 0.0f)
 	{
 		if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 		{
-			ChangeState(RedDemonState::SNOW3);
+  			ChangeState(RedDemonState::SNOW3);
 			return;
 		}
 	}
@@ -95,6 +112,8 @@ void RedDemon::Snow3Update()
 		if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 		{
 			ChangeState(RedDemonState::SNOW2);
+			RedDemonSnowRCollision_->Death();
+			RedDemonSnowLCollision_->Death();
 			return;
 		}
 	}
@@ -116,6 +135,31 @@ void RedDemon::Snow3Update()
 	}
 	*/
 
+	if (true == RedDemonSnowRCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		MoveDir_ = float4::RIGHT;
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * SnowSpeed_);
+	}
+	if (true == RedDemonSnowLCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		MoveDir_ = float4::LEFT;
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * SnowSpeed_);
+	}
+
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
+
+	int Color = FloorColImage_->GetImagePixel(CheckPos);
+	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 0.0f));
+	if (RGB(0, 0, 0) != Color && RGB(0, 255, 0) != Color)
+	{
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+	if (RGB(255, 255, 255) == DColor)
+	{
+		MoveDir_ = float4::DOWN * 2.0f;
+		return;
+	}
 }
 
 void RedDemon::ShakingSnowUpdate()
@@ -125,6 +169,16 @@ void RedDemon::ShakingSnowUpdate()
 	{
 		ChangeState(RedDemonState::IDLE);
 		return;
+	}
+
+	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		if (DamageCount_ < 0)
+		{
+			ChangeState(RedDemonState::SNOW1);
+			return;
+		}
+		DamageCount_ -= 1;
 	}
 }
 
@@ -164,8 +218,8 @@ void RedDemon::Snow1Start()
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 	RedDemonAnimationRender_->SetPivot({ 0,20.0f });
 
-	DamageCount_ = 3;
-	MeltingTime_ = 1.5f;
+	DamageCount_ = 2;
+	MeltingTime_ = 3.0f;
 }
 
 void RedDemon::Snow2Start()
@@ -174,8 +228,8 @@ void RedDemon::Snow2Start()
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 	RedDemonAnimationRender_->SetPivot({ 0,20.0f });
 
-	DamageCount_ = 3;
-	MeltingTime_ = 1.5f;
+	DamageCount_ = 2;
+	MeltingTime_ = 3.0f;
 }
 
 void RedDemon::Snow3Start()
@@ -184,7 +238,10 @@ void RedDemon::Snow3Start()
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 	RedDemonAnimationRender_->SetPivot({ 0,5 });
 
-	MeltingTime_ = 2.5f;
+	RedDemonSnowRCollision_ = CreateCollision("SnowRColBox", { 5, 10 }, { -15, 0 });
+	RedDemonSnowLCollision_ = CreateCollision("SnowLColBox", { 5, 10 }, { 15, 0 });
+
+	MeltingTime_ = 5.0f;
 }
 
 void RedDemon::ShakingSnowStart()

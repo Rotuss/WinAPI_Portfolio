@@ -12,10 +12,11 @@
 RedDemon::RedDemon()
 	: MoveDir_(float4::ZERO)
 	, Speed_(200.0f)
+	, SnowSpeed_(100.0f)
 	, AccSpeed_(500.0f)
 	, Gravity_(100.0f)
 	, Time_(0.0f)
-	, MeltingTime_(1.0f)
+	, MeltingTime_(3.0f)
 	, ShakingTime_(1.0f)
 	, DamageCount_(2)
 {
@@ -160,7 +161,7 @@ void RedDemon::Update()
 {
 	//DirAnimationCheck();
 	StateUpdate();
-	//CollisionFloorCheck();
+	CollisionFloorCheck();
 }
 
 void RedDemon::Render()
@@ -170,4 +171,21 @@ void RedDemon::Render()
 
 void RedDemon::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
+}
+
+void RedDemon::CollisionFloorCheck()
+{
+	if (strcmp(GetLevel()->GetNameConstPtr(), "Floor1") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor1.bmp");
+	}
+	else if (strcmp(GetLevel()->GetNameConstPtr(), "Floor2") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor2.bmp");
+	}
+
+	if (nullptr == FloorColImage_)
+	{
+		MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다.");
+	}
 }

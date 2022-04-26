@@ -46,8 +46,8 @@ void Floor1::Loading()
 	}
 
 	{
-		Nick* Player = CreateActor<Nick>((int)ORDER::PLAYER, "Player");
-		Player->SetPosition({400,727});
+		Nick* Player = CreateActor<Nick>(10);
+		Player->SetPosition({400,710});
 	}
 
 	{

@@ -51,6 +51,7 @@ private:
 	float	MeltingTime_;
 	float	ShakingTime_;
 	float	Speed_;
+	float	SnowSpeed_;
 	float	AccSpeed_;
 	float	Gravity_;
 	float	AccGravity_;
@@ -59,7 +60,8 @@ private:
 
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	RedDemonCollision_;
-	GameEngineCollision*	RedDemonAttackCollision_;
+	GameEngineCollision*	RedDemonSnowRCollision_;
+	GameEngineCollision*	RedDemonSnowLCollision_;
 	GameEngineRenderer*		RedDemonAnimationRender_;
 	RedDemonDir				CurrentDir_;
 	std::string				AnimationName_;
@@ -71,7 +73,7 @@ private:
 
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
 
-	//void CollisionFloorCheck();
+	void CollisionFloorCheck();
 
 	// 알파 확인차 임시 생성 :GameEngineRenderer* Render_;
 	//===========================FSM============================
