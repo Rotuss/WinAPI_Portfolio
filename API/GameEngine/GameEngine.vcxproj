@@ -169,6 +169,7 @@
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameEngineActor.h" />
     <ClInclude Include="GameEngineFolderImage.h" />
+    <ClInclude Include="GameEngineFont.h" />
     <ClInclude Include="GameEngineImage.h" />
     <ClInclude Include="GameEngineImageManager.h" />
     <ClInclude Include="GameEngineLevel.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="GameEngineActorSubObject.cpp" />
     <ClCompile Include="GameEngineCollision.cpp" />
     <ClCompile Include="GameEngineFolderImage.cpp" />
+    <ClCompile Include="GameEngineFont.cpp" />
     <ClCompile Include="GameEngineImage.cpp" />
     <ClCompile Include="GameEngineImageManager.cpp" />
     <ClCompile Include="GameEngineLevel.cpp" />
