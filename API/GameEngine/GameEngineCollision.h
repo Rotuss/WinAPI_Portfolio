@@ -49,7 +49,7 @@ public:
 	
 	// 충돌한 대상이 존재하는지만 확인하는 함수
 	bool CollisionCheck(const std::string& _TargetGroup, CollisionType _This = CollisionType::RECT, CollisionType _Target = CollisionType::RECT);
-	bool NextPostCollisionCheck(const std::string& _TargetGroup, float4 _NextPos, CollisionType _This = CollisionType::CIRCLE, CollisionType _Target = CollisionType::CIRCLE);
+	bool NextPosCollisionCheck(const std::string& _TargetGroup, float4 _NextPos, CollisionType _This = CollisionType::CIRCLE, CollisionType _Target = CollisionType::CIRCLE);
 	bool CollisionResult(const std::string& _TargetGroup, std::vector<GameEngineCollision*>& _ColResult, CollisionType _This = CollisionType::RECT, CollisionType _Target = CollisionType::RECT);
 	void DebugRender();
 protected:
