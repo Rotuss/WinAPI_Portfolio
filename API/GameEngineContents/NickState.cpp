@@ -54,24 +54,10 @@ void Nick::MoveUpdate()
 	{
 		// -1.0f * DT
 		MoveDir_ = float4::LEFT;
-		float4 LimitX = { MoveDir_.x,0 };
-
-		if (LimitX.Len2D() >= 200.f)
-		{
-			LimitX.Range2D(200.f);
-			MoveDir_.x = LimitX.x;
-		}
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
 		MoveDir_ = float4::RIGHT;
-		float4 LimitX = { MoveDir_.x,0 };
-
-		if (LimitX.Len2D() >= 200.f)
-		{
-			LimitX.Range2D(200.f);
-			MoveDir_.x = LimitX.x;
-		}
 	}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
@@ -151,8 +137,7 @@ void Nick::JumpUpdate()
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
-		MoveDir_.y = 0.0f;
-		
+		MoveDir_ = float4::ZERO;
 		ChangeState(NickState::IDLE);
 		return;
 	}
@@ -186,8 +171,7 @@ void Nick::DownUpdate()
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
-		MoveDir_.y = 0.0f;
-		
+		MoveDir_ = float4::ZERO;
 		ChangeState(NickState::IDLE);
 		return;
 	}
@@ -195,8 +179,9 @@ void Nick::DownUpdate()
 
 void Nick::AttackUpdate()
 {
-	
-	/*if (true == NickAnimationRender_->IsEndAnimation())
+	// SnowBullet 잔상과 이동이 이상함 
+	/*
+	if (true == NickAnimationRender_->IsEndAnimation())
 	{
 		ChangeState(NickState::IDLE);
 	}
