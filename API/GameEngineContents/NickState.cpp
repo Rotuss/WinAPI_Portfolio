@@ -142,10 +142,17 @@ void Nick::JumpUpdate()
 	}
 
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+	
+	if(MoveDir_.y < 0)
+	{
+		return;
+	}
 
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
+		MoveDir_.y = 0.0f;
+		
 		ChangeState(NickState::IDLE);
 		return;
 	}
@@ -171,9 +178,16 @@ void Nick::DownUpdate()
 
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 	
+	if (MoveDir_.y < 0)
+	{
+		return;
+	}
+
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
+		MoveDir_.y = 0.0f;
+		
 		ChangeState(NickState::IDLE);
 		return;
 	}
@@ -300,10 +314,6 @@ void Nick::IdleStart()
 		ChangeDirText_ = "Right";
 	}
 	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
-
-	// Attack에서 Idle로 넘어오는 부분으로 인해 버벅이며 늦게 내려옴.
-	// float4::ZERO을 안해주면 점프하고도 올라가지 못하고 계속 내려옴.
-	MoveDir_ = float4::ZERO;
 }
 
 void Nick::MoveStart()

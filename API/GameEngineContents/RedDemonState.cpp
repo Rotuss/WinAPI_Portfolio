@@ -99,15 +99,15 @@ void RedDemon::Snow3Update()
 {
 	// MeltingTime_ 시간 동안 한 번이라도 부딪히면 Snow3, 한 번도 안 부딪히면 Snow2
 	MeltingTime_ -= GameEngineTime::GetDeltaTime();
-	if (2.5f > MeltingTime_ && MeltingTime_ > 0.0f)
+	if (MeltingTime_ > 0.0f)
 	{
 		if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 		{
-  			ChangeState(RedDemonState::SNOW3);
+			MeltingTime_ = 5.0f;
 			return;
 		}
 	}
-	if(MeltingTime_ <= 0.0f)
+	else if(MeltingTime_ <= 0.0f)
 	{
 		if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 		{
@@ -117,23 +117,6 @@ void RedDemon::Snow3Update()
 			return;
 		}
 	}
-
-	/*
-	MeltingTime_ -= GameEngineTime::GetDeltaTime();
-	if(MeltingTime_ <= 0.0f)
-	{
-		if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
-		{
-			ChangeState(RedDemonState::SNOW3);
-			return;
-		}
-		if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
-		{
-			ChangeState(RedDemonState::SNOW2);
-			return;
-		}
-	}
-	*/
 
 	if (true == RedDemonSnowRCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
