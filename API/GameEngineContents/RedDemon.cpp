@@ -160,8 +160,8 @@ void RedDemon::Start()
 void RedDemon::Update()
 {
 	//DirAnimationCheck();
-	StateUpdate();
 	CollisionFloorCheck();
+	StateUpdate();
 }
 
 void RedDemon::Render()

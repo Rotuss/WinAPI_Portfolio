@@ -128,25 +128,11 @@ void Nick::JumpUpdate()
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
-		MoveDir_ += float4::LEFT;
-		float4 LimitX = { MoveDir_.x,0 };
-
-		if (LimitX.Len2D() >= 200.f)
-		{
-			LimitX.Range2D(200.f);
-			MoveDir_.x = LimitX.x;
-		}
+		MoveDir_ = float4{ -Speed_,MoveDir_.y };
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
-		MoveDir_ += float4::RIGHT;
-		float4 LimitX = { MoveDir_.x,0 };
-
-		if (LimitX.Len2D() >= 200.f)
-		{
-			LimitX.Range2D(200.f);
-			MoveDir_.x = LimitX.x;
-		}
+		MoveDir_ = float4{ Speed_,MoveDir_.y };
 	}
 	
 	if (true == GameEngineInput::GetInst()->IsDown("Attack"))
@@ -160,7 +146,6 @@ void Nick::JumpUpdate()
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
-		MoveDir_.Normal2D();
 		ChangeState(NickState::IDLE);
 		return;
 	}
@@ -171,25 +156,11 @@ void Nick::DownUpdate()
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	if (true == GameEngineInput::GetInst()->IsPress("MoveLeft"))
 	{
-		MoveDir_ += float4::LEFT * Speed_;
-		float4 LimitX = { MoveDir_.x,0 };
-
-		if (LimitX.Len2D() >= 200.f)
-		{
-			LimitX.Range2D(200.f);
-			MoveDir_.x = LimitX.x;
-		}
+		MoveDir_ = float4{ -Speed_,MoveDir_.y };
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
-		MoveDir_ += float4::RIGHT * Speed_;
-		float4 LimitX = { MoveDir_.x,0 };
-
-		if (LimitX.Len2D() >= 200.f)
-		{
-			LimitX.Range2D(200.f);
-			MoveDir_.x = LimitX.x;
-		}
+		MoveDir_ = float4{ Speed_,MoveDir_.y };
 	}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Attack"))
@@ -203,7 +174,6 @@ void Nick::DownUpdate()
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
-		MoveDir_.Normal2D();
 		ChangeState(NickState::IDLE);
 		return;
 	}
@@ -246,10 +216,22 @@ void Nick::PushUpdate()
 	{
 		// -1.0f * DT
 		MoveDir_ = float4::LEFT;
+		// Move랑 Push 왔다갔다하여 깜빡거리는 현상 발생
+		if (false == PlayerCollision_->CollisionCheck("SnowLColBox", CollisionType::RECT, CollisionType::RECT))
+		{
+			ChangeState(NickState::MOVE);
+			return;
+		}
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
 		MoveDir_ = float4::RIGHT;
+		// Move랑 Push 왔다갔다하여 깜빡거리는 현상 발생
+		if (false == PlayerCollision_->CollisionCheck("SnowRColBox", CollisionType::RECT, CollisionType::RECT))
+		{
+			ChangeState(NickState::MOVE);
+			return;
+		}
 	}
 
 	if (false == IsMoveKey())
@@ -318,6 +300,10 @@ void Nick::IdleStart()
 		ChangeDirText_ = "Right";
 	}
 	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+
+	// Attack에서 Idle로 넘어오는 부분으로 인해 버벅이며 늦게 내려옴.
+	// float4::ZERO을 안해주면 점프하고도 올라가지 못하고 계속 내려옴.
+	MoveDir_ = float4::ZERO;
 }
 
 void Nick::MoveStart()

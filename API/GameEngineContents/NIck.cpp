@@ -208,8 +208,8 @@ void Nick::Update()
 {
 	// 공통함수, State
 	DirAnimationCheck();
-	StateUpdate();
 	CollisionFloorCheck();
+	StateUpdate();
 
 	//GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half());
 	//CameraLock();
