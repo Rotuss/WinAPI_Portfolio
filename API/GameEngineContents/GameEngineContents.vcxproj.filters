@@ -150,6 +150,9 @@
     <ClCompile Include="RedDemonState.cpp">
       <Filter>Play\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="FrogState.cpp">
+      <Filter>Play\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

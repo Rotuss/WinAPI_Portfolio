@@ -2,6 +2,8 @@
 #include "BackGround.h"
 #include "PlayUI.h"
 #include "Nick.h"
+#include "RedDemon.h"
+#include "Frog.h"
 #include "ContentsEnums.h"
 #include "PlayUI.h"
 #include <GameEngineBase/GameEngineInput.h>
@@ -39,6 +41,23 @@ void Floor2::Loading()
 	{
 		Nick* Player = CreateActor<Nick>((int)ORDER::PLAYER, "Player");
 		Player->SetPosition({ 400,710 });
+	}
+
+	{
+		RedDemon* RedDemon0 = CreateActor<RedDemon>((int)ORDER::MONSTER);
+		RedDemon0->SetPosition({ 420,600 });
+
+		RedDemon* RedDemon1 = CreateActor<RedDemon>((int)ORDER::MONSTER);
+		RedDemon1->SetPosition({ 50,472 });
+
+		RedDemon* RedDemon2 = CreateActor<RedDemon>((int)ORDER::MONSTER);
+		RedDemon2->SetPosition({ 975,472 });
+
+		Frog* Frog0 = CreateActor<Frog>((int)ORDER::MONSTER);
+		Frog0->SetPosition({ 320,340 });
+
+		Frog* Frog1 = CreateActor<Frog>((int)ORDER::MONSTER);
+		Frog1->SetPosition({ 704,340 });
 	}
 }
 

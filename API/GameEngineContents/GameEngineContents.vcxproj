@@ -200,6 +200,7 @@
     <ClCompile Include="Floor3.cpp" />
     <ClCompile Include="FloorLogo.cpp" />
     <ClCompile Include="Frog.cpp" />
+    <ClCompile Include="FrogState.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Nick.cpp" />
     <ClCompile Include="NickState.cpp" />

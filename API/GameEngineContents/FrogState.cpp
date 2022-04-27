@@ -1,4 +1,4 @@
-#include "RedDemon.h"
+#include "Frog.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -9,30 +9,30 @@
 #include <GameEngine/GameEngineRenderer.h>
 #include <GameEngine/GameEngineCollision.h>
 
-void RedDemon::IdleUpdate()
+void Frog::IdleUpdate()
 {
 	MoveTime_ -= GameEngineTime::GetDeltaTime();
 	if (MoveTime_ <= 0)
 	{
 		if (StartMoveCount_ <= 0)
 		{
-			ChangeState(RedDemonState::MOVE);
+			ChangeState(FrogState::MOVE);
 			MoveTime_ = 0.3f;
 			return;
-		}	
+		}
 		else
 		{
-			ChangeState(RedDemonState::STARTMOVE);
+			ChangeState(FrogState::STARTMOVE);
 			MoveTime_ = 0.3f;
 			return;
 		}
 	}
-	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
-			ChangeState(RedDemonState::SNOW1);
+			ChangeState(FrogState::SNOW1);
 			return;
 		}
 	}
@@ -40,21 +40,21 @@ void RedDemon::IdleUpdate()
 	float4 CheckPos = GetPosition() + float4(0.0f, 44.0f);
 
 	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
-	if (RGB(0, 0, 0) != DColor && RGB(0, 255, 0) != DColor && CurrentState_ != RedDemonState::JUMP)
+	if (RGB(0, 0, 0) != DColor && RGB(0, 255, 0) != DColor && CurrentState_ != FrogState::JUMP)
 	{
-		ChangeState(RedDemonState::DOWN);
+		ChangeState(FrogState::DOWN);
 		return;
 	}
 }
 
-void RedDemon::StartMoveUpdate()
+void Frog::StartMoveUpdate()
 {
-	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
-			ChangeState(RedDemonState::SNOW1);
+			ChangeState(FrogState::SNOW1);
 			return;
 		}
 	}
@@ -66,52 +66,52 @@ void RedDemon::StartMoveUpdate()
 	float4 CheckRightPos = NextPos + float4(15.0f, 0.0f);
 	float4 CheckLeftPos = NextPos + float4(-15.0f, 0.0f);
 
-	int BotColor = FloorColImage_->GetImagePixel(CheckBotPos);	
+	int BotColor = FloorColImage_->GetImagePixel(CheckBotPos);
 	int RightColor = FloorColImage_->GetImagePixel(CheckRightPos);
 	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
 	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 1.0f));
 
-	if (RGB(0, 0, 0) != BotColor && RGB(0, 255, 0) != BotColor && CurrentState_ != RedDemonState::JUMP)
+	if (RGB(0, 0, 0) != BotColor && RGB(0, 255, 0) != BotColor && CurrentState_ != FrogState::JUMP)
 	{
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	}
 	if (RGB(0, 0, 0) == RightColor)
 	{
-		CurrentDir_ = RedDemonDir::LEFT;
+		CurrentDir_ = FrogDir::LEFT;
 		ChangeDirText_ = "Left";
-		RedDemonAnimationRender_->ChangeAnimation("Move_" + ChangeDirText_);
+		FrogAnimationRender_->ChangeAnimation("Move_" + ChangeDirText_);
 		MoveDir_.x = -1.f;
 
-		Range_ = 100.0f;
+		Range_ = 30.0f;
 	}
 	if (RGB(0, 0, 0) == LeftColor)
 	{
-		CurrentDir_ = RedDemonDir::RIGHT;
+		CurrentDir_ = FrogDir::RIGHT;
 		ChangeDirText_ = "Right";
-		RedDemonAnimationRender_->ChangeAnimation("Move_" + ChangeDirText_);
+		FrogAnimationRender_->ChangeAnimation("Move_" + ChangeDirText_);
 		MoveDir_.x = 1.f;
 
-		Range_ = 100.0f;
+		Range_ = 30.0f;
 	}
 	if (RGB(255, 255, 255) == DColor)
 	{
-		ChangeState(RedDemonState::DOWN);
+		ChangeState(FrogState::DOWN);
 		return;
 	}
 
 	Range_ -= GameEngineTime::GetDeltaTime() * Speed_;
 
-	RedDemonDir CheckDir_ = CurrentDir_;
+	FrogDir CheckDir_ = CurrentDir_;
 
-	if (CurrentDir_ == RedDemonDir::LEFT)
+	if (CurrentDir_ == FrogDir::LEFT)
 	{
 		if (Range_ <= 0)
 		{
-			CurrentDir_ = RedDemonDir::RIGHT;
+			CurrentDir_ = FrogDir::RIGHT;
 			ChangeDirText_ = "Right";
-			ChangeState(RedDemonState::IDLE);
+			ChangeState(FrogState::IDLE);
 
-			Range_ = 100.0f;
+			Range_ = 30.0f;
 			return;
 		}
 		else
@@ -120,15 +120,15 @@ void RedDemon::StartMoveUpdate()
 		}
 	}
 
-	if (CurrentDir_ == RedDemonDir::RIGHT)
+	if (CurrentDir_ == FrogDir::RIGHT)
 	{
 		if (Range_ <= 0)
 		{
-			CurrentDir_ = RedDemonDir::LEFT;
+			CurrentDir_ = FrogDir::LEFT;
 			ChangeDirText_ = "Left";
-			ChangeState(RedDemonState::IDLE);
+			ChangeState(FrogState::IDLE);
 
-			Range_ = 100.0f;
+			Range_ = 30.0f;
 			return;
 		}
 		else
@@ -138,14 +138,14 @@ void RedDemon::StartMoveUpdate()
 	}
 }
 
-void RedDemon::MoveUpdate()
+void Frog::MoveUpdate()
 {
-	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
-			ChangeState(RedDemonState::SNOW1);
+			ChangeState(FrogState::SNOW1);
 			return;
 		}
 	}
@@ -166,42 +166,42 @@ void RedDemon::MoveUpdate()
 	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
 	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 1.0f));
 
-	if (RGB(0, 0, 0) != BotColor && RGB(0, 255, 0) != BotColor && CurrentState_ != RedDemonState::JUMP)
+	if (RGB(0, 0, 0) != BotColor && RGB(0, 255, 0) != BotColor && CurrentState_ != FrogState::JUMP)
 	{
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	}
 	if (RGB(0, 0, 0) == RightColor)
 	{
-		CurrentDir_ = RedDemonDir::LEFT;
+		CurrentDir_ = FrogDir::LEFT;
 		ChangeDirText_ = "Left";
-		RedDemonAnimationRender_->ChangeAnimation("Move_" + ChangeDirText_);
+		FrogAnimationRender_->ChangeAnimation("Move_" + ChangeDirText_);
 		MoveDir_.x = -1.f;
 
 		Range_ = 300.0f;
 	}
 	if (RGB(0, 0, 0) == LeftColor)
 	{
-		CurrentDir_ = RedDemonDir::RIGHT;
+		CurrentDir_ = FrogDir::RIGHT;
 		ChangeDirText_ = "Right";
-		RedDemonAnimationRender_->ChangeAnimation("Move_" + ChangeDirText_);
+		FrogAnimationRender_->ChangeAnimation("Move_" + ChangeDirText_);
 		MoveDir_.x = 1.f;
 
 		Range_ = 300.0f;
 	}
 	if (RGB(255, 255, 255) == DColor)
 	{
-		if (CurrentDir_ == RedDemonDir::LEFT)
+		if (CurrentDir_ == FrogDir::LEFT)
 		{
 			ChangeDirText_ = "Left";
-			ChangeState(RedDemonState::DOWN);
+			ChangeState(FrogState::DOWN);
 			JumpTime_ = 10.0f;
 			return;
 		}
 
-		if (CurrentDir_ == RedDemonDir::RIGHT)
+		if (CurrentDir_ == FrogDir::RIGHT)
 		{
 			ChangeDirText_ = "Right";
-			ChangeState(RedDemonState::DOWN);
+			ChangeState(FrogState::DOWN);
 			JumpTime_ = 10.0f;
 			return;
 		}
@@ -209,15 +209,15 @@ void RedDemon::MoveUpdate()
 
 	Range_ -= GameEngineTime::GetDeltaTime() * Speed_;
 
-	RedDemonDir CheckDir_ = CurrentDir_;
+	FrogDir CheckDir_ = CurrentDir_;
 
-	if (CurrentDir_ == RedDemonDir::LEFT)
+	if (CurrentDir_ == FrogDir::LEFT)
 	{
 		if (Range_ <= 0)
 		{
-			CurrentDir_ = RedDemonDir::RIGHT;
+			CurrentDir_ = FrogDir::RIGHT;
 			ChangeDirText_ = "Right";
-			ChangeState(RedDemonState::IDLE);
+			ChangeState(FrogState::IDLE);
 
 			Range_ = 300.0f;
 			return;
@@ -228,13 +228,13 @@ void RedDemon::MoveUpdate()
 		}
 	}
 
-	if (CurrentDir_ == RedDemonDir::RIGHT)
+	if (CurrentDir_ == FrogDir::RIGHT)
 	{
 		if (Range_ <= 0)
 		{
-			CurrentDir_ = RedDemonDir::LEFT;
+			CurrentDir_ = FrogDir::LEFT;
 			ChangeDirText_ = "Left";
-			ChangeState(RedDemonState::IDLE);
+			ChangeState(FrogState::IDLE);
 
 			Range_ = 300.0f;
 			return;
@@ -250,41 +250,41 @@ void RedDemon::MoveUpdate()
 	{
 		if (RGB(0, 0, 0) == RTopColor && RGB(0, 0, 0) == LTopColor)
 		{
-			if (CurrentDir_ == RedDemonDir::LEFT)
+			if (CurrentDir_ == FrogDir::LEFT)
 			{
 				ChangeDirText_ = "Left";
-				ChangeState(RedDemonState::JUMP);
+				ChangeState(FrogState::JUMP);
 				JumpTime_ = 10.0f;
 				return;
 			}
 
-			if (CurrentDir_ == RedDemonDir::RIGHT)
+			if (CurrentDir_ == FrogDir::RIGHT)
 			{
 				ChangeDirText_ = "Right";
-				ChangeState(RedDemonState::JUMP);
+				ChangeState(FrogState::JUMP);
 				JumpTime_ = 10.0f;
 				return;
 			}
 		}
-		ChangeState(RedDemonState::MOVE);
+		ChangeState(FrogState::MOVE);
 		return;
 	}
 }
 
-void RedDemon::JumpUpdate()
+void Frog::JumpUpdate()
 {
-	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
-			ChangeState(RedDemonState::SNOW1);
+			ChangeState(FrogState::SNOW1);
 			return;
 		}
 	}
-	
+
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
-	
+
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 
 	if (MoveDir_.y < 0)
@@ -298,29 +298,29 @@ void RedDemon::JumpUpdate()
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
 		MoveDir_.y = 0.0f;
-		ChangeState(RedDemonState::MOVE);
+		ChangeState(FrogState::MOVE);
 		return;
 	}
 	if (RGB(0, 0, 0) == RColor || RGB(0, 255, 0) == RColor || RGB(0, 0, 0) == LColor || RGB(0, 255, 0) == LColor)
 	{
 		MoveDir_.x = 0.0f;
-		ChangeState(RedDemonState::MOVE);
+		ChangeState(FrogState::MOVE);
 		return;
 	}
 }
 
-void RedDemon::DownUpdate()
-{	
-	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+void Frog::DownUpdate()
+{
+	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
-			ChangeState(RedDemonState::SNOW1);
+			ChangeState(FrogState::SNOW1);
 			return;
 		}
 	}
-	
+
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 
@@ -333,81 +333,81 @@ void RedDemon::DownUpdate()
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
 		MoveDir_ = float4::ZERO;
-		ChangeState(RedDemonState::MOVE);
+		ChangeState(FrogState::MOVE);
 		return;
 	}
 }
 
-void RedDemon::AttackUpdate()
+void Frog::AttackUpdate()
 {}
 
-void RedDemon::Snow1Update()
+void Frog::Snow1Update()
 {
-	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
-			ChangeState(RedDemonState::SNOW2);
+			ChangeState(FrogState::SNOW2);
 			return;
 		}
 	}
-	if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (false == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		MeltingTime_ -= GameEngineTime::GetDeltaTime();
 		if (MeltingTime_ < 0)
 		{
-			ChangeState(RedDemonState::SHAKINGSNOW);
+			ChangeState(FrogState::SHAKINGSNOW);
 			return;
 		}
 	}
 }
 
-void RedDemon::Snow2Update()
+void Frog::Snow2Update()
 {
-	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
-			ChangeState(RedDemonState::SNOW3);
+			ChangeState(FrogState::SNOW3);
 			return;
 		}
 	}
-	if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (false == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		MeltingTime_ -= GameEngineTime::GetDeltaTime();
 		if (MeltingTime_ < 0)
 		{
-			ChangeState(RedDemonState::SNOW1);
+			ChangeState(FrogState::SNOW1);
 			return;
 		}
 	}
 }
 
-void RedDemon::Snow3Update()
+void Frog::Snow3Update()
 {
 	// MeltingTime_ 시간 동안 한 번이라도 부딪히면 Snow3, 한 번도 안 부딪히면 Snow2
 	MeltingTime_ -= GameEngineTime::GetDeltaTime();
 	if (MeltingTime_ > 0.0f)
 	{
-		if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+		if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 		{
 			MeltingTime_ = 5.0f;
 			return;
 		}
 	}
-	else if(MeltingTime_ <= 0.0f)
+	else if (MeltingTime_ <= 0.0f)
 	{
-		if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+		if (false == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 		{
-			ChangeState(RedDemonState::SNOW2);
-			RedDemonSnowRCollision_->Death();
-			RedDemonSnowLCollision_->Death();
+			ChangeState(FrogState::SNOW2);
+			FrogSnowRCollision_->Death();
+			FrogSnowLCollision_->Death();
 			return;
 		}
 	}
-	
+
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
 
@@ -424,34 +424,34 @@ void RedDemon::Snow3Update()
 	}
 }
 
-void RedDemon::ShakingSnowUpdate()
+void Frog::ShakingSnowUpdate()
 {
 	ShakingTime_ -= GameEngineTime::GetDeltaTime();
 	if (ShakingTime_ <= 0)
 	{
-		ChangeState(RedDemonState::IDLE);
+		ChangeState(FrogState::IDLE);
 		return;
 	}
 
-	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
-			ChangeState(RedDemonState::SNOW1);
+			ChangeState(FrogState::SNOW1);
 			return;
 		}
 	}
 }
 
-void RedDemon::DefeatedUpdate()
+void Frog::DefeatedUpdate()
 {}
 
-void RedDemon::DeathUpdate()
+void Frog::DeathUpdate()
 {}
 
 //===========================Start==========================
-void RedDemon::IdleStart()
+void Frog::IdleStart()
 {
 	StartMoveCount_ -= 1;
 	AnimationName_ = "Idle_";
@@ -459,95 +459,95 @@ void RedDemon::IdleStart()
 	{
 		ChangeDirText_ = "Right";
 	}
-	RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+	FrogAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 }
 
-void RedDemon::StartMoveStart()
+void Frog::StartMoveStart()
 {
 	AnimationName_ = "Move_";
 	if ("" == ChangeDirText_)
 	{
 		ChangeDirText_ = "Right";
 	}
-	RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+	FrogAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 }
 
-void RedDemon::MoveStart()
+void Frog::MoveStart()
 {
 	AnimationName_ = "Move_";
 	if ("" == ChangeDirText_)
 	{
 		ChangeDirText_ = "Right";
 	}
-	RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+	FrogAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 }
 
-void RedDemon::JumpStart()
+void Frog::JumpStart()
 {
 	AnimationName_ = "Jump_";
-	RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
-	
+	FrogAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+
 	MoveDir_ = float4::UP * 520.0f;
 }
 
-void RedDemon::DownStart()
+void Frog::DownStart()
 {
 	//AnimationName_ = "Down_";
-	//RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+	//FrogAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 }
 
-void RedDemon::AttackStart()
+void Frog::AttackStart()
 {}
 
-void RedDemon::Snow1Start()
+void Frog::Snow1Start()
 {
 	AnimationName_ = "Snow1";
-	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
-	RedDemonAnimationRender_->SetPivot({ 0,20.0f });
+	FrogAnimationRender_->ChangeAnimation(AnimationName_);
+	FrogAnimationRender_->SetPivot({ 0,20.0f });
 
 	DamageCount_ = 2;
 	MeltingTime_ = 3.0f;
 }
 
-void RedDemon::Snow2Start()
+void Frog::Snow2Start()
 {
 	AnimationName_ = "Snow2";
-	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
-	RedDemonAnimationRender_->SetPivot({ 0,20.0f });
+	FrogAnimationRender_->ChangeAnimation(AnimationName_);
+	FrogAnimationRender_->SetPivot({ 0,20.0f });
 
 	DamageCount_ = 2;
 	MeltingTime_ = 3.0f;
 }
 
-void RedDemon::Snow3Start()
+void Frog::Snow3Start()
 {
 	AnimationName_ = "Snow3";
-	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
-	RedDemonAnimationRender_->SetPivot({ 0,5 });
+	FrogAnimationRender_->ChangeAnimation(AnimationName_);
+	FrogAnimationRender_->SetPivot({ 0,5 });
 
-	RedDemonSnowRCollision_ = CreateCollision("SnowRColBox", { 5, 10 }, { -15, 0 });
-	RedDemonSnowLCollision_ = CreateCollision("SnowLColBox", { 5, 10 }, { 15, 0 });
+	FrogSnowRCollision_ = CreateCollision("SnowRColBox", { 5, 10 }, { -15, 0 });
+	FrogSnowLCollision_ = CreateCollision("SnowLColBox", { 5, 10 }, { 15, 0 });
 
 	MeltingTime_ = 5.0f;
 }
 
-void RedDemon::ShakingSnowStart()
+void Frog::ShakingSnowStart()
 {
 	AnimationName_ = "ShakingSnow";
-	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
-	RedDemonAnimationRender_->SetPivot({ 0,0 });
+	FrogAnimationRender_->ChangeAnimation(AnimationName_);
+	FrogAnimationRender_->SetPivot({ 0,0 });
 
 	ShakingTime_ = 1.0f;
 }
 
-void RedDemon::DefeatedStart()
+void Frog::DefeatedStart()
 {
-	AnimationName_ = "RedDemon_Defeated";
-	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
+	AnimationName_ = "Frog_Defeated";
+	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 }
 
-void RedDemon::DeathStart()
+void Frog::DeathStart()
 {
-	AnimationName_ = "RedDemon_Death";
-	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
+	AnimationName_ = "Frog_Death";
+	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 }

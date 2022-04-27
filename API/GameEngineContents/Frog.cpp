@@ -10,11 +10,123 @@
 #include <GameEngine/GameEngineCollision.h>
 
 Frog::Frog()
+	: MoveDir_(float4::ZERO)
+	, Range_(30.f)
+	, Speed_(200.0f)
+	, SnowSpeed_(100.0f)
+	, AccSpeed_(500.0f)
+	, Gravity_(100.0f)
+	, Time_(0.0f)
+	, MoveTime_(0.3f)
+	, JumpTime_(10.0f)
+	, MeltingTime_(3.0f)
+	, ShakingTime_(1.0f)
+	, DamageCount_(2)
+	, StartMoveCount_(3)
 {
 }
 
 Frog::~Frog()
 {
+}
+
+void Frog::ChangeState(FrogState _State)
+{
+	if (CurrentState_ != _State)
+	{
+		switch (_State)
+		{
+		case FrogState::IDLE:
+			IdleStart();
+			break;
+		case FrogState::STARTMOVE:
+			StartMoveStart();
+			break;
+		case FrogState::MOVE:
+			MoveStart();
+			break;
+		case FrogState::JUMP:
+			JumpStart();
+			break;
+		case FrogState::DOWN:
+			DownStart();
+			break;
+		case FrogState::ATTACK:
+			AttackStart();
+			break;
+		case FrogState::SNOW1:
+			Snow1Start();
+			break;
+		case FrogState::SNOW2:
+			Snow2Start();
+			break;
+		case FrogState::SNOW3:
+			Snow3Start();
+			break;
+		case FrogState::SHAKINGSNOW:
+			ShakingSnowStart();
+			break;
+		case FrogState::DEFEATED:
+			DefeatedStart();
+			break;
+		case FrogState::DEATH:
+			DeathStart();
+			break;
+		case FrogState::MAX:
+			break;
+		default:
+			break;
+		}
+	}
+
+	CurrentState_ = _State;
+}
+
+void Frog::StateUpdate()
+{
+	switch (CurrentState_)
+	{
+	case FrogState::IDLE:
+		IdleUpdate();
+		break;
+	case FrogState::STARTMOVE:
+		StartMoveUpdate();
+		break;
+	case FrogState::MOVE:
+		MoveUpdate();
+		break;
+	case FrogState::JUMP:
+		JumpUpdate();
+		break;
+	case FrogState::DOWN:
+		DownUpdate();
+		break;
+	case FrogState::ATTACK:
+		AttackUpdate();
+		break;
+	case FrogState::SNOW1:
+		Snow1Update();
+		break;
+	case FrogState::SNOW2:
+		Snow2Update();
+		break;
+	case FrogState::SNOW3:
+		Snow3Update();
+		break;
+	case FrogState::SHAKINGSNOW:
+		ShakingSnowUpdate();
+		break;
+	case FrogState::DEFEATED:
+		DefeatedUpdate();
+		break;
+	case FrogState::DEATH:
+		DeathUpdate();
+		break;
+	case FrogState::MAX:
+		break;
+	default:
+		break;
+	}
 }
 
 void Frog::Start()
@@ -50,10 +162,41 @@ void Frog::Start()
 
 	//AnimationName_ = "Idle_";
 	CurrentDir_ = FrogDir::RIGHT;
-	CurrentState_ = FrogState::IDLE;
+	CurrentState_ = FrogState::STARTMOVE;
+}
+
+void Frog::Update()
+{
+	CollisionFloorCheck();
+	StateUpdate();
 }
 
 void Frog::Render()
 {
 	//DebugRectRender();
+}
+
+void Frog::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+}
+
+void Frog::CollisionFloorCheck()
+{
+	if (strcmp(GetLevel()->GetNameConstPtr(), "Floor1") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor1.bmp");
+	}
+	else if (strcmp(GetLevel()->GetNameConstPtr(), "Floor2") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor2.bmp");
+	}
+	else if (strcmp(GetLevel()->GetNameConstPtr(), "Floor3") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor3.bmp");
+	}
+
+	if (nullptr == FloorColImage_)
+	{
+		MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다.");
+	}
 }
