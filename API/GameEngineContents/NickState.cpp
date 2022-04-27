@@ -35,8 +35,8 @@ void Nick::IdleUpdate()
 		//return;
 	}
 	
-	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
+	//float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	float4 CheckPos = GetPosition() + float4(0.0f, 44.0f);
 
 	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
 	
@@ -207,13 +207,12 @@ void Nick::DownUpdate()
 
 void Nick::AttackUpdate()
 {
-	// SnowBullet 잔상과 이동이 이상함 
-	/*
+	// SnowBullet 잔상과 이동(움직임)이 이상함. Nick 공격 한 번에 바로 Snow3이 됨.
 	if (true == NickAnimationRender_->IsEndAnimation())
 	{
 		ChangeState(NickState::IDLE);
 	}
-	*/
+
 	SnowBullet* Ptr = GetLevel()->CreateActor<SnowBullet>();
 	Ptr->SetPosition(GetPosition());
 	
@@ -228,12 +227,12 @@ void Nick::AttackUpdate()
 		Ptr->SetDir(float4::RIGHT);
 		Ptr->SetBDir("Right");
 	}
-	
+	/*
 	if (false == GameEngineInput::GetInst()->IsDown("Attack"))
 	{
 		ChangeState(NickState::IDLE);
 		return;
-	}
+	}*/
 }
 
 void Nick::PushUpdate()

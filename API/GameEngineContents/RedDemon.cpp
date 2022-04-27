@@ -11,14 +11,18 @@
 
 RedDemon::RedDemon()
 	: MoveDir_(float4::ZERO)
+	, Range_(100.f)
 	, Speed_(200.0f)
 	, SnowSpeed_(100.0f)
 	, AccSpeed_(500.0f)
 	, Gravity_(100.0f)
 	, Time_(0.0f)
+	, MoveTime_(0.3f)
+	, JumpTime_(10.0f)
 	, MeltingTime_(3.0f)
 	, ShakingTime_(1.0f)
 	, DamageCount_(2)
+	, StartMoveCount_(3)
 {
 }
 
@@ -34,6 +38,9 @@ void RedDemon::ChangeState(RedDemonState _State)
 		{
 		case RedDemonState::IDLE:
 			IdleStart();
+			break;
+		case RedDemonState::STARTMOVE:
+			StartMoveStart();
 			break;
 		case RedDemonState::MOVE:
 			MoveStart();
@@ -81,6 +88,9 @@ void RedDemon::StateUpdate()
 	{
 	case RedDemonState::IDLE:
 		IdleUpdate();
+		break;
+	case RedDemonState::STARTMOVE:
+		StartMoveUpdate();
 		break;
 	case RedDemonState::MOVE:
 		MoveUpdate();
@@ -149,12 +159,12 @@ void RedDemon::Start()
 
 	RedDemonAnimationRender_->CreateAnimation("RedDemon_Death.bmp", "Death", 0, 0, 0.0f, false);
 
-	RedDemonAnimationRender_->ChangeAnimation("Idle_Right");
+	RedDemonAnimationRender_->ChangeAnimation("Move_Right");
 	RedDemonAnimationRender_->SetPivotType(RenderPivot::CENTER);
 
 	//AnimationName_ = "Idle_";
 	CurrentDir_ = RedDemonDir::RIGHT;
-	CurrentState_ = RedDemonState::IDLE;
+	CurrentState_ = RedDemonState::STARTMOVE;
 }
 
 void RedDemon::Update()
@@ -182,6 +192,10 @@ void RedDemon::CollisionFloorCheck()
 	else if (strcmp(GetLevel()->GetNameConstPtr(), "Floor2") == 0)
 	{
 		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor2.bmp");
+	}
+	else if (strcmp(GetLevel()->GetNameConstPtr(), "Floor3") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor3.bmp");
 	}
 
 	if (nullptr == FloorColImage_)

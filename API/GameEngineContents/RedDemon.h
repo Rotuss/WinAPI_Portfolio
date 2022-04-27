@@ -4,6 +4,7 @@
 enum class RedDemonState
 {
 	IDLE,
+	STARTMOVE,
 	MOVE,
 	JUMP,
 	DOWN,
@@ -47,7 +48,10 @@ protected:
 
 private:
 	float4	MoveDir_;
+	float	Range_;
 	float	Time_;
+	float	MoveTime_;
+	float	JumpTime_;
 	float	MeltingTime_;
 	float	ShakingTime_;
 	float	Speed_;
@@ -56,6 +60,7 @@ private:
 	float	Gravity_;
 	float	AccGravity_;
 	int		DamageCount_;
+	int		StartMoveCount_;
 
 
 	GameEngineImage*		FloorColImage_;
@@ -82,6 +87,7 @@ private:
 	//bool IsMoveKey();
 
 	void IdleUpdate();
+	void StartMoveUpdate();
 	void MoveUpdate();
 	void JumpUpdate();
 	void DownUpdate();
@@ -94,6 +100,7 @@ private:
 	void DeathUpdate();
 
 	void IdleStart();
+	void StartMoveStart();
 	void MoveStart();
 	void JumpStart();
 	void DownStart();
