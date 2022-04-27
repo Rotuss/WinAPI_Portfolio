@@ -13,6 +13,23 @@ GameEngineInput::~GameEngineInput()
 {
 }
 
+void GameEngineInput::Reset()
+{
+	CurWheelValue_ = 0;
+	CurWheelValue_ = WheelValue_;
+	WheelValue_ = 0;
+
+	std::map<std::string, GameEngineKey>::iterator KeyUpdateStart = AllInputKey_.begin();
+	std::map<std::string, GameEngineKey>::iterator KeyUpdateEnd = AllInputKey_.end();
+
+	for (; KeyUpdateStart != KeyUpdateEnd; ++KeyUpdateStart)
+	{
+		GameEngineKey& CurrentKey = KeyUpdateStart->second;
+
+		CurrentKey.Reset();
+	}
+}
+
 void GameEngineInput::Update(float _DeltaTime)
 {
 	CurWheelValue_ = 0;

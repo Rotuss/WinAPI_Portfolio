@@ -13,12 +13,12 @@ void RedDemon::IdleUpdate()
 {
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		if (DamageCount_ < 0)
+		DamageCount_ -= 1;
+		if (DamageCount_ <= 0)
 		{
 			ChangeState(RedDemonState::SNOW1);
 			return;
 		}
-		DamageCount_ -= 1;
 	}
 
 	/*
@@ -55,12 +55,12 @@ void RedDemon::Snow1Update()
 {
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		if (DamageCount_ < 0)
+		DamageCount_ -= 1;
+		if (DamageCount_ <= 0)
 		{
 			ChangeState(RedDemonState::SNOW2);
 			return;
 		}
-		DamageCount_ -= 1;
 	}
 	if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
@@ -77,12 +77,12 @@ void RedDemon::Snow2Update()
 {
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		if (DamageCount_ < 0)
+		DamageCount_ -= 1;
+		if (DamageCount_ <= 0)
 		{
 			ChangeState(RedDemonState::SNOW3);
 			return;
 		}
-		DamageCount_ -= 1;
 	}
 	if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
@@ -145,12 +145,12 @@ void RedDemon::ShakingSnowUpdate()
 
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		if (DamageCount_ < 0)
+		DamageCount_ -= 1;
+		if (DamageCount_ <= 0)
 		{
 			ChangeState(RedDemonState::SNOW1);
 			return;
 		}
-		DamageCount_ -= 1;
 	}
 }
 

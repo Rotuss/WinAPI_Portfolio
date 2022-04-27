@@ -8,6 +8,7 @@ class GameEngineInput
 {
 	friend class GameEngineWindow;
 public:
+	void Reset();
 	void Update(float _DeltaTime = 0.0f);
 	// ex) 'PlayerJump', 'A'
 	void CreateKey(const std::string& _Name, int _Key);
