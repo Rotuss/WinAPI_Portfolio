@@ -207,32 +207,14 @@ void Nick::DownUpdate()
 
 void Nick::AttackUpdate()
 {
-	// SnowBullet 잔상과 이동(움직임)이 이상함. Nick 공격 한 번에 바로 Snow3이 됨.
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	//MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+
 	if (true == NickAnimationRender_->IsEndAnimation())
 	{
 		ChangeState(NickState::IDLE);
-	}
-
-	SnowBullet* Ptr = GetLevel()->CreateActor<SnowBullet>();
-	Ptr->SetPosition(GetPosition());
-	
-	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
-	if (CurrentDir_ == NickDir::LEFT)
-	{
-		Ptr->SetDir(float4::LEFT);
-		Ptr->SetBDir("Left");
-	}
-	if (CurrentDir_ == NickDir::RIGHT)
-	{
-		Ptr->SetDir(float4::RIGHT);
-		Ptr->SetBDir("Right");
-	}
-	/*
-	if (false == GameEngineInput::GetInst()->IsDown("Attack"))
-	{
-		ChangeState(NickState::IDLE);
 		return;
-	}*/
+	}
 }
 
 void Nick::PushUpdate()
@@ -254,6 +236,10 @@ void Nick::PushUpdate()
 			ChangeState(NickState::MOVE);
 			return;
 		}
+		if (true == GameEngineInput::GetInst()->IsDown("Attack"))
+		{
+			// 스노우볼이 왼쪽으로 굴러야함
+		}
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
@@ -263,6 +249,10 @@ void Nick::PushUpdate()
 			PushTargetCollision_ = nullptr;
 			ChangeState(NickState::MOVE);
 			return;
+		}
+		if (true == GameEngineInput::GetInst()->IsDown("Attack"))
+		{
+			// 스노우볼이 오룬쪽으로 굴러야함
 		}
 	}
 
@@ -366,6 +356,21 @@ void Nick::AttackStart()
 		ChangeDirText_ = "Right";
 	}
 	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+	
+	SnowBullet* Ptr = GetLevel()->CreateActor<SnowBullet>();
+	Ptr->SetPosition(GetPosition());
+
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	if (CurrentDir_ == NickDir::LEFT)
+	{
+		Ptr->SetDir(float4::LEFT);
+		Ptr->SetBDir("Left");
+	}
+	if (CurrentDir_ == NickDir::RIGHT)
+	{
+		Ptr->SetDir(float4::RIGHT);
+		Ptr->SetBDir("Right");
+	}
 }
 
 void Nick::PushStart()

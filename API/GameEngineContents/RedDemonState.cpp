@@ -169,8 +169,21 @@ void RedDemon::MoveUpdate()
 	}
 	if (RGB(255, 255, 255) == DColor)
 	{
-		ChangeState(RedDemonState::DOWN);
-		return;
+		if (CurrentDir_ == RedDemonDir::LEFT)
+		{
+			ChangeDirText_ = "Left";
+			ChangeState(RedDemonState::DOWN);
+			JumpTime_ = 10.0f;
+			return;
+		}
+
+		if (CurrentDir_ == RedDemonDir::RIGHT)
+		{
+			ChangeDirText_ = "Right";
+			ChangeState(RedDemonState::DOWN);
+			JumpTime_ = 10.0f;
+			return;
+		}
 	}
 
 	Range_ -= GameEngineTime::GetDeltaTime() * Speed_;
@@ -214,11 +227,23 @@ void RedDemon::MoveUpdate()
 	JumpTime_ -= GameEngineTime::GetDeltaTime();
 	if (JumpTime_ <= 0)
 	{
-		if (RGB(0, 0, 0) == RTopColor || RGB(0, 0, 0) == LTopColor)
+		if (RGB(0, 0, 0) == RTopColor && RGB(0, 0, 0) == LTopColor)
 		{
-			ChangeState(RedDemonState::JUMP);
-			JumpTime_ = 10.0f;
-			return;
+			if (CurrentDir_ == RedDemonDir::LEFT)
+			{
+				ChangeDirText_ = "Left";
+				ChangeState(RedDemonState::JUMP);
+				JumpTime_ = 10.0f;
+				return;
+			}
+
+			if (CurrentDir_ == RedDemonDir::RIGHT)
+			{
+				ChangeDirText_ = "Right";
+				ChangeState(RedDemonState::JUMP);
+				JumpTime_ = 10.0f;
+				return;
+			}
 		}
 		ChangeState(RedDemonState::MOVE);
 		return;
@@ -414,7 +439,6 @@ void RedDemon::IdleStart()
 		ChangeDirText_ = "Right";
 	}
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
-	RedDemonAnimationRender_->SetPivot({ 0,0 });
 }
 
 void RedDemon::StartMoveStart()
@@ -439,13 +463,16 @@ void RedDemon::MoveStart()
 
 void RedDemon::JumpStart()
 {
+	AnimationName_ = "Jump_";
+	RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+	
 	MoveDir_ = float4::UP * 520.0f;
 }
 
 void RedDemon::DownStart()
 {
-	//AnimationName_ = "Down_";
-	//RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+	AnimationName_ = "Down_";
+	RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 }
 
 void RedDemon::AttackStart()
@@ -493,7 +520,13 @@ void RedDemon::ShakingSnowStart()
 }
 
 void RedDemon::DefeatedStart()
-{}
+{
+	AnimationName_ = "RedDemon_Defeated";
+	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
+}
 
 void RedDemon::DeathStart()
-{}
+{
+	AnimationName_ = "RedDemon_Death";
+	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
+}
