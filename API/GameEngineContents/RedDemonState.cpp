@@ -117,18 +117,7 @@ void RedDemon::Snow3Update()
 			return;
 		}
 	}
-
-	if (true == RedDemonSnowRCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
-	{
-		MoveDir_ = float4::RIGHT;
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * SnowSpeed_);
-	}
-	if (true == RedDemonSnowLCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
-	{
-		MoveDir_ = float4::LEFT;
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * SnowSpeed_);
-	}
-
+	
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
 

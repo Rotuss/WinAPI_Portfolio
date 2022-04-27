@@ -64,6 +64,7 @@ private:
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	PlayerCollision_;
 	GameEngineCollision*	PlayerAttackCollision_;
+	GameEngineCollision*	PushTargetCollision_;
 	GameEngineRenderer*		NickAnimationRender_;
 	NickDir					CurrentDir_;
 	std::string				AnimationName_;
