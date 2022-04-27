@@ -82,21 +82,33 @@ void Nick::MoveUpdate()
 		//return;
 	}
 	
+	// 원하는대로 작동이 안됨
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
+	float4 CheckBotPos = NextPos + float4(0.0f, 44.0f);
+	float4 CheckTopPos = NextPos + float4(0.0f, -45.0f);
+	float4 CheckRightPos = NextPos + float4(15.0f, 0.0f);
+	float4 CheckLeftPos = NextPos + float4(-15.0f, 0.0f);
 
-	int Color = FloorColImage_->GetImagePixel(CheckPos);
-	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
-	if (RGB(0, 0, 0) != Color && RGB(0, 255, 0) != Color && CurrentState_ != NickState::JUMP)
+	int BotColor = FloorColImage_->GetImagePixel(CheckBotPos);
+	//int TopColor = FloorColImage_->GetImagePixel(CheckTopPos);
+	int RightColor = FloorColImage_->GetImagePixel(CheckRightPos);
+	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
+	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 1.0f));
+
+	if (RGB(0, 0, 0) != BotColor && RGB(0, 255, 0) != BotColor && CurrentState_ != NickState::JUMP)
 	{
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+	if(RGB(0,0,0) == RightColor || RGB(0, 0, 0) == LeftColor)
+	{
+		SetMove(float4{ 0.0f,MoveDir_.y } *GameEngineTime::GetDeltaTime() * Speed_);
 	}
 	if (RGB(255, 255, 255) == DColor)
 	{
 		ChangeState(NickState::DOWN);
 		return;
 	}
-	
+
 	std::vector<GameEngineCollision*> HitResult;
 
 	if (true == PlayerCollision_->CollisionResult("SnowRColBox", HitResult, CollisionType::RECT, CollisionType::RECT))
@@ -143,9 +155,17 @@ void Nick::JumpUpdate()
 	}
 
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
+	int RColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 15.0f, 0.0f });
+	int LColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ -15.0f, 0.0f });
 	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
 	{
 		MoveDir_ = float4::ZERO;
+		ChangeState(NickState::IDLE);
+		return;
+	}
+	if (RGB(0, 0, 0) == RColor || RGB(0, 255, 0) == RColor || RGB(0, 0, 0) == LColor || RGB(0, 255, 0) == LColor)
+	{
+		MoveDir_.x = 0.0f;
 		ChangeState(NickState::IDLE);
 		return;
 	}
@@ -372,15 +392,26 @@ void Nick::DeathStart()
 /*
 void Nick::FloorCollisionCheckMoveGround()
 {
-	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime());
-	float4 CheckPos = NextPos + float4(0.0f, 45.0f);
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	float4 CheckBotPos = NextPos + float4(0.0f, 44.0f);
+	float4 CheckTopPos = NextPos + float4(0.0f, -45.0f);
+	float4 CheckRightPos = NextPos + float4(-15.0f, 0.0f);
+	float4 CheckLeftPos = NextPos + float4(15.0f, 0.0f);
 	
-	int Color = FloorColImage_->GetImagePixel(CheckPos);
+	int BotColor = FloorColImage_->GetImagePixel(CheckBotPos);
+	int TopColor = FloorColImage_->GetImagePixel(CheckTopPos);
+	int RightColor = FloorColImage_->GetImagePixel(CheckRightPos);
+	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
+	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4{0.0f, 1.0f});
 	
-	if (RGB(0, 0, 0) != Color && RGB(0, 255, 0) != Color)
+	if (RGB(0, 0, 0) != BotColor && RGB(0, 255, 0) != BotColor)
 	{
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 		//SetMove(float4::DOWN * Gravity_ * GameEngineTime::GetDeltaTime());
+	}
+	if(RGB(0, 0, 0) == BotColor)
+	{
+		int a = 0;
 	}
 }
 */

@@ -1,4 +1,5 @@
 #pragma once
+#include <GameEngineBase/GameEngineSound.h>
 #include <GameEngine/GameEngineLevel.h>
 
 // Ό³Έν : 
@@ -15,6 +16,8 @@ public:
 	BossFloor& operator=(const BossFloor& _Other) = delete;
 	BossFloor& operator=(BossFloor&& _Other) noexcept = delete;
 
+	float BgmPlayTime_;
+
 protected:
 	void Loading() override;
 	void Update() override;
@@ -22,5 +25,6 @@ protected:
 	void LevelChangeEnd(GameEngineLevel* _NextLevel) override;
 
 private:
+	GameEngineSoundPlayer BgmPlayer_;
 };
 

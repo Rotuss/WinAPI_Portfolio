@@ -14,6 +14,7 @@
 #include <GameEngine/GameEngineImageManager.h>
 
 Floor1::Floor1()
+	:LogoTime_(2.0f)
 {
 }
 
@@ -37,8 +38,9 @@ void Floor1::Loading()
 	}
 
 	{
-		//FloorLogo* Actor = CreateActor<FloorLogo>(0);
+		//FloorLogo* Actor = CreateActor<FloorLogo>(2);
 		//Actor->GetRenderer()->SetImage("Floor01_Logo.bmp");
+		//Actor->GetRenderer()->SetPivot({ GameEngineWindow::GetScale().Half().x,GameEngineWindow::GetScale().Half().y - 25.f });
 	}
 
 	{
@@ -75,18 +77,11 @@ void Floor1::Update()
 	{
 		GameEngineLevel::IsDebugModeSwitch();
 	}
-	/*
-	Time_ -= GameEngineTime::GetDeltaTime();
-	if (0 >= Time_)
-	{
-		BgmPlayer_.Stop();
-	}
-	*/
 }
 
 void Floor1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-	//BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_Stage_Theme1.mp3");
+	//Nick::BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_Stage_Theme1.mp3");
 	Time_ = 5.0f;
 }
 

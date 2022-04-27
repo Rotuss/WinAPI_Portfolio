@@ -3,6 +3,7 @@
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
+#include <GameEngineBase/GameEngineSound.h>
 #include <GameEngine/GameEngine.h>
 #include <GameEngine/GameEngineImage.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -11,6 +12,7 @@
 #include <GameEngine/GameEngineCollision.h>
 
 Nick* Nick::MainPlayer = nullptr;
+GameEngineSoundPlayer Nick::BgmPlayer_;
 
 Nick::Nick()
 	: MoveDir_(float4::ZERO)
@@ -337,6 +339,10 @@ void Nick::CollisionFloorCheck()
 	else if (strcmp(GetLevel()->GetNameConstPtr(), "Floor2") == 0)
 	{
 		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor2.bmp");
+	}
+	else if (strcmp(GetLevel()->GetNameConstPtr(), "Floor3") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor3.bmp");
 	}
 
 	if (nullptr == FloorColImage_)

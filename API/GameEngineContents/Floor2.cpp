@@ -29,9 +29,7 @@ void Floor2::Loading()
 		BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
 		BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
 
-		Actor->GetRenderer()->SetPivot(BackActor);
-		Actor->CreateCollision("Next", { 100, 100 }, { 200, -300 });
-		Actor->CreateCollision("Wall", { 100, 100 }, { 0, 0 });
+		Actor->GetRenderer()->SetPivot(BackActor);		
 	}
 
 	{
@@ -40,7 +38,7 @@ void Floor2::Loading()
 
 	{
 		Nick* Player = CreateActor<Nick>((int)ORDER::PLAYER, "Player");
-		Player->SetPosition({ 400,725 });
+		Player->SetPosition({ 400,710 });
 	}
 }
 
@@ -48,7 +46,7 @@ void Floor2::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
 	{
-		GameEngine::GetInst().ChangeLevel("Floor1");
+		GameEngine::GetInst().ChangeLevel("Floor3");
 	}
 	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
 	{

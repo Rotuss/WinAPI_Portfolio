@@ -78,6 +78,9 @@ void SnowBros::GameInit()
 		Image = GameEngineImageManager::GetInst()->Find("Title.bmp");
 		Image->CutCount(3, 1);
 		
+		Image = GameEngineImageManager::GetInst()->Find("BossStageEnter.bmp");
+		Image->CutCount(3, 1);
+		
 		Image = GameEngineImageManager::GetInst()->Find("Appear.bmp");
 		Image->CutCount(4, 1);
 		

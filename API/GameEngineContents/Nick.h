@@ -1,4 +1,5 @@
 #pragma once
+#include <GameEngineBase/GameEngineSound.h>
 #include <GameEngine/GameEngineActor.h>
 
 // 어떠한 객체는 1번에 1개의 상태만이 존재
@@ -41,7 +42,8 @@ public:
 	// 접근하기 편리하게 static 선언
 	static Nick* MainPlayer;
 	// static std::vector<InventoryItem>;
-	
+	static GameEngineSoundPlayer BgmPlayer_;
+
 	//===========================FSM============================
 	void ChangeState(NickState _State);
 	void StateUpdate();
