@@ -184,7 +184,7 @@ void Nick::Start()
 	NickAnimationRender_->ChangeAnimation("Appear");
 	NickAnimationRender_->SetPivotType(RenderPivot::CENTER);
 
-	//AnimationName_ = "Idle_";
+	AnimationName_ = "Idle_";
 	CurrentDir_ = NickDir::RIGHT;
 	CurrentState_ = NickState::APPEAR;
 	

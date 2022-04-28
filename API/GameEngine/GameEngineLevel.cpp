@@ -248,6 +248,11 @@ void GameEngineLevel::ActorUpdate()
 	ChangeOrderList.clear();
 }
 
+bool SortY(GameEngineRenderer* _Left, GameEngineRenderer* _Right)
+{
+	return _Left->GetSortingPivot().y < _Right->GetSortingPivot().y;
+}
+
 void GameEngineLevel::ActorRender()
 {
 	// 렌더러 렌더
@@ -262,6 +267,12 @@ void GameEngineLevel::ActorRender()
 		{
 			std::list<GameEngineRenderer*>& Group = GroupStart->second;
 
+			// 그룹간에만 소팅
+			if (IsYSort_.end() != IsYSort_.find(GroupStart->first))
+			{
+				Group.sort(SortY);
+			}
+			
 			StartRenderer = Group.begin();
 			EndRenderer = Group.end();
 

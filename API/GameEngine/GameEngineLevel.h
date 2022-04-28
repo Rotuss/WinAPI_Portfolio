@@ -4,6 +4,7 @@
 #include <map>
 #include <list>
 #include <vector>
+#include <set>
 
 // 설명 : 화면을 등장! 오브젝트 관리 방법(map과 list)
 class GameEngineActor;
@@ -103,6 +104,12 @@ public:
 	GameEngineActor* FindActor(const std::string& _Name);
 	void RegistActor(const std::string& _Name, GameEngineActor* _Actor);
 
+	// 해당 오더는 sort할 것
+	void YSortOn(int _SortOrder)
+	{
+		IsYSort_.insert(_SortOrder);
+	}
+
 protected:
 	// 시점함수
 	// 만들어지면서 리소스나 액터를 만들 때 사용
@@ -140,6 +147,9 @@ private:
 	// 삭제는 Actor가 하지만, 실제 사용은 Level. 따라서 여기서 함부로 GameEngineCollision*을 delete하는 일이 있으면 안됨
 	std::map<std::string, std::list<GameEngineCollision*>> AllCollision_;
 
+	// 존재유무
+	std::set<int> IsYSort_;
+	
 	void ChangeUpdateOrder(GameEngineActor* _Actor, int _NewOrder);
 	
 	void AddRenderer(GameEngineRenderer* _Renderer);

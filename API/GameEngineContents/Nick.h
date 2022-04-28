@@ -88,6 +88,7 @@ private:
 	// 알파 확인차 임시 생성 :GameEngineRenderer* Render_;
 	//===========================FSM============================
 	// FSM 주의사항 : 각 해당 함수에서 FSM 다른 함수 사용 불가
+	NickState PrevState_;
 	NickState CurrentState_;
 	bool IsMoveKey();
 

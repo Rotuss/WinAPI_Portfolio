@@ -42,6 +42,10 @@ public:
 	{
 		RenderScale_ = _Scale;
 	}
+	void SetSortingPivot(float4 _Pivot)
+	{
+		SortingPivot_ = _Pivot;
+	}
 	inline void SetTransColor(unsigned int _Color)
 	{
 		TransColor_ = _Color;
@@ -75,6 +79,10 @@ public:
 	inline float4 GetImageScale()
 	{
 		return RenderImageScale_;
+	}
+	inline float4 GetSortingPivot()
+	{
+		return GetActor()->GetPosition() + RenderPivot_ + SortingPivot_;
 	}
 	void SetPause(bool _Value)
 	{
@@ -114,6 +122,7 @@ private:
 	float4				RenderImagePivot_;
 	float4				RenderScale_;				// 화면에 그려지는 크기
 	float4				RenderImageScale_;			// 이미지에서 잘라내는 크기
+	float4				SortingPivot_;				// 복사 받으려는 이미지 한 칸의 크기
 	unsigned int		TransColor_;
 	unsigned int		Alpha_;
 	bool				Pause_;
