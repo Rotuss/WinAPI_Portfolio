@@ -2,6 +2,7 @@
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
+#include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngine/GameEngine.h>
 #include <GameEngine/GameEngineImage.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -40,7 +41,7 @@ void RedDemon::IdleUpdate()
 	float4 CheckPos = GetPosition() + float4(0.0f, 44.0f);
 
 	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
-	if (RGB(0, 0, 0) != DColor && RGB(0, 255, 0) != DColor && CurrentState_ != RedDemonState::JUMP)
+	if (RGB(0, 0, 0) != DColor && CurrentState_ != RedDemonState::JUMP)
 	{
 		ChangeState(RedDemonState::DOWN);
 		return;
@@ -71,7 +72,7 @@ void RedDemon::StartMoveUpdate()
 	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
 	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 1.0f));
 
-	if (RGB(0, 0, 0) != BotColor && RGB(0, 255, 0) != BotColor && CurrentState_ != RedDemonState::JUMP)
+	if (RGB(0, 0, 0) != BotColor && CurrentState_ != RedDemonState::JUMP)
 	{
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	}
@@ -140,6 +141,7 @@ void RedDemon::StartMoveUpdate()
 
 void RedDemon::MoveUpdate()
 {
+	GameEngineRandom RandomValue_;
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		DamageCount_ -= 1;
@@ -166,7 +168,7 @@ void RedDemon::MoveUpdate()
 	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
 	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 1.0f));
 
-	if (RGB(0, 0, 0) != BotColor && RGB(0, 255, 0) != BotColor && CurrentState_ != RedDemonState::JUMP)
+	if (RGB(0, 0, 0) != BotColor && CurrentState_ != RedDemonState::JUMP)
 	{
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	}
@@ -177,7 +179,7 @@ void RedDemon::MoveUpdate()
 		RedDemonAnimationRender_->ChangeAnimation("Move_" + ChangeDirText_);
 		MoveDir_.x = -1.f;
 
-		Range_ = 300.0f;
+		Range_ = static_cast<float>(RandomValue_.RandomInt(100,500));
 	}
 	if (RGB(0, 0, 0) == LeftColor)
 	{
@@ -186,7 +188,7 @@ void RedDemon::MoveUpdate()
 		RedDemonAnimationRender_->ChangeAnimation("Move_" + ChangeDirText_);
 		MoveDir_.x = 1.f;
 
-		Range_ = 300.0f;
+		Range_ = static_cast<float>(RandomValue_.RandomInt(100, 500));
 	}
 	if (RGB(255, 255, 255) == DColor)
 	{
@@ -194,7 +196,7 @@ void RedDemon::MoveUpdate()
 		{
 			ChangeDirText_ = "Left";
 			ChangeState(RedDemonState::DOWN);
-			JumpTime_ = 10.0f;
+			JumpTime_ = static_cast<float>(RandomValue_.RandomInt(1, 5));
 			return;
 		}
 
@@ -202,7 +204,7 @@ void RedDemon::MoveUpdate()
 		{
 			ChangeDirText_ = "Right";
 			ChangeState(RedDemonState::DOWN);
-			JumpTime_ = 10.0f;
+			JumpTime_ = static_cast<float>(RandomValue_.RandomInt(1, 5));
 			return;
 		}
 	}
@@ -219,7 +221,7 @@ void RedDemon::MoveUpdate()
 			ChangeDirText_ = "Right";
 			ChangeState(RedDemonState::IDLE);
 
-			Range_ = 300.0f;
+			Range_ = static_cast<float>(RandomValue_.RandomInt(100, 500));
 			return;
 		}
 		else
@@ -236,7 +238,7 @@ void RedDemon::MoveUpdate()
 			ChangeDirText_ = "Left";
 			ChangeState(RedDemonState::IDLE);
 
-			Range_ = 300.0f;
+			Range_ = static_cast<float>(RandomValue_.RandomInt(100, 500));
 			return;
 		}
 		else
@@ -254,7 +256,7 @@ void RedDemon::MoveUpdate()
 			{
 				ChangeDirText_ = "Left";
 				ChangeState(RedDemonState::JUMP);
-				JumpTime_ = 10.0f;
+				JumpTime_ = static_cast<float>(RandomValue_.RandomInt(1, 5));
 				return;
 			}
 
@@ -262,7 +264,7 @@ void RedDemon::MoveUpdate()
 			{
 				ChangeDirText_ = "Right";
 				ChangeState(RedDemonState::JUMP);
-				JumpTime_ = 10.0f;
+				JumpTime_ = static_cast<float>(RandomValue_.RandomInt(1, 5));
 				return;
 			}
 		}
@@ -293,15 +295,17 @@ void RedDemon::JumpUpdate()
 	}
 
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
+	int CColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 35.0f });
 	int RColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 15.0f, 0.0f });
 	int LColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ -15.0f, 0.0f });
-	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
+	if (RGB(0, 0, 0) == Color && RGB(255, 255, 255) == CColor)
 	{
-		MoveDir_.y = 0.0f;
-		ChangeState(RedDemonState::MOVE);
+		//MoveDir_.y = 0.0f;
+		MoveDir_ = float4::ZERO;
+		ChangeState(RedDemonState::IDLE);
 		return;
 	}
-	if (RGB(0, 0, 0) == RColor || RGB(0, 255, 0) == RColor || RGB(0, 0, 0) == LColor || RGB(0, 255, 0) == LColor)
+	if (RGB(0, 0, 0) == RColor || RGB(0, 0, 0) == LColor)
 	{
 		MoveDir_.x = 0.0f;
 		ChangeState(RedDemonState::MOVE);
@@ -330,7 +334,7 @@ void RedDemon::DownUpdate()
 	}
 
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
-	if (RGB(0, 0, 0) == Color || RGB(0, 255, 0) == Color)
+	if (RGB(0, 0, 0) == Color)
 	{
 		MoveDir_ = float4::ZERO;
 		ChangeState(RedDemonState::MOVE);
@@ -413,7 +417,7 @@ void RedDemon::Snow3Update()
 
 	int Color = FloorColImage_->GetImagePixel(CheckPos);
 	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 0.0f));
-	if (RGB(0, 0, 0) != Color && RGB(0, 255, 0) != Color)
+	if (RGB(0, 0, 0) != Color)
 	{
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	}
