@@ -19,6 +19,7 @@ Frog::Frog()
 	, Time_(0.0f)
 	, MoveTime_(0.3f)
 	, JumpTime_(10.0f)
+	, AttackTime_(1.5f)
 	, MeltingTime_(3.0f)
 	, ShakingTime_(1.0f)
 	, DamageCount_(2)
@@ -157,6 +158,12 @@ void Frog::Start()
 	FrogAnimationRender_->CreateAnimation("Frog_ThrowingFire_Right.bmp", "Attack_Right", 0, 0, 0.0f, false);
 	FrogAnimationRender_->CreateAnimation("Frog_ThrowingFire_Left.bmp", "Attack_Left", 0, 0, 0.0f, false);
 
+	FrogAnimationRender_->CreateAnimation("Snow1.bmp", "Snow1", 0, 0, 0.0f, false);
+	FrogAnimationRender_->CreateAnimation("Snow2.bmp", "Snow2", 0, 0, 0.0f, false);
+	FrogAnimationRender_->CreateAnimation("Snow3.bmp", "Snow3", 0, 0, 0.0f, false);
+	FrogAnimationRender_->CreateAnimation("SnowballRolling.bmp", "SnowballRolling", 0, 3, 0.1f, true);
+	FrogAnimationRender_->CreateAnimation("SnowBallEffect.bmp", "SnowBallEffect", 0, 1, 0.2f, true);
+	
 	FrogAnimationRender_->CreateAnimation("Frog_ShakingSnow.bmp", "ShakingSnow", 0, 1, 0.1f, true);
 
 	FrogAnimationRender_->CreateAnimation("Frog_Defeated.bmp", "Defeated", 0, 3, 0.1f, true);

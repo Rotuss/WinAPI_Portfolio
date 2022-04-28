@@ -185,6 +185,13 @@ void SnowBros::GameInit()
 		Image = GameEngineImageManager::GetInst()->Find("Frog_ThrowingFire_Left.bmp");
 		Image->Cut({ 64, 112 });
 
+		Image = GameEngineImageManager::GetInst()->Find("FrogFire_Right.bmp");
+		Image->Cut({ 96, 64});
+		Image = GameEngineImageManager::GetInst()->Find("FrogFire_Left.bmp");
+		Image->Cut({ 96, 64 });
+		Image = GameEngineImageManager::GetInst()->Find("FrogFire_Boom.bmp");
+		Image->Cut({ 64, 64 });
+		
 		Image = GameEngineImageManager::GetInst()->Find("Frog_ShakingSnow.bmp");
 		Image->CutCount(2, 1);
 
@@ -237,6 +244,10 @@ void SnowBros::GameInit()
 		Image->Cut({ 84, 64 });
 		Image = GameEngineImageManager::GetInst()->Find("Snow3.bmp");
 		Image->Cut({ 88, 92 });
+		Image = GameEngineImageManager::GetInst()->Find("SnowballRolling.bmp");
+		Image->CutCount(4, 1);
+		Image = GameEngineImageManager::GetInst()->Find("SnowBallEffect.bmp");
+		Image->CutCount(2, 1);
 	} 
 	// 각 레벨 생성
 	CreateLevel<TitleMainLevel>("TitleMain");

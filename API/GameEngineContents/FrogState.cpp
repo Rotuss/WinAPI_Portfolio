@@ -1,4 +1,5 @@
 #include "Frog.h"
+#include "FrogFire.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -30,7 +31,9 @@ void Frog::StartDownUpdate()
 
 void Frog::IdleUpdate()
 {
+	GameEngineRandom RandomValue_;
 	MoveTime_ -= GameEngineTime::GetDeltaTime();
+	AttackTime_ -= GameEngineTime::GetDeltaTime();
 	if (MoveTime_ <= 0)
 	{
 		if (StartMoveCount_ <= 0)
@@ -45,6 +48,12 @@ void Frog::IdleUpdate()
 			MoveTime_ = 0.3f;
 			return;
 		}
+	}
+	if (AttackTime_ <= 0)
+	{
+		ChangeState(FrogState::ATTACK);
+		AttackTime_ = static_cast<float>(RandomValue_.RandomInt(1, 3));
+		return;
 	}
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
@@ -313,12 +322,13 @@ void Frog::JumpUpdate()
 	}
 
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
+	int CColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 35.0f });
 	int RColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 15.0f, 0.0f });
 	int LColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ -15.0f, 0.0f });
-	if (RGB(0, 0, 0) == Color)
+	if (RGB(0, 0, 0) == Color && RGB(255, 255, 255) == CColor)
 	{
 		MoveDir_.y = 0.0f;
-		ChangeState(FrogState::MOVE);
+		ChangeState(FrogState::IDLE);
 		return;
 	}
 	if (RGB(0, 0, 0) == RColor || RGB(0, 0, 0) == LColor)
@@ -358,7 +368,17 @@ void Frog::DownUpdate()
 }
 
 void Frog::AttackUpdate()
-{}
+{
+	//SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	GameEngineRandom RandomValue_;
+	AttackTime_ -= GameEngineTime::GetDeltaTime();
+	if (AttackTime_ <= 0)
+	{
+		AttackTime_ = static_cast<float>(RandomValue_.RandomInt(1, 3));
+		ChangeState(FrogState::IDLE);
+		return;
+	}
+}
 
 void Frog::Snow1Update()
 {
@@ -526,7 +546,30 @@ void Frog::DownStart()
 }
 
 void Frog::AttackStart()
-{}
+{
+	AttackTime_ = 0.15f;
+	AnimationName_ = "Attack_";
+	if ("" == ChangeDirText_)
+	{
+		ChangeDirText_ = "Right";
+	}
+	FrogAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+
+	FrogFire* Ptr = GetLevel()->CreateActor<FrogFire>();
+	Ptr->SetPosition(GetPosition());
+
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	if (CurrentDir_ == FrogDir::LEFT)
+	{
+		Ptr->SetDir(float4::LEFT);
+		Ptr->SetBDir("Left");
+	}
+	if (CurrentDir_ == FrogDir::RIGHT)
+	{
+		Ptr->SetDir(float4::RIGHT);
+		Ptr->SetBDir("Right");
+	}
+}
 
 void Frog::Snow1Start()
 {

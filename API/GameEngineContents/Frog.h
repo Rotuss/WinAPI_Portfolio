@@ -51,6 +51,7 @@ private:
 	float	Time_;
 	float	MoveTime_;
 	float	JumpTime_;
+	float	AttackTime_;
 	float	MeltingTime_;
 	float	ShakingTime_;
 	float	Speed_;

@@ -158,7 +158,9 @@ void RedDemon::Start()
 	RedDemonAnimationRender_->CreateAnimation("Snow1.bmp", "Snow1", 0, 0, 0.0f, false);
 	RedDemonAnimationRender_->CreateAnimation("Snow2.bmp", "Snow2", 0, 0, 0.0f, false);
 	RedDemonAnimationRender_->CreateAnimation("Snow3.bmp", "Snow3", 0, 0, 0.0f, false);
-	
+	RedDemonAnimationRender_->CreateAnimation("SnowballRolling.bmp", "SnowballRolling", 0, 3, 0.1f, true);
+	RedDemonAnimationRender_->CreateAnimation("SnowBallEffect.bmp", "SnowBallEffect", 0, 1, 0.2f, true);
+
 	RedDemonAnimationRender_->CreateAnimation("RedDemon_ShakingSnow.bmp", "ShakingSnow", 0, 1, 0.1f, true);
 
 	RedDemonAnimationRender_->CreateAnimation("RedDemon_Defeated.bmp", "Defeated", 0, 3, 0.1f, true);
