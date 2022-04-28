@@ -36,6 +36,9 @@ void RedDemon::ChangeState(RedDemonState _State)
 	{
 		switch (_State)
 		{
+		case RedDemonState::STARTDOWN:
+			StartDownStart();
+			break;
 		case RedDemonState::IDLE:
 			IdleStart();
 			break;
@@ -86,6 +89,9 @@ void RedDemon::StateUpdate()
 {
 	switch (CurrentState_)
 	{
+	case RedDemonState::STARTDOWN:
+		StartDownUpdate();
+		break;
 	case RedDemonState::IDLE:
 		IdleUpdate();
 		break;
@@ -159,12 +165,12 @@ void RedDemon::Start()
 
 	RedDemonAnimationRender_->CreateAnimation("RedDemon_Death.bmp", "Death", 0, 0, 0.0f, false);
 
-	RedDemonAnimationRender_->ChangeAnimation("Move_Right");
+	RedDemonAnimationRender_->ChangeAnimation("Down_Right");
 	RedDemonAnimationRender_->SetPivotType(RenderPivot::CENTER);
 
 	//AnimationName_ = "Idle_";
 	CurrentDir_ = RedDemonDir::RIGHT;
-	CurrentState_ = RedDemonState::STARTMOVE;
+	CurrentState_ = RedDemonState::STARTDOWN;
 }
 
 void RedDemon::Update()

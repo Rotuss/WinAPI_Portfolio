@@ -10,6 +10,24 @@
 #include <GameEngine/GameEngineRenderer.h>
 #include <GameEngine/GameEngineCollision.h>
 
+void Frog::StartDownUpdate()
+{
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+	float4 CheckPos = GetPosition() + float4(0.0f, 44.0f);
+
+	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
+	if (RGB(0, 255, 0) != DColor)
+	{
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	}
+	if (RGB(0, 255, 0) == DColor)
+	{
+		MoveDir_ = float4::ZERO;
+		ChangeState(FrogState::IDLE);
+		return;
+	}
+}
+
 void Frog::IdleUpdate()
 {
 	MoveTime_ -= GameEngineTime::GetDeltaTime();
@@ -40,7 +58,7 @@ void Frog::IdleUpdate()
 
 	float4 CheckPos = GetPosition() + float4(0.0f, 44.0f);
 
-	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
+	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 5.0f));
 	if (RGB(0, 0, 0) != DColor && CurrentState_ != FrogState::JUMP)
 	{
 		ChangeState(FrogState::DOWN);
@@ -70,11 +88,11 @@ void Frog::StartMoveUpdate()
 	int BotColor = FloorColImage_->GetImagePixel(CheckBotPos);
 	int RightColor = FloorColImage_->GetImagePixel(CheckRightPos);
 	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
-	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 1.0f));
+	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 5.0f));
 
 	if (RGB(0, 0, 0) != BotColor && CurrentState_ != FrogState::JUMP)
 	{
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	}
 	if (RGB(0, 0, 0) == RightColor)
 	{
@@ -306,7 +324,6 @@ void Frog::JumpUpdate()
 	if (RGB(0, 0, 0) == RColor || RGB(0, 0, 0) == LColor)
 	{
 		MoveDir_.x = 0.0f;
-		ChangeState(FrogState::MOVE);
 		return;
 	}
 }
@@ -453,6 +470,16 @@ void Frog::DeathUpdate()
 {}
 
 //===========================Start==========================
+void Frog::StartDownStart()
+{
+	AnimationName_ = "Jump_";
+	if ("" == ChangeDirText_)
+	{
+		ChangeDirText_ = "Right";
+	}
+	FrogAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+}
+
 void Frog::IdleStart()
 {
 	StartMoveCount_ -= 1;
@@ -494,8 +521,8 @@ void Frog::JumpStart()
 
 void Frog::DownStart()
 {
-	//AnimationName_ = "Down_";
-	//FrogAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+	AnimationName_ = "Jump_";
+	FrogAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 }
 
 void Frog::AttackStart()

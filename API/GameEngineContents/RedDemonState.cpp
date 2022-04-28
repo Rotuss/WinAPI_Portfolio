@@ -10,6 +10,24 @@
 #include <GameEngine/GameEngineRenderer.h>
 #include <GameEngine/GameEngineCollision.h>
 
+void RedDemon::StartDownUpdate()
+{
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+	float4 CheckPos = GetPosition() + float4(0.0f, 44.0f);
+
+	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
+	if (RGB(0, 255, 0) != DColor)
+	{
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	}
+	if (RGB(0, 255, 0) == DColor)
+	{
+		MoveDir_ = float4::ZERO;
+		ChangeState(RedDemonState::IDLE);
+		return;
+	}
+}
+
 void RedDemon::IdleUpdate()
 {
 	MoveTime_ -= GameEngineTime::GetDeltaTime();
@@ -40,7 +58,7 @@ void RedDemon::IdleUpdate()
 
 	float4 CheckPos = GetPosition() + float4(0.0f, 44.0f);
 
-	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 1.0f));
+	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 5.0f));
 	if (RGB(0, 0, 0) != DColor && CurrentState_ != RedDemonState::JUMP)
 	{
 		ChangeState(RedDemonState::DOWN);
@@ -70,11 +88,11 @@ void RedDemon::StartMoveUpdate()
 	int BotColor = FloorColImage_->GetImagePixel(CheckBotPos);	
 	int RightColor = FloorColImage_->GetImagePixel(CheckRightPos);
 	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
-	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 1.0f));
+	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 5.0f));
 
 	if (RGB(0, 0, 0) != BotColor && CurrentState_ != RedDemonState::JUMP)
 	{
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	}
 	if (RGB(0, 0, 0) == RightColor)
 	{
@@ -308,7 +326,6 @@ void RedDemon::JumpUpdate()
 	if (RGB(0, 0, 0) == RColor || RGB(0, 0, 0) == LColor)
 	{
 		MoveDir_.x = 0.0f;
-		ChangeState(RedDemonState::MOVE);
 		return;
 	}
 }
@@ -455,6 +472,16 @@ void RedDemon::DeathUpdate()
 {}
 
 //===========================Start==========================
+void RedDemon::StartDownStart()
+{
+	AnimationName_ = "Down_";
+	if ("" == ChangeDirText_)
+	{
+		ChangeDirText_ = "Right";
+	}
+	RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+}
+
 void RedDemon::IdleStart()
 {
 	StartMoveCount_ -= 1;
@@ -496,8 +523,8 @@ void RedDemon::JumpStart()
 
 void RedDemon::DownStart()
 {
-	//AnimationName_ = "Down_";
-	//RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+	AnimationName_ = "Down_";
+	RedDemonAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 }
 
 void RedDemon::AttackStart()

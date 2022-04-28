@@ -3,6 +3,7 @@
 
 enum class RedDemonState
 {
+	STARTDOWN,
 	IDLE,
 	STARTMOVE,
 	MOVE,
@@ -86,6 +87,7 @@ private:
 	RedDemonState CurrentState_;
 	//bool IsMoveKey();
 
+	void StartDownUpdate();
 	void IdleUpdate();
 	void StartMoveUpdate();
 	void MoveUpdate();
@@ -99,6 +101,7 @@ private:
 	void DefeatedUpdate();
 	void DeathUpdate();
 
+	void StartDownStart();
 	void IdleStart();
 	void StartMoveStart();
 	void MoveStart();

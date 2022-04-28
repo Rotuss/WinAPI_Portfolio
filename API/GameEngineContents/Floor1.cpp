@@ -53,17 +53,18 @@ void Floor1::Loading()
 	}
 
 	{
+		// 시간 맞춰주기
 		RedDemon* RedDemon0 = CreateActor<RedDemon>((int)ORDER::MONSTER);
-		RedDemon0->SetPosition({ 320,472 });
+		RedDemon0->SetPosition({ 330,0 });
 
 		RedDemon* RedDemon1 = CreateActor<RedDemon>((int)ORDER::MONSTER);
-		RedDemon1->SetPosition({ 200,344 });
+		RedDemon1->SetPosition({ 180,0 });
 
 		RedDemon* RedDemon2 = CreateActor<RedDemon>((int)ORDER::MONSTER);
-		RedDemon2->SetPosition({ 820,344 });
+		RedDemon2->SetPosition({ 840,0 });
 
 		RedDemon* RedDemon3 = CreateActor<RedDemon>((int)ORDER::MONSTER);
-		RedDemon3->SetPosition({ 340,152 });
+		RedDemon3->SetPosition({ 280,0 });
 	}
 }
 

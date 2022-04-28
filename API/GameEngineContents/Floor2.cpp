@@ -44,20 +44,21 @@ void Floor2::Loading()
 	}
 
 	{
+		// 시간 맞춰주기
 		RedDemon* RedDemon0 = CreateActor<RedDemon>((int)ORDER::MONSTER);
-		RedDemon0->SetPosition({ 420,600 });
+		RedDemon0->SetPosition({ 410,0 });
 
 		RedDemon* RedDemon1 = CreateActor<RedDemon>((int)ORDER::MONSTER);
-		RedDemon1->SetPosition({ 50,472 });
+		RedDemon1->SetPosition({ 40,0 });
 
 		RedDemon* RedDemon2 = CreateActor<RedDemon>((int)ORDER::MONSTER);
-		RedDemon2->SetPosition({ 975,472 });
+		RedDemon2->SetPosition({ 985,0 });
 
 		Frog* Frog0 = CreateActor<Frog>((int)ORDER::MONSTER);
-		Frog0->SetPosition({ 320,340 });
+		Frog0->SetPosition({ 320,0 });
 
 		Frog* Frog1 = CreateActor<Frog>((int)ORDER::MONSTER);
-		Frog1->SetPosition({ 704,340 });
+		Frog1->SetPosition({ 700,0 });
 	}
 }
 

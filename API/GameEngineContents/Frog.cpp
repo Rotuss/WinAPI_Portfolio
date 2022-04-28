@@ -12,7 +12,7 @@
 Frog::Frog()
 	: MoveDir_(float4::ZERO)
 	, Range_(30.f)
-	, Speed_(200.0f)
+	, Speed_(150.0f)
 	, SnowSpeed_(100.0f)
 	, AccSpeed_(500.0f)
 	, Gravity_(100.0f)
@@ -36,6 +36,9 @@ void Frog::ChangeState(FrogState _State)
 	{
 		switch (_State)
 		{
+		case FrogState::STARTDOWN:
+			StartDownStart();
+			break;
 		case FrogState::IDLE:
 			IdleStart();
 			break;
@@ -86,6 +89,9 @@ void Frog::StateUpdate()
 {
 	switch (CurrentState_)
 	{
+	case FrogState::STARTDOWN:
+		StartDownUpdate();
+		break;
 	case FrogState::IDLE:
 		IdleUpdate();
 		break;
@@ -157,12 +163,12 @@ void Frog::Start()
 
 	FrogAnimationRender_->CreateAnimation("Frog_Death.bmp", "Death", 0, 0, 0.0f, false);
 
-	FrogAnimationRender_->ChangeAnimation("Idle_Right");
+	FrogAnimationRender_->ChangeAnimation("Jump_Right");
 	FrogAnimationRender_->SetPivotType(RenderPivot::CENTER);
 
 	//AnimationName_ = "Idle_";
 	CurrentDir_ = FrogDir::RIGHT;
-	CurrentState_ = FrogState::STARTMOVE;
+	CurrentState_ = FrogState::STARTDOWN;
 }
 
 void Frog::Update()

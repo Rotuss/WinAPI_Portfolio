@@ -3,6 +3,7 @@
 
 enum class FrogState
 {
+	STARTDOWN,
 	IDLE,
 	STARTMOVE,
 	MOVE,
@@ -80,6 +81,7 @@ private:
 	
 	FrogState CurrentState_;
 
+	void StartDownUpdate();
 	void IdleUpdate();
 	void StartMoveUpdate();
 	void MoveUpdate();
@@ -93,6 +95,7 @@ private:
 	void DefeatedUpdate();
 	void DeathUpdate();
 
+	void StartDownStart();
 	void IdleStart();
 	void StartMoveStart();
 	void MoveStart();
