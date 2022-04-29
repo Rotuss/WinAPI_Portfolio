@@ -21,8 +21,10 @@ RedDemon::RedDemon()
 	, JumpTime_(10.0f)
 	, MeltingTime_(3.0f)
 	, ShakingTime_(1.0f)
+	, DeathTime_(0.5f)
 	, DamageCount_(2)
 	, StartMoveCount_(3)
+	, DeathCheck_(true)
 {
 }
 

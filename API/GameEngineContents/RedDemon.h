@@ -56,11 +56,13 @@ private:
 	float	JumpTime_;
 	float	MeltingTime_;
 	float	ShakingTime_;
+	float	DeathTime_;
 	float	Speed_;
 	float	SnowSpeed_;
 	float	AccSpeed_;
 	float	Gravity_;
 	float	AccGravity_;
+	bool	DeathCheck_;
 	int		DamageCount_;
 	int		StartMoveCount_;
 
@@ -69,6 +71,7 @@ private:
 	GameEngineCollision*	RedDemonCollision_;
 	GameEngineCollision*	RedDemonSnowRCollision_;
 	GameEngineCollision*	RedDemonSnowLCollision_;
+	GameEngineCollision*	RedDemonSnowBallCollision_;
 	GameEngineCollision*	RedDemonSnowBallRCollision_;
 	GameEngineCollision*	RedDemonSnowBallLCollision_;
 	GameEngineRenderer*		RedDemonAnimationRender_;

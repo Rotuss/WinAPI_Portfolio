@@ -64,6 +64,11 @@ void Frog::IdleUpdate()
 			return;
 		}
 	}
+	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
 
 	float4 CheckPos = GetPosition() + float4(0.0f, 44.0f);
 
@@ -177,6 +182,11 @@ void Frog::MoveUpdate()
 			ChangeState(FrogState::SNOW1);
 			return;
 		}
+	}
+	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(FrogState::DEFEATED);
+		return;
 	}
 
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
@@ -311,6 +321,11 @@ void Frog::JumpUpdate()
 			return;
 		}
 	}
+	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
 
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 
@@ -349,6 +364,11 @@ void Frog::DownUpdate()
 			return;
 		}
 	}
+	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
 
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
@@ -369,6 +389,11 @@ void Frog::DownUpdate()
 
 void Frog::AttackUpdate()
 {
+	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
 	//SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	GameEngineRandom RandomValue_;
 	AttackTime_ -= GameEngineTime::GetDeltaTime();
@@ -400,6 +425,11 @@ void Frog::Snow1Update()
 			return;
 		}
 	}
+	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
 }
 
 void Frog::Snow2Update()
@@ -421,6 +451,11 @@ void Frog::Snow2Update()
 			ChangeState(FrogState::SNOW1);
 			return;
 		}
+	}
+	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(FrogState::DEFEATED);
+		return;
 	}
 }
 
@@ -450,14 +485,14 @@ void Frog::Snow3Update()
 	if (true == FrogSnowRCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT) && true == GameEngineInput::GetInst()->IsPress("ColDamage"))
 	{
 		// 스노우볼이 오른쪽으로 굴러야함
-		CurrentDir_ == FrogDir::RIGHT;
+		CurrentDir_ = FrogDir::RIGHT;
 		ChangeState(FrogState::SNOWBALL);
 		return;
 	}
 	if (true == FrogSnowLCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT) && true == GameEngineInput::GetInst()->IsPress("ColDamage"))
 	{
 		// 스노우볼이 왼쪽으로 굴러야함
-		CurrentDir_ == FrogDir::LEFT;
+		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::SNOWBALL);
 		return;
 	}
@@ -481,7 +516,7 @@ void Frog::Snow3Update()
 void Frog::SnowBallUpdate()
 {
 	MoveDir_.y = 0.0f;
-	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * 500);
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * 600);
 
 	FrogDir CheckDir_ = CurrentDir_;
 
@@ -493,11 +528,10 @@ void Frog::SnowBallUpdate()
 
 	if (CurrentDir_ == FrogDir::RIGHT)
 	{
-
 		MoveDir_.x = 1.f;
 	}
 
-	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * 500);
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * 600);
 	float4 CheckBotPos = NextPos + float4(0.0f, 45.0f);
 	float4 CheckRightPos = NextPos + float4(15.0f, 0.0f);
 	float4 CheckLeftPos = NextPos + float4(-15.0f, 0.0f);
@@ -506,7 +540,7 @@ void Frog::SnowBallUpdate()
 	int RightColor = FloorColImage_->GetImagePixel(CheckRightPos);
 	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
 	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 1.0f));
-	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 3500.0f;
 	if (RGB(0, 0, 0) != BotColor)
 	{
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
@@ -516,23 +550,51 @@ void Frog::SnowBallUpdate()
 		CurrentDir_ = FrogDir::LEFT;
 		MoveDir_.x = -1.f;
 	}
+	if (RGB(255, 0, 0) == RightColor)
+	{
+		MoveDir_ = float4::ZERO;
+		DeathTime_ -= GameEngineTime::GetDeltaTime();
+		if (true == DeathCheck_)
+		{
+			FrogAnimationRender_->ChangeAnimation("SnowBallEffect");
+			DeathTime_ = 0.1f;
+			DeathCheck_ = false;
+		}
+		if (DeathTime_ <= 0)
+		{
+			Death();
+		}
+	}
 	if (RGB(0, 0, 0) == LeftColor)
 	{
 		CurrentDir_ = FrogDir::RIGHT;
 		MoveDir_.x = 1.f;
+	}
+	if (RGB(255, 0, 0) == LeftColor)
+	{
+		MoveDir_ = float4::ZERO;
+		DeathTime_ -= GameEngineTime::GetDeltaTime();
+		if (true == DeathCheck_)
+		{
+			FrogAnimationRender_->ChangeAnimation("SnowBallEffect");
+			DeathTime_ = 0.1f;
+			DeathCheck_ = false;
+		}
+		if (DeathTime_ <= 0)
+		{
+			Death();
+		}
 	}
 	if (RGB(255, 255, 255) == DColor)
 	{
 		if (CurrentDir_ == FrogDir::LEFT)
 		{
 			MoveDir_.x = -1.f;
-
 		}
 
 		if (CurrentDir_ == FrogDir::RIGHT)
 		{
 			MoveDir_.x = 1.f;
-
 		}
 	}
 }
@@ -683,6 +745,7 @@ void Frog::SnowBallStart()
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 	FrogAnimationRender_->SetPivot({ 0,0 });
 
+	FrogSnowBallCollision_ = CreateCollision("SnowBallColBox", { 90, 90 });
 	FrogSnowBallRCollision_ = CreateCollision("SnowBallRColBox", { 5, 10 }, { -15, 0 });
 	FrogSnowBallLCollision_ = CreateCollision("SnowBallLColBox", { 5, 10 }, { 15, 0 });
 }
@@ -698,12 +761,12 @@ void Frog::ShakingSnowStart()
 
 void Frog::DefeatedStart()
 {
-	AnimationName_ = "Frog_Defeated";
+	AnimationName_ = "Defeated";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 }
 
 void Frog::DeathStart()
 {
-	AnimationName_ = "Frog_Death";
+	AnimationName_ = "Death";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 }

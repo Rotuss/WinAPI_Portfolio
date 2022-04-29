@@ -55,11 +55,13 @@ private:
 	float	AttackTime_;
 	float	MeltingTime_;
 	float	ShakingTime_;
+	float	DeathTime_;
 	float	Speed_;
 	float	SnowSpeed_;
 	float	AccSpeed_;
 	float	Gravity_;
 	float	AccGravity_;
+	bool	DeathCheck_;
 	int		DamageCount_;
 	int		StartMoveCount_;
 	
@@ -68,6 +70,7 @@ private:
 	GameEngineCollision*	FrogAttackCollision_;
 	GameEngineCollision*	FrogSnowRCollision_;
 	GameEngineCollision*	FrogSnowLCollision_;
+	GameEngineCollision*	FrogSnowBallCollision_;
 	GameEngineCollision*	FrogSnowBallRCollision_;
 	GameEngineCollision*	FrogSnowBallLCollision_;
 	GameEngineRenderer*		FrogAnimationRender_;
