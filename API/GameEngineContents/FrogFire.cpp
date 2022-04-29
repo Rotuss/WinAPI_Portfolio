@@ -1,4 +1,5 @@
 #include "FrogFire.h"
+#include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngineRenderer.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -44,8 +45,6 @@ void FrogFire::Start()
 	FireAnimationRender_->ChangeAnimation("FrogFire_Left");
 	//Time = 2.0f;
 
-	Death(DeathTime_);
-
 	XSpeed_ = 500.0f;
 }
 
@@ -53,23 +52,51 @@ void FrogFire::Update()
 {
 	DeathTime_ -= GameEngineTime::GetDeltaTime();
 	DirFireCheck();
+	CollisionFloorCheck();
 	float4 ResultDir = float4::ZERO;
 	// 모든 힘은 뭘해도 float4
 	ResultDir += FireDir_ * GameEngineTime::GetDeltaTime() * XSpeed_;
 
-	if (true == FireCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
-	{
-		//FireAnimationRender_->ChangeAnimation("FrogFire_Boom");
-		Death();
-		return;
-	}
-	// 수정할 것
-	/*
-	if (DeathTime_ <= 0)
+	int RColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 15.0f, 0.0f });
+	int LColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ -15.0f, 0.0f });
+	if (RGB(0, 0, 0) == RColor || RGB(0, 0, 0) == LColor || true == FireCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ResultDir = float4::ZERO;
 		FireAnimationRender_->ChangeAnimation("FrogFire_Boom");
+		DeathTime_ = 0.5f;
+		if (DeathTime_ <= 0)
+		{
+			int a = 0;
+			//FireAnimationRender_->Off();
+		}
+		return;
 	}
-	*/
+	if (DeathTime_ <= 0)
+	{
+		//FireAnimationRender_->Off();
+		Death();
+	}
+	
 	SetMove(ResultDir);
+}
+
+void FrogFire::CollisionFloorCheck()
+{
+	if (strcmp(GetLevel()->GetNameConstPtr(), "Floor1") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor1.bmp");
+	}
+	else if (strcmp(GetLevel()->GetNameConstPtr(), "Floor2") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor2.bmp");
+	}
+	else if (strcmp(GetLevel()->GetNameConstPtr(), "Floor3") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor3.bmp");
+	}
+
+	if (nullptr == FloorColImage_)
+	{
+		MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다.");
+	}
 }

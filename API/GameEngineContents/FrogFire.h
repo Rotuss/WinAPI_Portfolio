@@ -7,6 +7,7 @@ enum class FireDir
 	RIGHT,
 };
 // Ό³Έν : 
+class GameEngineImage;
 class FrogFire : public GameEngineActor
 {
 public:
@@ -38,13 +39,16 @@ private:
 	void Start() override;
 	void Update() override;
 
+	void CollisionFloorCheck();
+	
 	float XSpeed_;
 	float DeathTime_;
 	float4 FireDir_;
 
-	GameEngineCollision* FireCollision_;
-	GameEngineRenderer* FireAnimationRender_;
-	FireDir FCurrentDir_;
-	std::string ChangeFDirText_;
+	GameEngineImage*		FloorColImage_;
+	GameEngineCollision*	FireCollision_;
+	GameEngineRenderer*		FireAnimationRender_;
+	FireDir					FCurrentDir_;
+	std::string				ChangeFDirText_;
 };
 
