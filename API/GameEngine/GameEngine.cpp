@@ -117,6 +117,14 @@ void GameEngine::EngineLoop()
 	//WindowMainImage_->BitCopy(BackBufferImage_, { 0, 0 }, { 0, 0 }, WindowMainImage_->GetScale());
 	WindowMainImage_->BitCopy(BackBufferImage_);
 	CurrentLevel_->ActorRelease();
+
+	if (true == CurrentLevel_->IsReset_)
+	{
+		CurrentLevel_->Reset();
+		// 리셋 이후 알아서
+		CurrentLevel_->UserResetEnd();
+		CurrentLevel_->IsReset_ = false;
+	}
 }
 
 void GameEngine::EngineEnd()

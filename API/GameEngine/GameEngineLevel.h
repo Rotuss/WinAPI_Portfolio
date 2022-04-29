@@ -80,6 +80,11 @@ public:
 		CameraPos_ + _Value;
 	}
 
+	inline void ResetOn()
+	{
+		IsReset_ = true;
+	}
+	
 	static void IsDebugModeOn()
 	{
 		IsDebug_ = true;
@@ -125,6 +130,10 @@ protected:
 
 	void ObjectLevelMoveCheck(GameEngineLevel* _NextLevel);
 
+	void Reset();
+
+	virtual void UserResetEnd() {}
+
 private:
 	// std::list보다 std::vector로 관리하는 것이 더 좋다고 생각(삽입 삭제가 많이 발생하지 않을 것 같기 때문). 무엇을 만들건 여기에 전부 들어감
 	// map으로 먼저 0번 1번 등이 있는지 확인 없으면 만들어주면 됨. 즉 순서를 정해주기 위함
@@ -157,5 +166,6 @@ private:
 	void AddCollision(const std::string& _GroupName, GameEngineCollision* _Collision);
 
 	static bool IsDebug_;
+	bool IsReset_;
 };
 
