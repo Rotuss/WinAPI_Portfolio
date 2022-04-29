@@ -43,6 +43,7 @@ private:
 	
 	float XSpeed_;
 	float DeathTime_;
+	bool DeathCheck_;
 	float4 FireDir_;
 
 	GameEngineImage*		FloorColImage_;

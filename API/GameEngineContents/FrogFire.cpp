@@ -6,7 +6,8 @@
 #include <GameEngine/GameEngineCollision.h>
 
 FrogFire::FrogFire()
-	:DeathTime_(0.5f)
+	: DeathTime_(0.5f)
+	, DeathCheck_(true)
 {
 }
 
@@ -36,6 +37,7 @@ void FrogFire::DirFireCheck()
 
 void FrogFire::Start()
 {
+	CollisionFloorCheck();
 	FireCollision_ = CreateCollision("FireHitBox", { 96, 64 });
 
 	FireAnimationRender_ = CreateRenderer();
@@ -62,18 +64,16 @@ void FrogFire::Update()
 	if (RGB(0, 0, 0) == RColor || RGB(0, 0, 0) == LColor || true == FireCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ResultDir = float4::ZERO;
-		FireAnimationRender_->ChangeAnimation("FrogFire_Boom");
-		DeathTime_ = 0.5f;
-		if (DeathTime_ <= 0)
+		if (true == DeathCheck_)
 		{
-			int a = 0;
-			//FireAnimationRender_->Off();
+			FireAnimationRender_->ChangeAnimation("FrogFire_Boom");
+			DeathTime_ = 0.1f;
+			DeathCheck_ = false;
 		}
-		return;
 	}
+	
 	if (DeathTime_ <= 0)
 	{
-		//FireAnimationRender_->Off();
 		Death();
 	}
 	
