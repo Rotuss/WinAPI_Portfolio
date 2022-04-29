@@ -75,6 +75,12 @@
     <ClInclude Include="FrogFire.h">
       <Filter>Play\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Life.h">
+      <Filter>Play\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>Play\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -159,6 +165,12 @@
     <ClCompile Include="FrogFire.cpp">
       <Filter>Play\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Life.cpp">
+      <Filter>Play\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Play\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -187,6 +199,9 @@
     </Filter>
     <Filter Include="Play\Item">
       <UniqueIdentifier>{4763db25-6322-4434-8f1a-89e8f83aabaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\UI">
+      <UniqueIdentifier>{409373e8-893f-438b-8efa-b873dbe23c60}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

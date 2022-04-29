@@ -72,6 +72,13 @@ void SnowBros::GameInit()
 		GameEngineInput::GetInst()->CreateKey("Debug", '0');
 	}
 
+	// UI
+	{
+		GameEngineImage*
+		Image = GameEngineImageManager::GetInst()->Find("Number.bmp");
+		Image->Cut({ 32, 32 });
+	}
+	
 	// Nick
 	{
 		GameEngineImage* 

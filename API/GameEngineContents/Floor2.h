@@ -1,5 +1,7 @@
 #pragma once
 #include <GameEngine/GameEngineLevel.h>
+#include "Life.h"
+#include "Score.h"
 
 // Ό³Έν : 
 class Floor2 : public GameEngineLevel
@@ -22,5 +24,7 @@ protected:
 	void LevelChangeEnd(GameEngineLevel* _NextLevel) override;
 
 private:
+	Life* LifeUI;
+	Score* ScoreUI;
 };
 

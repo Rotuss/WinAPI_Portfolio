@@ -175,11 +175,13 @@
     <ClInclude Include="FloorLogo.h" />
     <ClInclude Include="Frog.h" />
     <ClInclude Include="FrogFire.h" />
+    <ClInclude Include="Life.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Nick.h" />
     <ClInclude Include="PlayLevel.h" />
     <ClInclude Include="PlayUI.h" />
     <ClInclude Include="RedDemon.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="SelectBackGround.h" />
     <ClInclude Include="SelectLogo.h" />
     <ClInclude Include="SnowBullet.h" />
@@ -203,6 +205,7 @@
     <ClCompile Include="Frog.cpp" />
     <ClCompile Include="FrogFire.cpp" />
     <ClCompile Include="FrogState.cpp" />
+    <ClCompile Include="Life.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Nick.cpp" />
     <ClCompile Include="NickState.cpp" />
@@ -210,6 +213,7 @@
     <ClCompile Include="PlayUI.cpp" />
     <ClCompile Include="RedDemon.cpp" />
     <ClCompile Include="RedDemonState.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="SelectBackGround.cpp" />
     <ClCompile Include="SelectLogo.cpp" />
     <ClCompile Include="SnowBullet.cpp" />

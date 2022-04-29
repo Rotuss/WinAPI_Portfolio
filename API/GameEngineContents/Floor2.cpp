@@ -1,6 +1,8 @@
 #include "Floor2.h"
 #include "BackGround.h"
 #include "PlayUI.h"
+#include "Life.h"
+#include "Score.h"
 #include "Nick.h"
 #include "RedDemon.h"
 #include "Frog.h"
@@ -36,6 +38,9 @@ void Floor2::Loading()
 
 	{
 		PlayUI* Actor = CreateActor<PlayUI>(0);
+
+		LifeUI = CreateActor<Life>(1);
+		ScoreUI = CreateActor<Score>(1);
 	}
 
 	{

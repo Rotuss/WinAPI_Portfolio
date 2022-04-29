@@ -2,6 +2,8 @@
 #include "BackGround.h"
 #include "FloorLogo.h"
 #include "PlayUI.h"
+#include "Life.h"
+#include "Score.h"
 #include "Nick.h"
 #include "RedDemon.h"
 #include "ContentsEnums.h"
@@ -45,6 +47,9 @@ void Floor1::Loading()
 
 	{
 		PlayUI* Actor = CreateActor<PlayUI>(0);
+
+		LifeUI = CreateActor<Life>(1);
+		ScoreUI = CreateActor<Score>(1);
 	}
 
 	{
