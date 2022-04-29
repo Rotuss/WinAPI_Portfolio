@@ -13,6 +13,7 @@ enum class FrogState
 	SNOW1,
 	SNOW2,
 	SNOW3,
+	SNOWBALL,
 	SHAKINGSNOW,
 	DEFEATED,
 	DEATH,
@@ -67,6 +68,8 @@ private:
 	GameEngineCollision*	FrogAttackCollision_;
 	GameEngineCollision*	FrogSnowRCollision_;
 	GameEngineCollision*	FrogSnowLCollision_;
+	GameEngineCollision*	FrogSnowBallRCollision_;
+	GameEngineCollision*	FrogSnowBallLCollision_;
 	GameEngineRenderer*		FrogAnimationRender_;
 	FrogDir					CurrentDir_;
 	std::string				AnimationName_;
@@ -92,6 +95,7 @@ private:
 	void Snow1Update();
 	void Snow2Update();
 	void Snow3Update();
+	void SnowBallUpdate();
 	void ShakingSnowUpdate();
 	void DefeatedUpdate();
 	void DeathUpdate();
@@ -106,6 +110,7 @@ private:
 	void Snow1Start();
 	void Snow2Start();
 	void Snow3Start();
+	void SnowBallStart();
 	void ShakingSnowStart();
 	void DefeatedStart();
 	void DeathStart();

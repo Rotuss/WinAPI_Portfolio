@@ -429,6 +429,21 @@ void RedDemon::Snow3Update()
 		}
 	}
 	
+	if (true == RedDemonSnowRCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT) && true == GameEngineInput::GetInst()->IsPress("ColDamage"))
+	{
+		// 스노우볼이 오른쪽으로 굴러야함
+		CurrentDir_ == RedDemonDir::RIGHT;
+		ChangeState(RedDemonState::SNOWBALL);
+		return;
+	}
+	if (true == RedDemonSnowLCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT) && true == GameEngineInput::GetInst()->IsPress("ColDamage"))
+	{
+		// 스노우볼이 왼쪽으로 굴러야함
+		CurrentDir_ == RedDemonDir::LEFT;
+		ChangeState(RedDemonState::SNOWBALL);
+		return;
+	}
+	
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
 
@@ -442,6 +457,65 @@ void RedDemon::Snow3Update()
 	{
 		MoveDir_ = float4::DOWN * 2.0f;
 		return;
+	}
+}
+
+void RedDemon::SnowBallUpdate()
+{
+	MoveDir_.y = 0.0f;
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * 500);
+
+	RedDemonDir CheckDir_ = CurrentDir_;
+
+	if (CurrentDir_ == RedDemonDir::LEFT)
+	{
+		MoveDir_.x = -1.f;
+
+	}
+
+	if (CurrentDir_ == RedDemonDir::RIGHT)
+	{
+
+		MoveDir_.x = 1.f;
+	}
+
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * 500);
+	float4 CheckBotPos = NextPos + float4(0.0f, 45.0f);
+	float4 CheckRightPos = NextPos + float4(15.0f, 0.0f);
+	float4 CheckLeftPos = NextPos + float4(-15.0f, 0.0f);
+
+	int BotColor = FloorColImage_->GetImagePixel(CheckBotPos);
+	int RightColor = FloorColImage_->GetImagePixel(CheckRightPos);
+	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
+	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 1.0f));
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+	if (RGB(0, 0, 0) != BotColor)
+	{
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+	if (RGB(0, 0, 0) == RightColor)
+	{
+		CurrentDir_ = RedDemonDir::LEFT;
+		MoveDir_.x = -1.f;
+	}
+	if (RGB(0, 0, 0) == LeftColor)
+	{
+		CurrentDir_ = RedDemonDir::RIGHT;
+		MoveDir_.x = 1.f;
+	}
+	if (RGB(255, 255, 255) == DColor)
+	{
+		if (CurrentDir_ == RedDemonDir::LEFT)
+		{
+			MoveDir_.x = -1.f;
+
+		}
+
+		if (CurrentDir_ == RedDemonDir::RIGHT)
+		{
+			MoveDir_.x = 1.f;
+
+		}
 	}
 }
 
@@ -560,6 +634,16 @@ void RedDemon::Snow3Start()
 	RedDemonSnowLCollision_ = CreateCollision("SnowLColBox", { 5, 10 }, { 15, 0 });
 
 	MeltingTime_ = 5.0f;
+}
+
+void RedDemon::SnowBallStart()
+{
+	AnimationName_ = "SnowballRolling";
+	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
+	RedDemonAnimationRender_->SetPivot({ 0,0 });
+
+	RedDemonSnowBallRCollision_ = CreateCollision("SnowBallRColBox", { 5, 10 }, { -15, 0 });
+	RedDemonSnowBallLCollision_ = CreateCollision("SnowBallLColBox", { 5, 10 }, { 15, 0 });
 }
 
 void RedDemon::ShakingSnowStart()

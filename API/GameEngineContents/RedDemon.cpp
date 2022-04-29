@@ -66,6 +66,9 @@ void RedDemon::ChangeState(RedDemonState _State)
 		case RedDemonState::SNOW3:
 			Snow3Start();
 			break;
+		case RedDemonState::SNOWBALL:
+			SnowBallStart();
+			break;
 		case RedDemonState::SHAKINGSNOW:
 			ShakingSnowStart();
 			break;
@@ -118,6 +121,9 @@ void RedDemon::StateUpdate()
 		break;
 	case RedDemonState::SNOW3:
 		Snow3Update();
+		break;
+	case RedDemonState::SNOWBALL:
+		SnowBallUpdate();
 		break;
 	case RedDemonState::SHAKINGSNOW:
 		ShakingSnowUpdate();
@@ -173,6 +179,11 @@ void RedDemon::Start()
 	//AnimationName_ = "Idle_";
 	CurrentDir_ = RedDemonDir::RIGHT;
 	CurrentState_ = RedDemonState::STARTDOWN;
+
+	if (false == GameEngineInput::GetInst()->IsKey("ColDamage"))
+	{
+		GameEngineInput::GetInst()->CreateKey("ColDamage", VK_SPACE);
+	}
 }
 
 void RedDemon::Update()

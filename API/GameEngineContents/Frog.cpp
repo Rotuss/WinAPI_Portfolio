@@ -67,6 +67,9 @@ void Frog::ChangeState(FrogState _State)
 		case FrogState::SNOW3:
 			Snow3Start();
 			break;
+		case FrogState::SNOWBALL:
+			SnowBallStart();
+			break;
 		case FrogState::SHAKINGSNOW:
 			ShakingSnowStart();
 			break;
@@ -119,6 +122,9 @@ void Frog::StateUpdate()
 		break;
 	case FrogState::SNOW3:
 		Snow3Update();
+		break;
+	case FrogState::SNOWBALL:
+		SnowBallUpdate();
 		break;
 	case FrogState::SHAKINGSNOW:
 		ShakingSnowUpdate();
@@ -176,6 +182,11 @@ void Frog::Start()
 	//AnimationName_ = "Idle_";
 	CurrentDir_ = FrogDir::RIGHT;
 	CurrentState_ = FrogState::STARTDOWN;
+
+	if (false == GameEngineInput::GetInst()->IsKey("ColDamage"))
+	{
+		GameEngineInput::GetInst()->CreateKey("ColDamage", VK_SPACE);
+	}
 }
 
 void Frog::Update()
