@@ -543,7 +543,7 @@ void Frog::SnowBallUpdate()
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 3500.0f;
 	if (RGB(0, 0, 0) != BotColor)
 	{
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * 200);
 	}
 	if (RGB(0, 0, 0) == RightColor)
 	{
@@ -620,7 +620,39 @@ void Frog::ShakingSnowUpdate()
 }
 
 void Frog::DefeatedUpdate()
-{}
+{
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+
+	if (MoveDir_.y < 0)
+	{
+		return;
+	}
+
+	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
+	int CColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 35.0f });
+	int RColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 15.0f, 0.0f });
+	int LColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ -15.0f, 0.0f });
+	if (RGB(0, 0, 0) == Color && RGB(0, 0, 0) == CColor)
+	{
+		return;
+	}
+	if (RGB(0, 0, 0) == Color)
+	{
+		//MoveDir_.y = 0.0f;
+		MoveDir_ = float4::ZERO;
+		ChangeState(FrogState::DEATH);
+		return;
+	}
+	if (RGB(0, 0, 0) == RColor)
+	{
+		MoveDir_.x = -1.0f;
+	}
+	if (RGB(0, 0, 0) == LColor)
+	{
+		MoveDir_.x = 1.0f;
+	}
+}
 
 void Frog::DeathUpdate()
 {}
@@ -763,10 +795,13 @@ void Frog::DefeatedStart()
 {
 	AnimationName_ = "Defeated";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
+
+	MoveDir_ = float4::UP * 520.0f;
 }
 
 void Frog::DeathStart()
 {
 	AnimationName_ = "Death";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
+	FrogAnimationRender_->SetPivot({ 0,20 });
 }

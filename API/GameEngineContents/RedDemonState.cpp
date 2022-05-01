@@ -597,7 +597,39 @@ void RedDemon::ShakingSnowUpdate()
 }
 
 void RedDemon::DefeatedUpdate()
-{}
+{
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+
+	if (MoveDir_.y < 0)
+	{
+		return;
+	}
+
+	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
+	int CColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 35.0f });
+	int RColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 15.0f, 0.0f });
+	int LColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ -15.0f, 0.0f });
+	if (RGB(0, 0, 0) == Color && RGB(0, 0, 0) == CColor)
+	{
+		return;
+	}
+	if (RGB(0, 0, 0) == Color)
+	{
+		//MoveDir_.y = 0.0f;
+		MoveDir_ = float4::ZERO;
+		ChangeState(RedDemonState::DEATH);
+		return;
+	}
+	if (RGB(0, 0, 0) == RColor)
+	{
+		MoveDir_.x = -1.0f;
+	}
+	if (RGB(0, 0, 0) == LColor)
+	{
+		MoveDir_.x = 1.0f;
+	}
+}
 
 void RedDemon::DeathUpdate()
 {}
@@ -717,10 +749,13 @@ void RedDemon::DefeatedStart()
 {
 	AnimationName_ = "Defeated";
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
+
+	MoveDir_ = float4::UP * 520.0f;
 }
 
 void RedDemon::DeathStart()
 {
 	AnimationName_ = "Death";
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
+	RedDemonAnimationRender_->SetPivot({ 0,20 });
 }
