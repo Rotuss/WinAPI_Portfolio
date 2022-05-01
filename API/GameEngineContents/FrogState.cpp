@@ -655,7 +655,14 @@ void Frog::DefeatedUpdate()
 }
 
 void Frog::DeathUpdate()
-{}
+{
+	ItemTime_ -= GameEngineTime::GetDeltaTime();
+	if (ItemTime_ <= 0)
+	{
+		RandomItem();
+		Death();
+	}
+}
 
 //===========================Start==========================
 void Frog::StartDownStart()

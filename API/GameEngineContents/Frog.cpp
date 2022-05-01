@@ -1,7 +1,14 @@
 #include "Frog.h"
+#include "Candy.h"
+#include "Lollipop.h"
+#include "Mushroom.h"
+#include "StickIceCream.h"
+#include "Sandwich.h"
+#include "Cake.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
+#include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngine/GameEngine.h>
 #include <GameEngine/GameEngineImage.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -23,6 +30,7 @@ Frog::Frog()
 	, MeltingTime_(3.0f)
 	, ShakingTime_(1.0f)
 	, DeathTime_(0.5f)
+	, ItemTime_(3.0f)
 	, DamageCount_(2)
 	, StartMoveCount_(3)
 	, DeathCheck_(true)
@@ -204,6 +212,44 @@ void Frog::Render()
 
 void Frog::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
+}
+
+void Frog::RandomItem()
+{
+	GameEngineRandom RandomValue_;
+	int RandomItemNum = RandomValue_.RandomInt(0, 5);
+
+	if (0 == RandomItemNum)
+	{
+		Candy* CandyActor = GetLevel()->CreateActor<Candy>(1);
+		CandyActor->SetPosition(GetPosition());
+
+	}
+	else if (1 == RandomItemNum)
+	{
+		Lollipop* LollipopActor = GetLevel()->CreateActor<Lollipop>(1);
+		LollipopActor->SetPosition(GetPosition());
+	}
+	else if (2 == RandomItemNum)
+	{
+		Mushroom* MushroomActor = GetLevel()->CreateActor<Mushroom>(1);
+		MushroomActor->SetPosition(GetPosition());
+	}
+	else if (3 == RandomItemNum)
+	{
+		StickIceCream* StickIceCreamActor = GetLevel()->CreateActor<StickIceCream>(1);
+		StickIceCreamActor->SetPosition(GetPosition());
+	}
+	else if (4 == RandomItemNum)
+	{
+		Sandwich* SandwichActor = GetLevel()->CreateActor<Sandwich>(1);
+		SandwichActor->SetPosition(GetPosition());
+	}
+	else if (5 == RandomItemNum)
+	{
+		Cake* CakeActor = GetLevel()->CreateActor<Cake>(1);
+		CakeActor->SetPosition(GetPosition());
+	}
 }
 
 void Frog::CollisionFloorCheck()

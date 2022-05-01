@@ -81,6 +81,24 @@
     <ClInclude Include="Score.h">
       <Filter>Play\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Candy.h">
+      <Filter>Play\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Lollipop.h">
+      <Filter>Play\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>Play\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="StickIceCream.h">
+      <Filter>Play\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Sandwich.h">
+      <Filter>Play\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Cake.h">
+      <Filter>Play\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -170,6 +188,24 @@
     </ClCompile>
     <ClCompile Include="Score.cpp">
       <Filter>Play\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Candy.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Lollipop.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="StickIceCream.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Sandwich.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Cake.cpp">
+      <Filter>Play\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

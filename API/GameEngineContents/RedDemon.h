@@ -57,6 +57,7 @@ private:
 	float	MeltingTime_;
 	float	ShakingTime_;
 	float	DeathTime_;
+	float	ItemTime_;
 	float	Speed_;
 	float	SnowSpeed_;
 	float	AccSpeed_;
@@ -84,7 +85,7 @@ private:
 	void Render() override;
 
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
-
+	void RandomItem();
 	void CollisionFloorCheck();
 
 	// 알파 확인차 임시 생성 :GameEngineRenderer* Render_;

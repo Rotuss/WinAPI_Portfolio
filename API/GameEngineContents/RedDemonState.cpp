@@ -1,4 +1,5 @@
 #include "RedDemon.h"
+
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -632,7 +633,14 @@ void RedDemon::DefeatedUpdate()
 }
 
 void RedDemon::DeathUpdate()
-{}
+{
+	ItemTime_ -= GameEngineTime::GetDeltaTime();
+	if (ItemTime_ <= 0)
+	{
+		RandomItem();
+		Death();
+	}
+}
 
 //===========================Start==========================
 void RedDemon::StartDownStart()
