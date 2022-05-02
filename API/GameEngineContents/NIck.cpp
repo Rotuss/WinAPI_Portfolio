@@ -266,9 +266,11 @@ void Nick::Render()
 	// GameEngine이 static인 이유? => 편함, 2개 띄울 필요가 X, 싱글톤과 유사
 	GameEngine::BackBufferImage()->BitCopyCenter(FindImage, GetPosition());
 	*/
+	/*
 	Time_ += GameEngineTime::GetDeltaTime();
 	std::string Text = std::to_string(Time_);
 	TextOutA(GameEngine::BackBufferImage()->ImageDC(), 0, 0, Text.c_str(), Text.size());
+	*/
 }
 
 void Nick::LevelChangeStart(GameEngineLevel* _PrevLevel)

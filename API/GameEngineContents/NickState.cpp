@@ -1,5 +1,6 @@
 #include "Nick.h"
 #include "SnowBullet.h"
+#include "Life.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -400,7 +401,6 @@ void Nick::AppearUpdate()
 
 void Nick::DeathUpdate()
 {
-	//LifeCount_ -= 1;
 	DTime_ -= GameEngineTime::GetDeltaTime();
 	if (0.0f >= DTime_)
 	{
@@ -412,9 +412,10 @@ void Nick::DeathUpdate()
 		DTime_ = 0.5f;
 	}
 
-	if (LifeCount_ < 0)
+	Life::LifeUI_ -= 1;
+	if (Life::LifeUI_ < 0)
 	{
-		GameEngine::GetInst().ChangeLevel("Floor3");
+		//GameEngine::GetInst().ChangeLevel("게임오버");
 	}
 }
 

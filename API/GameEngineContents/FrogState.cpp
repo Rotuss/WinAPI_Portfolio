@@ -1,5 +1,6 @@
 #include "Frog.h"
 #include "FrogFire.h"
+#include "Score.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -57,6 +58,7 @@ void Frog::IdleUpdate()
 	}
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -66,6 +68,7 @@ void Frog::IdleUpdate()
 	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -84,6 +87,7 @@ void Frog::StartMoveUpdate()
 {
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -176,6 +180,7 @@ void Frog::MoveUpdate()
 	GameEngineRandom RandomValue_;
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -185,6 +190,7 @@ void Frog::MoveUpdate()
 	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -314,6 +320,7 @@ void Frog::JumpUpdate()
 {
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -323,6 +330,7 @@ void Frog::JumpUpdate()
 	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -357,6 +365,7 @@ void Frog::DownUpdate()
 {
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -366,6 +375,7 @@ void Frog::DownUpdate()
 	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -409,6 +419,7 @@ void Frog::Snow1Update()
 {
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -427,6 +438,7 @@ void Frog::Snow1Update()
 	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -436,6 +448,7 @@ void Frog::Snow2Update()
 {
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -454,6 +467,7 @@ void Frog::Snow2Update()
 	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -485,6 +499,7 @@ void Frog::Snow3Update()
 	if (true == FrogSnowRCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT) && true == GameEngineInput::GetInst()->IsPress("ColDamage"))
 	{
 		// 스노우볼이 오른쪽으로 굴러야함
+		Score::ScoreUI_ += 500;
 		CurrentDir_ = FrogDir::RIGHT;
 		ChangeState(FrogState::SNOWBALL);
 		return;
@@ -492,6 +507,7 @@ void Frog::Snow3Update()
 	if (true == FrogSnowLCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT) && true == GameEngineInput::GetInst()->IsPress("ColDamage"))
 	{
 		// 스노우볼이 왼쪽으로 굴러야함
+		Score::ScoreUI_ += 500;
 		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::SNOWBALL);
 		return;
@@ -547,6 +563,7 @@ void Frog::SnowBallUpdate()
 	}
 	if (RGB(0, 0, 0) == RightColor)
 	{
+		Score::ScoreUI_ += 10;
 		CurrentDir_ = FrogDir::LEFT;
 		MoveDir_.x = -1.f;
 	}
@@ -567,6 +584,7 @@ void Frog::SnowBallUpdate()
 	}
 	if (RGB(0, 0, 0) == LeftColor)
 	{
+		Score::ScoreUI_ += 10;
 		CurrentDir_ = FrogDir::RIGHT;
 		MoveDir_.x = 1.f;
 	}

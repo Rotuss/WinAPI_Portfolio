@@ -1,5 +1,6 @@
 #include "Score.h"
 
+int Score::ScoreUI_ = 0;
 Score::Score()
 {
 }
@@ -231,6 +232,221 @@ void Score::Start()
 
 void Score::Update()
 {
+	int Score10 = ScoreUI_ / 10;
+	int Score100 = ScoreUI_ / 100;
+	int Score1000 = ScoreUI_ / 1000;
+	int Score10000 = ScoreUI_ / 10000;
+	//int Score100000 = ScoreUI_ / 100000;
+
+	if ((0 == Score10 % 10))
+	{
+		Number1->ChangeAnimation("0");
+		HNumber1->ChangeAnimation("0");
+	}
+	if (1 == Score10 % 10)
+	{
+		Number1->ChangeAnimation("1");
+		HNumber1->ChangeAnimation("1");
+	}
+	if (2 == Score10 % 10)
+	{
+		Number1->ChangeAnimation("2");
+		HNumber1->ChangeAnimation("2");
+	}
+	if (3 == Score10 % 10)
+	{
+		Number1->ChangeAnimation("3");
+		HNumber1->ChangeAnimation("3");
+	}
+	if (4 == Score10 % 10)
+	{
+		Number1->ChangeAnimation("4");
+		HNumber1->ChangeAnimation("4");
+	}
+	if (5 == Score10 % 10)
+	{
+		Number1->ChangeAnimation("5");
+		HNumber1->ChangeAnimation("5");
+	}
+	if (6 == Score10 % 10)
+	{
+		Number1->ChangeAnimation("6");
+		HNumber1->ChangeAnimation("6");
+	}
+	if (7 == Score10 % 10)
+	{
+		Number1->ChangeAnimation("7");
+		HNumber1->ChangeAnimation("7");
+	}
+	if (8 == Score10 % 10)
+	{
+		Number1->ChangeAnimation("8");
+		HNumber1->ChangeAnimation("8");
+	}
+	if (9 == Score10 % 10)
+	{
+		Number1->ChangeAnimation("9");
+		HNumber1->ChangeAnimation("9");
+	}
+
+	//==========================================================
+
+	if ((0 == Score100 % 10))
+	{
+		Number2->ChangeAnimation("0");
+		HNumber2->ChangeAnimation("0");
+	}
+	if (1 == Score100 % 10)
+	{
+		Number2->ChangeAnimation("1");
+		HNumber2->ChangeAnimation("1");
+	}
+	if (2 == Score100 % 10)
+	{
+		Number2->ChangeAnimation("2");
+		HNumber2->ChangeAnimation("2");
+	}
+	if (3 == Score100 % 10)
+	{
+		Number2->ChangeAnimation("3");
+		HNumber2->ChangeAnimation("3");
+	}
+	if (4 == Score100 % 10)
+	{
+		Number2->ChangeAnimation("4");
+		HNumber2->ChangeAnimation("4");
+	}
+	if (5 == Score100 % 10)
+	{
+		Number2->ChangeAnimation("5");
+		HNumber2->ChangeAnimation("5");
+	}
+	if (6 == Score100 % 10)
+	{
+		Number2->ChangeAnimation("6");
+		HNumber2->ChangeAnimation("6");
+	}
+	if (7 == Score100 % 10)
+	{
+		Number2->ChangeAnimation("7");
+		HNumber2->ChangeAnimation("7");
+	}
+	if (8 == Score100 % 10)
+	{
+		Number2->ChangeAnimation("8");
+		HNumber2->ChangeAnimation("8");
+	}
+	if (9 == Score100 % 10)
+	{
+		Number2->ChangeAnimation("9");
+		HNumber2->ChangeAnimation("9");
+	}
+
+	//==========================================================
+
+	if ((0 == Score1000 % 10))
+	{
+		Number3->ChangeAnimation("0");
+		HNumber3->ChangeAnimation("0");
+	}
+	if (1 == Score1000 % 10)
+	{
+		Number3->ChangeAnimation("1");
+		HNumber3->ChangeAnimation("1");
+	}
+	if (2 == Score1000 % 10)
+	{
+		Number3->ChangeAnimation("2");
+		HNumber3->ChangeAnimation("2");
+	}
+	if (3 == Score1000 % 10)
+	{
+		Number3->ChangeAnimation("3");
+		HNumber3->ChangeAnimation("3");
+	}
+	if (4 == Score1000 % 10)
+	{
+		Number3->ChangeAnimation("4");
+		HNumber3->ChangeAnimation("4");
+	}
+	if (5 == Score1000 % 10)
+	{
+		Number3->ChangeAnimation("5");
+		HNumber3->ChangeAnimation("5");
+	}
+	if (6 == Score1000 % 10)
+	{
+		Number3->ChangeAnimation("6");
+		HNumber3->ChangeAnimation("6");
+	}
+	if (7 == Score1000 % 10)
+	{
+		Number3->ChangeAnimation("7");
+		HNumber3->ChangeAnimation("7");
+	}
+	if (8 == Score1000 % 10)
+	{
+		Number3->ChangeAnimation("8");
+		HNumber3->ChangeAnimation("8");
+	}
+	if (9 == Score1000 % 10)
+	{
+		Number3->ChangeAnimation("9");
+		HNumber3->ChangeAnimation("9");
+	}
+
+	//==========================================================
+
+	if ((0 == Score10000 % 10))
+	{
+		Number4->ChangeAnimation("0");
+		HNumber4->ChangeAnimation("0");
+	}
+	if (1 == Score10000 % 10)
+	{
+		Number4->ChangeAnimation("1");
+		HNumber4->ChangeAnimation("1");
+	}
+	if (2 == Score10000 % 10)
+	{
+		Number4->ChangeAnimation("2");
+		HNumber4->ChangeAnimation("2");
+	}
+	if (3 == Score10000 % 10)
+	{
+		Number4->ChangeAnimation("3");
+		HNumber4->ChangeAnimation("3");
+	}
+	if (4 == Score10000 % 10)
+	{
+		Number4->ChangeAnimation("4");
+		HNumber4->ChangeAnimation("4");
+	}
+	if (5 == Score10000 % 10)
+	{
+		Number4->ChangeAnimation("5");
+		HNumber4->ChangeAnimation("5");
+	}
+	if (6 == Score10000 % 10)
+	{
+		Number4->ChangeAnimation("6");
+		HNumber4->ChangeAnimation("6");
+	}
+	if (7 == Score10000 % 10)
+	{
+		Number4->ChangeAnimation("7");
+		HNumber4->ChangeAnimation("7");
+	}
+	if (8 == Score10000 % 10)
+	{
+		Number4->ChangeAnimation("8");
+		HNumber4->ChangeAnimation("8");
+	}
+	if (9 == Score10000 % 10)
+	{
+		Number4->ChangeAnimation("9");
+		HNumber4->ChangeAnimation("9");
+	}
 }
 
 void Score::Render()

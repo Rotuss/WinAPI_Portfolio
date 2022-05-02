@@ -16,6 +16,13 @@ public:
 	Score& operator=(const Score& _Other) = delete;
 	Score& operator=(Score&& _Other) noexcept = delete;
 
+	static int ScoreUI_;
+
+	void ScoreNum(const int& _Other)
+	{
+		ScoreUI_ += _Other;
+	}
+
 protected:
 
 private:

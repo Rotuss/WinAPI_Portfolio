@@ -1,4 +1,5 @@
 #include "Mushroom.h"
+#include "Score.h"
 #include <GameEngineBase/GameEngineTime.h>
 
 Mushroom::Mushroom()
@@ -30,6 +31,7 @@ void Mushroom::Update()
 	if (true == MushroomCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		// ½ºÄÚ¾îUI +600
+		Score::ScoreUI_ += 600;
 		Death();
 	}
 }

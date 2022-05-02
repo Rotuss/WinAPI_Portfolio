@@ -1,4 +1,5 @@
 #include "Candy.h"
+#include "Score.h"
 #include <GameEngineBase/GameEngineTime.h>
 
 Candy::Candy()
@@ -30,6 +31,7 @@ void Candy::Update()
 	if (true == CandyCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		// ½ºÄÚ¾îUI +100
+		Score::ScoreUI_ += 100;
 		Death();
 	}
 }

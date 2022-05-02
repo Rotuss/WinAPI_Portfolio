@@ -1,4 +1,5 @@
 #include "Lollipop.h"
+#include "Score.h"
 #include <GameEngineBase/GameEngineTime.h>
 
 Lollipop::Lollipop()
@@ -30,6 +31,7 @@ void Lollipop::Update()
 	if (true == LollipopCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		// ½ºÄÚ¾îUI +200
+		Score::ScoreUI_ += 200;
 		Death();
 	}
 }

@@ -1,4 +1,5 @@
 #include "StickIceCream.h"
+#include "Score.h"
 #include <GameEngineBase/GameEngineTime.h>
 
 StickIceCream::StickIceCream()
@@ -30,6 +31,7 @@ void StickIceCream::Update()
 	if (true == StickIceCreamCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		// ½ºÄÚ¾îUI +800
+		Score::ScoreUI_ += 800;
 		Death();
 	}
 }

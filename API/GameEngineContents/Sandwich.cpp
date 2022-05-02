@@ -1,4 +1,5 @@
 #include "Sandwich.h"
+#include "Score.h"
 #include <GameEngineBase/GameEngineTime.h>
 
 Sandwich::Sandwich()
@@ -30,6 +31,7 @@ void Sandwich::Update()
 	if (true == SandwichCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		// ½ºÄÚ¾îUI +1000
+		Score::ScoreUI_ += 1000;
 		Death();
 	}
 }

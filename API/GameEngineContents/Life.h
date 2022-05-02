@@ -16,6 +16,13 @@ public:
 	Life& operator=(const Life& _Other) = delete;
 	Life& operator=(Life&& _Other) noexcept = delete;
 
+	static int LifeUI_;
+
+	void LifeNum(const int& _Other)
+	{
+		LifeUI_ -= _Other;
+	}
+
 protected:
 
 private:

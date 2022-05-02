@@ -1,4 +1,5 @@
 #include "Cake.h"
+#include "Score.h"
 #include <GameEngineBase/GameEngineTime.h>
 
 Cake::Cake()
@@ -30,6 +31,7 @@ void Cake::Update()
 	if (true == CakeCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		// ½ºÄÚ¾îUI +2000
+		Score::ScoreUI_ += 2000;
 		Death();
 	}
 }

@@ -1,5 +1,5 @@
 #include "RedDemon.h"
-
+#include "Score.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -49,6 +49,7 @@ void RedDemon::IdleUpdate()
 	}
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -58,6 +59,7 @@ void RedDemon::IdleUpdate()
 	}
 	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -76,6 +78,7 @@ void RedDemon::StartMoveUpdate()
 {
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -168,6 +171,7 @@ void RedDemon::MoveUpdate()
 	GameEngineRandom RandomValue_;
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -177,6 +181,7 @@ void RedDemon::MoveUpdate()
 	}
 	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -306,6 +311,7 @@ void RedDemon::JumpUpdate()
 {
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -315,6 +321,7 @@ void RedDemon::JumpUpdate()
 	}
 	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -350,6 +357,7 @@ void RedDemon::DownUpdate()
 {	
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -359,6 +367,7 @@ void RedDemon::DownUpdate()
 	}
 	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -387,6 +396,7 @@ void RedDemon::Snow1Update()
 {
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -405,6 +415,7 @@ void RedDemon::Snow1Update()
 	}
 	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -414,6 +425,7 @@ void RedDemon::Snow2Update()
 {
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -432,6 +444,7 @@ void RedDemon::Snow2Update()
 	}
 	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -463,6 +476,7 @@ void RedDemon::Snow3Update()
 	if (true == RedDemonSnowRCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT) && true == GameEngineInput::GetInst()->IsPress("ColDamage"))
 	{
 		// 스노우볼이 오른쪽으로 굴러야함
+		Score::ScoreUI_ += 500;
 		CurrentDir_ = RedDemonDir::RIGHT;
 		ChangeState(RedDemonState::SNOWBALL);
 		return;
@@ -470,6 +484,7 @@ void RedDemon::Snow3Update()
 	if (true == RedDemonSnowLCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT) && true == GameEngineInput::GetInst()->IsPress("ColDamage"))
 	{
 		// 스노우볼이 왼쪽으로 굴러야함
+		Score::ScoreUI_ += 500;
 		CurrentDir_ = RedDemonDir::LEFT;
 		ChangeState(RedDemonState::SNOWBALL);
 		return;
@@ -525,6 +540,7 @@ void RedDemon::SnowBallUpdate()
 	}
 	if (RGB(0, 0, 0) == RightColor)
 	{
+		Score::ScoreUI_ += 10;
 		CurrentDir_ = RedDemonDir::LEFT;
 		MoveDir_.x = -1.f;
 	}
@@ -545,6 +561,7 @@ void RedDemon::SnowBallUpdate()
 	}
 	if (RGB(0, 0, 0) == LeftColor)
 	{
+		Score::ScoreUI_ += 10;
 		CurrentDir_ = RedDemonDir::RIGHT;
 		MoveDir_.x = 1.f;
 	}
@@ -588,6 +605,7 @@ void RedDemon::ShakingSnowUpdate()
 
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{

@@ -1,5 +1,6 @@
 #include "Life.h"
 
+int Life::LifeUI_ = 2;
 Life::Life()
 {
 }
@@ -24,6 +25,18 @@ void Life::Start()
 
 void Life::Update()
 {
+	if (2 == LifeUI_)
+	{
+		Count->ChangeAnimation("2");
+	}
+	if (1 == LifeUI_)
+	{
+		Count->ChangeAnimation("1");
+	}
+	if (0 == LifeUI_)
+	{
+		Count->ChangeAnimation("0");
+	}
 }
 
 void Life::Render()
