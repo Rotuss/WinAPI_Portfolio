@@ -30,6 +30,7 @@ void Cake::Update()
 
 	if (true == CakeCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		GameEngineSound::SoundPlayOneShot("Item_Effect(10).mp3", 0);
 		// ½ºÄÚ¾îUI +2000
 		Score::ScoreUI_ += 2000;
 		Death();

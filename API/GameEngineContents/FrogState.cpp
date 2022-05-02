@@ -399,6 +399,16 @@ void Frog::DownUpdate()
 
 void Frog::AttackUpdate()
 {
+	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 10;
+		DamageCount_ -= 1;
+		if (DamageCount_ <= 0)
+		{
+			ChangeState(FrogState::SNOW1);
+			return;
+		}
+	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ChangeState(FrogState::DEFEATED);
@@ -579,6 +589,7 @@ void Frog::SnowBallUpdate()
 		}
 		if (DeathTime_ <= 0)
 		{
+			GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
 			Death();
 		}
 	}
@@ -600,6 +611,7 @@ void Frog::SnowBallUpdate()
 		}
 		if (DeathTime_ <= 0)
 		{
+			GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
 			Death();
 		}
 	}
@@ -619,6 +631,12 @@ void Frog::SnowBallUpdate()
 
 void Frog::ShakingSnowUpdate()
 {
+	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
 	ShakingTime_ -= GameEngineTime::GetDeltaTime();
 	if (ShakingTime_ <= 0)
 	{
@@ -818,6 +836,7 @@ void Frog::ShakingSnowStart()
 
 void Frog::DefeatedStart()
 {
+	GameEngineSound::SoundPlayOneShot("SnowBallHitEnemy_Effect(11).mp3", 0);
 	AnimationName_ = "Defeated";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 

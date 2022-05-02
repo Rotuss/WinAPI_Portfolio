@@ -30,6 +30,7 @@ void Lollipop::Update()
 
 	if (true == LollipopCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		GameEngineSound::SoundPlayOneShot("Item_Effect(10).mp3", 0);
 		// ½ºÄÚ¾îUI +200
 		Score::ScoreUI_ += 200;
 		Death();

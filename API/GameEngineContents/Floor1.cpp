@@ -87,7 +87,7 @@ void Floor1::Update()
 
 void Floor1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-	//Nick::BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_Stage_Theme1.mp3");
+	Nick::BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_Floor_Track.mp3");
 	Time_ = 5.0f;
 }
 

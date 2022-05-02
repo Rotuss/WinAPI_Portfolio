@@ -30,6 +30,7 @@ void Sandwich::Update()
 
 	if (true == SandwichCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		GameEngineSound::SoundPlayOneShot("Item_Effect(10).mp3", 0);
 		// ½ºÄÚ¾îUI +1000
 		Score::ScoreUI_ += 1000;
 		Death();

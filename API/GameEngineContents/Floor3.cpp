@@ -61,5 +61,5 @@ void Floor3::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 void Floor3::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
-	//Nick::BgmPlayer_.Stop();
+	Nick::BgmPlayer_.Stop();
 }

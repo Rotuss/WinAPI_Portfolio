@@ -439,6 +439,7 @@ void Nick::MoveStart()
 
 void Nick::JumpStart()
 {
+	GameEngineSound::SoundPlayOneShot("Jump_Effect(18).mp3", 0);
 	AnimationName_ = "Jump_";
 	if ("" == ChangeDirText_)
 	{
@@ -456,6 +457,7 @@ void Nick::DownStart()
 
 void Nick::AttackStart()
 {
+	GameEngineSound::SoundPlayOneShot("SnowBullet_Effect(22).mp3", 0);
 	AnimationName_ = "Attack_";
 	if ("" == ChangeDirText_)
 	{
@@ -487,12 +489,14 @@ void Nick::PushStart()
 
 void Nick::AppearStart()
 {
+	GameEngineSound::SoundPlayOneShot("Appear_effect(9).mp3", 0);
 	AnimationName_ = "Appear";
 	NickAnimationRender_->ChangeAnimation(AnimationName_);
 }
 
 void Nick::DeathStart()
 {
+	GameEngineSound::SoundPlayOneShot("Death_Effect(7).mp3", 0);
 	AnimationName_ = "Death";
 	NickAnimationRender_->ChangeAnimation(AnimationName_);
 

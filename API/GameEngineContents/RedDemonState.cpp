@@ -556,6 +556,7 @@ void RedDemon::SnowBallUpdate()
 		}
 		if (DeathTime_ <= 0)
 		{
+			GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
 			Death();
 		}
 	}
@@ -577,6 +578,7 @@ void RedDemon::SnowBallUpdate()
 		}
 		if (DeathTime_ <= 0)
 		{
+			GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
 			Death();
 		}
 	}
@@ -596,6 +598,12 @@ void RedDemon::SnowBallUpdate()
 
 void RedDemon::ShakingSnowUpdate()
 {
+	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		ChangeState(RedDemonState::DEFEATED);
+		return;
+	}
 	ShakingTime_ -= GameEngineTime::GetDeltaTime();
 	if (ShakingTime_ <= 0)
 	{
@@ -773,6 +781,7 @@ void RedDemon::ShakingSnowStart()
 
 void RedDemon::DefeatedStart()
 {
+	GameEngineSound::SoundPlayOneShot("SnowBallHitEnemy_Effect(11).mp3", 0);
 	AnimationName_ = "Defeated";
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 

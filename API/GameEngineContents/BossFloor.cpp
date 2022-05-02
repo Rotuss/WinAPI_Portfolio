@@ -36,7 +36,7 @@ void BossFloor::Update()
 	if (BgmPlayTime_ <= 0)
 	{
 		// 소리가 이상함. Nick 만들면 BgmPlayer_ 수정할 것
-		//BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_BossStage_Theme1.mp3");
+		//BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_BossFloor_Track.mp3");
 		BackGround* Actor = CreateActor<BackGround>(1);
 		Actor->GetRenderer()->SetImage("FloorBoss.bmp");
 
@@ -55,7 +55,7 @@ void BossFloor::Update()
 
 void BossFloor::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-	//GameEngineSound::SoundPlayOneShot("SnowBros_BossStageEnter_Theme.mp3", 0);
+	GameEngineSound::SoundPlayOneShot("SnowBros_BossFloorEnter_Track.mp3", 0);
 }
 
 void BossFloor::LevelChangeEnd(GameEngineLevel* _NextLevel)

@@ -30,6 +30,7 @@ void Mushroom::Update()
 
 	if (true == MushroomCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		GameEngineSound::SoundPlayOneShot("Item_Effect(10).mp3", 0);
 		// ½ºÄÚ¾îUI +600
 		Score::ScoreUI_ += 600;
 		Death();
