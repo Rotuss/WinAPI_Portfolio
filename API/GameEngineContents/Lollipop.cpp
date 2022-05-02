@@ -1,5 +1,6 @@
 #include "Lollipop.h"
 #include "Score.h"
+#include "ScoreMoveUp.h"
 #include <GameEngineBase/GameEngineTime.h>
 
 Lollipop::Lollipop()
@@ -31,6 +32,9 @@ void Lollipop::Update()
 	if (true == LollipopCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		GameEngineSound::SoundPlayOneShot("Item_Effect(10).mp3", 0);
+		ScoreMoveUp* ScoreImage_ = GetLevel()->CreateActor<ScoreMoveUp>(5);
+		ScoreImage_->SetPosition(GetPosition());
+		ScoreImage_->Type_ = 200;
 		// ½ºÄÚ¾îUI +200
 		Score::ScoreUI_ += 200;
 		Death();

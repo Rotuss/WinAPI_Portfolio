@@ -187,6 +187,7 @@
     <ClInclude Include="RedDemon.h" />
     <ClInclude Include="Sandwich.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="ScoreMoveUp.h" />
     <ClInclude Include="SelectBackGround.h" />
     <ClInclude Include="SelectLogo.h" />
     <ClInclude Include="SnowBullet.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="RedDemonState.cpp" />
     <ClCompile Include="Sandwich.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="ScoreMoveUp.cpp" />
     <ClCompile Include="SelectBackGround.cpp" />
     <ClCompile Include="SelectLogo.cpp" />
     <ClCompile Include="SnowBullet.cpp" />

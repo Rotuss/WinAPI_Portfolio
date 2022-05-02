@@ -1,5 +1,6 @@
 #include "StickIceCream.h"
 #include "Score.h"
+#include "ScoreMoveUp.h"
 #include <GameEngineBase/GameEngineTime.h>
 
 StickIceCream::StickIceCream()
@@ -31,6 +32,9 @@ void StickIceCream::Update()
 	if (true == StickIceCreamCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		GameEngineSound::SoundPlayOneShot("Item_Effect(10).mp3", 0);
+		ScoreMoveUp* ScoreImage_ = GetLevel()->CreateActor<ScoreMoveUp>(5);
+		ScoreImage_->SetPosition(GetPosition());
+		ScoreImage_->Type_ = 800;
 		// ½ºÄÚ¾îUI +800
 		Score::ScoreUI_ += 800;
 		Death();

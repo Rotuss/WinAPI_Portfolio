@@ -1,5 +1,6 @@
 #include "Cake.h"
 #include "Score.h"
+#include "ScoreMoveUp.h"
 #include <GameEngineBase/GameEngineTime.h>
 
 Cake::Cake()
@@ -31,6 +32,9 @@ void Cake::Update()
 	if (true == CakeCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		GameEngineSound::SoundPlayOneShot("Item_Effect(10).mp3", 0);
+		ScoreMoveUp* ScoreImage_ = GetLevel()->CreateActor<ScoreMoveUp>(5);
+		ScoreImage_->SetPosition(GetPosition());
+		ScoreImage_->Type_ = 2000;
 		// ½ºÄÚ¾îUI +2000
 		Score::ScoreUI_ += 2000;
 		Death();
