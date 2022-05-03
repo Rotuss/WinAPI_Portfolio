@@ -427,7 +427,7 @@ void Frog::AttackUpdate()
 
 void Frog::Snow1Update()
 {
-	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
@@ -437,7 +437,7 @@ void Frog::Snow1Update()
 			return;
 		}
 	}
-	if (false == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (false == FrogSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		MeltingTime_ -= GameEngineTime::GetDeltaTime();
 		if (MeltingTime_ < 0)
@@ -446,7 +446,7 @@ void Frog::Snow1Update()
 			return;
 		}
 	}
-	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogSnowCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
 		ChangeState(FrogState::DEFEATED);
@@ -456,7 +456,7 @@ void Frog::Snow1Update()
 
 void Frog::Snow2Update()
 {
-	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
@@ -466,7 +466,7 @@ void Frog::Snow2Update()
 			return;
 		}
 	}
-	if (false == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (false == FrogSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		MeltingTime_ -= GameEngineTime::GetDeltaTime();
 		if (MeltingTime_ < 0)
@@ -475,7 +475,7 @@ void Frog::Snow2Update()
 			return;
 		}
 	}
-	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogSnowCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
 		ChangeState(FrogState::DEFEATED);
@@ -489,7 +489,7 @@ void Frog::Snow3Update()
 	MeltingTime_ -= GameEngineTime::GetDeltaTime();
 	if (MeltingTime_ > 0.0f)
 	{
-		if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+		if (true == FrogSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 		{
 			MeltingTime_ = 5.0f;
 			return;
@@ -497,7 +497,7 @@ void Frog::Snow3Update()
 	}
 	else if (MeltingTime_ <= 0.0f)
 	{
-		if (false == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+		if (false == FrogSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 		{
 			ChangeState(FrogState::SNOW2);
 			FrogSnowRCollision_->Death();
@@ -784,9 +784,12 @@ void Frog::AttackStart()
 
 void Frog::Snow1Start()
 {
+	FrogCollision_->Off();
 	AnimationName_ = "Snow1";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 	FrogAnimationRender_->SetPivot({ 0,20.0f });
+
+	FrogSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
 
 	DamageCount_ = 2;
 	MeltingTime_ = 3.0f;
@@ -816,6 +819,9 @@ void Frog::Snow3Start()
 
 void Frog::SnowBallStart()
 {
+	FrogSnowCollision_->Off();
+	FrogSnowRCollision_->Off();
+	FrogSnowLCollision_->Off();
 	AnimationName_ = "SnowballRolling";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 	FrogAnimationRender_->SetPivot({ 0,0 });
@@ -827,15 +833,19 @@ void Frog::SnowBallStart()
 
 void Frog::ShakingSnowStart()
 {
+	FrogSnowCollision_->Off();
 	AnimationName_ = "ShakingSnow";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 	FrogAnimationRender_->SetPivot({ 0,0 });
 
+	FrogCollision_->On();
+	
 	ShakingTime_ = 1.0f;
 }
 
 void Frog::DefeatedStart()
 {
+	FrogCollision_->Off();
 	GameEngineSound::SoundPlayOneShot("SnowBallHitEnemy_Effect(11).mp3", 0);
 	AnimationName_ = "Defeated";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
@@ -845,6 +855,7 @@ void Frog::DefeatedStart()
 
 void Frog::DeathStart()
 {
+	FrogCollision_->Off();
 	AnimationName_ = "Death";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 	FrogAnimationRender_->SetPivot({ 0,20 });

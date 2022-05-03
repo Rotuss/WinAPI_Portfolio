@@ -394,7 +394,7 @@ void RedDemon::AttackUpdate()
 
 void RedDemon::Snow1Update()
 {
-	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == RedDemonSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
@@ -404,7 +404,7 @@ void RedDemon::Snow1Update()
 			return;
 		}
 	}
-	if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (false == RedDemonSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		MeltingTime_ -= GameEngineTime::GetDeltaTime();
 		if (MeltingTime_ < 0)
@@ -413,7 +413,7 @@ void RedDemon::Snow1Update()
 			return;
 		}
 	}
-	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == RedDemonSnowCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
 		ChangeState(RedDemonState::DEFEATED);
@@ -423,7 +423,7 @@ void RedDemon::Snow1Update()
 
 void RedDemon::Snow2Update()
 {
-	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == RedDemonSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
 		DamageCount_ -= 1;
@@ -433,7 +433,7 @@ void RedDemon::Snow2Update()
 			return;
 		}
 	}
-	if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (false == RedDemonSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		MeltingTime_ -= GameEngineTime::GetDeltaTime();
 		if (MeltingTime_ < 0)
@@ -442,7 +442,7 @@ void RedDemon::Snow2Update()
 			return;
 		}
 	}
-	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == RedDemonSnowCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
 		ChangeState(RedDemonState::DEFEATED);
@@ -456,7 +456,7 @@ void RedDemon::Snow3Update()
 	MeltingTime_ -= GameEngineTime::GetDeltaTime();
 	if (MeltingTime_ > 0.0f)
 	{
-		if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+		if (true == RedDemonSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 		{
 			MeltingTime_ = 5.0f;
 			return;
@@ -464,7 +464,7 @@ void RedDemon::Snow3Update()
 	}
 	else if(MeltingTime_ <= 0.0f)
 	{
-		if (false == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+		if (false == RedDemonSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 		{
 			ChangeState(RedDemonState::SNOW2);
 			RedDemonSnowRCollision_->Death();
@@ -729,9 +729,12 @@ void RedDemon::AttackStart()
 
 void RedDemon::Snow1Start()
 {
+	RedDemonCollision_->Off();
 	AnimationName_ = "Snow1";
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 	RedDemonAnimationRender_->SetPivot({ 0,20.0f });
+
+	RedDemonSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
 
 	DamageCount_ = 2;
 	MeltingTime_ = 3.0f;
@@ -761,6 +764,9 @@ void RedDemon::Snow3Start()
 
 void RedDemon::SnowBallStart()
 {
+	RedDemonSnowCollision_->Off();
+	RedDemonSnowRCollision_->Off();
+	RedDemonSnowLCollision_->Off();
 	AnimationName_ = "SnowballRolling";
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 	RedDemonAnimationRender_->SetPivot({ 0,0 });
@@ -772,15 +778,19 @@ void RedDemon::SnowBallStart()
 
 void RedDemon::ShakingSnowStart()
 {
+	RedDemonSnowCollision_->Off();
 	AnimationName_ = "ShakingSnow";
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 	RedDemonAnimationRender_->SetPivot({ 0,0 });
 
+	RedDemonCollision_->On();
+	
 	ShakingTime_ = 1.0f;
 }
 
 void RedDemon::DefeatedStart()
 {
+	RedDemonCollision_->Off();
 	GameEngineSound::SoundPlayOneShot("SnowBallHitEnemy_Effect(11).mp3", 0);
 	AnimationName_ = "Defeated";
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
@@ -790,6 +800,7 @@ void RedDemon::DefeatedStart()
 
 void RedDemon::DeathStart()
 {
+	RedDemonCollision_->Off();
 	AnimationName_ = "Death";
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 	RedDemonAnimationRender_->SetPivot({ 0,20 });

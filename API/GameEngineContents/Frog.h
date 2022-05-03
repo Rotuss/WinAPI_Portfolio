@@ -70,6 +70,7 @@ private:
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	FrogCollision_;
 	GameEngineCollision*	FrogAttackCollision_;
+	GameEngineCollision*	FrogSnowCollision_;
 	GameEngineCollision*	FrogSnowRCollision_;
 	GameEngineCollision*	FrogSnowLCollision_;
 	GameEngineCollision*	FrogSnowBallCollision_;

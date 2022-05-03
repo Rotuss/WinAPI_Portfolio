@@ -71,6 +71,7 @@ private:
 
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	RedDemonCollision_;
+	GameEngineCollision*	RedDemonSnowCollision_;
 	GameEngineCollision*	RedDemonSnowRCollision_;
 	GameEngineCollision*	RedDemonSnowLCollision_;
 	GameEngineCollision*	RedDemonSnowBallCollision_;

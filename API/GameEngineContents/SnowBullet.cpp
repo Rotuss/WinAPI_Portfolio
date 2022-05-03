@@ -59,7 +59,8 @@ void SnowBullet::Update()
 	Time -= GameEngineTime::GetDeltaTime();
 	
 	if (true == BulletCollision_->CollisionCheck("RedDemonHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == BulletCollision_->CollisionCheck("FrogHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == BulletCollision_->CollisionCheck("FrogHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == BulletCollision_->CollisionCheck("SnowBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Death();
 		return;

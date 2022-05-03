@@ -31,10 +31,11 @@ void Nick::IdleUpdate()
 		return;
 	}
 
-	if (true == PlayerCollision_->CollisionCheck("RedDemonHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT) 
+		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		//ChangeState(NickState::DEATH);
-		//return;
+		ChangeState(NickState::DEATH);
+		return;
 	}
 	
 	//float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
@@ -79,10 +80,11 @@ void Nick::MoveUpdate()
 		return;
 	}
 
-	if (true == PlayerCollision_->CollisionCheck("RedDemonHitBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		//ChangeState(NickState::DEATH);
-		//return;
+		ChangeState(NickState::DEATH);
+		return;
 	}
 	
 	// 원하는대로 작동이 안됨
@@ -151,6 +153,13 @@ void Nick::JumpUpdate()
 		return;
 	}
 
+	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(NickState::DEATH);
+		return;
+	}
+	
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 	
 	if(MoveDir_.y < 0)
@@ -194,6 +203,13 @@ void Nick::DownUpdate()
 		return;
 	}
 
+	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(NickState::DEATH);
+		return;
+	}
+	
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 	
 	if (MoveDir_.y < 0)
@@ -368,6 +384,13 @@ void Nick::PushUpdate()
 		return;
 	}
 
+	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		ChangeState(NickState::DEATH);
+		return;
+	}
+	
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * PushSpeed_);
 	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
 
@@ -412,7 +435,6 @@ void Nick::DeathUpdate()
 		DTime_ = 0.5f;
 	}
 
-	Life::LifeUI_ -= 1;
 	if (Life::LifeUI_ < 0)
 	{
 		//GameEngine::GetInst().ChangeLevel("게임오버");
@@ -501,6 +523,7 @@ void Nick::DeathStart()
 	NickAnimationRender_->ChangeAnimation(AnimationName_);
 
 	LifeCount_ -= 1;
+	Life::LifeUI_ -= 1;
 }
 
 /*

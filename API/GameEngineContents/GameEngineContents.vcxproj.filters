@@ -99,7 +99,9 @@
     <ClInclude Include="Cake.h">
       <Filter>Play\Item</Filter>
     </ClInclude>
-    <ClInclude Include="ScoreMoveUp.h" />
+    <ClInclude Include="ScoreMoveUp.h">
+      <Filter>Play\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -208,7 +210,9 @@
     <ClCompile Include="Cake.cpp">
       <Filter>Play\Item</Filter>
     </ClCompile>
-    <ClCompile Include="ScoreMoveUp.cpp" />
+    <ClCompile Include="ScoreMoveUp.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
