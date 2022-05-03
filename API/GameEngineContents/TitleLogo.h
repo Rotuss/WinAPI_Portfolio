@@ -20,5 +20,7 @@ protected:
 	void Update() override;
 
 private:
+	bool EnterCheck_;
+	bool DirCheck_;
 };
 

@@ -31,9 +31,10 @@ void TitleMainLevel::Update()
 
 void TitleMainLevel::LevelChangeStart(GameEngineLevel* _NextLevel)
 {
-	//BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_Title_Theme.mp3");
+	//BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_Title_Track.mp3");
 }
 
 void TitleMainLevel::LevelChangeEnd(GameEngineLevel* _PrevLevel)
 {
+	//BgmPlayer_.Stop();
 }

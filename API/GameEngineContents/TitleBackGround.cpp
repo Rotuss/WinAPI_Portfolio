@@ -19,6 +19,15 @@ void TitleBackGround::Start()
 	TitleAnimationRender_->ChangeAnimation("Title");
 }
 
+void TitleBackGround::Update()
+{
+	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
+	{
+		SetPosition(GameEngineWindow::GetScale().Half());
+		CreateRenderer("SelectTitle.bmp");
+	}
+}
+
 void TitleBackGround::Render()
 {
 	DebugRectRender();

@@ -6,6 +6,8 @@
 #include <GameEngine/GameEngineRenderer.h>
 
 TitleLogo::TitleLogo()
+	: EnterCheck_(false)
+	, DirCheck_(false)
 {
 }
 
@@ -24,9 +26,32 @@ void TitleLogo::Start()
 
 void TitleLogo::Update()
 {
-	// 만약 엔터가 눌렸으면 SelectTitle 화면으로 이동
-	if (true == GameEngineInput::GetInst()->IsPress("LevelChange"))
+	if (true == GameEngineInput::GetInst()->IsDown("LevelChange") && true == EnterCheck_ && true == DirCheck_)
 	{
-		GameEngine::GetInst().ChangeLevel("TitleSelect");
+		GameEngine::GetInst().ChangeLevel("Floor1");
+		EnterCheck_ = false;
+	}
+	if (true == GameEngineInput::GetInst()->IsDown("LevelChange") && false == EnterCheck_)
+	{
+		SetPosition(GameEngineWindow::GetScale().Half() - float4{ 315,-305 });
+		CreateRenderer("SelectUIIcon.bmp");
+		EnterCheck_ = true;
+		DirCheck_ = true;
+	}
+
+	if (true == EnterCheck_)
+	{
+		if (true == GameEngineInput::GetInst()->IsDown("Left"))
+		{
+			SetPosition(GameEngineWindow::GetScale().Half() - float4{ 315,-305 });
+			CreateRenderer("SelectUIIcon.bmp");
+			DirCheck_ = true;
+		}
+		else if (true == GameEngineInput::GetInst()->IsDown("Right"))
+		{
+			SetPosition(GameEngineWindow::GetScale().Half() - float4{ 0,-305 });
+			CreateRenderer("SelectUIIcon.bmp");
+			DirCheck_ = false;
+		}
 	}
 }

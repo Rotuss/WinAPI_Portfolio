@@ -1,6 +1,5 @@
 #include "SnowBros.h"
 #include "TitleMainLevel.h"
-#include "TitleSelectLevel.h"
 #include "Floor1.h"
 #include "Floor2.h"
 #include "Floor3.h"
@@ -262,7 +261,6 @@ void SnowBros::GameInit()
 	} 
 	// 각 레벨 생성
 	CreateLevel<TitleMainLevel>("TitleMain");
-	CreateLevel<TitleSelectLevel>("TitleSelect");
 	CreateLevel<Floor1>("Floor1");
 	CreateLevel<Floor2>("Floor2");
 	CreateLevel<Floor3>("Floor3");

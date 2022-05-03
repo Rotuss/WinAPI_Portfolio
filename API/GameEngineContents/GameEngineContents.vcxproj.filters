@@ -60,15 +60,6 @@
     <ClInclude Include="PlayUI.h">
       <Filter>Level\Global</Filter>
     </ClInclude>
-    <ClInclude Include="TitleSelectLevel.h">
-      <Filter>Level</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectLogo.h">
-      <Filter>Title</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectBackGround.h">
-      <Filter>Title</Filter>
-    </ClInclude>
     <ClInclude Include="FloorLogo.h">
       <Filter>Level\Global</Filter>
     </ClInclude>
@@ -167,15 +158,6 @@
     </ClCompile>
     <ClCompile Include="NickState.cpp">
       <Filter>Play\Nick</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleSelectLevel.cpp">
-      <Filter>Level</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectLogo.cpp">
-      <Filter>Title</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectBackGround.cpp">
-      <Filter>Title</Filter>
     </ClCompile>
     <ClCompile Include="FloorLogo.cpp">
       <Filter>Level\Global</Filter>

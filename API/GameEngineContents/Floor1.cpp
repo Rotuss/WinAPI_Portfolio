@@ -61,15 +61,19 @@ void Floor1::Loading()
 		// 시간 맞춰주기
 		RedDemon* RedDemon0 = CreateActor<RedDemon>((int)ORDER::MONSTER);
 		RedDemon0->SetPosition({ 330,0 });
+		//RedDemons_.push_back(RedDemon0);
 
 		RedDemon* RedDemon1 = CreateActor<RedDemon>((int)ORDER::MONSTER);
 		RedDemon1->SetPosition({ 180,0 });
+		//RedDemons_.push_back(RedDemon1);
 
 		RedDemon* RedDemon2 = CreateActor<RedDemon>((int)ORDER::MONSTER);
 		RedDemon2->SetPosition({ 840,0 });
+		//RedDemons_.push_back(RedDemon2);
 
 		RedDemon* RedDemon3 = CreateActor<RedDemon>((int)ORDER::MONSTER);
 		RedDemon3->SetPosition({ 280,0 });
+		//RedDemons_.push_back(RedDemon3);
 	}
 }
 
@@ -83,6 +87,13 @@ void Floor1::Update()
 	{
 		GameEngineLevel::IsDebugModeSwitch();
 	}
+
+	/*
+	if (true == RedDemons_.empty())
+	{
+		GameEngine::GetInst().ChangeLevel("Floor2");
+	}
+	*/
 }
 
 void Floor1::LevelChangeStart(GameEngineLevel* _PrevLevel)

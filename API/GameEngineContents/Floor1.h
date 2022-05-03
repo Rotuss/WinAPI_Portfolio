@@ -1,5 +1,7 @@
 #pragma once
 #include <GameEngine/GameEngineLevel.h>
+#include <vector>
+#include "RedDemon.h"
 #include "Life.h"
 #include "Score.h"
 
@@ -29,5 +31,7 @@ protected:
 private:
 	Life* LifeUI;
 	Score* ScoreUI;
+
+	std::vector<RedDemon*> RedDemons_;
 };
 
