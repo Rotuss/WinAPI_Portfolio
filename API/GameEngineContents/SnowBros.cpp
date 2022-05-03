@@ -3,6 +3,7 @@
 #include "Floor1.h"
 #include "Floor2.h"
 #include "Floor3.h"
+#include "BossEnterLevel.h"
 #include "BossFloor.h"
 #include "GameOverLevel.h"
 #include "EndingLevel.h"
@@ -245,6 +246,24 @@ void SnowBros::GameInit()
 		Image->Cut({ 96, 64 });
 	}
 
+	// Boss
+	{
+		GameEngineImage*
+		Image = GameEngineImageManager::GetInst()->Find("Boss_Idle.bmp");
+		Image->Cut({ 224, 284 });
+		Image = GameEngineImageManager::GetInst()->Find("Boss_Jump.bmp");
+		Image->Cut({ 224, 308 });
+		Image = GameEngineImageManager::GetInst()->Find("Boss_Defeated.bmp");
+		Image->Cut({ 264, 240 });
+		Image = GameEngineImageManager::GetInst()->Find("Boss_Death.bmp");
+		Image->CutCount(2, 1);
+	}
+
+	// Son
+	{
+
+	}
+	
 	// Snow
 	{
 		GameEngineImage*
@@ -264,6 +283,7 @@ void SnowBros::GameInit()
 	CreateLevel<Floor1>("Floor1");
 	CreateLevel<Floor2>("Floor2");
 	CreateLevel<Floor3>("Floor3");
+	CreateLevel<BossEnterLevel>("BossEnterLevel");
 	CreateLevel<BossFloor>("BossFloor");
 	CreateLevel<GameOverLevel>("GameOver");
 	CreateLevel<EndingLevel>("Ending");

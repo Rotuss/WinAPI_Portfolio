@@ -47,7 +47,7 @@ void Floor3::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
 	{
-		GameEngine::GetInst().ChangeLevel("BossFloor");
+		GameEngine::GetInst().ChangeLevel("BossEnterLevel");
 	}
 	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
 	{

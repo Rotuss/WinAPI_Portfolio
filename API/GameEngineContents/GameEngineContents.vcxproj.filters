@@ -96,6 +96,9 @@
     <ClInclude Include="GameOverLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
+    <ClInclude Include="BossEnterLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -199,6 +202,12 @@
       <Filter>Play\Item</Filter>
     </ClCompile>
     <ClCompile Include="GameOverLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="BossState.cpp">
+      <Filter>Play\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="BossEnterLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
   </ItemGroup>

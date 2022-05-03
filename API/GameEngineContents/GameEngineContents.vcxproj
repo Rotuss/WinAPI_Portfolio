@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossEnterLevel.h" />
     <ClInclude Include="BossFloor.h" />
     <ClInclude Include="Cake.h" />
     <ClInclude Include="Candy.h" />
@@ -200,7 +201,9 @@
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossEnterLevel.cpp" />
     <ClCompile Include="BossFloor.cpp" />
+    <ClCompile Include="BossState.cpp" />
     <ClCompile Include="Cake.cpp" />
     <ClCompile Include="Candy.cpp" />
     <ClCompile Include="EndingCredit.cpp" />

@@ -104,4 +104,5 @@ void Floor1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 void Floor1::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
+	Reset();
 }

@@ -5,4 +5,5 @@ enum class ORDER
 	BACKGROUND,
 	PLAYER,
 	MONSTER,
+	BOSS,
 };

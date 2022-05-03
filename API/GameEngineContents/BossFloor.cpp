@@ -2,7 +2,10 @@
 #include "BackGround.h"
 #include "FloorLogo.h"
 #include "PlayUI.h"
+#include "Life.h"
+#include "Score.h"
 #include "Nick.h"
+#include "Boss.h"
 #include "ContentsEnums.h"
 #include "PlayUI.h"
 #include <GameEngineBase/GameEngineInput.h>
@@ -13,7 +16,6 @@
 #include <GameEngine/GameEngineImageManager.h>
 
 BossFloor::BossFloor()
-	:BgmPlayTime_(4.0f)
 {
 }
 
@@ -23,21 +25,8 @@ BossFloor::~BossFloor()
 
 void BossFloor::Loading()
 {
-	BackGround* Actor = CreateActor<BackGround>(0);
-	Actor->GetRenderer()->CreateAnimation("BossStageEnter.bmp", "BossStageEnter", 0, 2, 0.3f, false);
-	Actor->GetRenderer()->ChangeAnimation("BossStageEnter");
-
-	Actor->GetRenderer()->SetPivot(GameEngineWindow::GetScale().Half());
-}
-
-void BossFloor::Update()
-{
-	BgmPlayTime_ -= GameEngineTime::GetDeltaTime();
-	if (BgmPlayTime_ <= 0)
 	{
-		// 소리가 이상함. Nick 만들면 BgmPlayer_ 수정할 것
-		//BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_BossFloor_Track.mp3");
-		BackGround* Actor = CreateActor<BackGround>(1);
+		BackGround* Actor = CreateActor<BackGround>(0);
 		Actor->GetRenderer()->SetImage("FloorBoss.bmp");
 
 		float4 BackActor = {};
@@ -47,6 +36,27 @@ void BossFloor::Update()
 		Actor->GetRenderer()->SetPivot(BackActor);
 	}
 
+	{
+		PlayUI* Actor = CreateActor<PlayUI>(0);
+
+		LifeUI = CreateActor<Life>(1);
+		ScoreUI = CreateActor<Score>(1);
+	}
+
+	{
+		Nick* Player = CreateActor<Nick>(10);
+		Player->SetPosition({ 400,710 });
+	}
+
+	{
+		// 시간 맞춰주기
+		Boss* Boss1 = CreateActor<Boss>((int)ORDER::BOSS);
+		Boss1->SetPosition({ 800,0 });
+	}
+}
+
+void BossFloor::Update()
+{
 	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
 	{
 		GameEngineLevel::IsDebugModeSwitch();
@@ -55,7 +65,7 @@ void BossFloor::Update()
 
 void BossFloor::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
-	GameEngineSound::SoundPlayOneShot("SnowBros_BossFloorEnter_Track.mp3", 0);
+	BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_BossFloor_Track.mp3");
 }
 
 void BossFloor::LevelChangeEnd(GameEngineLevel* _NextLevel)

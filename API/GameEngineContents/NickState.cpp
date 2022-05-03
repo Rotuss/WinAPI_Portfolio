@@ -32,7 +32,8 @@ void Nick::IdleUpdate()
 	}
 
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT) 
-		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ChangeState(NickState::DEATH);
 		return;
@@ -81,7 +82,8 @@ void Nick::MoveUpdate()
 	}
 
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ChangeState(NickState::DEATH);
 		return;
@@ -154,7 +156,8 @@ void Nick::JumpUpdate()
 	}
 
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ChangeState(NickState::DEATH);
 		return;
@@ -204,7 +207,8 @@ void Nick::DownUpdate()
 	}
 
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ChangeState(NickState::DEATH);
 		return;
@@ -385,7 +389,8 @@ void Nick::PushUpdate()
 	}
 
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ChangeState(NickState::DEATH);
 		return;

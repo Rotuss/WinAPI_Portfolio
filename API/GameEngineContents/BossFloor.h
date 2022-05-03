@@ -1,6 +1,8 @@
 #pragma once
 #include <GameEngineBase/GameEngineSound.h>
 #include <GameEngine/GameEngineLevel.h>
+#include "Life.h"
+#include "Score.h"
 
 // Ό³Έν : 
 class BossFloor : public GameEngineLevel
@@ -16,8 +18,6 @@ public:
 	BossFloor& operator=(const BossFloor& _Other) = delete;
 	BossFloor& operator=(BossFloor&& _Other) noexcept = delete;
 
-	float BgmPlayTime_;
-
 protected:
 	void Loading() override;
 	void Update() override;
@@ -26,5 +26,8 @@ protected:
 
 private:
 	GameEngineSoundPlayer BgmPlayer_;
+
+	Life* LifeUI;
+	Score* ScoreUI;
 };
 

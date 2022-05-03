@@ -346,6 +346,10 @@ void Nick::CollisionFloorCheck()
 	{
 		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloor3.bmp");
 	}
+	else if (strcmp(GetLevel()->GetNameConstPtr(), "BossFloor") == 0)
+	{
+		FloorColImage_ = GameEngineImageManager::GetInst()->Find("ColFloorBoss.bmp");
+	}
 
 	if (nullptr == FloorColImage_)
 	{
