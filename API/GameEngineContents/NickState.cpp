@@ -437,7 +437,7 @@ void Nick::DeathUpdate()
 
 	if (Life::LifeUI_ < 0)
 	{
-		//GameEngine::GetInst().ChangeLevel("게임오버");
+		GameEngine::GetInst().ChangeLevel("GameOver");
 	}
 }
 

@@ -177,6 +177,7 @@
     <ClInclude Include="FloorLogo.h" />
     <ClInclude Include="Frog.h" />
     <ClInclude Include="FrogFire.h" />
+    <ClInclude Include="GameOverLevel.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="Lollipop.h" />
     <ClInclude Include="Monster.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="Frog.cpp" />
     <ClCompile Include="FrogFire.cpp" />
     <ClCompile Include="FrogState.cpp" />
+    <ClCompile Include="GameOverLevel.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="Lollipop.cpp" />
     <ClCompile Include="Monster.cpp" />

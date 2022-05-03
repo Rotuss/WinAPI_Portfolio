@@ -5,6 +5,7 @@
 #include "Floor2.h"
 #include "Floor3.h"
 #include "BossFloor.h"
+#include "GameOverLevel.h"
 #include "EndingLevel.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineDirectory.h>
@@ -131,6 +132,9 @@ void SnowBros::GameInit()
 
 		Image = GameEngineImageManager::GetInst()->Find("Nick_Death.bmp");
 		Image->CutCount(3, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("GameOver.bmp");
+		Image->CutCount(4, 1);
 	}
 
 	// RedDemon
@@ -263,6 +267,7 @@ void SnowBros::GameInit()
 	CreateLevel<Floor2>("Floor2");
 	CreateLevel<Floor3>("Floor3");
 	CreateLevel<BossFloor>("BossFloor");
+	CreateLevel<GameOverLevel>("GameOver");
 	CreateLevel<EndingLevel>("Ending");
 	ChangeLevel("TitleMain");
 }

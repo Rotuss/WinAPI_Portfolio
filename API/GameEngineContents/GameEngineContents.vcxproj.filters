@@ -102,6 +102,9 @@
     <ClInclude Include="ScoreMoveUp.h">
       <Filter>Play\Item</Filter>
     </ClInclude>
+    <ClInclude Include="GameOverLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -212,6 +215,9 @@
     </ClCompile>
     <ClCompile Include="ScoreMoveUp.cpp">
       <Filter>Play\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverLevel.cpp">
+      <Filter>Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
