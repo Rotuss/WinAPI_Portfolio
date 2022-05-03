@@ -1,4 +1,5 @@
 #include "RedDemon.h"
+#include "SnowLevel.h"
 #include "Candy.h"
 #include "Lollipop.h"
 #include "Mushroom.h"
@@ -38,6 +39,8 @@ RedDemon::RedDemon()
 
 RedDemon::~RedDemon()
 {
+	SnowLevel* Level_ = reinterpret_cast<SnowLevel*>(GetLevel());
+	Level_->Enemycount_ -= 1;
 }
 
 void RedDemon::ChangeState(RedDemonState _State)

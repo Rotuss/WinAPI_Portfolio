@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngine/GameEngineLevel.h>
+#include "SnowLevel.h"
 
 // Ό³Έν : 
-class Floor3 : public GameEngineLevel
+class Floor3 : public SnowLevel
 {
 public:
 	// constrcuter destructer

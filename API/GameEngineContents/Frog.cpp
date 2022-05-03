@@ -1,4 +1,5 @@
 #include "Frog.h"
+#include "SnowLevel.h"
 #include "Candy.h"
 #include "Lollipop.h"
 #include "Mushroom.h"
@@ -39,6 +40,8 @@ Frog::Frog()
 
 Frog::~Frog()
 {
+	SnowLevel* Level_ = reinterpret_cast<SnowLevel*>(GetLevel());
+	Level_->Enemycount_ -= 1;
 }
 
 void Frog::ChangeState(FrogState _State)

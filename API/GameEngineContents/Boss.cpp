@@ -1,4 +1,5 @@
 #include "Boss.h"
+#include "SnowLevel.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -17,6 +18,8 @@ Boss::Boss()
 
 Boss::~Boss()
 {
+	SnowLevel* Level_ = reinterpret_cast<SnowLevel*>(GetLevel());
+	Level_->Enemycount_ -= 1;
 }
 
 void Boss::ChangeState(BossState _State)

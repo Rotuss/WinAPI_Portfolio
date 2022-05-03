@@ -16,7 +16,8 @@
 #include <GameEngine/GameEngineImageManager.h>
 
 Floor1::Floor1()
-	:LogoTime_(2.0f)
+	: LogoTime_(2.0f)
+	, LogoShow_(true)
 {
 }
 
@@ -61,24 +62,44 @@ void Floor1::Loading()
 		// 시간 맞춰주기
 		RedDemon* RedDemon0 = CreateActor<RedDemon>((int)ORDER::MONSTER);
 		RedDemon0->SetPosition({ 330,0 });
-		//RedDemons_.push_back(RedDemon0);
 
 		RedDemon* RedDemon1 = CreateActor<RedDemon>((int)ORDER::MONSTER);
 		RedDemon1->SetPosition({ 180,0 });
-		//RedDemons_.push_back(RedDemon1);
 
 		RedDemon* RedDemon2 = CreateActor<RedDemon>((int)ORDER::MONSTER);
 		RedDemon2->SetPosition({ 840,0 });
-		//RedDemons_.push_back(RedDemon2);
 
 		RedDemon* RedDemon3 = CreateActor<RedDemon>((int)ORDER::MONSTER);
 		RedDemon3->SetPosition({ 280,0 });
-		//RedDemons_.push_back(RedDemon3);
+
+		Enemycount_ = 4;
 	}
 }
 
 void Floor1::Update()
 {
+	/*
+	if (true == LogoShow_)
+	{
+		LogoActor = CreateActor<FloorLogo>(2);
+		LogoActor->GetRenderer()->SetImage("Floor01_Logo.bmp");
+		LogoActor->GetRenderer()->SetPivot({ GameEngineWindow::GetScale().Half().x,GameEngineWindow::GetScale().Half().y - 25.f });
+
+		LogoShow_ = false;
+	}
+	else if (false == LogoShow_)
+	{
+		LogoTime_ -= GameEngineTime::GetDeltaTime();
+		if (LogoTime_ <= 0)
+		{
+			LogoActor->Off();
+		}
+	}
+	*/
+	if (0 == Enemycount_)
+	{
+		GameEngine::GetInst().ChangeLevel("Floor2");
+	}
 	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
 	{
 		GameEngine::GetInst().ChangeLevel("Floor2");
@@ -87,13 +108,6 @@ void Floor1::Update()
 	{
 		GameEngineLevel::IsDebugModeSwitch();
 	}
-
-	/*
-	if (true == RedDemons_.empty())
-	{
-		GameEngine::GetInst().ChangeLevel("Floor2");
-	}
-	*/
 }
 
 void Floor1::LevelChangeStart(GameEngineLevel* _PrevLevel)

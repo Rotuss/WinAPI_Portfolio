@@ -1,11 +1,11 @@
 #pragma once
 #include <GameEngineBase/GameEngineSound.h>
-#include <GameEngine/GameEngineLevel.h>
+#include "SnowLevel.h"
 #include "Life.h"
 #include "Score.h"
 
 // Ό³Έν : 
-class BossFloor : public GameEngineLevel
+class BossFloor : public SnowLevel
 {
 public:
 	// constrcuter destructer

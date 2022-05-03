@@ -99,6 +99,7 @@
     <ClInclude Include="BossEnterLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
+    <ClInclude Include="SnowLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -210,6 +211,7 @@
     <ClCompile Include="BossEnterLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
+    <ClCompile Include="SnowLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

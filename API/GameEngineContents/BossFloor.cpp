@@ -52,6 +52,8 @@ void BossFloor::Loading()
 		// 시간 맞춰주기
 		Boss* Boss1 = CreateActor<Boss>((int)ORDER::BOSS);
 		Boss1->SetPosition({ 800,0 });
+
+		Enemycount_ = 1;
 	}
 }
 

@@ -1,12 +1,12 @@
 #pragma once
-#include <GameEngine/GameEngineLevel.h>
-#include <vector>
+#include "SnowLevel.h"
+#include "FloorLogo.h"
 #include "RedDemon.h"
 #include "Life.h"
 #include "Score.h"
 
 // Ό³Έν : 
-class Floor1 : public GameEngineLevel
+class Floor1 : public SnowLevel
 {
 public:
 	// constrcuter destructer
@@ -22,6 +22,8 @@ public:
 	float Time_;
 	float LogoTime_;
 
+	bool LogoShow_;
+
 protected:
 	void Loading() override;
 	void Update() override;
@@ -29,9 +31,8 @@ protected:
 	void LevelChangeEnd(GameEngineLevel* _NextLevel) override;
 
 private:
+	FloorLogo* LogoActor;
 	Life* LifeUI;
 	Score* ScoreUI;
-
-	std::vector<RedDemon*> RedDemons_;
 };
 

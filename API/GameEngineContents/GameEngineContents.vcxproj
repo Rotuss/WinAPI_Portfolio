@@ -192,6 +192,7 @@
     <ClInclude Include="ScoreMoveUp.h" />
     <ClInclude Include="SnowBullet.h" />
     <ClInclude Include="SnowBros.h" />
+    <ClInclude Include="SnowLevel.h" />
     <ClInclude Include="StickIceCream.h" />
     <ClInclude Include="TitleBackGround.h" />
     <ClInclude Include="TitleMainLevel.h" />
@@ -231,6 +232,7 @@
     <ClCompile Include="ScoreMoveUp.cpp" />
     <ClCompile Include="SnowBullet.cpp" />
     <ClCompile Include="SnowBros.cpp" />
+    <ClCompile Include="SnowLevel.cpp" />
     <ClCompile Include="StickIceCream.cpp" />
     <ClCompile Include="TitleBackGround.cpp" />
     <ClCompile Include="TitleLMainevel.cpp" />

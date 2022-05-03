@@ -64,11 +64,18 @@ void Floor2::Loading()
 
 		Frog* Frog1 = CreateActor<Frog>((int)ORDER::MONSTER);
 		Frog1->SetPosition({ 700,0 });
+
+		Enemycount_ = 5;
 	}
 }
 
 void Floor2::Update()
 {
+	if (0 == Enemycount_)
+	{
+		GameEngine::GetInst().ChangeLevel("Floor3");
+	}
+	
 	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
 	{
 		GameEngine::GetInst().ChangeLevel("Floor3");
