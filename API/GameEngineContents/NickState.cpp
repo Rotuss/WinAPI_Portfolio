@@ -519,6 +519,8 @@ void Nick::AppearStart()
 	GameEngineSound::SoundPlayOneShot("Appear_effect(9).mp3", 0);
 	AnimationName_ = "Appear";
 	NickAnimationRender_->ChangeAnimation(AnimationName_);
+
+	MainPlayer->SetPosition({ 400,710 });
 }
 
 void Nick::DeathStart()
