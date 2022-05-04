@@ -53,24 +53,33 @@ void Floor3::Loading()
 
 	{
 		// 시간 맞춰주기
-		//Frog* Frog0 = CreateActor<Frog>((int)ORDER::MONSTER);
-		//Frog0->SetPosition({ 60,0 });
+		Frog* Frog0 = CreateActor<Frog>((int)ORDER::MONSTER);
+		Frog0->SetPosition({ 60,0 });
 		
-		//YellowTroll* YellowTroll0 = CreateActor<YellowTroll>((int)ORDER::MONSTER);
-		//YellowTroll0->SetPosition({ 130,0 });
+		YellowTroll* YellowTroll0 = CreateActor<YellowTroll>((int)ORDER::MONSTER);
+		YellowTroll0->SetPosition({ 130,0 });
 
-		//YellowTroll* YellowTroll1 = CreateActor<YellowTroll>((int)ORDER::MONSTER);
-		//YellowTroll1->SetPosition({ 210,0 });
+		YellowTroll* YellowTroll1 = CreateActor<YellowTroll>((int)ORDER::MONSTER);
+		YellowTroll1->SetPosition({ 210,0 });
 
-		//YellowTroll* YellowTroll2 = CreateActor<YellowTroll>((int)ORDER::MONSTER);
-		//YellowTroll2->SetPosition({ 510,0 });
+		YellowTroll* YellowTroll2 = CreateActor<YellowTroll>((int)ORDER::MONSTER);
+		YellowTroll2->SetPosition({ 510,0 });
 
-		//Enemycount_ = 4;
+		Enemycount_ = 5;
 	}
 }
 
 void Floor3::Update()
 {
+	if (1 == Enemycount_)
+	{
+		NextFloorTime_ -= GameEngineTime::GetDeltaTime();
+		if (NextFloorTime_ <= 0)
+		{
+			GameEngine::GetInst().ChangeLevel("BossEnterLevel");
+		}
+	}
+
 	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
 	{
 		GameEngine::GetInst().ChangeLevel("BossEnterLevel");

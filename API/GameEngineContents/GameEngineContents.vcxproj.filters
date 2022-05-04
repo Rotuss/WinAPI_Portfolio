@@ -210,6 +210,9 @@
     <ClCompile Include="SnowLevel.cpp">
       <Filter>Level\PlayLevel</Filter>
     </ClCompile>
+    <ClCompile Include="YellowTrollState.cpp">
+      <Filter>Play\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

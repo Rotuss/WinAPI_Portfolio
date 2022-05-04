@@ -236,6 +236,7 @@
     <ClCompile Include="TitleLMainevel.cpp" />
     <ClCompile Include="TitleLogo.cpp" />
     <ClCompile Include="YellowTroll.cpp" />
+    <ClCompile Include="YellowTrollState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">
