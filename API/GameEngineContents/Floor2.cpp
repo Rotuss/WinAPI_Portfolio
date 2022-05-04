@@ -19,6 +19,7 @@ Floor2::Floor2()
 	: LogoTime_(2.0f)
 	, NextFloorTime_(5.0f)
 	, LogoShow_(true)
+	, CameraCheck_(true)
 {
 }
 
@@ -31,12 +32,7 @@ void Floor2::Loading()
 	{
 		BackGround* Actor = CreateActor<BackGround>(0);
 		Actor->GetRenderer()->SetImage("Floor2.bmp");
-
-		float4 BackActor = {};
-		BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
-		BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
-
-		Actor->GetRenderer()->SetPivot(BackActor);		
+		Actor->GetRenderer()->SetPivot({ GameEngineWindow::GetScale().Half().x,0 });
 	}
 
 	{
@@ -79,7 +75,10 @@ void Floor2::Update()
 		NextFloorTime_ -= GameEngineTime::GetDeltaTime();
 		if (NextFloorTime_ <= 0)
 		{
-			GameEngine::GetInst().ChangeLevel("Floor3");
+			if (true == CameraCheck_)
+			{
+				CameraMoveUp();
+			}
 		}
 	}
 	
@@ -99,4 +98,20 @@ void Floor2::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 void Floor2::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
+}
+
+void Floor2::CameraMoveUp()
+{
+	// 레벨체인지 나갈 때
+	CameraCheck_ = true;
+	float4 CurrentCametaPos = GetCameraPos();
+	CurrentCametaPos.y -= GameEngineTime::GetDeltaTime() * 200;
+	SetCameraPos(CurrentCametaPos);
+
+	if (CurrentCametaPos.y <= -896)
+	{
+		CurrentCametaPos.y = -896;
+		GameEngine::GetInst().ChangeLevel("Floor3");
+		CameraCheck_ = false;
+	}
 }

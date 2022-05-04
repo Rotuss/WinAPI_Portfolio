@@ -13,9 +13,6 @@
     <ClInclude Include="TitleLogo.h">
       <Filter>Title</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Play</Filter>
-    </ClInclude>
     <ClInclude Include="EndingCredit.h">
       <Filter>Ending</Filter>
     </ClInclude>
@@ -99,7 +96,9 @@
     <ClInclude Include="BossEnterLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
-    <ClInclude Include="SnowLevel.h" />
+    <ClInclude Include="SnowLevel.h">
+      <Filter>Level\PlayLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -113,9 +112,6 @@
     </ClCompile>
     <ClCompile Include="TitleLogo.cpp">
       <Filter>Title</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Play</Filter>
     </ClCompile>
     <ClCompile Include="EndingCredit.cpp">
       <Filter>Ending</Filter>
@@ -211,7 +207,9 @@
     <ClCompile Include="BossEnterLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="SnowLevel.cpp" />
+    <ClCompile Include="SnowLevel.cpp">
+      <Filter>Level\PlayLevel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

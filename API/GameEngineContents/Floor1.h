@@ -22,6 +22,7 @@ public:
 	float LogoTime_;
 	float NextFloorTime_;
 	bool LogoShow_;
+	bool CameraCheck_;
 
 protected:
 	void Loading() override;
@@ -33,5 +34,7 @@ private:
 	FloorLogo* LogoActor;
 	Life* LifeUI;
 	Score* ScoreUI;
+
+	void CameraMoveUp();
 };
 

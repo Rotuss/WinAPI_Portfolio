@@ -181,7 +181,6 @@
     <ClInclude Include="GameOverLevel.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="Lollipop.h" />
-    <ClInclude Include="Monster.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="Nick.h" />
     <ClInclude Include="PlayLevel.h" />
@@ -219,7 +218,6 @@
     <ClCompile Include="GameOverLevel.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="Lollipop.cpp" />
-    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="Nick.cpp" />
     <ClCompile Include="NickState.cpp" />

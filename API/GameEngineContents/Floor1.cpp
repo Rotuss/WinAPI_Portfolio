@@ -19,6 +19,7 @@ Floor1::Floor1()
 	: LogoTime_(2.0f)
 	, NextFloorTime_(5.0f)
 	, LogoShow_(true)
+	, CameraCheck_(true)
 {
 }
 
@@ -31,12 +32,7 @@ void Floor1::Loading()
 	{
 		BackGround* Actor = CreateActor<BackGround>(0);
 		Actor->GetRenderer()->SetImage("Floor1.bmp");
-
-		float4 BackActor = {};
-		BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
-		BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
-
-		Actor->GetRenderer()->SetPivot(BackActor);
+		Actor->GetRenderer()->SetPivot({ GameEngineWindow::GetScale().Half().x,0 });
 		//Actor->CreateCollision("Next", { 100, 100 }, { 200, -300 });
 		//Actor->CreateCollision("Wall", { 100, 100 }, { 0, 0 });
 	}
@@ -97,12 +93,16 @@ void Floor1::Update()
 		}
 	}
 	*/
+	
 	if (0 == Enemycount_)
 	{
 		NextFloorTime_ -= GameEngineTime::GetDeltaTime();
 		if (NextFloorTime_ <= 0)
 		{
-			GameEngine::GetInst().ChangeLevel("Floor2");
+			if (true == CameraCheck_)
+			{
+				CameraMoveUp();
+			}
 		}
 	}
 	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
@@ -123,5 +123,21 @@ void Floor1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 void Floor1::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
-	Reset();
+	//Reset();
+}
+
+void Floor1::CameraMoveUp()
+{
+	// 레벨체인지 나갈 때
+	CameraCheck_ = true;
+	float4 CurrentCametaPos = GetCameraPos();
+	CurrentCametaPos.y -= GameEngineTime::GetDeltaTime() * 200;
+	SetCameraPos(CurrentCametaPos);
+
+	if (CurrentCametaPos.y <= -896)
+	{
+		CurrentCametaPos.y = -896;
+		GameEngine::GetInst().ChangeLevel("Floor2");
+		CameraCheck_ = false;
+	}
 }

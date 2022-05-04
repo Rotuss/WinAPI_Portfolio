@@ -22,6 +22,6 @@ void PlayUI::Start()
 		TopUIPivot.y += Renderer->GetImage()->GetScale().Half().y;
 		Renderer->SetPivot(TopUIPivot);
 		
-		Renderer->CameraEffectOff();
+		//Renderer->CameraEffectOff();
 	}
 }
