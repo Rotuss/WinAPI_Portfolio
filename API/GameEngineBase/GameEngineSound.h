@@ -58,6 +58,8 @@ public:
 	~GameEngineSoundPlayer();
 	
 	void Stop();
+	void PlaySpeed(float _Speed);
+	void Volume(float _Value);
 	GameEngineSoundPlayer(const GameEngineSoundPlayer& _Other);
 
 private:
