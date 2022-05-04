@@ -434,6 +434,7 @@ void Nick::DeathUpdate()
 
 	if (Life::LifeUI_ < 0)
 	{
+		BgmPlayer_.Stop();
 		GameEngine::GetInst().ChangeLevel("GameOver");
 	}
 }
