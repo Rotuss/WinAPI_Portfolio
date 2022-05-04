@@ -252,7 +252,7 @@ void SnowBros::GameInit()
 		Image = GameEngineImageManager::GetInst()->Find("Boss_Idle.bmp");
 		Image->Cut({ 224, 284 });
 		Image = GameEngineImageManager::GetInst()->Find("Boss_Jump.bmp");
-		Image->Cut({ 224, 308 });
+		Image->Cut({ 224, 380 });
 		Image = GameEngineImageManager::GetInst()->Find("Boss_Defeated.bmp");
 		Image->Cut({ 264, 240 });
 		Image = GameEngineImageManager::GetInst()->Find("Boss_Death.bmp");
@@ -287,7 +287,7 @@ void SnowBros::GameInit()
 	CreateLevel<BossFloor>("BossFloor");
 	CreateLevel<GameOverLevel>("GameOver");
 	CreateLevel<EndingLevel>("Ending");
-	ChangeLevel("TitleMain");
+	ChangeLevel("BossFloor");
 }
 
 void SnowBros::GameLoop()

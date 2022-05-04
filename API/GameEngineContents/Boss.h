@@ -12,6 +12,11 @@ enum class BossState
 
 	MAX
 };
+enum class BossDir
+{
+	LEFT,
+	RIGHT,
+};
 // Ό³Έν : 
 class GameEngineImage;
 class GameEngineCollision;
@@ -38,8 +43,10 @@ private:
 	float	Range_;
 	float	Time_;
 	float	JumpTime_;
+	float	StandbyTIme_;
 	float	AttackTime_;
-	float	DefeatedTime_;
+	float	DefeatedTime1_;
+	float	DefeatedTime2_;
 	float	DeathTime_;
 	float	Speed_;
 	float	AccSpeed_;
@@ -47,12 +54,15 @@ private:
 	float	AccGravity_;
 	bool	DeathCheck_;
 	int		DamageCount_;
+	int		JumpCount_;
 
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	BossCollision_;
 	GameEngineCollision*	BossHeadCollision_;
-	GameEngineCollision*	FrogAttackCollision_;
+	GameEngineCollision*	BossAttackCollision_;
+	GameEngineCollision*	BossDeathCollision_;
 	GameEngineRenderer*		BossAnimationRender_;
+	BossDir					CurrentDir_;
 	std::string				AnimationName_;
 	std::string				ChangeDirText_;
 	

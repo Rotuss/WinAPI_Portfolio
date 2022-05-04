@@ -12,7 +12,13 @@
 #include <GameEngine/GameEngineCollision.h>
 
 Boss::Boss()
-	:DamageCount_(30)
+	: JumpTime_(5.0f)
+	, StandbyTIme_(0.12f)
+	, AttackTime_(3.0f)
+	, DefeatedTime1_(1.0f)
+	, DefeatedTime2_(1.0f)
+	, DamageCount_(3)
+	, JumpCount_(5)
 {
 }
 
@@ -100,6 +106,7 @@ void Boss::Start()
 	BossAnimationRender_->ChangeAnimation("Idle");
 	BossAnimationRender_->SetPivotType(RenderPivot::CENTER);
 
+	CurrentDir_ = BossDir::LEFT;
 	CurrentState_ = BossState::STARTDOWN;
 }
 

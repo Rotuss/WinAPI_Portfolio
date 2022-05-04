@@ -62,7 +62,8 @@ void SnowBullet::Update()
 		|| true == BulletCollision_->CollisionCheck("FrogHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == BulletCollision_->CollisionCheck("SnowBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == BulletCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == BulletCollision_->CollisionCheck("BossHeadHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == BulletCollision_->CollisionCheck("BossHeadHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == BulletCollision_->CollisionCheck("BossDeathBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Death();
 		return;
