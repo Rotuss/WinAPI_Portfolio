@@ -1,5 +1,6 @@
 #include "Nick.h"
 #include "SnowBullet.h"
+#include "SnowLevel.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -15,7 +16,8 @@ Nick* Nick::MainPlayer = nullptr;
 GameEngineSoundPlayer Nick::BgmPlayer_;
 
 Nick::Nick()
-	: MoveDir_(float4::ZERO)
+	: NextFloorTime_(5.0f)
+	, MoveDir_(float4::ZERO)
 	, Speed_(200.0f)
 	, PushSpeed_(100.0f)
 	//, Gravity_(100.0f)
@@ -71,6 +73,9 @@ void Nick::ChangeState(NickState _State)
 		case NickState::DEATH:
 			DeathStart();
 			break;
+		case NickState::NEXTFLOOR:
+			NextFloorStart();
+			break;
 		case NickState::MAX:
 			break;
 		default:
@@ -108,6 +113,9 @@ void Nick::StateUpdate()
 		break;
 	case NickState::DEATH:
 		DeathUpdate();
+		break;
+	case NickState::NEXTFLOOR:
+		NextFloorUpdate();
 		break;
 	case NickState::MAX:
 		break;
@@ -212,12 +220,9 @@ void Nick::Update()
 	DirAnimationCheck();
 	CollisionFloorCheck();
 	StateUpdate();
-
+	FloorOut();
 	//GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half());
 	//CameraLock();
-
-	NextCheck();
-	WallCheck();
 	// 중력 적용 => 뮨제?(중력 적용하여 땅에 닿을 경우 좌우 움직임이 막혀 움직일 수 없음)
 	{
 		// Player 위치에서 
@@ -279,26 +284,6 @@ void Nick::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	MainPlayer = this;
 }
 
-void Nick::NextCheck()
-{
-	if (true == PlayerCollision_->CollisionCheck("Next", CollisionType::RECT, CollisionType::RECT))
-	{
-		//GameEngine::GetInst().ChangeLevel("")
-	}
-}
-
-void Nick::WallCheck()
-{
-	std::vector<GameEngineCollision*> ColList;
-	if (true == PlayerCollision_->CollisionResult("Wall", ColList, CollisionType::RECT, CollisionType::RECT))
-	{
-		for (size_t i = 0; i < ColList.size(); ++i)
-		{
-			ColList[i]->Death();
-		}
-	}
-}
-
 void Nick::CameraLock()
 {
 	if (0 > GetLevel()->GetCameraPos().x)
@@ -329,6 +314,20 @@ void Nick::CameraLock()
 		float4 CurrentCameraPos = GetLevel()->GetCameraPos();
 		CurrentCameraPos.y = GetLevel()->GetCameraPos().y - (GetLevel()->GetCameraPos().y + CameraRectY - FloorScaleY);
 		GetLevel()->SetCameraPos(CurrentCameraPos);
+	}
+}
+
+void Nick::FloorOut()
+{
+	SnowLevel* Level_ = reinterpret_cast<SnowLevel*>(GetLevel());
+	if (0 == Level_->Enemycount_)
+	{
+		NextFloorTime_ -= GameEngineTime::GetDeltaTime();
+		if (NextFloorTime_ <= 0)
+		{
+			ChangeState(NickState::NEXTFLOOR);
+			return;
+		}
 	}
 }
 

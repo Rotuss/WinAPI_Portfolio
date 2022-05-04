@@ -362,10 +362,6 @@ void Nick::PushUpdate()
 			ChangeState(NickState::MOVE);
 			return;
 		}
-		if (true == GameEngineInput::GetInst()->IsDown("Attack"))
-		{
-			// 스노우볼이 왼쪽으로 굴러야함
-		}
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("MoveRight"))
 	{
@@ -375,10 +371,6 @@ void Nick::PushUpdate()
 			PushTargetCollision_ = nullptr;
 			ChangeState(NickState::MOVE);
 			return;
-		}
-		if (true == GameEngineInput::GetInst()->IsDown("Attack"))
-		{
-			// 스노우볼이 오룬쪽으로 굴러야함
 		}
 	}
 
@@ -444,6 +436,11 @@ void Nick::DeathUpdate()
 	{
 		GameEngine::GetInst().ChangeLevel("GameOver");
 	}
+}
+
+void Nick::NextFloorUpdate()
+{
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 }
 
 //===========================Start==========================
@@ -533,6 +530,14 @@ void Nick::DeathStart()
 	Life::LifeUI_ -= 1;
 }
 
+void Nick::NextFloorStart()
+{
+	GameEngineSound::SoundPlayOneShot("FloorChange_Effect(19).mp3", 0);
+	AnimationName_ = "Down_";
+	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+
+	MoveDir_ = float4::UP * 600.0f;
+}
 /*
 void Nick::FloorCollisionCheckMoveGround()
 {

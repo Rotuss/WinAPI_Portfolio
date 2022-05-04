@@ -15,6 +15,7 @@ enum class NickState
 	PUSH,
 	APPEAR,
 	DEATH,
+	NEXTFLOOR,
 
 	MAX
 };
@@ -49,6 +50,8 @@ public:
 	void StateUpdate();
 	void DirAnimationCheck();
 
+	float NextFloorTime_;
+
 protected:
 	
 
@@ -80,8 +83,7 @@ private:
 	
 	void CameraLock();
 	
-	void NextCheck();
-	void WallCheck();
+	void FloorOut();
 
 	void CollisionFloorCheck();
 
@@ -100,6 +102,7 @@ private:
 	void PushUpdate();
 	void AppearUpdate();
 	void DeathUpdate();
+	void NextFloorUpdate();
 
 	void IdleStart();
 	void MoveStart();
@@ -109,7 +112,7 @@ private:
 	void PushStart();
 	void AppearStart();
 	void DeathStart();
-
+	void NextFloorStart();
 	//void FloorCollisionCheckMoveGround();
 };
 
