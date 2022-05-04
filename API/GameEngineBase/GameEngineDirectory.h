@@ -8,14 +8,18 @@ class GameEngineDirectory : public GameEnginePath
 public:
 	// constrcuter destructer
 	GameEngineDirectory();
-	GameEngineDirectory(const std::string& _Path);
+	GameEngineDirectory(const char* _Path);
+	GameEngineDirectory(std::filesystem::path _Path);
+	GameEngineDirectory(const GameEngineDirectory& _Other);
 	~GameEngineDirectory();
 
 	// delete Function
+	/*
 	GameEngineDirectory(const GameEngineDirectory& _Other) = delete;
 	GameEngineDirectory(GameEngineDirectory&& _Other) noexcept = delete;
 	GameEngineDirectory& operator=(const GameEngineDirectory& _Other) = delete;
 	GameEngineDirectory& operator=(GameEngineDirectory&& _Other) noexcept = delete;
+	*/
 
 	void MoveParent();
 	void MoveParent(const std::string& _Name);
@@ -23,6 +27,7 @@ public:
 	bool IsRoot();
 
 	std::vector<GameEngineFile> GetAllFile(const std::string& _Extension = "");
+	std::vector<GameEngineDirectory> GetAllDirectory();
 
 protected:
 

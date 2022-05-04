@@ -8,12 +8,30 @@ GameEngineDirectory::GameEngineDirectory()
 	SetCurrentPath();
 }
 
-GameEngineDirectory::GameEngineDirectory(const std::string& _Path)
+GameEngineDirectory::GameEngineDirectory(const char* _Path)
 {
 	Path_ = _Path;
 	if (false == IsExists())
 	{
 		MsgBoxAssert("존재하지 않는 폴더로 디렉터리를 초기화하려고 했습니다.");
+	}
+}
+
+GameEngineDirectory::GameEngineDirectory(std::filesystem::path _Path)
+{
+	Path_ = _Path;
+	if (false == IsExists())
+	{
+		MsgBoxAssert("존재하지 않는 폴더로 디렉터리를 초기화하려고 했습니다.");
+	}
+}
+
+GameEngineDirectory::GameEngineDirectory(const GameEngineDirectory& _Other)
+{
+	Path_ = _Other.Path_;
+	if (false == IsExists())
+	{
+		MsgBoxAssert("존재하지 않는 폴더로 디렉토리를 초기화하려고 했습니다.");
 	}
 }
 
@@ -94,6 +112,24 @@ std::vector<GameEngineFile> GameEngineDirectory::GetAllFile(const std::string& _
 			}
 		}
 		Return.push_back(GameEngineFile(Entry.path()));
+	}
+	return Return;
+}
+
+std::vector<GameEngineDirectory> GameEngineDirectory::GetAllDirectory()
+{
+	std::filesystem::directory_iterator DirIter(Path_);
+	std::vector<GameEngineDirectory> Return;
+	
+	// 디렉터리까지 다 나오니까 File
+	for (const std::filesystem::directory_entry& Entry : DirIter)
+	{
+		if (true == Entry.is_directory())
+		{
+			// 이 때 재귀
+			Return.push_back(GameEngineDirectory(Entry.path()));
+			continue;
+		}
 	}
 	return Return;
 }

@@ -10,6 +10,22 @@ public:
 	static const float DEG;
 	static const float DegreeToRadian;
 
+	static float Lerp(float _p1, float _p2, float _Time)
+	{
+		return (1.0f - _Time) * _p1 + _Time * _p2;
+	}
+
+	// 보통 누적된 시간을 Time
+	static float LerpLimit(float _p1, float _p2, float _Time)
+	{
+		if (1.0f <= _Time)
+		{
+			_Time = 1.0f;
+		}
+
+		return Lerp(_p1, _p2, _Time);
+	}
+
 protected:
 
 private:
@@ -252,6 +268,24 @@ public:
 		NewPoint.x = ix();
 		NewPoint.y = iy();
 		return NewPoint;
+	}
+
+	//==========================================================
+
+	static float Lerp(float _p1, float _p2, float _Time)
+	{
+		return _p1 * (1.0f - _Time) + _p2 * _Time;
+	}
+
+	// 보통 누적된 시간을 Time
+	static float LerpLimit(float _p1, float _p2, float _Time)
+	{
+		if (1.0f <= _Time)
+		{
+			_Time = 1.0f;
+		}
+
+		return Lerp(_p1, _p2, _Time);
 	}
 };
 
