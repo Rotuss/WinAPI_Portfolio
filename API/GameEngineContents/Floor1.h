@@ -1,7 +1,6 @@
 #pragma once
 #include "SnowLevel.h"
 #include "FloorLogo.h"
-#include "RedDemon.h"
 #include "Life.h"
 #include "Score.h"
 
@@ -21,7 +20,7 @@ public:
 
 	float Time_;
 	float LogoTime_;
-
+	float NextFloorTime_;
 	bool LogoShow_;
 
 protected:

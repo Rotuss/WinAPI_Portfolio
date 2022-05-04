@@ -17,6 +17,7 @@
 
 Floor1::Floor1()
 	: LogoTime_(2.0f)
+	, NextFloorTime_(5.0f)
 	, LogoShow_(true)
 {
 }
@@ -98,7 +99,11 @@ void Floor1::Update()
 	*/
 	if (0 == Enemycount_)
 	{
-		GameEngine::GetInst().ChangeLevel("Floor2");
+		NextFloorTime_ -= GameEngineTime::GetDeltaTime();
+		if (NextFloorTime_ <= 0)
+		{
+			GameEngine::GetInst().ChangeLevel("Floor2");
+		}
 	}
 	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
 	{

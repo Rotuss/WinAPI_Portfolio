@@ -16,6 +16,9 @@
 #include <GameEngine/GameEngineImageManager.h>
 
 Floor2::Floor2()
+	: LogoTime_(2.0f)
+	, NextFloorTime_(5.0f)
+	, LogoShow_(true)
 {
 }
 
@@ -73,7 +76,11 @@ void Floor2::Update()
 {
 	if (0 == Enemycount_)
 	{
-		GameEngine::GetInst().ChangeLevel("Floor3");
+		NextFloorTime_ -= GameEngineTime::GetDeltaTime();
+		if (NextFloorTime_ <= 0)
+		{
+			GameEngine::GetInst().ChangeLevel("Floor3");
+		}
 	}
 	
 	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))

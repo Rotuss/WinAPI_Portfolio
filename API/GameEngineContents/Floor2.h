@@ -1,5 +1,6 @@
 #pragma once
 #include "SnowLevel.h"
+#include "FloorLogo.h"
 #include "Life.h"
 #include "Score.h"
 
@@ -17,6 +18,10 @@ public:
 	Floor2& operator=(const Floor2& _Other) = delete;
 	Floor2& operator=(Floor2&& _Other) noexcept = delete;
 
+	float LogoTime_;
+	float NextFloorTime_;
+	bool LogoShow_;
+
 protected:
 	void Loading() override;
 	void Update() override;
@@ -24,6 +29,7 @@ protected:
 	void LevelChangeEnd(GameEngineLevel* _NextLevel) override;
 
 private:
+	FloorLogo* LogoActor; 
 	Life* LifeUI;
 	Score* ScoreUI;
 };
