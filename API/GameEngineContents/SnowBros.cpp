@@ -287,7 +287,7 @@ void SnowBros::GameInit()
 	CreateLevel<BossFloor>("BossFloor");
 	CreateLevel<GameOverLevel>("GameOver");
 	CreateLevel<EndingLevel>("Ending");
-	ChangeLevel("BossFloor");
+	ChangeLevel("TitleMain");
 }
 
 void SnowBros::GameLoop()

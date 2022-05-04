@@ -427,6 +427,9 @@ void Frog::AttackUpdate()
 
 void Frog::Snow1Update()
 {
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+	
 	if (true == FrogSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
@@ -451,6 +454,13 @@ void Frog::Snow1Update()
 		Score::ScoreUI_ += 1000;
 		ChangeState(FrogState::DEFEATED);
 		return;
+	}
+
+	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
+	int CColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 35.0f });
+	if (RGB(0, 0, 0) == Color && RGB(255, 255, 255) == CColor)
+	{
+		MoveDir_ = float4::ZERO;
 	}
 }
 
@@ -520,21 +530,6 @@ void Frog::Snow3Update()
 		Score::ScoreUI_ += 500;
 		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::SNOWBALL);
-		return;
-	}
-	
-	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
-
-	int Color = FloorColImage_->GetImagePixel(CheckPos);
-	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 0.0f));
-	if (RGB(0, 0, 0) != Color)
-	{
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-	}
-	if (RGB(255, 255, 255) == DColor)
-	{
-		MoveDir_ = float4::DOWN * 2.0f;
 		return;
 	}
 }
