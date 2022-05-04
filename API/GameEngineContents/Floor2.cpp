@@ -1,5 +1,6 @@
 #include "Floor2.h"
 #include "BackGround.h"
+#include "FloorLogo.h"
 #include "PlayUI.h"
 #include "Life.h"
 #include "Score.h"
@@ -7,7 +8,6 @@
 #include "RedDemon.h"
 #include "Frog.h"
 #include "ContentsEnums.h"
-#include "PlayUI.h"
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineTime.h>
