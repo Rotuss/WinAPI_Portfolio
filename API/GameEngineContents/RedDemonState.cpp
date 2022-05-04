@@ -32,6 +32,7 @@ void RedDemon::StartDownUpdate()
 void RedDemon::IdleUpdate()
 {
 	MoveTime_ -= GameEngineTime::GetDeltaTime();
+	MoveDir_ = float4::ZERO;
 	if (MoveTime_ <= 0)
 	{
 		if (StartMoveCount_ <= 0)

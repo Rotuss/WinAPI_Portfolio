@@ -35,6 +35,7 @@ void Frog::IdleUpdate()
 	GameEngineRandom RandomValue_;
 	MoveTime_ -= GameEngineTime::GetDeltaTime();
 	AttackTime_ -= GameEngineTime::GetDeltaTime();
+	MoveDir_ = float4::ZERO;
 	if (MoveTime_ <= 0)
 	{
 		if (StartMoveCount_ <= 0)
