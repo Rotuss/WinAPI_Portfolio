@@ -99,6 +99,9 @@
     <ClInclude Include="SnowLevel.h">
       <Filter>Level\PlayLevel</Filter>
     </ClInclude>
+    <ClInclude Include="RedPotion.h">
+      <Filter>Play\Item\Potion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -213,6 +216,9 @@
     <ClCompile Include="YellowTrollState.cpp">
       <Filter>Play\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="RedPotion.cpp">
+      <Filter>Play\Item\Potion</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -244,6 +250,9 @@
     </Filter>
     <Filter Include="Play\UI">
       <UniqueIdentifier>{409373e8-893f-438b-8efa-b873dbe23c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Item\Potion">
+      <UniqueIdentifier>{e8e9b585-6b95-4429-acf3-529b9d710423}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "StickIceCream.h"
 #include "Sandwich.h"
 #include "Cake.h"
+#include "RedPotion.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -218,7 +219,7 @@ void RedDemon::LevelChangeStart(GameEngineLevel* _PrevLevel)
 void RedDemon::RandomItem()
 {
 	GameEngineRandom RandomValue_;
-	int RandomItemNum = RandomValue_.RandomInt(0, 5);
+	int RandomItemNum = RandomValue_.RandomInt(0, 6);
 
 	if (0 == RandomItemNum)
 	{
@@ -250,6 +251,11 @@ void RedDemon::RandomItem()
 	{
 		Cake* CakeActor = GetLevel()->CreateActor<Cake>(1);
 		CakeActor->SetPosition(GetPosition());
+	}
+	else if (6 == RandomItemNum)
+	{
+		RedPotion* RedPotionActor = GetLevel()->CreateActor<RedPotion>(1);
+		RedPotionActor->SetPosition(GetPosition());
 	}
 }
 

@@ -19,6 +19,7 @@ Nick::Nick()
 	: NextFloorTime_(5.0f)
 	, MoveDir_(float4::ZERO)
 	, Speed_(200.0f)
+	, RPSpeed_(300.0f)
 	, PushSpeed_(100.0f)
 	//, Gravity_(100.0f)
 	, Time_(0.0f)
@@ -26,6 +27,8 @@ Nick::Nick()
 	, DTime_(0.5f)
 	, LifeCount_(2)
 	, NoDamageCheck_(true)
+	, RPEat_(false)
+	, BPEat_(false)
 {
 }
 
@@ -207,6 +210,13 @@ void Nick::Start()
 
 	NickAnimationRender_->CreateAnimation("Appear.bmp", "Appear", 0, 3, 0.1f, true);
 	NickAnimationRender_->CreateAnimation("Nick_Death.bmp", "Death", 0, 2, 0.1f, false);
+	
+	// PotionState
+	NickAnimationRender_->CreateAnimation("Nick_RP_Idle_Right.bmp", "RP_Idle_Right", 0, 1, 0.1f, true);
+	NickAnimationRender_->CreateAnimation("Nick_RP_Idle_Left.bmp", "RP_Idle_Left", 0, 1, 0.1f, true);
+
+	NickAnimationRender_->CreateAnimation("Nick_RP_Move_Right.bmp", "RP_Move_Right", 0, 1, 0.12f, true);
+	NickAnimationRender_->CreateAnimation("Nick_RP_Move_Left.bmp", "RP_Move_Left", 0, 1, 0.12f, true);
 	// 만일, 폴더 이미지로 애니메이션을 실행시키고자 할 때 사용
 	//NickAnimationRender_->CreateFolderAnimation("폴더명", "Walk_Right", 0, 3, 0.1f, true);
 	NickAnimationRender_->ChangeAnimation("Appear");

@@ -42,6 +42,8 @@ void SnowBullet::Start()
 	BulletAnimationRender_ = CreateRenderer();
 	BulletAnimationRender_->CreateAnimation("SnowBullet_Left.bmp", "SnowBullet_Left", 0, 1, 0.12f, true);
 	BulletAnimationRender_->CreateAnimation("SnowBullet_Right.bmp", "SnowBullet_Right", 0, 1, 0.12f, true);
+	BulletAnimationRender_->CreateAnimation("BP_SnowBullet_Left.bmp", "BP_SnowBullet_Left", 0, 1, 0.12f, true);
+	BulletAnimationRender_->CreateAnimation("BP_SnowBullet_Right.bmp", "BP_SnowBullet_Right", 0, 1, 0.12f, true);
 	BulletAnimationRender_->ChangeAnimation("SnowBullet_Left");
 	//Time = 2.0f;
 	Death(0.5f);

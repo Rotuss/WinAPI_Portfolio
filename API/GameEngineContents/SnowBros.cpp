@@ -73,22 +73,37 @@ void SnowBros::GameInit()
 		GameEngineInput::GetInst()->CreateKey("Debug", '0');
 	}
 
-	// UI
+	// Level
+	{
+		GameEngineImage*
+		Image = GameEngineImageManager::GetInst()->Find("Title.bmp");
+		Image->CutCount(3, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("BossStageEnter.bmp");
+		Image->CutCount(3, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("Push_Start.bmp");
+		Image->CutCount(2, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("GameOver.bmp");
+		Image->CutCount(4, 1);
+	}
+	
+	// UI & Potion
 	{
 		GameEngineImage*
 		Image = GameEngineImageManager::GetInst()->Find("Number.bmp");
 		Image->Cut({ 32, 32 });
+
+		Image = GameEngineImageManager::GetInst()->Find("RedPotion.bmp");
+		Image->CutCount(4, 1);
+		Image = GameEngineImageManager::GetInst()->Find("BluePotion.bmp");
+		Image->CutCount(4, 1);
 	}
 	
 	// Nick
 	{
 		GameEngineImage* 
-		Image = GameEngineImageManager::GetInst()->Find("Title.bmp");
-		Image->CutCount(3, 1);
-		
-		Image = GameEngineImageManager::GetInst()->Find("BossStageEnter.bmp");
-		Image->CutCount(3, 1);
-		
 		Image = GameEngineImageManager::GetInst()->Find("Appear.bmp");
 		Image->CutCount(4, 1);
 		
@@ -126,17 +141,32 @@ void SnowBros::GameInit()
 		Image->CutCount(2, 1);
 		Image = GameEngineImageManager::GetInst()->Find("SnowBullet_Left.bmp");
 		Image->CutCount(2, 1);
-		
-		Image = GameEngineImageManager::GetInst()->Find("Push_Start.bmp");
-		Image->CutCount(2, 1);
-
+	
 		Image = GameEngineImageManager::GetInst()->Find("Nick_Death.bmp");
 		Image->CutCount(3, 1);
-
-		Image = GameEngineImageManager::GetInst()->Find("GameOver.bmp");
-		Image->CutCount(4, 1);
 	}
 
+	// PotionState
+	{
+		// RedPotion
+		GameEngineImage*
+		Image = GameEngineImageManager::GetInst()->Find("Nick_RP_Idle_Right.bmp");
+		Image->CutCount(2, 1);
+		Image = GameEngineImageManager::GetInst()->Find("Nick_RP_Idle_Left.bmp");
+		Image->CutCount(2, 1);
+
+		Image = GameEngineImageManager::GetInst()->Find("Nick_RP_Move_Right.bmp");
+		Image->CutCount(2, 1);
+		Image = GameEngineImageManager::GetInst()->Find("Nick_RP_Move_Left.bmp");
+		Image->CutCount(2, 1);
+
+		// BluePotion
+		Image = GameEngineImageManager::GetInst()->Find("BP_SnowBullet_Right.bmp");
+		Image->CutCount(2, 1);
+		Image = GameEngineImageManager::GetInst()->Find("BP_SnowBullet_Left.bmp");
+		Image->CutCount(2, 1);
+	}
+	
 	// RedDemon
 	{
 		GameEngineImage*

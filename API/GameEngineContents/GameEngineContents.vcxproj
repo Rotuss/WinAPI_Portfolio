@@ -186,6 +186,7 @@
     <ClInclude Include="PlayLevel.h" />
     <ClInclude Include="PlayUI.h" />
     <ClInclude Include="RedDemon.h" />
+    <ClInclude Include="RedPotion.h" />
     <ClInclude Include="Sandwich.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="ScoreMoveUp.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="PlayUI.cpp" />
     <ClCompile Include="RedDemon.cpp" />
     <ClCompile Include="RedDemonState.cpp" />
+    <ClCompile Include="RedPotion.cpp" />
     <ClCompile Include="Sandwich.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="ScoreMoveUp.cpp" />

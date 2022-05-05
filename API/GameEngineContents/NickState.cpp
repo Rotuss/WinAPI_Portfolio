@@ -31,6 +31,10 @@ void Nick::IdleUpdate()
 		return;
 	}
 
+	if (true == PlayerCollision_->NextPosCollisionCheck("RedPotionHitBox", MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_, CollisionType::RECT, CollisionType::RECT))
+	{
+		RPEat_ = true;
+	}
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT) 
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -81,6 +85,10 @@ void Nick::MoveUpdate()
 		return;
 	}
 
+	if (true == PlayerCollision_->NextPosCollisionCheck("RedPotionHitBox", MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_, CollisionType::RECT, CollisionType::RECT))
+	{
+		RPEat_ = true;
+	}
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -104,7 +112,14 @@ void Nick::MoveUpdate()
 
 	if (RGB(0, 0, 0) != BotColor && CurrentState_ != NickState::JUMP)
 	{
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		if (false == RPEat_)
+		{
+			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		}
+		else if (true == RPEat_)
+		{
+			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * RPSpeed_);
+		}
 	}
 	if (RGB(0, 0, 0) == RightColor || RGB(0, 0, 0) == LeftColor)
 	{
@@ -155,6 +170,10 @@ void Nick::JumpUpdate()
 		return;
 	}
 
+	if (true == PlayerCollision_->NextPosCollisionCheck("RedPotionHitBox", MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_, CollisionType::RECT, CollisionType::RECT))
+	{
+		RPEat_ = true;
+	}
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -206,6 +225,10 @@ void Nick::DownUpdate()
 		return;
 	}
 
+	if (true == PlayerCollision_->NextPosCollisionCheck("RedPotionHitBox", MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_, CollisionType::RECT, CollisionType::RECT))
+	{
+		RPEat_ = true;
+	}
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -380,6 +403,10 @@ void Nick::PushUpdate()
 		return;
 	}
 
+	if (true == PlayerCollision_->NextPosCollisionCheck("RedPotionHitBox", MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_, CollisionType::RECT, CollisionType::RECT))
+	{
+		RPEat_ = true;
+	}
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -448,6 +475,12 @@ void Nick::NextFloorUpdate()
 void Nick::IdleStart()
 {
 	// 애니메이션이 바뀜
+	if (true == RPEat_)
+	{
+		NickAnimationRender_->ChangeAnimation("RP_Idle_" + ChangeDirText_);
+		return;
+	}
+	
 	AnimationName_ = "Idle_";
 	if ("" == ChangeDirText_)
 	{
@@ -458,6 +491,12 @@ void Nick::IdleStart()
 
 void Nick::MoveStart()
 {
+	if (true == RPEat_)
+	{
+		NickAnimationRender_->ChangeAnimation("RP_Move_" + ChangeDirText_);
+		return;
+	}
+	
 	AnimationName_ = "Move_";
 	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 }
@@ -529,6 +568,7 @@ void Nick::DeathStart()
 
 	LifeCount_ -= 1;
 	Life::LifeUI_ -= 1;
+	RPEat_ = false;
 }
 
 void Nick::NextFloorStart()
