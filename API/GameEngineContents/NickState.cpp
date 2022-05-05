@@ -1,6 +1,7 @@
 #include "Nick.h"
 #include "SnowBullet.h"
 #include "Life.h"
+#include "RedPotion.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -31,10 +32,6 @@ void Nick::IdleUpdate()
 		return;
 	}
 
-	if (true == PlayerCollision_->NextPosCollisionCheck("RedPotionHitBox", MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_, CollisionType::RECT, CollisionType::RECT))
-	{
-		RPEat_ = true;
-	}
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT) 
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -85,10 +82,6 @@ void Nick::MoveUpdate()
 		return;
 	}
 
-	if (true == PlayerCollision_->NextPosCollisionCheck("RedPotionHitBox", MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_, CollisionType::RECT, CollisionType::RECT))
-	{
-		RPEat_ = true;
-	}
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -112,11 +105,11 @@ void Nick::MoveUpdate()
 
 	if (RGB(0, 0, 0) != BotColor && CurrentState_ != NickState::JUMP)
 	{
-		if (false == RPEat_)
+		if (false == RedPotion::RPCheck_)
 		{
 			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 		}
-		else if (true == RPEat_)
+		else if (true == RedPotion::RPCheck_)
 		{
 			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * RPSpeed_);
 		}
@@ -170,10 +163,6 @@ void Nick::JumpUpdate()
 		return;
 	}
 
-	if (true == PlayerCollision_->NextPosCollisionCheck("RedPotionHitBox", MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_, CollisionType::RECT, CollisionType::RECT))
-	{
-		RPEat_ = true;
-	}
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -225,10 +214,6 @@ void Nick::DownUpdate()
 		return;
 	}
 
-	if (true == PlayerCollision_->NextPosCollisionCheck("RedPotionHitBox", MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_, CollisionType::RECT, CollisionType::RECT))
-	{
-		RPEat_ = true;
-	}
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -403,10 +388,6 @@ void Nick::PushUpdate()
 		return;
 	}
 
-	if (true == PlayerCollision_->NextPosCollisionCheck("RedPotionHitBox", MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_, CollisionType::RECT, CollisionType::RECT))
-	{
-		RPEat_ = true;
-	}
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -475,8 +456,12 @@ void Nick::NextFloorUpdate()
 void Nick::IdleStart()
 {
 	// 애니메이션이 바뀜
-	if (true == RPEat_)
+	if (true == RedPotion::RPCheck_)
 	{
+		if ("" == ChangeDirText_)
+		{
+			ChangeDirText_ = "Right";
+		}
 		NickAnimationRender_->ChangeAnimation("RP_Idle_" + ChangeDirText_);
 		return;
 	}
@@ -491,7 +476,7 @@ void Nick::IdleStart()
 
 void Nick::MoveStart()
 {
-	if (true == RPEat_)
+	if (true == RedPotion::RPCheck_)
 	{
 		NickAnimationRender_->ChangeAnimation("RP_Move_" + ChangeDirText_);
 		return;
@@ -568,7 +553,7 @@ void Nick::DeathStart()
 
 	LifeCount_ -= 1;
 	Life::LifeUI_ -= 1;
-	RPEat_ = false;
+	RedPotion::RPCheck_ = false;
 }
 
 void Nick::NextFloorStart()

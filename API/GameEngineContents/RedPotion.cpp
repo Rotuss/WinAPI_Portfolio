@@ -1,6 +1,7 @@
 #include "RedPotion.h"
 #include <GameEngineBase/GameEngineTime.h>
 
+bool RedPotion::RPCheck_ = false;
 RedPotion::RedPotion()
 	:Time_(10.0f)
 {
@@ -32,6 +33,7 @@ void RedPotion::Update()
 	if (true == RedPotionCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		GameEngineSound::SoundPlayOneShot("Item_Effect(10).mp3", 0);
+		RPCheck_ = true;
 		Death();
 	}
 }

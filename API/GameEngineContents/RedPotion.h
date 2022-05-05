@@ -18,6 +18,8 @@ public:
 	RedPotion& operator=(const RedPotion& _Other) = delete;
 	RedPotion& operator=(RedPotion&& _Other) noexcept = delete;
 
+	static bool RPCheck_;
+
 protected:
 
 private:

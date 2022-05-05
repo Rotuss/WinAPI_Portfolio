@@ -68,8 +68,6 @@ private:
 	//float	AccGravity_;
 	int		LifeCount_;
 	bool	NoDamageCheck_;
-	bool	RPEat_;
-	bool	BPEat_;
 
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	PlayerCollision_;
