@@ -7,6 +7,7 @@
 #include "Sandwich.h"
 #include "Cake.h"
 #include "RedPotion.h"
+#include "BluePotion.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -219,7 +220,7 @@ void RedDemon::LevelChangeStart(GameEngineLevel* _PrevLevel)
 void RedDemon::RandomItem()
 {
 	GameEngineRandom RandomValue_;
-	int RandomItemNum = RandomValue_.RandomInt(0, 6);
+	int RandomItemNum = RandomValue_.RandomInt(0, 7);
 
 	if (0 == RandomItemNum)
 	{
@@ -256,6 +257,11 @@ void RedDemon::RandomItem()
 	{
 		RedPotion* RedPotionActor = GetLevel()->CreateActor<RedPotion>(1);
 		RedPotionActor->SetPosition(GetPosition());
+	}
+	else if (7 == RandomItemNum)
+	{
+		BluePotion* BluePotionActor = GetLevel()->CreateActor<BluePotion>(1);
+		BluePotionActor->SetPosition(GetPosition());
 	}
 }
 

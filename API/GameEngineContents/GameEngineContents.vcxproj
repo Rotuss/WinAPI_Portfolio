@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BluePotion.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BossEnterLevel.h" />
     <ClInclude Include="BossFloor.h" />
@@ -201,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="BluePotion.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossEnterLevel.cpp" />
     <ClCompile Include="BossFloor.cpp" />

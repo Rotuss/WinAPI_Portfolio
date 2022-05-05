@@ -102,6 +102,9 @@
     <ClInclude Include="RedPotion.h">
       <Filter>Play\Item\Potion</Filter>
     </ClInclude>
+    <ClInclude Include="BluePotion.h">
+      <Filter>Play\Item\Potion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EndingLevel.cpp">
@@ -217,6 +220,9 @@
       <Filter>Play\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="RedPotion.cpp">
+      <Filter>Play\Item\Potion</Filter>
+    </ClCompile>
+    <ClCompile Include="BluePotion.cpp">
       <Filter>Play\Item\Potion</Filter>
     </ClCompile>
   </ItemGroup>

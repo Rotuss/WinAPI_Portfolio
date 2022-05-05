@@ -1,4 +1,5 @@
 #include "SnowBullet.h"
+#include "BluePotion.h"
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngineRenderer.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -20,17 +21,35 @@ void SnowBullet::DirBulletCheck()
 
 	if (ChangeBDirText_ == "Right")
 	{
+		if (true == BluePotion::BPCheck_)
+		{
+			BulletAnimationRender_->ChangeAnimation("BP_SnowBullet_Right");
+			return;
+		}
 		BCheckDir_ = BulletDir::RIGHT;
 	}
 	if (ChangeBDirText_ == "Left")
 	{
+		if (true == BluePotion::BPCheck_)
+		{
+			BulletAnimationRender_->ChangeAnimation("BP_SnowBullet_Left");
+			return;
+		}
 		BCheckDir_ = BulletDir::LEFT;
 	}
 
 	if (BCheckDir_ != BCurrentDir_)
 	{
-		BulletAnimationRender_->ChangeAnimation("SnowBullet_" + ChangeBDirText_);
-		BCurrentDir_ = BCheckDir_;
+		if (false == BluePotion::BPCheck_)
+		{
+			BulletAnimationRender_->ChangeAnimation("SnowBullet_" + ChangeBDirText_);
+			BCurrentDir_ = BCheckDir_;
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			BulletAnimationRender_->ChangeAnimation("BP_SnowBullet_" + ChangeBDirText_);
+			BCurrentDir_ = BCheckDir_;
+		}
 	}
 }
 

@@ -1,5 +1,6 @@
 #include "RedDemon.h"
 #include "Score.h"
+#include "BluePotion.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -51,11 +52,23 @@ void RedDemon::IdleUpdate()
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(RedDemonState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -80,11 +93,23 @@ void RedDemon::StartMoveUpdate()
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(RedDemonState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
 		}
 	}
 
@@ -173,11 +198,23 @@ void RedDemon::MoveUpdate()
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(RedDemonState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -313,11 +350,23 @@ void RedDemon::JumpUpdate()
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(RedDemonState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -359,11 +408,23 @@ void RedDemon::DownUpdate()
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(RedDemonState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -401,11 +462,23 @@ void RedDemon::Snow1Update()
 	if (true == RedDemonSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(RedDemonState::SNOW2);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW2);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW2);
+				return;
+			}
 		}
 	}
 	if (false == RedDemonSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -437,11 +510,23 @@ void RedDemon::Snow2Update()
 	if (true == RedDemonSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(RedDemonState::SNOW3);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW3);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW3);
+				return;
+			}
 		}
 	}
 	if (false == RedDemonSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -610,11 +695,23 @@ void RedDemon::ShakingSnowUpdate()
 	if (true == RedDemonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(RedDemonState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(RedDemonState::SNOW1);
+				return;
+			}
 		}
 	}
 }
@@ -781,6 +878,7 @@ void RedDemon::ShakingSnowStart()
 
 	RedDemonCollision_->On();
 	
+	DamageCount_ = 2;
 	ShakingTime_ = 1.0f;
 }
 

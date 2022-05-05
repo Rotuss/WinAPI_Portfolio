@@ -1,5 +1,6 @@
 #include "YellowTroll.h"
 #include "Score.h"
+#include "BluePotion.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -52,11 +53,23 @@ void YellowTroll::IdleUpdate()
 	if (true == YellowTrollCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(YellowTrollState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == YellowTrollCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -81,11 +94,23 @@ void YellowTroll::StartMoveUpdate()
 	if (true == YellowTrollCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(YellowTrollState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
 		}
 	}
 
@@ -174,11 +199,23 @@ void YellowTroll::MoveUpdate()
 	if (true == YellowTrollCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(YellowTrollState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == YellowTrollCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -314,11 +351,23 @@ void YellowTroll::JumpUpdate()
 	if (true == YellowTrollCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(YellowTrollState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == YellowTrollCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -359,11 +408,23 @@ void YellowTroll::DownUpdate()
 	if (true == YellowTrollCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(YellowTrollState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == YellowTrollCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -398,11 +459,23 @@ void YellowTroll::Snow1Update()
 	if (true == YellowTrollSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(YellowTrollState::SNOW2);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW2);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW2);
+				return;
+			}
 		}
 	}
 	if (false == YellowTrollSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -434,11 +507,23 @@ void YellowTroll::Snow2Update()
 	if (true == YellowTrollSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(YellowTrollState::SNOW3);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW3);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW3);
+				return;
+			}
 		}
 	}
 	if (false == YellowTrollSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -606,11 +691,24 @@ void YellowTroll::ShakingSnowUpdate()
 
 	if (true == YellowTrollCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		Score::ScoreUI_ += 10;
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(YellowTrollState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(YellowTrollState::SNOW1);
+				return;
+			}
 		}
 	}
 }

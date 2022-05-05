@@ -1,6 +1,7 @@
 #include "Frog.h"
 #include "FrogFire.h"
 #include "Score.h"
+#include "BluePotion.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -60,11 +61,23 @@ void Frog::IdleUpdate()
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(FrogState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -89,11 +102,23 @@ void Frog::StartMoveUpdate()
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(FrogState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
 		}
 	}
 
@@ -182,11 +207,23 @@ void Frog::MoveUpdate()
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(FrogState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -322,11 +359,23 @@ void Frog::JumpUpdate()
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(FrogState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -367,11 +416,23 @@ void Frog::DownUpdate()
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(FrogState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -403,11 +464,23 @@ void Frog::AttackUpdate()
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(FrogState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
 		}
 	}
 	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -434,11 +507,23 @@ void Frog::Snow1Update()
 	if (true == FrogSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(FrogState::SNOW2);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW2);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW2);
+				return;
+			}
 		}
 	}
 	if (false == FrogSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -470,11 +555,23 @@ void Frog::Snow2Update()
 	if (true == FrogSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(FrogState::SNOW3);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW3);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW3);
+				return;
+			}
 		}
 	}
 	if (false == FrogSnowCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
@@ -642,11 +739,24 @@ void Frog::ShakingSnowUpdate()
 
 	if (true == FrogCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
-		DamageCount_ -= 1;
-		if (DamageCount_ <= 0)
+		Score::ScoreUI_ += 10;
+		if (false == BluePotion::BPCheck_)
 		{
-			ChangeState(FrogState::SNOW1);
-			return;
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(FrogState::SNOW1);
+				return;
+			}
 		}
 	}
 }
@@ -836,6 +946,7 @@ void Frog::ShakingSnowStart()
 
 	FrogCollision_->On();
 	
+	DamageCount_ = 2;
 	ShakingTime_ = 1.0f;
 }
 

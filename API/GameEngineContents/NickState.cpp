@@ -2,6 +2,7 @@
 #include "SnowBullet.h"
 #include "Life.h"
 #include "RedPotion.h"
+#include "BluePotion.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -554,6 +555,7 @@ void Nick::DeathStart()
 	LifeCount_ -= 1;
 	Life::LifeUI_ -= 1;
 	RedPotion::RPCheck_ = false;
+	BluePotion::BPCheck_ = false;
 }
 
 void Nick::NextFloorStart()
