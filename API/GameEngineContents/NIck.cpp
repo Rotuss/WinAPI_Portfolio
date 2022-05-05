@@ -152,6 +152,12 @@ void Nick::DirAnimationCheck()
 
 	if (CheckDir_ != CurrentDir_)
 	{
+		if (AnimationName_ == "Appear" || AnimationName_ == "Death")
+		{
+			NickAnimationRender_->ChangeAnimation(AnimationName_);
+			CurrentDir_ = CheckDir_;
+			return;
+		}
 		NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
 		CurrentDir_ = CheckDir_;
 	}
