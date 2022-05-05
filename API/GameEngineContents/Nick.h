@@ -49,6 +49,7 @@ public:
 	void ChangeState(NickState _State);
 	void StateUpdate();
 	void DirAnimationCheck();
+	void NoDamage();
 
 	float NextFloorTime_;
 
@@ -65,6 +66,7 @@ private:
 	//float	Gravity_;
 	//float	AccGravity_;
 	int		LifeCount_;
+	bool	NoDamageCheck_;
 
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	PlayerCollision_;

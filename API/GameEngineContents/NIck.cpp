@@ -25,6 +25,7 @@ Nick::Nick()
 	, AppTime_(1.0f)
 	, DTime_(0.5f)
 	, LifeCount_(2)
+	, NoDamageCheck_(true)
 {
 }
 
@@ -155,6 +156,25 @@ void Nick::DirAnimationCheck()
 	}
 }
 
+void Nick::NoDamage()
+{
+	if (true == GameEngineInput::GetInst()->IsDown("DamageCheck"))
+	{
+		if (true == NoDamageCheck_)
+		{
+			PlayerCollision_->Off();
+
+			NoDamageCheck_ = false;
+		}
+		else if (false == NoDamageCheck_)
+		{
+			PlayerCollision_->On();
+
+			NoDamageCheck_ = true;
+		}
+	}
+}
+
 void Nick::Start()
 {
 	// Nick에서 위치를 정하는 것이 아닌, 각 Floor에서 지정해야하므로 여기서 구현하는 것이 아님. 각 Floor에서 작업
@@ -208,6 +228,7 @@ void Nick::Start()
 		GameEngineInput::GetInst()->CreateKey("MoveRight", VK_RIGHT);
 		GameEngineInput::GetInst()->CreateKey("Jump", VK_LSHIFT);
 		GameEngineInput::GetInst()->CreateKey("Attack", VK_SPACE);
+		GameEngineInput::GetInst()->CreateKey("DamageCheck", 'P');
 	}
 
 	// 레벨에서 액터를 찾을 수 있도록 해줌(캐칭)
@@ -220,6 +241,7 @@ void Nick::Update()
 	DirAnimationCheck();
 	CollisionFloorCheck();
 	StateUpdate();
+	NoDamage();
 	FloorOut();
 	//GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half());
 	//CameraLock();
