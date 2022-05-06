@@ -25,6 +25,19 @@ BossFloor::~BossFloor()
 
 void BossFloor::Loading()
 {
+}
+
+void BossFloor::Update()
+{
+	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
+	{
+		GameEngineLevel::IsDebugModeSwitch();
+	}
+}
+
+void BossFloor::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	Nick::BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_BossFloor_Track.mp3");
 	{
 		BackGround* Actor = CreateActor<BackGround>(0);
 		Actor->GetRenderer()->SetImage("FloorBoss.bmp");
@@ -57,19 +70,7 @@ void BossFloor::Loading()
 	}
 }
 
-void BossFloor::Update()
-{
-	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
-	{
-		GameEngineLevel::IsDebugModeSwitch();
-	}
-}
-
-void BossFloor::LevelChangeStart(GameEngineLevel* _PrevLevel)
-{
-	BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_BossFloor_Track.mp3");
-}
-
 void BossFloor::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
+	Nick::BgmPlayer_.Stop();
 }

@@ -29,6 +29,41 @@ Floor2::~Floor2()
 
 void Floor2::Loading()
 {
+}
+
+void Floor2::Update()
+{
+	if (0 == Enemycount_)
+	{
+		NextFloorTime_ -= GameEngineTime::GetDeltaTime();
+		if (NextFloorTime_ <= 0)
+		{
+			if (true == CameraCheck_)
+			{
+				CameraMoveUp();
+			}
+		}
+	}
+	
+	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
+	{
+		GameEngine::GetInst().ChangeLevel("Floor3");
+	}
+	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
+	{
+		GameEngineLevel::IsDebugModeSwitch();
+	}
+}
+
+void Floor2::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	CameraCheck_ = true;
+	if (GetCameraPos().y <= -896)
+	{
+		float4 CurrentCametaPos = GetCameraPos();
+		CurrentCametaPos.y = 0;
+		SetCameraPos(CurrentCametaPos);
+	}
 	{
 		BackGround* Actor = CreateActor<BackGround>(0);
 		Actor->GetRenderer()->SetImage("Floor2.bmp");
@@ -68,36 +103,9 @@ void Floor2::Loading()
 	}
 }
 
-void Floor2::Update()
-{
-	if (0 == Enemycount_)
-	{
-		NextFloorTime_ -= GameEngineTime::GetDeltaTime();
-		if (NextFloorTime_ <= 0)
-		{
-			if (true == CameraCheck_)
-			{
-				CameraMoveUp();
-			}
-		}
-	}
-	
-	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
-	{
-		GameEngine::GetInst().ChangeLevel("Floor3");
-	}
-	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
-	{
-		GameEngineLevel::IsDebugModeSwitch();
-	}
-}
-
-void Floor2::LevelChangeStart(GameEngineLevel* _PrevLevel)
-{
-}
-
 void Floor2::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
+	Reset();
 }
 
 void Floor2::CameraMoveUp()
@@ -113,5 +121,6 @@ void Floor2::CameraMoveUp()
 		CurrentCametaPos.y = -896;
 		GameEngine::GetInst().ChangeLevel("Floor3");
 		CameraCheck_ = false;
+		NextFloorTime_ = 5.0f;
 	}
 }

@@ -28,6 +28,32 @@ Floor3::~Floor3()
 
 void Floor3::Loading()
 {
+	
+}
+
+void Floor3::Update()
+{
+	if (1 == Enemycount_)
+	{
+		NextFloorTime_ -= GameEngineTime::GetDeltaTime();
+		if (NextFloorTime_ <= 0)
+		{
+			GameEngine::GetInst().ChangeLevel("BossEnterLevel");
+		}
+	}
+
+	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
+	{
+		GameEngine::GetInst().ChangeLevel("BossEnterLevel");
+	}
+	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
+	{
+		GameEngineLevel::IsDebugModeSwitch();
+	}
+}
+
+void Floor3::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
 	{
 		BackGround* Actor = CreateActor<BackGround>(0);
 		Actor->GetRenderer()->SetImage("Floor3.bmp");
@@ -55,7 +81,7 @@ void Floor3::Loading()
 		// 시간 맞춰주기
 		Frog* Frog0 = CreateActor<Frog>((int)ORDER::MONSTER);
 		Frog0->SetPosition({ 60,0 });
-		
+
 		YellowTroll* YellowTroll0 = CreateActor<YellowTroll>((int)ORDER::MONSTER);
 		YellowTroll0->SetPosition({ 130,0 });
 
@@ -69,32 +95,8 @@ void Floor3::Loading()
 	}
 }
 
-void Floor3::Update()
-{
-	if (1 == Enemycount_)
-	{
-		NextFloorTime_ -= GameEngineTime::GetDeltaTime();
-		if (NextFloorTime_ <= 0)
-		{
-			GameEngine::GetInst().ChangeLevel("BossEnterLevel");
-		}
-	}
-
-	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
-	{
-		GameEngine::GetInst().ChangeLevel("BossEnterLevel");
-	}
-	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
-	{
-		GameEngineLevel::IsDebugModeSwitch();
-	}
-}
-
-void Floor3::LevelChangeStart(GameEngineLevel* _PrevLevel)
-{
-}
-
 void Floor3::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
 	Nick::BgmPlayer_.Stop();
+	Reset();
 }

@@ -18,12 +18,6 @@ GameOverLevel::~GameOverLevel()
 
 void GameOverLevel::Loading()
 {
-	{
-		BackGround* Actor = CreateActor<BackGround>(0);
-		Actor->GetRenderer()->CreateAnimation("GameOver.bmp", "GameOver", 0, 3, 0.3f, false);
-		Actor->GetRenderer()->ChangeAnimation("GameOver");
-		Actor->GetRenderer()->SetPivot(GameEngineWindow::GetScale().Half());
-	}
 }
 
 void GameOverLevel::Update()
@@ -38,9 +32,16 @@ void GameOverLevel::Update()
 void GameOverLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	GameEngineSound::SoundPlayOneShot("SnowBros_GameOver_Track.mp3",0);
+	Time_ = 5.0f;
+	{
+		BackGround* Actor = CreateActor<BackGround>(0);
+		Actor->GetRenderer()->CreateAnimation("GameOver.bmp", "GameOver", 0, 3, 0.3f, false);
+		Actor->GetRenderer()->ChangeAnimation("GameOver");
+		Actor->GetRenderer()->SetPivot(GameEngineWindow::GetScale().Half());
+	}
 }
 
 void GameOverLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
-	// Reset();
+	Reset();
 }

@@ -1,6 +1,7 @@
 #include "Nick.h"
 #include "SnowBullet.h"
 #include "Life.h"
+#include "Score.h"
 #include "RedPotion.h"
 #include "BluePotion.h"
 #include <GameEngineBase/GameEngineWindow.h>
@@ -444,6 +445,8 @@ void Nick::DeathUpdate()
 	if (Life::LifeUI_ < 0)
 	{
 		BgmPlayer_.Stop();
+		Life::LifeUI_ = 2;
+		Score::ScoreUI_ = 0;
 		GameEngine::GetInst().ChangeLevel("GameOver");
 	}
 }

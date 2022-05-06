@@ -362,6 +362,7 @@ void Nick::FloorOut()
 		if (NextFloorTime_ <= 0)
 		{
 			ChangeState(NickState::NEXTFLOOR);
+			NextFloorTime_ = 5.0f;
 			return;
 		}
 	}
