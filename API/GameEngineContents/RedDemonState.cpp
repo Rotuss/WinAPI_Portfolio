@@ -585,6 +585,21 @@ void RedDemon::Snow3Update()
 		ChangeState(RedDemonState::SNOWBALL);
 		return;
 	}
+	
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	float4 CheckPos = NextPos + float4(0.0f, 44.0f);
+
+	int Color = FloorColImage_->GetImagePixel(CheckPos);
+	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 0.0f));
+	if (RGB(0, 0, 0) != Color)
+	{
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+	if (RGB(255, 255, 255) == DColor)
+	{
+		MoveDir_ = float4::DOWN * 2.0f;
+		return;
+	}
 }
 
 void RedDemon::SnowBallUpdate()
