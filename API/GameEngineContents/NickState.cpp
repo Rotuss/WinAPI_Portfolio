@@ -473,6 +473,7 @@ void Nick::IdleStart()
 			ChangeDirText_ = "Right";
 		}
 		NickAnimationRender_->ChangeAnimation("RP_Idle_" + ChangeDirText_);
+		NickAnimationRender_->SetPivot({ 0,0 });
 		return;
 	}
 	
@@ -482,6 +483,7 @@ void Nick::IdleStart()
 		ChangeDirText_ = "Right";
 	}
 	NickAnimationRender_->ChangeAnimation(AnimationName_ + ChangeDirText_);
+	NickAnimationRender_->SetPivot({ 0,0 });
 }
 
 void Nick::MoveStart()
@@ -551,8 +553,9 @@ void Nick::AppearStart()
 	AppearCheck_ = true;
 	AnimationName_ = "Appear";
 	NickAnimationRender_->ChangeAnimation(AnimationName_);
+	NickAnimationRender_->SetPivot({ 20,-17 });
 
-	MainPlayer->SetPosition({ 400,710 });
+	MainPlayer->SetPosition({ 400,727 });
 }
 
 void Nick::DeathStart()

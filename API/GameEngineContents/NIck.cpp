@@ -226,6 +226,7 @@ void Nick::Start()
 	//NickAnimationRender_->CreateFolderAnimation("Æú´õ¸í", "Walk_Right", 0, 3, 0.1f, true);
 	NickAnimationRender_->ChangeAnimation("Appear");
 	NickAnimationRender_->SetPivotType(RenderPivot::CENTER);
+	NickAnimationRender_->SetPivot({20,-17});
 
 	AnimationName_ = "Idle_";
 	CurrentDir_ = NickDir::RIGHT;

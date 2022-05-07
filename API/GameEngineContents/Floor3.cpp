@@ -74,7 +74,7 @@ void Floor3::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 	{
 		Nick* Player = CreateActor<Nick>(10);
-		Player->SetPosition({ 400,710 });
+		Player->SetPosition({ 400,727 });
 	}
 
 	{
