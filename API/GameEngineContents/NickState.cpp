@@ -417,6 +417,12 @@ void Nick::PushUpdate()
 
 void Nick::AppearUpdate()
 {
+	if (true == AppearCheck_)
+	{
+		GameEngineSound::SoundPlayOneShot("Appear_effect(9).mp3", 0);
+		AppearCheck_ = false;
+	}
+	
 	AppTime_ -= GameEngineTime::GetDeltaTime();
 	if (0.0f >= AppTime_)
 	{
@@ -542,7 +548,7 @@ void Nick::PushStart()
 
 void Nick::AppearStart()
 {
-	GameEngineSound::SoundPlayOneShot("Appear_effect(9).mp3", 0);
+	AppearCheck_ = true;
 	AnimationName_ = "Appear";
 	NickAnimationRender_->ChangeAnimation(AnimationName_);
 

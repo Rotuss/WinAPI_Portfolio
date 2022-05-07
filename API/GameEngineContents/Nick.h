@@ -64,10 +64,9 @@ private:
 	float	Speed_;
 	float	RPSpeed_;
 	float	PushSpeed_;
-	//float	Gravity_;
-	//float	AccGravity_;
 	int		LifeCount_;
 	bool	NoDamageCheck_;
+	bool	AppearCheck_;
 
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	PlayerCollision_;

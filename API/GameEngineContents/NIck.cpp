@@ -27,6 +27,7 @@ Nick::Nick()
 	, DTime_(0.5f)
 	, LifeCount_(2)
 	, NoDamageCheck_(true)
+	, AppearCheck_(true)
 {
 }
 

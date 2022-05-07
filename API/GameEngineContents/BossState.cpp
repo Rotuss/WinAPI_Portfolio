@@ -1,6 +1,7 @@
 #include "Boss.h"
 #include "Son.h"
 #include "Score.h"
+#include "Nick.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -60,6 +61,7 @@ void Boss::IdleUpdate()
 	}
 	if (true == BossHeadCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		GameEngineSound::SoundPlayOneShot("BossHeadDamage_Effect(17).mp3", 0);
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -108,6 +110,7 @@ void Boss::JumpUpdate()
 	}
 	if (true == BossHeadCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		GameEngineSound::SoundPlayOneShot("BossHeadDamage_Effect(17).mp3", 0);
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -170,6 +173,7 @@ void Boss::AttackUpdate()
 	}
 	if (true == BossHeadCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		GameEngineSound::SoundPlayOneShot("BossHeadDamage_Effect(17).mp3", 0);
 		DamageCount_ -= 1;
 		if (DamageCount_ <= 0)
 		{
@@ -317,6 +321,7 @@ void Boss::AttackStart()
 
 void Boss::DefeatedStart()
 {
+	Nick::BgmPlayer_.Stop();
 	BossCollision_->Off();
 	BossHeadCollision_->Off();
 	AnimationName_ = "Jump";
