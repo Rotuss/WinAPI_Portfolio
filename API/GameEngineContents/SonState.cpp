@@ -375,6 +375,17 @@ void Son::SnowBallUpdate()
 		MoveDir_.x = 1.f;
 	}
 
+	if (true == SonSnowBallCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
+		Death();
+	}
+	if (true == SonSnowBallCollision_->CollisionCheck("BossHeadHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
+		Death();
+	}
+	
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * 600);
 	float4 CheckBotPos = NextPos + float4(0.0f, 45.0f);
 	float4 CheckRightPos = NextPos + float4(15.0f, 0.0f);

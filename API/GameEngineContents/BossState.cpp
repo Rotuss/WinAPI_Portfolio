@@ -191,13 +191,52 @@ void Boss::AttackUpdate()
 	
 	float4 CheckPos = GetPosition() + float4(0.0f, 130.0f);
 	
-	int Color = FloorColImage_->GetImagePixel(CheckPos);
-	if (RGB(0, 0, 0) == Color)
+	int Color = FloorColImage_->GetImagePixel(CheckPos + float4(100.0f, 0.0f));
+	int CColor = FloorColImage_->GetImagePixel(CheckPos + float4(100.0f,-3.0f));
+	int BColor = FloorColImage_->GetImagePixel(CheckPos + float4(100.0f, 130.0f));
+	int RColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 115.0f, 0.0f });
+	int LColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ -115.0f, 0.0f });
+	if (RGB(0, 0, 0) == Color && RGB(255,255,255) == BColor)
+	{
+		if (false == AttackMoveCheck_ && RGB(255, 255, 255) == CColor)
+		{
+			MoveDir_.y = 0.0f;
+			ChangeState(BossState::IDLE);
+			AttackMoveCheck_ = true;
+			return;
+		}
+		else if (true == AttackMoveCheck_)
+		{
+			return;
+		}
+	}
+	else if (RGB(0, 0, 0) == Color && RGB(0, 0, 0) == BColor)
 	{
 		MoveDir_.y = 0.0f;
+		AttackMoveCheck_ = false;
 		ChangeState(BossState::IDLE);
-		
+
 		return;
+	}
+
+	if (RGB(0, 0, 255) == RColor)
+	{
+		CurrentDir_ = BossDir::LEFT;
+		MoveDir_.x = -1.f * 10.0f;
+	}
+	if (RGB(0, 0, 255) == LColor)
+	{
+		CurrentDir_ = BossDir::RIGHT;
+		MoveDir_.x = 1.f * 10.0f;
+	}
+
+	if (CurrentDir_ == BossDir::LEFT)
+	{
+		MoveDir_.x = -1.f * 10.0f;
+	}
+	if (CurrentDir_ == BossDir::RIGHT)
+	{
+		MoveDir_.x = 1.f * 10.0f;
 	}
 }
 
@@ -235,9 +274,15 @@ void Boss::DefeatedUpdate()
 
 void Boss::DeathUpdate()
 {
+	DeathTime_ -= GameEngineTime::GetDeltaTime();
 	if (true == BossDeathCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
+	}
+
+	if (DeathTime_ <= 0)
+	{
+		Death();
 	}
 }
 

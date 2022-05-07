@@ -49,9 +49,7 @@ private:
 	float	DefeatedTime2_;
 	float	DeathTime_;
 	float	Speed_;
-	float	AccSpeed_;
-	float	Gravity_;
-	float	AccGravity_;
+	bool	AttackMoveCheck_;
 	bool	DeathCheck_;
 	int		DamageCount_;
 	int		JumpCount_;

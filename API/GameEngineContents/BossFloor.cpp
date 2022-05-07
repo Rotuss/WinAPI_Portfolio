@@ -66,7 +66,7 @@ void BossFloor::LevelChangeStart(GameEngineLevel* _PrevLevel)
 		Boss* Boss1 = CreateActor<Boss>((int)ORDER::BOSS);
 		Boss1->SetPosition({ 800,0 });
 
-		Enemycount_ = 1;
+		Enemycount_ = 2;
 	}
 }
 

@@ -17,7 +17,9 @@ Boss::Boss()
 	, AttackTime_(3.0f)
 	, DefeatedTime1_(1.0f)
 	, DefeatedTime2_(1.0f)
-	, DamageCount_(3)
+	, DeathTime_(10.0f)
+	, AttackMoveCheck_(true)
+	, DamageCount_(30)
 	, JumpCount_(5)
 {
 }
