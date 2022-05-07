@@ -1,5 +1,5 @@
 #include "Boss.h"
-// son.h
+#include "Son.h"
 #include "Score.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -265,6 +265,9 @@ void Boss::AttackStart()
 	BossAnimationRender_->ChangeAnimation(AnimationName_);
 
 	MoveDir_ = float4::UP * 800.0f;
+
+	Son* Ptr = GetLevel()->CreateActor<Son>();
+	Ptr->SetPosition(GetPosition());
 }
 
 void Boss::DefeatedStart()

@@ -79,8 +79,7 @@ void SnowBullet::Update()
 	ResultDir += SnowBulletDir_ * GameEngineTime::GetDeltaTime() * XSpeed_;
 	Time -= GameEngineTime::GetDeltaTime();
 	
-	if (true == BulletCollision_->CollisionCheck("RedDemonHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == BulletCollision_->CollisionCheck("FrogHitBox", CollisionType::RECT, CollisionType::RECT)
+	if (true == BulletCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == BulletCollision_->CollisionCheck("SnowBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == BulletCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == BulletCollision_->CollisionCheck("BossHeadHitBox", CollisionType::RECT, CollisionType::RECT)

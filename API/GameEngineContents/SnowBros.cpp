@@ -291,7 +291,21 @@ void SnowBros::GameInit()
 
 	// Son
 	{
+		GameEngineImage*
+		Image = GameEngineImageManager::GetInst()->Find("Son_Down_Right.bmp");
+		Image->Cut({ 64, 64 });
+		Image = GameEngineImageManager::GetInst()->Find("Son_Down_Left.bmp");
+		Image->Cut({ 64, 64 });
 
+		Image = GameEngineImageManager::GetInst()->Find("Son_Landing_Right.bmp");
+		Image->Cut({ 80, 64 });
+		Image = GameEngineImageManager::GetInst()->Find("Son_Landing_Left.bmp");
+		Image->Cut({ 80, 64 });
+
+		Image = GameEngineImageManager::GetInst()->Find("Son_Move_Right.bmp");
+		Image->CutCount(2, 1);
+		Image = GameEngineImageManager::GetInst()->Find("Son_Move_Left.bmp");
+		Image->CutCount(2, 1);
 	}
 	
 	// Snow

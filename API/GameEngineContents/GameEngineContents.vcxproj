@@ -168,6 +168,7 @@
     <ClInclude Include="Boss.h" />
     <ClInclude Include="BossEnterLevel.h" />
     <ClInclude Include="BossFloor.h" />
+    <ClInclude Include="Son.h" />
     <ClInclude Include="Cake.h" />
     <ClInclude Include="Candy.h" />
     <ClInclude Include="ContentsEnums.h" />
@@ -206,6 +207,8 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossEnterLevel.cpp" />
     <ClCompile Include="BossFloor.cpp" />
+    <ClCompile Include="Son.cpp" />
+    <ClCompile Include="SonState.cpp" />
     <ClCompile Include="BossState.cpp" />
     <ClCompile Include="Cake.cpp" />
     <ClCompile Include="Candy.cpp" />
