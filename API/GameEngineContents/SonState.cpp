@@ -545,7 +545,7 @@ void Son::SnowBallStart()
 	SonAnimationRender_->ChangeAnimation(AnimationName_);
 	SonAnimationRender_->SetPivot({ 0,0 });
 
-	SonSnowBallCollision_ = CreateCollision("SnowBallColBox", { 90, 90 });
+	SonSnowBallCollision_ = CreateCollision("SnowBallColBox", { 60, 60 });
 	SonSnowBallRCollision_ = CreateCollision("SnowBallRColBox", { 5, 10 }, { -15, 0 });
 	SonSnowBallLCollision_ = CreateCollision("SnowBallLColBox", { 5, 10 }, { 15, 0 });
 }

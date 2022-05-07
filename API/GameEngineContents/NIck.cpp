@@ -190,7 +190,7 @@ void Nick::Start()
 	//SetScale({ 50,50 });
 
 	// 콜리전 히트박스
-	PlayerCollision_ = CreateCollision("PlayerHitBox", {68, 100});
+	PlayerCollision_ = CreateCollision("PlayerHitBox", {50, 85});
 
 	// 애니메이션
 	NickAnimationRender_ = CreateRenderer();

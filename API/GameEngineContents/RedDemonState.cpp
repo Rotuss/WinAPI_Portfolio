@@ -879,7 +879,7 @@ void RedDemon::SnowBallStart()
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 	RedDemonAnimationRender_->SetPivot({ 0,0 });
 
-	RedDemonSnowBallCollision_ = CreateCollision("SnowBallColBox", { 90, 90 });
+	RedDemonSnowBallCollision_ = CreateCollision("SnowBallColBox", { 60, 60 });
 	RedDemonSnowBallRCollision_ = CreateCollision("SnowBallRColBox", { 5, 10 }, { -15, 0 });
 	RedDemonSnowBallLCollision_ = CreateCollision("SnowBallLColBox", { 5, 10 }, { 15, 0 });
 }

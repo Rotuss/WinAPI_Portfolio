@@ -947,7 +947,7 @@ void Frog::SnowBallStart()
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 	FrogAnimationRender_->SetPivot({ 0,0 });
 
-	FrogSnowBallCollision_ = CreateCollision("SnowBallColBox", { 90, 90 });
+	FrogSnowBallCollision_ = CreateCollision("SnowBallColBox", { 60, 60 });
 	FrogSnowBallRCollision_ = CreateCollision("SnowBallRColBox", { 5, 10 }, { -15, 0 });
 	FrogSnowBallLCollision_ = CreateCollision("SnowBallLColBox", { 5, 10 }, { 15, 0 });
 }

@@ -95,8 +95,8 @@ void Boss::StateUpdate()
 
 void Boss::Start()
 {
-	BossCollision_ = CreateCollision("BossHitBox", { 224,160 }, { 0,60 });
-	BossHeadCollision_ = CreateCollision("BossHeadHitBox", { 150,125 }, { -37,-82 });
+	BossCollision_ = CreateCollision("BossHitBox", { 180,160 }, { 0,60 });
+	BossHeadCollision_ = CreateCollision("BossHeadHitBox", { 120,110 }, { -45,-75 });
 
 	BossAnimationRender_ = CreateRenderer();
 

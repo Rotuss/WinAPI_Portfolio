@@ -38,7 +38,7 @@ void FrogFire::DirFireCheck()
 void FrogFire::Start()
 {
 	CollisionFloorCheck();
-	FireCollision_ = CreateCollision("FireHitBox", { 96, 64 });
+	FireCollision_ = CreateCollision("FireHitBox", { 70, 45 });
 
 	FireAnimationRender_ = CreateRenderer();
 	FireAnimationRender_->CreateAnimation("FrogFire_Left.bmp", "FrogFire_Left", 0, 0, 0.0f, false);

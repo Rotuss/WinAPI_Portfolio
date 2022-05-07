@@ -159,7 +159,7 @@ void Frog::StateUpdate()
 
 void Frog::Start()
 {
-	FrogCollision_ = CreateCollision("EnemyHitBox", { 96, 104 });
+	FrogCollision_ = CreateCollision("EnemyHitBox", { 55, 90 });
 
 	// 애니메이션
 	FrogAnimationRender_ = CreateRenderer();

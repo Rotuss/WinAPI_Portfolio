@@ -13,7 +13,7 @@ BluePotion::~BluePotion()
 
 void BluePotion::Start()
 {
-	BluePotionCollision_ = CreateCollision("BluePotionHitBox", { 50,50 });
+	BluePotionCollision_ = CreateCollision("BluePotionHitBox", { });
 
 	Actor_ = CreateRenderer();
 	Actor_->CreateAnimation("BluePotion.bmp", "BluePotion", 0, 3, 0.2f, true);

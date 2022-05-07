@@ -873,7 +873,7 @@ void YellowTroll::SnowBallStart()
 	YellowTrollAnimationRender_->ChangeAnimation(AnimationName_);
 	YellowTrollAnimationRender_->SetPivot({ 0,0 });
 
-	YellowTrollSnowBallCollision_ = CreateCollision("SnowBallColBox", { 90, 90 });
+	YellowTrollSnowBallCollision_ = CreateCollision("SnowBallColBox", { 60, 60 });
 	YellowTrollSnowBallRCollision_ = CreateCollision("SnowBallRColBox", { 5, 10 }, { -15, 0 });
 	YellowTrollSnowBallLCollision_ = CreateCollision("SnowBallLColBox", { 5, 10 }, { 15, 0 });
 }

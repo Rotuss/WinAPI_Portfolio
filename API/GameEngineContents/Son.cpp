@@ -120,7 +120,7 @@ void Son::StateUpdate()
 
 void Son::Start()
 {
-	SonCollision_ = CreateCollision("EnemyHitBox", { 64, 64 });
+	SonCollision_ = CreateCollision("EnemyHitBox", { 64, 80 });
 
 	// 애니메이션
 	SonAnimationRender_ = CreateRenderer();

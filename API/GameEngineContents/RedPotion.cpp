@@ -13,7 +13,7 @@ RedPotion::~RedPotion()
 
 void RedPotion::Start()
 {
-	RedPotionCollision_ = CreateCollision("RedPotionHitBox", {50,50});
+	RedPotionCollision_ = CreateCollision("RedPotionHitBox", { });
 
 	Actor_ = CreateRenderer();
 	Actor_->CreateAnimation("RedPotion.bmp", "RedPotion", 0, 3, 0.2f, true);
