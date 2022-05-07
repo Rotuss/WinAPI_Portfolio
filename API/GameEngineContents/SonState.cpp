@@ -20,18 +20,19 @@ void Son::StartUpdate()
 
 	if (0.0f >= Time)
 	{
-		StartDir += float4::DOWN * 200.0f * GameEngineTime::GetDeltaTime();
+		StartDir += float4::DOWN * 300.0f * GameEngineTime::GetDeltaTime();
+
+		int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
+		int CColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 35.0f });
+		if (RGB(0, 0, 0) == Color && RGB(255,255,255) == CColor)
+		{
+			MoveDir_ = float4::ZERO;
+			ChangeState(SonState::LANDING);
+			return;
+		}
 	}
 	
 	SetMove(StartDir);
-
-	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
-	if (RGB(0, 0, 0) == Color)
-	{
-		MoveDir_ = float4::ZERO;
-		ChangeState(SonState::LANDING);
-		return;
-	}
 }
 
 void Son::MoveUpdate()
