@@ -159,6 +159,8 @@ void RedDemon::StateUpdate()
 void RedDemon::Start()
 {
 	RedDemonCollision_ = CreateCollision("EnemyHitBox", { 80, 80 });
+	RedDemonSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
+	RedDemonSnowCollision_->Off();
 
 	RedDemonAnimationRender_ = CreateRenderer();
 

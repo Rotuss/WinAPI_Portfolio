@@ -121,6 +121,8 @@ void Son::StateUpdate()
 void Son::Start()
 {
 	SonCollision_ = CreateCollision("EnemyHitBox", { 64, 80 });
+	SonSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
+	SonSnowCollision_->Off();
 
 	// 애니메이션
 	SonAnimationRender_ = CreateRenderer();

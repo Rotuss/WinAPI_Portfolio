@@ -151,6 +151,8 @@ void YellowTroll::StateUpdate()
 void YellowTroll::Start()
 {
 	YellowTrollCollision_ = CreateCollision("EnemyHitBox", { 70, 90 });
+	YellowTrollSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
+	YellowTrollSnowCollision_->Off();
 
 	// 애니메이션
 	YellowTrollAnimationRender_ = CreateRenderer();

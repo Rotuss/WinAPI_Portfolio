@@ -842,7 +842,7 @@ void RedDemon::Snow1Start()
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 	RedDemonAnimationRender_->SetPivot({ 0,20.0f });
 
-	RedDemonSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
+	RedDemonSnowCollision_->On();
 
 	DamageCount_ = 2;
 	MeltingTime_ = 3.0f;

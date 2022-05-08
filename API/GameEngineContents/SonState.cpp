@@ -471,6 +471,7 @@ void Son::StartStart()
 
 void Son::MoveStart()
 {
+	SonSnowCollision_->Off();
 	AnimationName_ = "Move_";
 	if ("" == ChangeDirText_)
 	{
@@ -508,7 +509,7 @@ void Son::Snow1Start()
 	SonAnimationRender_->ChangeAnimation(AnimationName_);
 	SonAnimationRender_->SetPivot({ 0,20.0f });
 
-	SonSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
+	SonSnowCollision_->On();
 
 	DamageCount_ = 2;
 	MeltingTime_ = 3.0f;

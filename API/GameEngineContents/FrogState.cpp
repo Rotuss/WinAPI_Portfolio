@@ -910,7 +910,7 @@ void Frog::Snow1Start()
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 	FrogAnimationRender_->SetPivot({ 0,20.0f });
 
-	FrogSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
+	FrogSnowCollision_->On();
 
 	DamageCount_ = 2;
 	MeltingTime_ = 3.0f;

@@ -836,7 +836,7 @@ void YellowTroll::Snow1Start()
 	YellowTrollAnimationRender_->ChangeAnimation(AnimationName_);
 	YellowTrollAnimationRender_->SetPivot({ 0,20.0f });
 
-	YellowTrollSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
+	YellowTrollSnowCollision_->On();
 
 	DamageCount_ = 2;
 	MeltingTime_ = 3.0f;

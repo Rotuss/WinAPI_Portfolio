@@ -160,6 +160,8 @@ void Frog::StateUpdate()
 void Frog::Start()
 {
 	FrogCollision_ = CreateCollision("EnemyHitBox", { 55, 90 });
+	FrogSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
+	FrogSnowCollision_->Off();
 
 	// 애니메이션
 	FrogAnimationRender_ = CreateRenderer();
