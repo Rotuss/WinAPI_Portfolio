@@ -19,7 +19,7 @@
 #include <GameEngine/GameEngineCollision.h>
 
 Son::Son()
-	: Time(0.42f)
+	: Time(0.8f)
 	, MoveDir_(float4::ZERO)
 	, LandingTime_(0.1f)
 	, MeltingTime_(3.0f)

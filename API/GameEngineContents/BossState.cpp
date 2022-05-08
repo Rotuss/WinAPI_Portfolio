@@ -157,9 +157,19 @@ void Boss::JumpUpdate()
 void Boss::AttackUpdate()
 {
 	// 점프가 높음
+	GameEngineRandom RandomValue_;
+	SonNum_ = RandomValue_.RandomInt(1, 3);
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 
+	if (true == AttackStart3_ && 3 == SonNum_)
+	{
+		Son* Ptr = GetLevel()->CreateActor<Son>();
+		Ptr->SetPosition(GetPosition());
+
+		SonNum_ -= 1;
+		AttackStart3_ = false;
+	}
 	if (true == BossCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 10;
@@ -193,10 +203,19 @@ void Boss::AttackUpdate()
 		}
 	}
 	
+	if (true == AttackStart2_ && 2 == SonNum_)
+	{
+		Son* Ptr = GetLevel()->CreateActor<Son>();
+		Ptr->SetPosition(GetPosition());
+
+		SonNum_ -= 1;
+		AttackStart2_ = false;
+	}
+	
 	float4 CheckPos = GetPosition() + float4(0.0f, 130.0f);
 	
 	int Color = FloorColImage_->GetImagePixel(CheckPos + float4(100.0f, 0.0f));
-	int CColor = FloorColImage_->GetImagePixel(CheckPos + float4(100.0f,-3.0f));
+	int CColor = FloorColImage_->GetImagePixel(CheckPos + float4(100.0f,-5.0f));
 	int BColor = FloorColImage_->GetImagePixel(CheckPos + float4(100.0f, 130.0f));
 	int RColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 115.0f, 0.0f });
 	int LColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ -115.0f, 0.0f });
@@ -241,6 +260,15 @@ void Boss::AttackUpdate()
 	if (CurrentDir_ == BossDir::RIGHT)
 	{
 		MoveDir_.x = 1.f * 10.0f;
+	}
+
+	if (true == AttackStart1_ && 1 == SonNum_)
+	{
+		Son* Ptr = GetLevel()->CreateActor<Son>();
+		Ptr->SetPosition(GetPosition());
+
+		SonNum_ -= 1;
+		AttackStart1_ = false;
 	}
 }
 
@@ -310,13 +338,16 @@ void Boss::JumpStart()
 
 void Boss::AttackStart()
 {
+	AttackStart1_ = true;
+	AttackStart2_ = true;
+	AttackStart3_ = true;
 	AnimationName_ = "Jump";
 	BossAnimationRender_->ChangeAnimation(AnimationName_);
 
 	MoveDir_ = float4::UP * 800.0f;
 
-	Son* Ptr = GetLevel()->CreateActor<Son>();
-	Ptr->SetPosition(GetPosition());
+	//Son* Ptr = GetLevel()->CreateActor<Son>();
+	//Ptr->SetPosition(GetPosition());
 }
 
 void Boss::DefeatedStart()
@@ -328,7 +359,8 @@ void Boss::DefeatedStart()
 	BossAnimationRender_->ChangeAnimation(AnimationName_);
 	BossAnimationRender_->SetPivot({ 0, -50 });
 
-	BossDeathCollision_ = CreateCollision("BossDeathBox", { 250,190 });
+	BossDeathCollision_ = CreateCollision("BossDeathBox", { 150,190 });
+	BossDeathCollision_->SetPivot({ 50,50 });
 }
 
 void Boss::DeathStart()

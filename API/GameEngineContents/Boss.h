@@ -50,8 +50,12 @@ private:
 	float	DefeatedTime2_;
 	float	DeathTime_;
 	float	Speed_;
+	bool	AttackStart1_;
+	bool	AttackStart2_;
+	bool	AttackStart3_;
 	bool	AttackMoveCheck_;
 	bool	DeathCheck_;
+	int		SonNum_;
 	int		DamageCount_;
 	int		JumpCount_;
 
