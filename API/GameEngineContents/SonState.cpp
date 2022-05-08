@@ -46,6 +46,29 @@ void Son::StartUpdate()
 	}
 	
 	SetMove(StartDir);
+
+	if (true == SonCollision_->CollisionCheck("BulletHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 10;
+		if (false == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 1;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(SonState::SNOW1);
+				return;
+			}
+		}
+		else if (true == BluePotion::BPCheck_)
+		{
+			DamageCount_ -= 2;
+			if (DamageCount_ <= 0)
+			{
+				ChangeState(SonState::SNOW1);
+				return;
+			}
+		}
+	}
 }
 
 void Son::MoveUpdate()

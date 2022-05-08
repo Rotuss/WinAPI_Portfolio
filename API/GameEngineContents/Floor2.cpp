@@ -33,6 +33,23 @@ void Floor2::Loading()
 
 void Floor2::Update()
 {
+	if (true == LogoShow_)
+	{
+		LogoActor = CreateActor<FloorLogo>(2);
+		LogoActor->GetRenderer()->SetImage("Floor02_Logo.bmp");
+		LogoActor->GetRenderer()->SetPivot({ GameEngineWindow::GetScale().Half().x,GameEngineWindow::GetScale().Half().y - 25.f });
+
+		LogoShow_ = false;
+	}
+	else if (false == LogoShow_)
+	{
+		LogoTime_ -= GameEngineTime::GetDeltaTime();
+		if (LogoTime_ <= 0)
+		{
+			LogoActor->Off();
+		}
+	}
+	
 	if (0 == Enemycount_)
 	{
 		NextFloorTime_ -= GameEngineTime::GetDeltaTime();
@@ -57,6 +74,8 @@ void Floor2::Update()
 
 void Floor2::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
+	LogoTime_ = 2.0f;
+	LogoShow_ = true;
 	CameraCheck_ = true;
 	if (GetCameraPos().y <= -896)
 	{

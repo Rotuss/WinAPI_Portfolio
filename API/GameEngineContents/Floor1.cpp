@@ -32,7 +32,6 @@ void Floor1::Loading()
 
 void Floor1::Update()
 {
-	/*
 	if (true == LogoShow_)
 	{
 		LogoActor = CreateActor<FloorLogo>(2);
@@ -49,7 +48,6 @@ void Floor1::Update()
 			LogoActor->Off();
 		}
 	}
-	*/
 	
 	if (0 == Enemycount_)
 	{
@@ -74,6 +72,9 @@ void Floor1::Update()
 
 void Floor1::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
+	LogoTime_ = 2.0f;
+	LogoShow_ = true;
+	
 	Nick::BgmPlayer_ = GameEngineSound::SoundPlayControl("SnowBros_Floor_Track.mp3");
 	Time_ = 5.0f;
 	CameraCheck_ = true;
