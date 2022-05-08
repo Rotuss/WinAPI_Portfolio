@@ -1,5 +1,7 @@
 #include "Nick.h"
 #include "SnowBullet.h"
+#include "RedPotion.h"
+#include "BluePotion.h"
 #include "SnowLevel.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -183,6 +185,20 @@ void Nick::NoDamage()
 	}
 }
 
+void Nick::PotionButton()
+{
+	if (true == GameEngineInput::GetInst()->IsDown("R_Potion"))
+	{
+		RedPotion* RPActor = GetLevel()->CreateActor<RedPotion>(1);
+		RPActor->SetPosition(GameEngineWindow::GetScale().Half() + float4({ -150,279 }));
+	}
+	if (true == GameEngineInput::GetInst()->IsDown("B_Potion"))
+	{
+		BluePotion* BPActor = GetLevel()->CreateActor<BluePotion>(1);
+		BPActor->SetPosition(GameEngineWindow::GetScale().Half() + float4({ 150,279 }));
+	}
+}
+
 void Nick::Start()
 {
 	// Nick에서 위치를 정하는 것이 아닌, 각 Floor에서 지정해야하므로 여기서 구현하는 것이 아님. 각 Floor에서 작업
@@ -259,6 +275,7 @@ void Nick::Update()
 	StateUpdate();
 	NoDamage();
 	FloorOut();
+	PotionButton();
 	//GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half());
 	//CameraLock();
 	// 중력 적용 => 뮨제?(중력 적용하여 땅에 닿을 경우 좌우 움직임이 막혀 움직일 수 없음)

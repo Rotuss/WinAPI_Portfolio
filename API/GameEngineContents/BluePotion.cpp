@@ -1,4 +1,6 @@
 #include "BluePotion.h"
+#include "Score.h"
+#include "ScoreMoveUp.h"
 #include <GameEngineBase/GameEngineTime.h>
 
 bool BluePotion::BPCheck_ = false;
@@ -33,6 +35,14 @@ void BluePotion::Update()
 	if (true == BluePotionCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		GameEngineSound::SoundPlayOneShot("Item_Effect(10).mp3", 0);
+		if (true == BPCheck_)
+		{
+			ScoreMoveUp* ScoreImage_ = GetLevel()->CreateActor<ScoreMoveUp>(5);
+			ScoreImage_->SetPosition(GetPosition());
+			ScoreImage_->Type_ = 1000;
+			Score::ScoreUI_ += 1000;
+		}
+		
 		BPCheck_ = true;
 		Death();
 	}

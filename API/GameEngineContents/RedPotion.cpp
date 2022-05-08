@@ -1,4 +1,6 @@
 #include "RedPotion.h"
+#include "Score.h"
+#include "ScoreMoveUp.h"
 #include <GameEngineBase/GameEngineTime.h>
 
 bool RedPotion::RPCheck_ = false;
@@ -33,6 +35,14 @@ void RedPotion::Update()
 	if (true == RedPotionCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		GameEngineSound::SoundPlayOneShot("Item_Effect(10).mp3", 0);
+		if (true == RPCheck_)
+		{
+			ScoreMoveUp* ScoreImage_ = GetLevel()->CreateActor<ScoreMoveUp>(5);
+			ScoreImage_->SetPosition(GetPosition());
+			ScoreImage_->Type_ = 1000;
+			Score::ScoreUI_ += 1000;
+		}
+		
 		RPCheck_ = true;
 		Death();
 	}

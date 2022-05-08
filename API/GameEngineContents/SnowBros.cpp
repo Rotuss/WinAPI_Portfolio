@@ -71,6 +71,8 @@ void SnowBros::GameInit()
 		GameEngineInput::GetInst()->CreateKey("Left", VK_LEFT);
 		GameEngineInput::GetInst()->CreateKey("Right", VK_RIGHT);
 		GameEngineInput::GetInst()->CreateKey("Debug", '0');
+		GameEngineInput::GetInst()->CreateKey("R_Potion", 'N');
+		GameEngineInput::GetInst()->CreateKey("B_Potion", 'M');
 	}
 
 	// Level

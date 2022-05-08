@@ -50,6 +50,7 @@ public:
 	void StateUpdate();
 	void DirAnimationCheck();
 	void NoDamage();
+	void PotionButton();
 
 	float NextFloorTime_;
 
