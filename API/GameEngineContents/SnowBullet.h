@@ -7,6 +7,8 @@ enum class BulletDir
 	RIGHT,
 };
 // Ό³Έν : 
+class GameEngineImage;
+class GameEngineCollision;
 class SnowBullet : public GameEngineActor
 {
 public:
@@ -37,6 +39,8 @@ protected:
 private:
 	void Start() override;
 	void Update() override;
+	
+	void CollisionFloorCheck();
 
 	float XSpeed_;
 	float YSpeed_;
@@ -44,9 +48,10 @@ private:
 	float4 SnowBulletDir_;
 	float4 YDir_;
 
-	GameEngineCollision* BulletCollision_;
-	GameEngineRenderer* BulletAnimationRender_;
-	BulletDir BCurrentDir_;
-	std::string ChangeBDirText_;
+	GameEngineImage*		FloorColImage_;
+	GameEngineCollision*	BulletCollision_;
+	GameEngineRenderer*		BulletAnimationRender_;
+	BulletDir				BCurrentDir_;
+	std::string				ChangeBDirText_;
 };
 

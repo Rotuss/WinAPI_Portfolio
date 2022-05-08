@@ -68,6 +68,7 @@ private:
 	int		LifeCount_;
 	bool	NoDamageCheck_;
 	bool	AppearCheck_;
+	bool	DeathShowOn_;
 
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	PlayerCollision_;

@@ -36,7 +36,8 @@ void Nick::IdleUpdate()
 
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT) 
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("BossHeadHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ChangeState(NickState::DEATH);
 		return;
@@ -86,7 +87,8 @@ void Nick::MoveUpdate()
 
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("BossHeadHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ChangeState(NickState::DEATH);
 		return;
@@ -167,7 +169,8 @@ void Nick::JumpUpdate()
 
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("BossHeadHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ChangeState(NickState::DEATH);
 		return;
@@ -218,7 +221,8 @@ void Nick::DownUpdate()
 
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("BossHeadHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ChangeState(NickState::DEATH);
 		return;
@@ -289,7 +293,14 @@ void Nick::AttackUpdate()
 
 		if (RGB(0, 0, 0) != BotColor && CurrentState_ != NickState::JUMP)
 		{
-			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+			if (false == RedPotion::RPCheck_)
+			{
+				SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+			}
+			else if (true == RedPotion::RPCheck_)
+			{
+				SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * RPSpeed_);
+			}
 		}
 		if (RGB(0, 0, 0) == RightColor || RGB(0, 0, 0) == LeftColor)
 		{
@@ -392,7 +403,8 @@ void Nick::PushUpdate()
 
 	if (true == PlayerCollision_->CollisionCheck("EnemyHitBox", CollisionType::RECT, CollisionType::RECT)
 		|| true == PlayerCollision_->CollisionCheck("FireHitBox", CollisionType::RECT, CollisionType::RECT)
-		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
+		|| true == PlayerCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT)
+		|| true == PlayerCollision_->CollisionCheck("BossHeadHitBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		ChangeState(NickState::DEATH);
 		return;
@@ -438,22 +450,31 @@ void Nick::AppearUpdate()
 void Nick::DeathUpdate()
 {
 	DTime_ -= GameEngineTime::GetDeltaTime();
-	if (0.0f >= DTime_)
+	if (0.8f >= DTime_ && true == DeathShowOn_)
 	{
 		if (true == IsMoveKey())
 		{
 			return;
 		}
-		ChangeState(NickState::APPEAR);
-		DTime_ = 0.5f;
+		NickAnimationRender_->Off();
+		DeathShowOn_ = false;
 	}
-
-	if (Life::LifeUI_ < 0)
+	else if (0 >= DTime_ && false == DeathShowOn_)
 	{
-		BgmPlayer_.Stop();
-		Life::LifeUI_ = 2;
-		Score::ScoreUI_ = 0;
-		GameEngine::GetInst().ChangeLevel("GameOver");
+		if (true == IsMoveKey())
+		{
+			return;
+		}
+		
+		if (Life::LifeUI_ < 0)
+		{
+			BgmPlayer_.Stop();
+			Life::LifeUI_ = 2;
+			Score::ScoreUI_ = 0;
+			GameEngine::GetInst().ChangeLevel("GameOver");
+		}
+		ChangeState(NickState::APPEAR);
+		DTime_ = 1.5f;
 	}
 }
 
@@ -550,6 +571,7 @@ void Nick::PushStart()
 
 void Nick::AppearStart()
 {
+	NickAnimationRender_->On();
 	AppearCheck_ = true;
 	AnimationName_ = "Appear";
 	NickAnimationRender_->ChangeAnimation(AnimationName_);
@@ -560,6 +582,7 @@ void Nick::AppearStart()
 
 void Nick::DeathStart()
 {
+	DeathShowOn_ = true;
 	GameEngineSound::SoundPlayOneShot("Death_Effect(7).mp3", 0);
 	AnimationName_ = "Death";
 	NickAnimationRender_->ChangeAnimation(AnimationName_);

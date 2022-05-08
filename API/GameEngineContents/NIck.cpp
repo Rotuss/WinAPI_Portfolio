@@ -26,10 +26,11 @@ Nick::Nick()
 	//, Gravity_(100.0f)
 	, Time_(0.0f)
 	, AppTime_(1.0f)
-	, DTime_(0.5f)
+	, DTime_(1.5f)
 	, LifeCount_(2)
 	, NoDamageCheck_(true)
 	, AppearCheck_(true)
+	, DeathShowOn_(true)
 {
 }
 
@@ -230,7 +231,7 @@ void Nick::Start()
 	NickAnimationRender_->CreateAnimation("Nick_Push_Left.bmp", "Push_Left", 0, 2, 0.1f, true);
 
 	NickAnimationRender_->CreateAnimation("Appear.bmp", "Appear", 0, 3, 0.1f, true);
-	NickAnimationRender_->CreateAnimation("Nick_Death.bmp", "Death", 0, 2, 0.1f, false);
+	NickAnimationRender_->CreateAnimation("Nick_Death.bmp", "Death", 0, 2, 0.2f, false);
 	
 	// PotionState
 	NickAnimationRender_->CreateAnimation("Nick_RP_Idle_Right.bmp", "RP_Idle_Right", 0, 1, 0.1f, true);
