@@ -73,6 +73,7 @@ void Floor3::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	LogoTime_ = 2.0f;
 	LogoShow_ = true;
+	NextFloorTime_ = 5.0f;
 	{
 		BackGround* Actor = CreateActor<BackGround>(0);
 		Actor->GetRenderer()->SetImage("Floor3.bmp");

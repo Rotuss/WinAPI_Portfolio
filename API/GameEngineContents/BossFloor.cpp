@@ -73,4 +73,5 @@ void BossFloor::LevelChangeStart(GameEngineLevel* _PrevLevel)
 void BossFloor::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
 	Nick::BgmPlayer_.Stop();
+	Reset();
 }
