@@ -470,6 +470,7 @@ void Nick::DeathUpdate()
 		{
 			BgmPlayer_.Stop();
 			Life::LifeUI_ = 2;
+			Score::StartScore_ = false;
 			Score::ScoreUI_ = 0;
 			GameEngine::GetInst().ChangeLevel("GameOver");
 		}

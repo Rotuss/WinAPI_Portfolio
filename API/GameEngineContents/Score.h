@@ -17,11 +17,8 @@ public:
 	Score& operator=(Score&& _Other) noexcept = delete;
 
 	static int ScoreUI_;
-
-	void ScoreNum(const int& _Other)
-	{
-		ScoreUI_ += _Other;
-	}
+	static int HIScore_;
+	static bool StartScore_;
 
 protected:
 
@@ -47,5 +44,7 @@ private:
 	void Start() override;
 	void Update() override;
 	void Render() override;
+
+	void HIScoreCal();
 };
 
