@@ -601,6 +601,7 @@ void YellowTroll::Snow3Update()
 
 void YellowTroll::SnowBallUpdate()
 {
+	SnowBallDeathTime_ -= GameEngineTime::GetDeltaTime();
 	MoveDir_.y = 0.0f;
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * 600);
 
@@ -685,6 +686,21 @@ void YellowTroll::SnowBallUpdate()
 		if (CurrentDir_ == YellowTrollDir::RIGHT)
 		{
 			MoveDir_.x = 1.f;
+		}
+	}
+	if (SnowBallDeathTime_ <= 0)
+	{
+		DeathTime_ -= GameEngineTime::GetDeltaTime();
+		if (true == DeathCheck_)
+		{
+			YellowTrollAnimationRender_->ChangeAnimation("SnowBallEffect");
+			DeathTime_ = 0.1f;
+			DeathCheck_ = false;
+		}
+		if (DeathTime_ <= 0)
+		{
+			GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
+			Death();
 		}
 	}
 }

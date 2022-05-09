@@ -54,6 +54,7 @@ private:
 	float	JumpTime_;
 	float	MeltingTime_;
 	float	ShakingTime_;
+	float	SnowBallDeathTime_;
 	float	DeathTime_;
 	float	ItemTime_;
 	float	Speed_;
