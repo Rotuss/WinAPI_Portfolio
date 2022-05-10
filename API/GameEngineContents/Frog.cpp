@@ -161,6 +161,8 @@ void Frog::StateUpdate()
 void Frog::Start()
 {
 	FrogCollision_ = CreateCollision("EnemyHitBox", { 55, 90 });
+	FrogRCollision_ = CreateCollision("EnemyRHitBox", { 5, 10 }, { -50, 0 });
+	FrogLCollision_ = CreateCollision("EnemyLHitBox", { 5, 10 }, { 50, 0 });
 	FrogSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
 	FrogSnowCollision_->Off();
 

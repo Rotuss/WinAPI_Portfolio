@@ -65,6 +65,8 @@ private:
 	
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	YellowTrollCollision_;
+	GameEngineCollision*	YellowTrollRCollision_;
+	GameEngineCollision*	YellowTrollLCollision_;
 	GameEngineCollision*	YellowTrollAttackCollision_;
 	GameEngineCollision*	YellowTrollSnowCollision_;
 	GameEngineCollision*	YellowTrollSnowRCollision_;

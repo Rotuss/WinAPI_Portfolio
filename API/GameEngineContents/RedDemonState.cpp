@@ -71,9 +71,17 @@ void RedDemon::IdleUpdate()
 			}
 		}
 	}
-	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == RedDemonRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::RIGHT;
+		ChangeState(RedDemonState::DEFEATED);
+		return;
+	}
+	else if (true == RedDemonLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::LEFT;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -217,9 +225,17 @@ void RedDemon::MoveUpdate()
 			}
 		}
 	}
-	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == RedDemonRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::RIGHT;
+		ChangeState(RedDemonState::DEFEATED);
+		return;
+	}
+	else if (true == RedDemonLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::LEFT;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -369,9 +385,17 @@ void RedDemon::JumpUpdate()
 			}
 		}
 	}
-	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == RedDemonRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::RIGHT;
+		ChangeState(RedDemonState::DEFEATED);
+		return;
+	}
+	else if (true == RedDemonLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::LEFT;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -427,9 +451,17 @@ void RedDemon::DownUpdate()
 			}
 		}
 	}
-	if (true == RedDemonCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == RedDemonRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::RIGHT;
+		ChangeState(RedDemonState::DEFEATED);
+		return;
+	}
+	else if (true == RedDemonLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::LEFT;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -490,9 +522,17 @@ void RedDemon::Snow1Update()
 			return;
 		}
 	}
-	if (true == RedDemonSnowCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == RedDemonRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::RIGHT;
+		ChangeState(RedDemonState::DEFEATED);
+		return;
+	}
+	else if (true == RedDemonLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::LEFT;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -538,9 +578,17 @@ void RedDemon::Snow2Update()
 			return;
 		}
 	}
-	if (true == RedDemonSnowCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == RedDemonRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::RIGHT;
+		ChangeState(RedDemonState::DEFEATED);
+		return;
+	}
+	else if (true == RedDemonLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = RedDemonDir::LEFT;
 		ChangeState(RedDemonState::DEFEATED);
 		return;
 	}
@@ -734,6 +782,16 @@ void RedDemon::ShakingSnowUpdate()
 void RedDemon::DefeatedUpdate()
 {
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	if (CurrentDir_ == RedDemonDir::LEFT)
+	{
+		MoveDir_ = float4{ -Speed_,MoveDir_.y };
+
+	}
+	if (CurrentDir_ == RedDemonDir::RIGHT)
+	{
+		MoveDir_ = float4{ Speed_,MoveDir_.y };
+	}
+	
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 
 	if (MoveDir_.y < 0)
@@ -850,6 +908,8 @@ void RedDemon::Snow1Start()
 
 void RedDemon::Snow2Start()
 {
+	RedDemonRCollision_->On();
+	RedDemonLCollision_->On();
 	AnimationName_ = "Snow2";
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 	RedDemonAnimationRender_->SetPivot({ 0,20.0f });
@@ -860,6 +920,8 @@ void RedDemon::Snow2Start()
 
 void RedDemon::Snow3Start()
 {
+	RedDemonRCollision_->Off();
+	RedDemonLCollision_->Off();
 	AnimationName_ = "Snow3";
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 	RedDemonAnimationRender_->SetPivot({ 0,5 });
@@ -904,7 +966,7 @@ void RedDemon::DefeatedStart()
 	AnimationName_ = "Defeated";
 	RedDemonAnimationRender_->ChangeAnimation(AnimationName_);
 
-	MoveDir_ = float4::UP * 520.0f;
+	MoveDir_ = float4::UP * 800.0f;
 }
 
 void RedDemon::DeathStart()

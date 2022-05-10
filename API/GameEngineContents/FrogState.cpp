@@ -80,9 +80,17 @@ void Frog::IdleUpdate()
 			}
 		}
 	}
-	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -226,9 +234,17 @@ void Frog::MoveUpdate()
 			}
 		}
 	}
-	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -378,9 +394,17 @@ void Frog::JumpUpdate()
 			}
 		}
 	}
-	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -435,9 +459,17 @@ void Frog::DownUpdate()
 			}
 		}
 	}
-	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -483,8 +515,17 @@ void Frog::AttackUpdate()
 			}
 		}
 	}
-	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -535,9 +576,17 @@ void Frog::Snow1Update()
 			return;
 		}
 	}
-	if (true == FrogSnowCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -583,9 +632,17 @@ void Frog::Snow2Update()
 			return;
 		}
 	}
-	if (true == FrogSnowCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -755,9 +812,17 @@ void Frog::SnowBallUpdate()
 
 void Frog::ShakingSnowUpdate()
 {
-	if (true == FrogCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == FrogRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
@@ -795,6 +860,16 @@ void Frog::ShakingSnowUpdate()
 void Frog::DefeatedUpdate()
 {
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	if (CurrentDir_ == FrogDir::LEFT)
+	{
+		MoveDir_ = float4{ -Speed_,MoveDir_.y };
+
+	}
+	if (CurrentDir_ == FrogDir::RIGHT)
+	{
+		MoveDir_ = float4{ Speed_,MoveDir_.y };
+	}
+	
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 
 	if (MoveDir_.y < 0)
@@ -934,6 +1009,8 @@ void Frog::Snow1Start()
 
 void Frog::Snow2Start()
 {
+	FrogRCollision_->On();
+	FrogLCollision_->On();
 	AnimationName_ = "Snow2";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 	FrogAnimationRender_->SetPivot({ 0,20.0f });
@@ -944,6 +1021,8 @@ void Frog::Snow2Start()
 
 void Frog::Snow3Start()
 {
+	FrogRCollision_->Off();
+	FrogLCollision_->Off();
 	AnimationName_ = "Snow3";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 	FrogAnimationRender_->SetPivot({ 0,5 });
@@ -988,7 +1067,7 @@ void Frog::DefeatedStart()
 	AnimationName_ = "Defeated";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 
-	MoveDir_ = float4::UP * 520.0f;
+	MoveDir_ = float4::UP * 800.0f;
 }
 
 void Frog::DeathStart()

@@ -152,6 +152,8 @@ void YellowTroll::StateUpdate()
 void YellowTroll::Start()
 {
 	YellowTrollCollision_ = CreateCollision("EnemyHitBox", { 70, 90 });
+	YellowTrollRCollision_ = CreateCollision("EnemyRHitBox", { 5, 10 }, { -50, 0 });
+	YellowTrollLCollision_ = CreateCollision("EnemyLHitBox", { 5, 10 }, { -50, 0 });
 	YellowTrollSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
 	YellowTrollSnowCollision_->Off();
 

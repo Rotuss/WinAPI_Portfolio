@@ -72,9 +72,17 @@ void YellowTroll::IdleUpdate()
 			}
 		}
 	}
-	if (true == YellowTrollCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == YellowTrollRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::RIGHT;
+		ChangeState(YellowTrollState::DEFEATED);
+		return;
+	}
+	else if (true == YellowTrollLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::LEFT;
 		ChangeState(YellowTrollState::DEFEATED);
 		return;
 	}
@@ -218,9 +226,17 @@ void YellowTroll::MoveUpdate()
 			}
 		}
 	}
-	if (true == YellowTrollCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == YellowTrollRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::RIGHT;
+		ChangeState(YellowTrollState::DEFEATED);
+		return;
+	}
+	else if (true == YellowTrollLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::LEFT;
 		ChangeState(YellowTrollState::DEFEATED);
 		return;
 	}
@@ -370,9 +386,17 @@ void YellowTroll::JumpUpdate()
 			}
 		}
 	}
-	if (true == YellowTrollCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == YellowTrollRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::RIGHT;
+		ChangeState(YellowTrollState::DEFEATED);
+		return;
+	}
+	else if (true == YellowTrollLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::LEFT;
 		ChangeState(YellowTrollState::DEFEATED);
 		return;
 	}
@@ -427,9 +451,17 @@ void YellowTroll::DownUpdate()
 			}
 		}
 	}
-	if (true == YellowTrollCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == YellowTrollRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::RIGHT;
+		ChangeState(YellowTrollState::DEFEATED);
+		return;
+	}
+	else if (true == YellowTrollLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::LEFT;
 		ChangeState(YellowTrollState::DEFEATED);
 		return;
 	}
@@ -487,9 +519,17 @@ void YellowTroll::Snow1Update()
 			return;
 		}
 	}
-	if (true == YellowTrollSnowCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == YellowTrollRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::RIGHT;
+		ChangeState(YellowTrollState::DEFEATED);
+		return;
+	}
+	else if (true == YellowTrollLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::LEFT;
 		ChangeState(YellowTrollState::DEFEATED);
 		return;
 	}
@@ -535,9 +575,17 @@ void YellowTroll::Snow2Update()
 			return;
 		}
 	}
-	if (true == YellowTrollSnowCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == YellowTrollRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::RIGHT;
+		ChangeState(YellowTrollState::DEFEATED);
+		return;
+	}
+	else if (true == YellowTrollLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::LEFT;
 		ChangeState(YellowTrollState::DEFEATED);
 		return;
 	}
@@ -707,9 +755,17 @@ void YellowTroll::SnowBallUpdate()
 
 void YellowTroll::ShakingSnowUpdate()
 {
-	if (true == YellowTrollCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	if (true == YellowTrollRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::RIGHT;
+		ChangeState(YellowTrollState::DEFEATED);
+		return;
+	}
+	else if (true == YellowTrollLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = YellowTrollDir::LEFT;
 		ChangeState(YellowTrollState::DEFEATED);
 		return;
 	}
@@ -747,6 +803,16 @@ void YellowTroll::ShakingSnowUpdate()
 void YellowTroll::DefeatedUpdate()
 {
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	if (CurrentDir_ == YellowTrollDir::LEFT)
+	{
+		MoveDir_ = float4{ -Speed_,MoveDir_.y };
+
+	}
+	if (CurrentDir_ == YellowTrollDir::RIGHT)
+	{
+		MoveDir_ = float4{ Speed_,MoveDir_.y };
+	}
+	
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 
 	if (MoveDir_.y < 0)
@@ -860,6 +926,8 @@ void YellowTroll::Snow1Start()
 
 void YellowTroll::Snow2Start()
 {
+	YellowTrollRCollision_->On();
+	YellowTrollLCollision_->On();
 	AnimationName_ = "Snow2";
 	YellowTrollAnimationRender_->ChangeAnimation(AnimationName_);
 	YellowTrollAnimationRender_->SetPivot({ 0,20.0f });
@@ -870,6 +938,8 @@ void YellowTroll::Snow2Start()
 
 void YellowTroll::Snow3Start()
 {
+	YellowTrollRCollision_->Off();
+	YellowTrollLCollision_->Off();
 	AnimationName_ = "Snow3";
 	YellowTrollAnimationRender_->ChangeAnimation(AnimationName_);
 	YellowTrollAnimationRender_->SetPivot({ 0,5 });
@@ -913,7 +983,7 @@ void YellowTroll::DefeatedStart()
 	AnimationName_ = "Defeated";
 	YellowTrollAnimationRender_->ChangeAnimation(AnimationName_);
 
-	MoveDir_ = float4::UP * 520.0f;
+	MoveDir_ = float4::UP * 800.0f;
 }
 
 void YellowTroll::DeathStart()
