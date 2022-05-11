@@ -781,7 +781,23 @@ void RedDemon::ShakingSnowUpdate()
 
 void RedDemon::DefeatedUpdate()
 {
+	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
+	int CColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 35.0f });
+	int RColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 15.0f, 0.0f });
+	int LColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ -15.0f, 0.0f });
+	
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	if (RGB(255, 255, 0) == RColor)
+	{
+		CurrentDir_ = RedDemonDir::LEFT;
+		MoveDir_ = float4{ -Speed_,MoveDir_.y };
+	}
+	if (RGB(255, 255, 0) == LColor)
+	{
+		CurrentDir_ = RedDemonDir::RIGHT;
+		MoveDir_ = float4{ Speed_,MoveDir_.y };
+	}
+	
 	if (CurrentDir_ == RedDemonDir::LEFT)
 	{
 		MoveDir_ = float4{ -Speed_,MoveDir_.y };
@@ -799,10 +815,6 @@ void RedDemon::DefeatedUpdate()
 		return;
 	}
 
-	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
-	int CColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 35.0f });
-	int RColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 15.0f, 0.0f });
-	int LColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ -15.0f, 0.0f });
 	if (RGB(0, 0, 0) == Color && RGB(0, 0, 0) == CColor)
 	{
 		return;
@@ -813,14 +825,6 @@ void RedDemon::DefeatedUpdate()
 		MoveDir_ = float4::ZERO;
 		ChangeState(RedDemonState::DEATH);
 		return;
-	}
-	if (RGB(0, 0, 0) == RColor)
-	{
-		MoveDir_.x = -1.0f;
-	}
-	if (RGB(0, 0, 0) == LColor)
-	{
-		MoveDir_.x = 1.0f;
 	}
 }
 
