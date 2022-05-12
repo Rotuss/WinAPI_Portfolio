@@ -84,6 +84,9 @@ void RedDemon::ChangeState(RedDemonState _State)
 		case RedDemonState::SNOWBALL:
 			SnowBallStart();
 			break;
+		case RedDemonState::BLUESNOWBALL:
+			BlueSnowBallStart();
+			break;
 		case RedDemonState::SHAKINGSNOW:
 			ShakingSnowStart();
 			break;
@@ -140,6 +143,9 @@ void RedDemon::StateUpdate()
 	case RedDemonState::SNOWBALL:
 		SnowBallUpdate();
 		break;
+	case RedDemonState::BLUESNOWBALL:
+		BlueSnowBallUpdate();
+		break;
 	case RedDemonState::SHAKINGSNOW:
 		ShakingSnowUpdate();
 		break;
@@ -184,6 +190,7 @@ void RedDemon::Start()
 	RedDemonAnimationRender_->CreateAnimation("Snow2.bmp", "Snow2", 0, 0, 0.0f, false);
 	RedDemonAnimationRender_->CreateAnimation("Snow3.bmp", "Snow3", 0, 0, 0.0f, false);
 	RedDemonAnimationRender_->CreateAnimation("SnowballRolling.bmp", "SnowballRolling", 0, 3, 0.1f, true);
+	RedDemonAnimationRender_->CreateAnimation("BlueSnowBall.bmp", "BlueSnowBall", 0, 1, 0.1f, true);
 	RedDemonAnimationRender_->CreateAnimation("SnowBallEffect.bmp", "SnowBallEffect", 0, 1, 0.2f, true);
 
 	RedDemonAnimationRender_->CreateAnimation("RedDemon_ShakingSnow.bmp", "ShakingSnow", 0, 1, 0.1f, true);

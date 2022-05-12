@@ -15,6 +15,7 @@ enum class RedDemonState
 	SNOW2,
 	SNOW3,
 	SNOWBALL,
+	BLUESNOWBALL,
 	SHAKINGSNOW,
 	DEFEATED,
 	DEATH,
@@ -79,6 +80,7 @@ private:
 	GameEngineCollision*	RedDemonSnowBallCollision_;
 	GameEngineCollision*	RedDemonSnowBallRCollision_;
 	GameEngineCollision*	RedDemonSnowBallLCollision_;
+	GameEngineCollision*	RedDemonBlueSnowBallCollision_;
 	GameEngineRenderer*		RedDemonAnimationRender_;
 	RedDemonDir				CurrentDir_;
 	std::string				AnimationName_;
@@ -109,6 +111,7 @@ private:
 	void Snow2Update();
 	void Snow3Update();
 	void SnowBallUpdate();
+	void BlueSnowBallUpdate();
 	void ShakingSnowUpdate();
 	void DefeatedUpdate();
 	void DeathUpdate();
@@ -124,6 +127,7 @@ private:
 	void Snow2Start();
 	void Snow3Start();
 	void SnowBallStart();
+	void BlueSnowBallStart();
 	void ShakingSnowStart();
 	void DefeatedStart();
 	void DeathStart();

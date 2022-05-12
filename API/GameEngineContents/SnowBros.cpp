@@ -321,6 +321,8 @@ void SnowBros::GameInit()
 		Image->Cut({ 88, 92 });
 		Image = GameEngineImageManager::GetInst()->Find("SnowballRolling.bmp");
 		Image->CutCount(4, 1);
+		Image = GameEngineImageManager::GetInst()->Find("BlueSnowBall.bmp");
+		Image->CutCount(2, 1);
 		Image = GameEngineImageManager::GetInst()->Find("SnowBallEffect.bmp");
 		Image->CutCount(2, 1);
 	} 
