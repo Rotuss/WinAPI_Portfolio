@@ -86,6 +86,9 @@ void Frog::ChangeState(FrogState _State)
 		case FrogState::SNOWBALL:
 			SnowBallStart();
 			break;
+		case FrogState::BLUESNOWBALL:
+			BlueSnowBallStart();
+			break;
 		case FrogState::SHAKINGSNOW:
 			ShakingSnowStart();
 			break;
@@ -142,6 +145,9 @@ void Frog::StateUpdate()
 	case FrogState::SNOWBALL:
 		SnowBallUpdate();
 		break;
+	case FrogState::BLUESNOWBALL:
+		BlueSnowBallUpdate();
+		break;
 	case FrogState::SHAKINGSNOW:
 		ShakingSnowUpdate();
 		break;
@@ -188,6 +194,7 @@ void Frog::Start()
 	FrogAnimationRender_->CreateAnimation("Snow2.bmp", "Snow2", 0, 0, 0.0f, false);
 	FrogAnimationRender_->CreateAnimation("Snow3.bmp", "Snow3", 0, 0, 0.0f, false);
 	FrogAnimationRender_->CreateAnimation("SnowballRolling.bmp", "SnowballRolling", 0, 3, 0.1f, true);
+	FrogAnimationRender_->CreateAnimation("BlueSnowBall.bmp", "BlueSnowBall", 0, 1, 0.1f, true);
 	FrogAnimationRender_->CreateAnimation("SnowBallEffect.bmp", "SnowBallEffect", 0, 1, 0.2f, true);
 	
 	FrogAnimationRender_->CreateAnimation("Frog_ShakingSnow.bmp", "ShakingSnow", 0, 1, 0.1f, true);

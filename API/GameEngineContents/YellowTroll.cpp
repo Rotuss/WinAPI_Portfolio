@@ -80,6 +80,9 @@ void YellowTroll::ChangeState(YellowTrollState _State)
 		case YellowTrollState::SNOWBALL:
 			SnowBallStart();
 			break;
+		case YellowTrollState::BLUESNOWBALL:
+			BlueSnowBallStart();
+			break;
 		case YellowTrollState::SHAKINGSNOW:
 			ShakingSnowStart();
 			break;
@@ -133,6 +136,9 @@ void YellowTroll::StateUpdate()
 	case YellowTrollState::SNOWBALL:
 		SnowBallUpdate();
 		break;
+	case YellowTrollState::BLUESNOWBALL:
+		BlueSnowBallUpdate();
+		break;
 	case YellowTrollState::SHAKINGSNOW:
 		ShakingSnowUpdate();
 		break;
@@ -176,6 +182,7 @@ void YellowTroll::Start()
 	YellowTrollAnimationRender_->CreateAnimation("Snow2.bmp", "Snow2", 0, 0, 0.0f, false);
 	YellowTrollAnimationRender_->CreateAnimation("Snow3.bmp", "Snow3", 0, 0, 0.0f, false);
 	YellowTrollAnimationRender_->CreateAnimation("SnowballRolling.bmp", "SnowballRolling", 0, 3, 0.1f, true);
+	YellowTrollAnimationRender_->CreateAnimation("BlueSnowBall.bmp", "BlueSnowBall", 0, 1, 0.1f, true);
 	YellowTrollAnimationRender_->CreateAnimation("SnowBallEffect.bmp", "SnowBallEffect", 0, 1, 0.2f, true);
 	
 	YellowTrollAnimationRender_->CreateAnimation("YellowTroll_ShakingSnow.bmp", "ShakingSnow", 0, 1, 0.1f, true);

@@ -102,6 +102,12 @@ void Son::MoveUpdate()
 		return;
 	}
 
+	if (true == SonCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		ChangeState(SonState::DEATH);
+		return;
+	}
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
@@ -205,6 +211,13 @@ void Son::DownUpdate()
 		return;
 	}
 
+	if (true == SonCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		ChangeState(SonState::DEATH);
+		return;
+	}
+	
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 
@@ -289,6 +302,13 @@ void Son::Snow1Update()
 		return;
 	}
 
+	if (true == SonCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		ChangeState(SonState::DEATH);
+		return;
+	}
+	
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
 	int CColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 35.0f });
 	if (RGB(0, 0, 0) == Color && RGB(255, 255, 255) == CColor)
@@ -336,6 +356,13 @@ void Son::Snow2Update()
 		ChangeState(SonState::DEATH);
 		return;
 	}
+
+	if (true == SonCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		ChangeState(SonState::DEATH);
+		return;
+	}
 }
 
 void Son::Snow3Update()
@@ -361,6 +388,23 @@ void Son::Snow3Update()
 		}
 	}
 
+	if (true == SonRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		// 스노우볼이 오른쪽으로 굴러야함
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = SonDir::RIGHT;
+		ChangeState(SonState::BLUESNOWBALL);
+		return;
+	}
+	if (true == SonLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		// 스노우볼이 왼쪽으로 굴러야함
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = SonDir::LEFT;
+		ChangeState(SonState::BLUESNOWBALL);
+		return;
+	}
+	
 	if (true == SonSnowRCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT) && true == GameEngineInput::GetInst()->IsPress("ColDamage"))
 	{
 		// 스노우볼이 오른쪽으로 굴러야함
@@ -423,6 +467,107 @@ void Son::SnowBallUpdate()
 		Death();
 	}
 	
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * 600);
+	float4 CheckBotPos = NextPos + float4(0.0f, 45.0f);
+	float4 CheckRightPos = NextPos + float4(15.0f, 0.0f);
+	float4 CheckLeftPos = NextPos + float4(-15.0f, 0.0f);
+
+	int BotColor = FloorColImage_->GetImagePixel(CheckBotPos);
+	int RightColor = FloorColImage_->GetImagePixel(CheckRightPos);
+	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
+	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 1.0f));
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 3500.0f;
+	if (RGB(0, 0, 0) != BotColor)
+	{
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * 200);
+	}
+	if (RGB(0, 0, 0) == RightColor)
+	{
+		Score::ScoreUI_ += 10;
+		CurrentDir_ = SonDir::LEFT;
+		MoveDir_.x = -1.f;
+	}
+	if (RGB(255, 0, 0) == RightColor)
+	{
+		MoveDir_ = float4::ZERO;
+		DeathTime_ -= GameEngineTime::GetDeltaTime();
+		if (true == DeathCheck_)
+		{
+			SonAnimationRender_->ChangeAnimation("SnowBallEffect");
+			DeathTime_ = 0.1f;
+			DeathCheck_ = false;
+		}
+		if (DeathTime_ <= 0)
+		{
+			GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
+			Death();
+		}
+	}
+	if (RGB(0, 0, 0) == LeftColor)
+	{
+		Score::ScoreUI_ += 10;
+		CurrentDir_ = SonDir::RIGHT;
+		MoveDir_.x = 1.f;
+	}
+	if (RGB(255, 0, 0) == LeftColor)
+	{
+		MoveDir_ = float4::ZERO;
+		DeathTime_ -= GameEngineTime::GetDeltaTime();
+		if (true == DeathCheck_)
+		{
+			SonAnimationRender_->ChangeAnimation("SnowBallEffect");
+			DeathTime_ = 0.1f;
+			DeathCheck_ = false;
+		}
+		if (DeathTime_ <= 0)
+		{
+			GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
+			Death();
+		}
+	}
+	if (RGB(255, 255, 255) == DColor)
+	{
+		if (CurrentDir_ == SonDir::LEFT)
+		{
+			MoveDir_.x = -1.f;
+		}
+
+		if (CurrentDir_ == SonDir::RIGHT)
+		{
+			MoveDir_.x = 1.f;
+		}
+	}
+}
+
+void Son::BlueSnowBallUpdate()
+{
+	MoveDir_.y = 0.0f;
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * 600);
+
+	SonDir CheckDir_ = CurrentDir_;
+
+	if (CurrentDir_ == SonDir::LEFT)
+	{
+		MoveDir_.x = -1.f;
+
+	}
+
+	if (CurrentDir_ == SonDir::RIGHT)
+	{
+		MoveDir_.x = 1.f;
+	}
+
+	if (true == SonBlueSnowBallCollision_->CollisionCheck("BossHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
+		Death();
+	}
+	if (true == SonBlueSnowBallCollision_->CollisionCheck("BossHeadHitBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
+		Death();
+	}
+
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * 600);
 	float4 CheckBotPos = NextPos + float4(0.0f, 45.0f);
 	float4 CheckRightPos = NextPos + float4(15.0f, 0.0f);
@@ -587,7 +732,21 @@ void Son::SnowBallStart()
 	SonSnowBallLCollision_ = CreateCollision("SnowBallLColBox", { 5, 10 }, { 15, 0 });
 }
 
+void Son::BlueSnowBallStart()
+{
+	SonSnowCollision_->Off();
+	SonSnowRCollision_->Off();
+	SonSnowLCollision_->Off();
+	AnimationName_ = "BlueSnowBall";
+	SonAnimationRender_->ChangeAnimation(AnimationName_);
+	SonAnimationRender_->SetPivot({ 0,0 });
+
+	SonBlueSnowBallCollision_ = CreateCollision("BlueSnowBallColBox", { 60, 60 });
+}
+
 void Son::DeathStart()
 {
 	SonCollision_->Off();
+	SonRCollision_->Off();
+	SonLCollision_->Off();
 }

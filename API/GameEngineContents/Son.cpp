@@ -68,6 +68,9 @@ void Son::ChangeState(SonState _State)
 		case SonState::SNOWBALL:
 			SnowBallStart();
 			break;
+		case SonState::BLUESNOWBALL:
+			BlueSnowBallStart();
+			break;
 		case SonState::DEATH:
 			DeathStart();
 			break;
@@ -108,6 +111,9 @@ void Son::StateUpdate()
 	case SonState::SNOWBALL:
 		SnowBallUpdate();
 		break;
+	case SonState::BLUESNOWBALL:
+		BlueSnowBallUpdate();
+		break;
 	case SonState::DEATH:
 		DeathUpdate();
 		break;
@@ -121,6 +127,8 @@ void Son::StateUpdate()
 void Son::Start()
 {
 	SonCollision_ = CreateCollision("EnemyHitBox", { 64, 80 });
+	SonRCollision_ = CreateCollision("EnemyRHitBox", { 5, 10 }, { -50, 0 });
+	SonLCollision_ = CreateCollision("EnemyRHitBox", { 5, 10 }, { 50, 0 });
 	SonSnowCollision_ = CreateCollision("SnowBox", { 96, 96 });
 	SonSnowCollision_->Off();
 
@@ -140,6 +148,7 @@ void Son::Start()
 	SonAnimationRender_->CreateAnimation("Snow2.bmp", "Snow2", 0, 0, 0.0f, false);
 	SonAnimationRender_->CreateAnimation("Snow3.bmp", "Snow3", 0, 0, 0.0f, false);
 	SonAnimationRender_->CreateAnimation("SnowballRolling.bmp", "SnowballRolling", 0, 3, 0.1f, true);
+	SonAnimationRender_->CreateAnimation("BlueSnowBall.bmp", "BlueSnowBall", 0, 1, 0.1f, true);
 	SonAnimationRender_->CreateAnimation("SnowBallEffect.bmp", "SnowBallEffect", 0, 1, 0.2f, true);
 
 	SonAnimationRender_->ChangeAnimation("Down_Left");

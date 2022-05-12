@@ -14,6 +14,7 @@ enum class YellowTrollState
 	SNOW2,
 	SNOW3,
 	SNOWBALL,
+	BLUESNOWBALL,
 	SHAKINGSNOW,
 	DEFEATED,
 	DEATH,
@@ -74,6 +75,7 @@ private:
 	GameEngineCollision*	YellowTrollSnowBallCollision_;
 	GameEngineCollision*	YellowTrollSnowBallRCollision_;
 	GameEngineCollision*	YellowTrollSnowBallLCollision_;
+	GameEngineCollision*	YellowTrollBlueSnowBallCollision_;
 	GameEngineRenderer*		YellowTrollAnimationRender_;
 	YellowTrollDir			CurrentDir_;
 	std::string				AnimationName_;
@@ -99,6 +101,7 @@ private:
 	void Snow2Update();
 	void Snow3Update();
 	void SnowBallUpdate();
+	void BlueSnowBallUpdate();
 	void ShakingSnowUpdate();
 	void DefeatedUpdate();
 	void DeathUpdate();
@@ -113,6 +116,7 @@ private:
 	void Snow2Start();
 	void Snow3Start();
 	void SnowBallStart();
+	void BlueSnowBallStart();
 	void ShakingSnowStart();
 	void DefeatedStart();
 	void DeathStart();

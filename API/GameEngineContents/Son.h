@@ -11,6 +11,7 @@ enum class SonState
 	SNOW2,
 	SNOW3,
 	SNOWBALL,
+	BLUESNOWBALL,
 	DEATH,
 
 	MAX
@@ -58,6 +59,8 @@ private:
 
 	GameEngineImage*		FloorColImage_;
 	GameEngineCollision*	SonCollision_;
+	GameEngineCollision*	SonRCollision_;
+	GameEngineCollision*	SonLCollision_;
 	GameEngineCollision*	SonAttackCollision_;
 	GameEngineCollision*	SonSnowCollision_;
 	GameEngineCollision*	SonSnowRCollision_;
@@ -65,6 +68,7 @@ private:
 	GameEngineCollision*	SonSnowBallCollision_;
 	GameEngineCollision*	SonSnowBallRCollision_;
 	GameEngineCollision*	SonSnowBallLCollision_;
+	GameEngineCollision*	SonBlueSnowBallCollision_;
 	GameEngineRenderer*		SonAnimationRender_;
 	SonDir					CurrentDir_;
 	std::string				AnimationName_;
@@ -88,6 +92,7 @@ private:
 	void Snow2Update();
 	void Snow3Update();
 	void SnowBallUpdate();
+	void BlueSnowBallUpdate();
 	void DeathUpdate();
 
 	void StartStart();
@@ -98,6 +103,7 @@ private:
 	void Snow2Start();
 	void Snow3Start();
 	void SnowBallStart();
+	void BlueSnowBallStart();
 	void DeathStart();
 };
 

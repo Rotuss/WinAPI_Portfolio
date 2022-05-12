@@ -95,6 +95,21 @@ void Frog::IdleUpdate()
 		return;
 	}
 
+	if (true == FrogRCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::LEFT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	
 	float4 CheckPos = GetPosition() + float4(0.0f, 44.0f);
 
 	int DColor = FloorColImage_->GetImagePixel(CheckPos + float4(0.0f, 5.0f));
@@ -249,6 +264,21 @@ void Frog::MoveUpdate()
 		return;
 	}
 
+	if (true == FrogRCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::LEFT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
@@ -409,6 +439,21 @@ void Frog::JumpUpdate()
 		return;
 	}
 
+	if (true == FrogRCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::LEFT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
@@ -474,6 +519,21 @@ void Frog::DownUpdate()
 		return;
 	}
 
+	if (true == FrogRCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::LEFT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	
 	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
 
@@ -525,6 +585,21 @@ void Frog::AttackUpdate()
 	else if (true == FrogLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::LEFT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	
+	if (true == FrogRCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
 		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::DEFEATED);
 		return;
@@ -591,6 +666,21 @@ void Frog::Snow1Update()
 		return;
 	}
 
+	if (true == FrogRCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::LEFT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	
 	int Color = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 45.0f });
 	int CColor = FloorColImage_->GetImagePixel(GetPosition() + float4{ 0.0f, 35.0f });
 	if (RGB(0, 0, 0) == Color && RGB(255, 255, 255) == CColor)
@@ -646,6 +736,21 @@ void Frog::Snow2Update()
 		ChangeState(FrogState::DEFEATED);
 		return;
 	}
+
+	if (true == FrogRCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::LEFT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
 }
 
 void Frog::Snow3Update()
@@ -671,6 +776,21 @@ void Frog::Snow3Update()
 		}
 	}
 
+	if (true == FrogRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::BLUESNOWBALL);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::LEFT;
+		ChangeState(FrogState::BLUESNOWBALL);
+		return;
+	}
+	
 	if (true == FrogSnowRCollision_->CollisionCheck("PlayerHitBox", CollisionType::RECT, CollisionType::RECT) && true == GameEngineInput::GetInst()->IsPress("ColDamage"))
 	{
 		// 스노우볼이 오른쪽으로 굴러야함
@@ -810,6 +930,112 @@ void Frog::SnowBallUpdate()
 	}
 }
 
+void Frog::BlueSnowBallUpdate()
+{
+	SnowBallDeathTime_ -= GameEngineTime::GetDeltaTime();
+	MoveDir_.y = 0.0f;
+	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * 600);
+
+	FrogDir CheckDir_ = CurrentDir_;
+
+	if (CurrentDir_ == FrogDir::LEFT)
+	{
+		MoveDir_.x = -1.f;
+
+	}
+
+	if (CurrentDir_ == FrogDir::RIGHT)
+	{
+		MoveDir_.x = 1.f;
+	}
+
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * 600);
+	float4 CheckBotPos = NextPos + float4(0.0f, 45.0f);
+	float4 CheckRightPos = NextPos + float4(15.0f, 0.0f);
+	float4 CheckLeftPos = NextPos + float4(-15.0f, 0.0f);
+
+	int BotColor = FloorColImage_->GetImagePixel(CheckBotPos);
+	int RightColor = FloorColImage_->GetImagePixel(CheckRightPos);
+	int LeftColor = FloorColImage_->GetImagePixel(CheckLeftPos);
+	int DColor = FloorColImage_->GetImagePixel(CheckBotPos + float4(0.0f, 1.0f));
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * 3500.0f;
+	if (RGB(0, 0, 0) != BotColor)
+	{
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * 200);
+	}
+	if (RGB(0, 0, 0) == RightColor)
+	{
+		Score::ScoreUI_ += 10;
+		CurrentDir_ = FrogDir::LEFT;
+		MoveDir_.x = -1.f;
+	}
+	if (RGB(255, 0, 0) == RightColor)
+	{
+		MoveDir_ = float4::ZERO;
+		DeathTime_ -= GameEngineTime::GetDeltaTime();
+		if (true == DeathCheck_)
+		{
+			FrogAnimationRender_->ChangeAnimation("SnowBallEffect");
+			DeathTime_ = 0.1f;
+			DeathCheck_ = false;
+		}
+		if (DeathTime_ <= 0)
+		{
+			GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
+			Death();
+		}
+	}
+	if (RGB(0, 0, 0) == LeftColor)
+	{
+		Score::ScoreUI_ += 10;
+		CurrentDir_ = FrogDir::RIGHT;
+		MoveDir_.x = 1.f;
+	}
+	if (RGB(255, 0, 0) == LeftColor)
+	{
+		MoveDir_ = float4::ZERO;
+		DeathTime_ -= GameEngineTime::GetDeltaTime();
+		if (true == DeathCheck_)
+		{
+			FrogAnimationRender_->ChangeAnimation("SnowBallEffect");
+			DeathTime_ = 0.1f;
+			DeathCheck_ = false;
+		}
+		if (DeathTime_ <= 0)
+		{
+			GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
+			Death();
+		}
+	}
+	if (RGB(255, 255, 255) == DColor)
+	{
+		if (CurrentDir_ == FrogDir::LEFT)
+		{
+			MoveDir_.x = -1.f;
+		}
+
+		if (CurrentDir_ == FrogDir::RIGHT)
+		{
+			MoveDir_.x = 1.f;
+		}
+	}
+	if (SnowBallDeathTime_ <= 0)
+	{
+		DeathTime_ -= GameEngineTime::GetDeltaTime();
+		if (true == DeathCheck_)
+		{
+			FrogAnimationRender_->ChangeAnimation("SnowBallEffect");
+			DeathTime_ = 0.1f;
+			DeathCheck_ = false;
+		}
+		if (DeathTime_ <= 0)
+		{
+			GameEngineSound::SoundPlayOneShot("SnowBallDeath_Effect(5).mp3", 0);
+			Death();
+		}
+	}
+}
+
 void Frog::ShakingSnowUpdate()
 {
 	if (true == FrogRCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
@@ -822,6 +1048,21 @@ void Frog::ShakingSnowUpdate()
 	else if (true == FrogLCollision_->CollisionCheck("SnowBallColBox", CollisionType::RECT, CollisionType::RECT))
 	{
 		Score::ScoreUI_ += 1000;
+		CurrentDir_ = FrogDir::LEFT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	
+	if (true == FrogRCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
+		CurrentDir_ = FrogDir::RIGHT;
+		ChangeState(FrogState::DEFEATED);
+		return;
+	}
+	else if (true == FrogLCollision_->CollisionCheck("BlueSnowBallColBox", CollisionType::RECT, CollisionType::RECT))
+	{
+		Score::ScoreUI_ += 8000;
 		CurrentDir_ = FrogDir::LEFT;
 		ChangeState(FrogState::DEFEATED);
 		return;
@@ -1025,8 +1266,8 @@ void Frog::Snow2Start()
 
 void Frog::Snow3Start()
 {
-	FrogRCollision_->Off();
-	FrogLCollision_->Off();
+	//FrogRCollision_->Off();
+	//FrogLCollision_->Off();
 	AnimationName_ = "Snow3";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
 	FrogAnimationRender_->SetPivot({ 0,5 });
@@ -1051,6 +1292,18 @@ void Frog::SnowBallStart()
 	FrogSnowBallLCollision_ = CreateCollision("SnowBallLColBox", { 5, 10 }, { 15, 0 });
 }
 
+void Frog::BlueSnowBallStart()
+{
+	FrogSnowCollision_->Off();
+	FrogSnowRCollision_->Off();
+	FrogSnowLCollision_->Off();
+	AnimationName_ = "BlueSnowBall";
+	FrogAnimationRender_->ChangeAnimation(AnimationName_);
+	FrogAnimationRender_->SetPivot({ 0,0 });
+
+	FrogBlueSnowBallCollision_ = CreateCollision("BlueSnowBallColBox", { 60, 60 });
+}
+
 void Frog::ShakingSnowStart()
 {
 	FrogSnowCollision_->Off();
@@ -1067,6 +1320,8 @@ void Frog::ShakingSnowStart()
 void Frog::DefeatedStart()
 {
 	FrogCollision_->Off();
+	FrogRCollision_->Off();
+	FrogLCollision_->Off();
 	GameEngineSound::SoundPlayOneShot("SnowBallHitEnemy_Effect(11).mp3", 0);
 	AnimationName_ = "Defeated";
 	FrogAnimationRender_->ChangeAnimation(AnimationName_);
